@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP EA2-12NJ
+D KEMET, EA2, Relays, Signal, 12 V, 220 V, 250 VAC, 1 A, 75 mOhms, 1 GOhms, 14.2mm, 9.2mm, 5.4mm
+K
+F https://content.kemet.com/datasheets/KEM_R7001_EA2_EB2.pdf
+$ENDCMP
+#
+#End Doc Library
