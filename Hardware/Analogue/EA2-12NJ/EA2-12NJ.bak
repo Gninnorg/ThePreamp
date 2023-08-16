@@ -1,6 +1,6 @@
 (kicad_symbol_lib (version 20211014) (generator kicad_symbol_editor)
   (symbol "EA2-12NJ" (in_bom yes) (on_board yes)
-    (property "Reference" "K" (id 0) (at 8.89 -13.97 0)
+    (property "Reference" "K?" (id 0) (at 8.89 -13.97 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "EA2-12NJ" (id 1) (at 11.3687 -10.7465 0)
