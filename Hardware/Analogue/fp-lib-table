@@ -1,0 +1,6 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "EA2-12NJ")(type "KiCad")(uri "${KIPRJMOD}/EA2-12NJ")(options "")(descr ""))
+  (lib (name "MCP23008")(type "KiCad")(uri "${KIPRJMOD}/MCP23008")(options "")(descr ""))
+  (lib (name "ULN2803")(type "KiCad")(uri "${KIPRJMOD}/ULN2803")(options "")(descr ""))
+)

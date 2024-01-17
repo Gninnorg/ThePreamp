@@ -1,4 +1,7 @@
 (sym_lib_table
+  (version 7)
   (lib (name "EA2-12NJ")(type "KiCad")(uri "${KIPRJMOD}/EA2-12NJ/EA2-12NJ.kicad_sym")(options "")(descr ""))
   (lib (name "muses72323")(type "KiCad")(uri "${KIPRJMOD}/muses72323.kicad_sym")(options "")(descr ""))
+  (lib (name "MCP23008")(type "KiCad")(uri "${KIPRJMOD}/MCP23008/MCP23008T-E_SO.kicad_sym")(options "")(descr ""))
+  (lib (name "ULN2803")(type "KiCad")(uri "${KIPRJMOD}/ULN2803/ULN2803CDWR.kicad_sym")(options "")(descr ""))
 )
