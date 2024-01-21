@@ -6,11 +6,8 @@
     "hidden_netclasses": [],
     "hidden_nets": [
       "",
-      "GNDA",
       "Net-(IC1-Pad1)",
-      "Net-(IC1-Pad2)",
-      "+15V",
-      "-15V"
+      "Net-(IC1-Pad2)"
     ],
     "high_contrast_mode": 0,
     "net_color_mode": 1,
