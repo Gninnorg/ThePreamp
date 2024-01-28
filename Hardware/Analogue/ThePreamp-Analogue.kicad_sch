@@ -1363,7 +1363,6 @@
   (no_connect (at 86.36 117.094) (uuid 51d142e9-98b3-4855-8941-1935b5686ce9))
   (no_connect (at 86.614 181.61) (uuid 65d293ac-ceb4-45aa-8ac1-cf7663ea8e65))
   (no_connect (at 329.438 201.676) (uuid 708a9dab-5949-4da5-928f-f36f569ef5d6))
-  (no_connect (at 202.692 55.88) (uuid 724d1f4d-2a8f-4d9f-b281-9e97d746a5c3))
   (no_connect (at 352.298 201.676) (uuid 761b8f80-68de-4ab6-bf50-6afa1e4003fb))
   (no_connect (at 63.246 64.262) (uuid 79821c84-80e5-4737-b23a-a3e406df8025))
   (no_connect (at 86.106 56.642) (uuid 79821c84-80e5-4737-b23a-a3e406df8026))
@@ -3374,6 +3373,31 @@
       (project "ThePreamp-Analogue"
         (path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
           (reference "RCA1") (unit 1)
+        )
+      )
+    )
+  )
+
+  (symbol (lib_id "power:+12V") (at 202.692 55.88 90) (unit 1)
+    (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
+    (uuid b15ca493-e546-4cbf-a8f8-6b3eb4e7d7a8)
+    (property "Reference" "#PWR026" (at 206.502 55.88 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Value" "+12V" (at 199.517 55.88 90)
+      (effects (font (size 1.27 1.27)) (justify left))
+    )
+    (property "Footprint" "" (at 202.692 55.88 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "Datasheet" "" (at 202.692 55.88 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (pin "1" (uuid 1336d446-2bbc-4a30-ba59-303afd666540))
+    (instances
+      (project "ThePreamp-Analogue"
+        (path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
+          (reference "#PWR026") (unit 1)
         )
       )
     )
