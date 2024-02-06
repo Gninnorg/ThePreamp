@@ -1,3 +1,5 @@
 (fp_lib_table
+  (version 7)
   (lib (name "ESP32FP")(type "KiCad")(uri "${KIPRJMOD}/ESP32-DEVKIT-V1")(options "")(descr ""))
+  (lib (name "OLED SPI 2.08")(type "KiCad")(uri "${KIPRJMOD}/OLED SPI 2.08")(options "")(descr ""))
 )
