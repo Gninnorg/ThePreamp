@@ -2,4 +2,8 @@
   (version 7)
   (lib (name "ESP32FP")(type "KiCad")(uri "${KIPRJMOD}/ESP32-DEVKIT-V1")(options "")(descr ""))
   (lib (name "OLED SPI 2.08")(type "KiCad")(uri "${KIPRJMOD}/OLED SPI 2.08")(options "")(descr ""))
+  (lib (name "EEE_FH1C471L")(type "KiCad")(uri "${KIPRJMOD}/EEE_FH1C471L.pretty")(options "")(descr ""))
+  (lib (name "Library")(type "KiCad")(uri "${KIPRJMOD}/APC_817B1_SL/KiCADv6/footprints.pretty/Library.pretty")(options "")(descr ""))
+  (lib (name "APC_817B1_SL")(type "KiCad")(uri "${KIPRJMOD}/APC_817B1_SL/KiCADv6/APC_817B1_SL.pretty")(options "")(descr ""))
+  (lib (name "footprints")(type "KiCad")(uri "${KIPRJMOD}/CAT24C64WI_GT3/KiCADv6/footprints.pretty")(options "")(descr ""))
 )

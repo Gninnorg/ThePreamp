@@ -3,4 +3,7 @@
   (lib (name "ESP32")(type "Legacy")(uri "${KIPRJMOD}/ESP32-DEVKIT-V1/ESP32-DEVKIT-V1.lib")(options "")(descr ""))
   (lib (name "ESP32SYM")(type "KiCad")(uri "${KIPRJMOD}/ESP32-DEVKIT-V1/ESP32-DEVKIT-V1.kicad_sym")(options "")(descr ""))
   (lib (name "OLED SPI 2.08")(type "KiCad")(uri "${KIPRJMOD}/OLED SPI 2.08/OLED SPI 2.08.kicad_sym")(options "")(descr ""))
+  (lib (name "APC_817B1_SL")(type "KiCad")(uri "${KIPRJMOD}/APC_817B1_SL/KiCADv6/APC_817B1_SL.kicad_sym")(options "")(descr ""))
+  (lib (name "CAT24C64WI_GT3")(type "KiCad")(uri "${KIPRJMOD}/CAT24C64WI_GT3/KiCADv6/CAT24C64WI_GT3.kicad_sym")(options "")(descr ""))
+  (lib (name "EEE_FH1C471L")(type "KiCad")(uri "${KIPRJMOD}/EEE_FH1C471L/EEE_FH1C471L.kicad_sym")(options "")(descr ""))
 )

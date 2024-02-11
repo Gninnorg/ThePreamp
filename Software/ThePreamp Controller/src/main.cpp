@@ -13,8 +13,8 @@ RST     ->   22 (RST / RES/ Reset)
  CS     ->   5  (CS / SS)
 */
 
-U8G2_SH1122_256X64_F_4W_HW_SPI display1(U8G2_R0, /* cs=*/ 5, /* dc=*/ 21, /* reset=*/ 22);
-U8G2_SH1122_256X64_F_4W_HW_SPI display2(U8G2_R0, /* cs=*/ 32, /* dc=*/ 21, /* reset=*/ 33);
+U8G2_SH1122_256X64_F_4W_HW_SPI display1(U8G2_R0, /* cs=*/ 12, /* dc=*/ 21, /* reset=*/ 32);
+U8G2_SH1122_256X64_F_4W_HW_SPI display2(U8G2_R0, /* cs=*/ 13, /* dc=*/ 21, /* reset=*/ 33);
 
 // put function declarations here:
 int myFunction(int, int);
