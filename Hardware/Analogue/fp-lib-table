@@ -4,4 +4,5 @@
   (lib (name "MCP23008")(type "KiCad")(uri "${KIPRJMOD}/MCP23008")(options "")(descr ""))
   (lib (name "ULN2803")(type "KiCad")(uri "${KIPRJMOD}/ULN2803")(options "")(descr ""))
   (lib (name "RCA ALI")(type "KiCad")(uri "${KIPRJMOD}/RCA_CONNECTOR_ALI")(options "")(descr ""))
+  (lib (name "The PreAmp logo")(type "KiCad")(uri "${KIPRJMOD}/The PreAmp logo/The PreAmp logo.pretty")(options "")(descr ""))
 )

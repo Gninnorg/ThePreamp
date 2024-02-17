@@ -1,4 +1,4 @@
-6827043677793
+22648359659681768
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -91503,6 +91503,13 @@ test point THT pad
 0
 1
 1
+The PreAmp logo
+The PreAmp logo
+
+
+0
+0
+0
 Transformer_SMD
 Pulse_P0926NL
 SMT Gate Drive Transformer, 1:1:1, 8.0x6.3x5.3mm (https://productfinder.pulseeng.com/products/datasheets/SPM2007_61.pdf)
@@ -93061,6 +93068,13 @@ Varistor
 Varistor_Panasonic_VF
 Panasonic VF series varistor, 6x8mm body, 3.2mm height, https://mediap.industry.panasonic.eu/assets/imported/industrial.panasonic.com/cdbs/www-data/pdf/AWA0000/AWA0000C4.pdf
 Varistor VF
+0
+2
+2
+footprints
+WIMA_1A_WIM
+
+MKS2D031001A00MSSD 
 0
 2
 2
