@@ -94,111 +94,6 @@
         )
       )
     )
-    (symbol "Connector:Conn_01x02_Pin" (pin_names (offset 1.016) hide) (in_bom yes) (on_board yes)
-      (property "Reference" "J" (at 0 2.54 0)
-        (effects (font (size 1.27 1.27)))
-      )
-      (property "Value" "Conn_01x02_Pin" (at 0 -5.08 0)
-        (effects (font (size 1.27 1.27)))
-      )
-      (property "Footprint" "" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "Datasheet" "~" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_locked" "" (at 0 0 0)
-        (effects (font (size 1.27 1.27)))
-      )
-      (property "ki_keywords" "connector" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_description" "Generic connector, single row, 01x02, script generated" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_fp_filters" "Connector*:*_1x??_*" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (symbol "Conn_01x02_Pin_1_1"
-        (polyline
-          (pts
-            (xy 1.27 -2.54)
-            (xy 0.8636 -2.54)
-          )
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (polyline
-          (pts
-            (xy 1.27 0)
-            (xy 0.8636 0)
-          )
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (rectangle (start 0.8636 -2.413) (end 0 -2.667)
-          (stroke (width 0.1524) (type default))
-          (fill (type outline))
-        )
-        (rectangle (start 0.8636 0.127) (end 0 -0.127)
-          (stroke (width 0.1524) (type default))
-          (fill (type outline))
-        )
-        (pin passive line (at 5.08 0 180) (length 3.81)
-          (name "Pin_1" (effects (font (size 1.27 1.27))))
-          (number "1" (effects (font (size 1.27 1.27))))
-        )
-        (pin passive line (at 5.08 -2.54 180) (length 3.81)
-          (name "Pin_2" (effects (font (size 1.27 1.27))))
-          (number "2" (effects (font (size 1.27 1.27))))
-        )
-      )
-    )
-    (symbol "Connector_Generic:Conn_01x02" (pin_names (offset 1.016) hide) (in_bom yes) (on_board yes)
-      (property "Reference" "J" (at 0 2.54 0)
-        (effects (font (size 1.27 1.27)))
-      )
-      (property "Value" "Conn_01x02" (at 0 -5.08 0)
-        (effects (font (size 1.27 1.27)))
-      )
-      (property "Footprint" "" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "Datasheet" "~" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_keywords" "connector" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_description" "Generic connector, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_fp_filters" "Connector*:*_1x??_*" (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (symbol "Conn_01x02_1_1"
-        (rectangle (start -1.27 -2.413) (end 0 -2.667)
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (rectangle (start -1.27 0.127) (end 0 -0.127)
-          (stroke (width 0.1524) (type default))
-          (fill (type none))
-        )
-        (rectangle (start -1.27 1.27) (end 1.27 -3.81)
-          (stroke (width 0.254) (type default))
-          (fill (type background))
-        )
-        (pin passive line (at -5.08 0 0) (length 3.81)
-          (name "Pin_1" (effects (font (size 1.27 1.27))))
-          (number "1" (effects (font (size 1.27 1.27))))
-        )
-        (pin passive line (at -5.08 -2.54 0) (length 3.81)
-          (name "Pin_2" (effects (font (size 1.27 1.27))))
-          (number "2" (effects (font (size 1.27 1.27))))
-        )
-      )
-    )
     (symbol "Connector_Generic_MountingPin:Conn_02x08_Odd_Even_MountingPin" (pin_names (offset 1.016) hide) (in_bom yes) (on_board yes)
       (property "Reference" "J" (at 1.27 10.16 0)
         (effects (font (size 1.27 1.27)))
@@ -1366,6 +1261,43 @@
         )
       )
     )
+    (symbol "POWER_2P_VERT:TBP01R1-508-02BK" (pin_names (offset 1.016)) (in_bom yes) (on_board yes)
+      (property "Reference" "J" (at -5.588 5.08 0)
+        (effects (font (size 1.27 1.27)) (justify left bottom))
+      )
+      (property "Value" "TBP01R1-508-02BK" (at -5.08 -5.08 0)
+        (effects (font (size 1.27 1.27)) (justify left bottom))
+      )
+      (property "Footprint" "CUI_TBP01R1-508-02BK" (at 0 0 0)
+        (effects (font (size 1.27 1.27)) (justify left bottom) hide)
+      )
+      (property "Datasheet" "" (at 0 0 0)
+        (effects (font (size 1.27 1.27)) (justify left bottom) hide)
+      )
+      (property "STANDARD" "Manufacturer Recommendations" (at 0 0 0)
+        (effects (font (size 1.27 1.27)) (justify left bottom) hide)
+      )
+      (property "MANUFACTURER" "CUI" (at 0 0 0)
+        (effects (font (size 1.27 1.27)) (justify left bottom) hide)
+      )
+      (property "ki_locked" "" (at 0 0 0)
+        (effects (font (size 1.27 1.27)))
+      )
+      (symbol "TBP01R1-508-02BK_0_0"
+        (rectangle (start -5.08 -2.54) (end 5.08 5.08)
+          (stroke (width 0.254) (type solid))
+          (fill (type background))
+        )
+        (pin passive line (at -10.16 2.54 0) (length 5.08)
+          (name "1" (effects (font (size 1.016 1.016))))
+          (number "1" (effects (font (size 1.016 1.016))))
+        )
+        (pin passive line (at -10.16 0 0) (length 5.08)
+          (name "2" (effects (font (size 1.016 1.016))))
+          (number "2" (effects (font (size 1.016 1.016))))
+        )
+      )
+    )
     (symbol "power:+3.3V" (power) (pin_names (offset 0)) (in_bom yes) (on_board yes)
       (property "Reference" "#PWR" (at 0 -3.81 0)
         (effects (font (size 1.27 1.27)) hide)
@@ -2167,7 +2099,7 @@
   (symbol (lib_id "power:GND") (at 29.972 102.616 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-00005de149b1)
-    (property "Reference" "#PWR016" (at 23.622 102.616 0)
+    (property "Reference" "#PWR03" (at 23.622 102.616 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 26.7208 102.743 90)
@@ -2183,7 +2115,7 @@
     (instances
       (project "ThePreamp-Controller"
         (path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
-          (reference "#PWR016") (unit 1)
+          (reference "#PWR03") (unit 1)
         )
       )
     )
@@ -2223,7 +2155,7 @@
   (symbol (lib_id "CAT24C64WI_GT3:CAT24C64WI-GT3") (at 62.23 153.924 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-00005df5c079)
-    (property "Reference" "U1" (at 83.82 145.034 0)
+    (property "Reference" "U2" (at 83.82 145.034 0)
       (effects (font (size 1.524 1.524)))
     )
     (property "Value" "CAT24C64WI-GT3" (at 82.55 147.574 0)
@@ -2246,7 +2178,7 @@
     (instances
       (project "ThePreamp-Controller"
         (path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
-          (reference "U1") (unit 1)
+          (reference "U2") (unit 1)
         )
       )
     )
@@ -2255,7 +2187,7 @@
   (symbol (lib_id "power:GND") (at 109.474 156.464 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-00005df60d14)
-    (property "Reference" "#PWR06" (at 115.824 156.464 0)
+    (property "Reference" "#PWR015" (at 115.824 156.464 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 112.7252 156.337 90)
@@ -2271,7 +2203,7 @@
     (instances
       (project "ThePreamp-Controller"
         (path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
-          (reference "#PWR06") (unit 1)
+          (reference "#PWR015") (unit 1)
         )
       )
     )
@@ -2280,7 +2212,7 @@
   (symbol (lib_id "power:GND") (at 236.474 98.806 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-00005df66866)
-    (property "Reference" "#PWR013" (at 230.124 98.806 0)
+    (property "Reference" "#PWR018" (at 230.124 98.806 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 228.854 98.806 90)
@@ -2296,7 +2228,7 @@
     (instances
       (project "ThePreamp-Controller"
         (path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
-          (reference "#PWR013") (unit 1)
+          (reference "#PWR018") (unit 1)
         )
       )
     )
@@ -2305,7 +2237,7 @@
   (symbol (lib_id "power:GND") (at 62.23 165.354 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-00005df89b58)
-    (property "Reference" "#PWR07" (at 62.23 171.704 0)
+    (property "Reference" "#PWR09" (at 62.23 171.704 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 62.357 169.7482 0)
@@ -2321,7 +2253,7 @@
     (instances
       (project "ThePreamp-Controller"
         (path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
-          (reference "#PWR07") (unit 1)
+          (reference "#PWR09") (unit 1)
         )
       )
     )
@@ -2330,7 +2262,7 @@
   (symbol (lib_id "power:GND") (at 29.718 80.772 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 00000000-0000-0000-0000-00005e1eb14d)
-    (property "Reference" "#PWR010" (at 23.368 80.772 0)
+    (property "Reference" "#PWR01" (at 23.368 80.772 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 26.4668 80.899 90)
@@ -2346,7 +2278,7 @@
     (instances
       (project "ThePreamp-Controller"
         (path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
-          (reference "#PWR010") (unit 1)
+          (reference "#PWR01") (unit 1)
         )
       )
     )
@@ -2355,7 +2287,7 @@
   (symbol (lib_id "Connector_Generic_MountingPin:Conn_02x08_Odd_Even_MountingPin") (at 253.746 65.024 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 1c1bffc6-8963-4872-afe5-04bd97b4fa45)
-    (property "Reference" "J2" (at 252.73 50.038 0)
+    (property "Reference" "J5" (at 252.73 50.038 0)
       (effects (font (size 1.27 1.27)) (justify right))
     )
     (property "Value" "Digital Out" (at 259.08 53.848 0)
@@ -2387,7 +2319,7 @@
     (instances
       (project "ThePreamp-Controller"
         (path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
-          (reference "J2") (unit 1)
+          (reference "J5") (unit 1)
         )
       )
     )
@@ -2396,7 +2328,7 @@
   (symbol (lib_id "ESP32SYM:ESP32-DEVKIT-V1") (at 91.948 41.656 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 1ce125e9-2de6-48c6-8ebf-1cb8d648f2de)
-    (property "Reference" "U2" (at 91.948 25.146 0)
+    (property "Reference" "U3" (at 91.948 25.146 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "ESP32-DEVKIT-V1" (at 91.948 27.686 0)
@@ -2453,7 +2385,7 @@
     (instances
       (project "ThePreamp-Controller"
         (path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
-          (reference "U2") (unit 1)
+          (reference "U3") (unit 1)
         )
       )
     )
@@ -2462,7 +2394,7 @@
   (symbol (lib_id "power:+8V") (at 29.718 168.402 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 1e3d3a69-e8a3-4354-88e4-c09651f22cd4)
-    (property "Reference" "#PWR01" (at 33.528 168.402 0)
+    (property "Reference" "#PWR02" (at 33.528 168.402 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+8V" (at 24.638 168.402 90)
@@ -2478,7 +2410,7 @@
     (instances
       (project "ThePreamp-Controller"
         (path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
-          (reference "#PWR01") (unit 1)
+          (reference "#PWR02") (unit 1)
         )
       )
     )
@@ -2487,7 +2419,7 @@
   (symbol (lib_id "power:GND") (at 43.942 129.794 90) (mirror x) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 23a1bcb5-dadc-4b4a-ad47-0f9b67bf2bb8)
-    (property "Reference" "#PWR024" (at 50.292 129.794 0)
+    (property "Reference" "#PWR06" (at 50.292 129.794 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 47.117 129.794 90)
@@ -2503,7 +2435,7 @@
     (instances
       (project "ThePreamp-Controller"
         (path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
-          (reference "#PWR024") (unit 1)
+          (reference "#PWR06") (unit 1)
         )
       )
     )
@@ -2512,7 +2444,7 @@
   (symbol (lib_id "Device:R") (at 129.794 59.436 270) (mirror x) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 2da12eae-5443-4245-bb05-c379add0470f)
-    (property "Reference" "R3" (at 125.984 56.896 90)
+    (property "Reference" "R1" (at 125.984 56.896 90)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Value" "330R" (at 129.794 56.896 90)
@@ -2529,7 +2461,7 @@
     (instances
       (project "ThePreamp-Controller"
         (path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
-          (reference "R3") (unit 1)
+          (reference "R1") (unit 1)
         )
       )
     )
@@ -2538,7 +2470,7 @@
   (symbol (lib_id "power:GND") (at 266.7 75.184 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 4d66092f-08fa-4f74-afe4-339d25290a30)
-    (property "Reference" "#PWR028" (at 273.05 75.184 0)
+    (property "Reference" "#PWR023" (at 273.05 75.184 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 269.9512 75.057 90)
@@ -2554,7 +2486,7 @@
     (instances
       (project "ThePreamp-Controller"
         (path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
-          (reference "#PWR028") (unit 1)
+          (reference "#PWR023") (unit 1)
         )
       )
     )
@@ -2563,7 +2495,7 @@
   (symbol (lib_id "power:+3.3V") (at 266.954 65.024 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 4f724446-4daa-4a7a-b3d5-08c6ec5ee046)
-    (property "Reference" "#PWR05" (at 263.144 65.024 0)
+    (property "Reference" "#PWR024" (at 263.144 65.024 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+3.3V" (at 270.129 65.024 90)
@@ -2579,7 +2511,7 @@
     (instances
       (project "ThePreamp-Controller"
         (path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
-          (reference "#PWR05") (unit 1)
+          (reference "#PWR024") (unit 1)
         )
       )
     )
@@ -2588,7 +2520,7 @@
   (symbol (lib_id "power:+3.3V") (at 107.188 67.056 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 51109312-7d0a-421f-b3e2-aba2dc60cdef)
-    (property "Reference" "#PWR018" (at 103.378 67.056 0)
+    (property "Reference" "#PWR013" (at 103.378 67.056 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+3.3V" (at 112.268 67.056 90)
@@ -2604,7 +2536,7 @@
     (instances
       (project "ThePreamp-Controller"
         (path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
-          (reference "#PWR018") (unit 1)
+          (reference "#PWR013") (unit 1)
         )
       )
     )
@@ -2638,20 +2570,26 @@
     )
   )
 
-  (symbol (lib_id "Connector_Generic:Conn_01x02") (at 30.988 162.052 90) (unit 1)
+  (symbol (lib_id "POWER_2P_VERT:TBP01R1-508-02BK") (at 33.528 156.972 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 5c9287fc-6a73-4af0-9cc3-6972765d6b3d)
-    (property "Reference" "J1" (at 32.258 157.2006 90)
+    (property "Reference" "J1" (at 28.448 162.56 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Value" "8V" (at 34.798 154.432 90)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Value" "8V" (at 32.258 159.512 90)
-      (effects (font (size 1.27 1.27)))
+    (property "Footprint" "THE_PREAMP_CONN_POWER_5_08:TBP01R2-508-02BK (VERT)" (at 33.528 156.972 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom) hide)
     )
-    (property "Footprint" "TerminalBlock:TerminalBlock_bornier-2_P5.08mm" (at 30.988 162.052 0)
-      (effects (font (size 1.27 1.27)) hide)
+    (property "Datasheet" "~" (at 33.528 156.972 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom) hide)
     )
-    (property "Datasheet" "~" (at 30.988 162.052 0)
-      (effects (font (size 1.27 1.27)) hide)
+    (property "STANDARD" "Manufacturer Recommendations" (at 33.528 156.972 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom) hide)
+    )
+    (property "MANUFACTURER" "CUI" (at 33.528 156.972 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom) hide)
     )
     (pin "1" (uuid 4b3e262f-28eb-4454-8759-18422f17b664))
     (pin "2" (uuid ad43225c-59a8-477f-a7e2-dbd13e9c4fd3))
@@ -2693,7 +2631,7 @@
   (symbol (lib_name "GND_1") (lib_id "power:GND") (at 135.382 67.564 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 613c0eac-449a-4699-89c6-15a3ca9986ba)
-    (property "Reference" "#PWR023" (at 135.382 73.914 0)
+    (property "Reference" "#PWR016" (at 135.382 73.914 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 135.382 71.6971 0)
@@ -2709,7 +2647,7 @@
     (instances
       (project "ThePreamp-Controller"
         (path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
-          (reference "#PWR023") (unit 1)
+          (reference "#PWR016") (unit 1)
         )
       )
     )
@@ -2718,7 +2656,7 @@
   (symbol (lib_id "power:GND") (at 34.798 168.402 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 6225a156-5a96-429e-b818-fab2bba62a1e)
-    (property "Reference" "#PWR02" (at 41.148 168.402 0)
+    (property "Reference" "#PWR04" (at 41.148 168.402 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 38.608 168.4019 90)
@@ -2734,7 +2672,7 @@
     (instances
       (project "ThePreamp-Controller"
         (path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
-          (reference "#PWR02") (unit 1)
+          (reference "#PWR04") (unit 1)
         )
       )
     )
@@ -2743,7 +2681,7 @@
   (symbol (lib_id "Device:C") (at 240.792 148.59 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 674ec97b-a494-4bb9-80f2-3824f3eb6f84)
-    (property "Reference" "C3" (at 240.792 142.2867 90)
+    (property "Reference" "C4" (at 240.792 142.2867 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "100nF" (at 240.792 144.7109 90)
@@ -2760,7 +2698,7 @@
     (instances
       (project "ThePreamp-Controller"
         (path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
-          (reference "C3") (unit 1)
+          (reference "C4") (unit 1)
         )
       )
     )
@@ -2769,7 +2707,7 @@
   (symbol (lib_id "power:+8V") (at 76.708 67.056 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 6d00f52c-96db-4ee5-96cc-22565853b83a)
-    (property "Reference" "#PWR017" (at 80.518 67.056 0)
+    (property "Reference" "#PWR011" (at 80.518 67.056 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+8V" (at 73.5331 67.4898 90)
@@ -2785,7 +2723,7 @@
     (instances
       (project "ThePreamp-Controller"
         (path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
-          (reference "#PWR017") (unit 1)
+          (reference "#PWR011") (unit 1)
         )
       )
     )
@@ -2794,7 +2732,7 @@
   (symbol (lib_id "power:+3.3V") (at 236.474 96.266 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 71ab4485-363a-4d32-bf04-9af33c5ed335)
-    (property "Reference" "#PWR012" (at 240.284 96.266 0)
+    (property "Reference" "#PWR017" (at 240.284 96.266 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+3.3V" (at 232.664 96.2659 90)
@@ -2810,7 +2748,7 @@
     (instances
       (project "ThePreamp-Controller"
         (path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
-          (reference "#PWR012") (unit 1)
+          (reference "#PWR017") (unit 1)
         )
       )
     )
@@ -2819,7 +2757,7 @@
   (symbol (lib_id "Device:C") (at 240.792 118.11 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 76627746-470b-40ad-a102-f479209d244e)
-    (property "Reference" "C4" (at 240.792 111.8067 90)
+    (property "Reference" "C3" (at 240.792 111.8067 90)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "22uF" (at 240.792 114.2309 90)
@@ -2836,7 +2774,7 @@
     (instances
       (project "ThePreamp-Controller"
         (path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
-          (reference "C4") (unit 1)
+          (reference "C3") (unit 1)
         )
       )
     )
@@ -2845,7 +2783,7 @@
   (symbol (lib_id "power:+3.3V") (at 43.942 119.634 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 775b72ca-ef2f-4c42-8373-34082f4e02d5)
-    (property "Reference" "#PWR022" (at 40.132 119.634 0)
+    (property "Reference" "#PWR05" (at 40.132 119.634 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+3.3V" (at 49.022 119.634 90)
@@ -2861,7 +2799,7 @@
     (instances
       (project "ThePreamp-Controller"
         (path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
-          (reference "#PWR022") (unit 1)
+          (reference "#PWR05") (unit 1)
         )
       )
     )
@@ -2870,7 +2808,7 @@
   (symbol (lib_id "power:GND") (at 76.708 64.516 270) (mirror x) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 7870ed07-3cc7-44fd-903a-7d78f56d7141)
-    (property "Reference" "#PWR014" (at 70.358 64.516 0)
+    (property "Reference" "#PWR010" (at 70.358 64.516 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 72.898 64.5159 90)
@@ -2886,7 +2824,7 @@
     (instances
       (project "ThePreamp-Controller"
         (path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
-          (reference "#PWR014") (unit 1)
+          (reference "#PWR010") (unit 1)
         )
       )
     )
@@ -2924,7 +2862,7 @@
   (symbol (lib_id "power:+3.3V") (at 109.474 153.924 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 80af07c5-67ea-48cf-a8a1-7d55eab11cb2)
-    (property "Reference" "#PWR04" (at 105.664 153.924 0)
+    (property "Reference" "#PWR014" (at 105.664 153.924 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+3.3V" (at 113.284 153.9239 90)
@@ -2940,7 +2878,7 @@
     (instances
       (project "ThePreamp-Controller"
         (path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
-          (reference "#PWR04") (unit 1)
+          (reference "#PWR014") (unit 1)
         )
       )
     )
@@ -2949,7 +2887,7 @@
   (symbol (lib_id "power:GND") (at 107.188 64.516 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 859d69e1-a760-46cd-b138-8424edfd9008)
-    (property "Reference" "#PWR015" (at 113.538 64.516 0)
+    (property "Reference" "#PWR012" (at 113.538 64.516 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 110.998 64.5159 90)
@@ -2965,7 +2903,7 @@
     (instances
       (project "ThePreamp-Controller"
         (path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
-          (reference "#PWR015") (unit 1)
+          (reference "#PWR012") (unit 1)
         )
       )
     )
@@ -2974,7 +2912,7 @@
   (symbol (lib_id "power:+3.3V") (at 248.666 67.564 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 8aac97bc-a9c4-4930-a602-b3eac92b40e6)
-    (property "Reference" "#PWR027" (at 252.476 67.564 0)
+    (property "Reference" "#PWR021" (at 252.476 67.564 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+3.3V" (at 244.856 67.5639 90)
@@ -2990,7 +2928,7 @@
     (instances
       (project "ThePreamp-Controller"
         (path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
-          (reference "#PWR027") (unit 1)
+          (reference "#PWR021") (unit 1)
         )
       )
     )
@@ -2999,7 +2937,7 @@
   (symbol (lib_id "power:GND") (at 44.958 83.312 90) (mirror x) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid 8ec33cc6-d405-4b03-94d4-acd010a3c862)
-    (property "Reference" "#PWR011" (at 51.308 83.312 0)
+    (property "Reference" "#PWR07" (at 51.308 83.312 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 48.133 83.312 90)
@@ -3015,7 +2953,7 @@
     (instances
       (project "ThePreamp-Controller"
         (path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
-          (reference "#PWR011") (unit 1)
+          (reference "#PWR07") (unit 1)
         )
       )
     )
@@ -3024,7 +2962,7 @@
   (symbol (lib_id "power:+3.3V") (at 236.728 137.668 90) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 9444a0fc-dd66-449d-a357-21ee67011bef)
-    (property "Reference" "#PWR020" (at 240.538 137.668 0)
+    (property "Reference" "#PWR019" (at 240.538 137.668 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "+3.3V" (at 232.918 137.6679 90)
@@ -3040,33 +2978,39 @@
     (instances
       (project "ThePreamp-Controller"
         (path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
-          (reference "#PWR020") (unit 1)
+          (reference "#PWR019") (unit 1)
         )
       )
     )
   )
 
-  (symbol (lib_id "Connector:Conn_01x02_Pin") (at 177.038 66.294 180) (unit 1)
+  (symbol (lib_id "POWER_2P_VERT:TBP01R1-508-02BK") (at 182.118 66.294 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 97490958-1b05-40c9-a22b-c59714efc373)
-    (property "Reference" "J5" (at 179.324 66.294 0)
+    (property "Reference" "J2" (at 176.53 61.214 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Value" "Power relay trigger" (at 174.498 70.104 0)
       (effects (font (size 1.27 1.27)))
     )
-    (property "Value" "Power relay trigger" (at 187.706 63.8698 0)
-      (effects (font (size 1.27 1.27)))
+    (property "Footprint" "THE_PREAMP_CONN_POWER_5_08:TBP01R2-508-02BK (VERT)" (at 182.118 66.294 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom) hide)
     )
-    (property "Footprint" "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical" (at 177.038 66.294 0)
-      (effects (font (size 1.27 1.27)) hide)
+    (property "Datasheet" "~" (at 182.118 66.294 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom) hide)
     )
-    (property "Datasheet" "~" (at 177.038 66.294 0)
-      (effects (font (size 1.27 1.27)) hide)
+    (property "STANDARD" "Manufacturer Recommendations" (at 182.118 66.294 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom) hide)
+    )
+    (property "MANUFACTURER" "CUI" (at 182.118 66.294 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom) hide)
     )
     (pin "2" (uuid 12dfa63f-14fc-482c-bebd-eeee3a5a4e8b))
     (pin "1" (uuid 3ae38eeb-09ca-4ff5-b750-3a1ee2364274))
     (instances
       (project "ThePreamp-Controller"
         (path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
-          (reference "J5") (unit 1)
+          (reference "J2") (unit 1)
         )
       )
     )
@@ -3075,7 +3019,7 @@
   (symbol (lib_id "power:GND") (at 236.728 140.208 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 98ca306d-9ef9-43fd-8000-3c7e42c0c8a2)
-    (property "Reference" "#PWR021" (at 230.378 140.208 0)
+    (property "Reference" "#PWR020" (at 230.378 140.208 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 229.108 140.208 90)
@@ -3091,7 +3035,7 @@
     (instances
       (project "ThePreamp-Controller"
         (path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
-          (reference "#PWR021") (unit 1)
+          (reference "#PWR020") (unit 1)
         )
       )
     )
@@ -3100,7 +3044,7 @@
   (symbol (lib_id "power:GND") (at 248.666 70.104 270) (unit 1)
     (in_bom yes) (on_board yes) (dnp no)
     (uuid 9b093790-2dac-4194-8063-cffa5aa77e8d)
-    (property "Reference" "#PWR03" (at 242.316 70.104 0)
+    (property "Reference" "#PWR022" (at 242.316 70.104 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 245.4148 70.231 90)
@@ -3116,7 +3060,7 @@
     (instances
       (project "ThePreamp-Controller"
         (path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
-          (reference "#PWR03") (unit 1)
+          (reference "#PWR022") (unit 1)
         )
       )
     )
@@ -3154,7 +3098,7 @@
   (symbol (lib_id "power:GND") (at 45.212 105.156 90) (mirror x) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid aa7952cd-10c4-4ce6-a1cd-48ad37378d6e)
-    (property "Reference" "#PWR019" (at 51.562 105.156 0)
+    (property "Reference" "#PWR08" (at 51.562 105.156 0)
       (effects (font (size 1.27 1.27)) hide)
     )
     (property "Value" "GND" (at 48.387 105.156 90)
@@ -3170,7 +3114,7 @@
     (instances
       (project "ThePreamp-Controller"
         (path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
-          (reference "#PWR019") (unit 1)
+          (reference "#PWR08") (unit 1)
         )
       )
     )
@@ -3205,7 +3149,7 @@
   (symbol (lib_id "Interface_Optical:TSOP348xx") (at 33.782 124.714 0) (unit 1)
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid cc59ebdd-3d20-4b3e-a654-57dcd0c05e1b)
-    (property "Reference" "U3" (at 32.047 114.2197 0)
+    (property "Reference" "U1" (at 32.047 114.2197 0)
       (effects (font (size 1.27 1.27)))
     )
     (property "Value" "TSOP34838" (at 32.047 116.6439 0)
@@ -3223,7 +3167,7 @@
     (instances
       (project "ThePreamp-Controller"
         (path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
-          (reference "U3") (unit 1)
+          (reference "U1") (unit 1)
         )
       )
     )

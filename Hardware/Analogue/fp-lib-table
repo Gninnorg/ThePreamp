@@ -6,4 +6,5 @@
   (lib (name "RCA ALI")(type "KiCad")(uri "${KIPRJMOD}/RCA_CONNECTOR_ALI")(options "")(descr ""))
   (lib (name "The PreAmp logo")(type "KiCad")(uri "${KIPRJMOD}/The PreAmp logo/The PreAmp logo.pretty")(options "")(descr ""))
   (lib (name "Connector_M8")(type "KiCad")(uri "${KIPRJMOD}/M8 connector/Connector_M8.pretty")(options "")(descr ""))
+  (lib (name "THEPREAMP_POWER_CON")(type "KiCad")(uri "${KIPRJMOD}/THE_PREAMP_CONN_POWER_5_08/THEPREAMP_POWER_CON.pretty")(options "")(descr ""))
 )

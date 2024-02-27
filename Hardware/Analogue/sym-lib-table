@@ -4,4 +4,5 @@
   (lib (name "MCP23008")(type "KiCad")(uri "${KIPRJMOD}/MCP23008/MCP23008T-E_SO.kicad_sym")(options "")(descr ""))
   (lib (name "ULN2803")(type "KiCad")(uri "${KIPRJMOD}/ULN2803/ULN2803CDWR.kicad_sym")(options "")(descr ""))
   (lib (name "RCA ALI")(type "KiCad")(uri "${KIPRJMOD}/RCA_CONNECTOR_ALI/rca_connector_ali.kicad_sym")(options "")(descr ""))
+  (lib (name "POWER_CONN_5_08")(type "KiCad")(uri "${KIPRJMOD}/THE_PREAMP_CONN_POWER_5_08/POWER_CONN_5_08.kicad_sym")(options "")(descr ""))
 )

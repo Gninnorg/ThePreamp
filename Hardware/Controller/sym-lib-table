@@ -6,4 +6,8 @@
   (lib (name "APC_817B1_SL")(type "KiCad")(uri "${KIPRJMOD}/APC_817B1_SL/KiCADv6/APC_817B1_SL.kicad_sym")(options "")(descr ""))
   (lib (name "CAT24C64WI_GT3")(type "KiCad")(uri "${KIPRJMOD}/CAT24C64WI_GT3/KiCADv6/CAT24C64WI_GT3.kicad_sym")(options "")(descr ""))
   (lib (name "EEE_FH1C471L")(type "KiCad")(uri "${KIPRJMOD}/EEE_FH1C471L/EEE_FH1C471L.kicad_sym")(options "")(descr ""))
+  (lib (name "POWER_2P_VERT")(type "KiCad")(uri "${KIPRJMOD}/THE_PREAMP_CONN_POWER_5_08/TBP01R1-508-02BK/TBP01R1-508-02BK.kicad_sym")(options "")(descr ""))
+  (lib (name "POWER_3P_VERT")(type "KiCad")(uri "${KIPRJMOD}/THE_PREAMP_CONN_POWER_5_08/TBP01R1-508-03BK/TBP01R1-508-03BK.kicad_sym")(options "")(descr ""))
+  (lib (name "POWER_2P_HOR")(type "KiCad")(uri "${KIPRJMOD}/THE_PREAMP_CONN_POWER_5_08/TBP01R2-508-02BK/TBP01R2-508-02BK.kicad_sym")(options "")(descr ""))
+  (lib (name "POWER_3P_HOR")(type "KiCad")(uri "${KIPRJMOD}/THE_PREAMP_CONN_POWER_5_08/TBP01R2-508-03BK/TBP01R2-508-03BK.kicad_sym")(options "")(descr ""))
 )

@@ -6,4 +6,5 @@
   (lib (name "Library")(type "KiCad")(uri "${KIPRJMOD}/APC_817B1_SL/KiCADv6/footprints.pretty/Library.pretty")(options "")(descr ""))
   (lib (name "APC_817B1_SL")(type "KiCad")(uri "${KIPRJMOD}/APC_817B1_SL/KiCADv6/APC_817B1_SL.pretty")(options "")(descr ""))
   (lib (name "footprints")(type "KiCad")(uri "${KIPRJMOD}/CAT24C64WI_GT3/KiCADv6/footprints.pretty")(options "")(descr ""))
+  (lib (name "THE_PREAMP_CONN_POWER_5_08")(type "KiCad")(uri "${KIPRJMOD}/THE_PREAMP_CONN_POWER_5_08.pretty")(options "")(descr ""))
 )
