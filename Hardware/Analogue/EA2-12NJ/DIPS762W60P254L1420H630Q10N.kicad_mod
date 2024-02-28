@@ -45,9 +45,9 @@
   (pad "8" thru_hole circle (at 7.62 5.08) (size 1.35 1.35) (drill 0.9) (layers "*.Cu" "*.Mask") (tstamp 84361b63-0e16-46cc-8b4b-3b69b4cf50f0))
   (pad "9" thru_hole circle (at 7.62 2.54) (size 1.35 1.35) (drill 0.9) (layers "*.Cu" "*.Mask") (tstamp 4ed70811-c8d4-4de3-9055-2b61827964a3))
   (pad "10" thru_hole circle (at 7.62 0) (size 1.35 1.35) (drill 0.9) (layers "*.Cu" "*.Mask") (tstamp f6522f87-6c3b-41c4-a85f-1074142c4d3f))
-  (model "EA2-12NJ.stp"
-    (offset (xyz 8.409999721 -12.18000012 0.7099999679))
+  (model "${KIPRJMOD}/EA2-12NJ/EA2-12NJ.step"
+    (offset (xyz -0.75 2 0))
     (scale (xyz 1 1 1))
-    (rotate (xyz -90 0 -90))
+    (rotate (xyz -90 0 90))
   )
 )
