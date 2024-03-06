@@ -1691,34 +1691,30 @@
 				)
 			)
 		)
-		(symbol "Device:R_Variable"
-			(pin_numbers hide)
+		(symbol "Device:R_Potentiometer"
 			(pin_names
-				(offset 0)
-			)
+				(offset 1.016) hide)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
-			(property "Reference" "R"
-				(at 2.54 -2.54 90)
+			(property "Reference" "RV"
+				(at -4.445 0 90)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(justify left)
 				)
 			)
-			(property "Value" "R_Variable"
-				(at -2.54 -1.27 90)
+			(property "Value" "R_Potentiometer"
+				(at -2.54 0 90)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(justify left)
 				)
 			)
 			(property "Footprint" ""
-				(at -1.778 0 90)
+				(at 0 0 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -1735,7 +1731,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "Variable resistor"
+			(property "Description" "Potentiometer"
 				(at 0 0 0)
 				(effects
 					(font
@@ -1744,7 +1740,7 @@
 					(hide yes)
 				)
 			)
-			(property "ki_keywords" "R res resistor variable potentiometer rheostat"
+			(property "ki_keywords" "resistor variable"
 				(at 0 0 0)
 				(effects
 					(font
@@ -1753,7 +1749,7 @@
 					(hide yes)
 				)
 			)
-			(property "ki_fp_filters" "R_*"
+			(property "ki_fp_filters" "Potentiometer*"
 				(at 0 0 0)
 				(effects
 					(font
@@ -1762,21 +1758,10 @@
 					(hide yes)
 				)
 			)
-			(symbol "R_Variable_0_1"
-				(rectangle
-					(start -1.016 -2.54)
-					(end 1.016 2.54)
-					(stroke
-						(width 0.254)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
+			(symbol "R_Potentiometer_0_1"
 				(polyline
 					(pts
-						(xy 2.54 1.524) (xy 2.54 2.54) (xy 1.524 2.54) (xy 2.54 2.54) (xy -2.032 -2.032)
+						(xy 2.54 0) (xy 1.524 0)
 					)
 					(stroke
 						(width 0)
@@ -1786,12 +1771,35 @@
 						(type none)
 					)
 				)
+				(polyline
+					(pts
+						(xy 1.143 0) (xy 2.286 0.508) (xy 2.286 -0.508) (xy 1.143 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(rectangle
+					(start 1.016 2.54)
+					(end -1.016 -2.54)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
 			)
-			(symbol "R_Variable_1_1"
+			(symbol "R_Potentiometer_1_1"
 				(pin passive line
 					(at 0 3.81 270)
 					(length 1.27)
-					(name "~"
+					(name "1"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1807,9 +1815,9 @@
 					)
 				)
 				(pin passive line
-					(at 0 -3.81 90)
+					(at 3.81 0 180)
 					(length 1.27)
-					(name "~"
+					(name "2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1817,6 +1825,24 @@
 						)
 					)
 					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 1.27)
+					(name "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -3735,6 +3761,16 @@
 	)
 	(wire
 		(pts
+			(xy 102.616 153.162) (xy 96.012 153.162)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "968ca5a0-8604-4344-bce3-6485b759bd13")
+	)
+	(wire
+		(pts
 			(xy 148.59 17.018) (xy 156.464 17.018)
 		)
 		(stroke
@@ -3935,6 +3971,16 @@
 	)
 	(wire
 		(pts
+			(xy 96.012 153.162) (xy 96.012 158.496)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d364bffa-b70f-4dcc-aa94-0777837dfd92")
+	)
+	(wire
+		(pts
 			(xy 82.55 164.592) (xy 102.616 164.592)
 		)
 		(stroke
@@ -4062,6 +4108,16 @@
 			(type default)
 		)
 		(uuid "eaf8406e-23a3-4504-b914-4fcbaf97a7ba")
+	)
+	(wire
+		(pts
+			(xy 96.012 158.496) (xy 98.806 158.496)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ee99b89a-d259-448d-85d7-b2c6203b41b1")
 	)
 	(wire
 		(pts
@@ -5084,8 +5140,8 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:R_Variable")
-		(at 102.616 158.496 0)
+		(lib_id "Device:R_Potentiometer")
+		(at 102.616 158.496 180)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -5094,25 +5150,25 @@
 		(fields_autoplaced yes)
 		(uuid "73c94552-e606-4663-825d-5bf3facd1abe")
 		(property "Reference" "R3"
-			(at 105.791 157.2838 0)
+			(at 104.394 157.2838 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 			)
 		)
 		(property "Value" "500R"
-			(at 105.791 159.7081 0)
+			(at 104.394 159.7081 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 			)
 		)
-		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
-			(at 100.838 158.496 90)
+		(property "Footprint" "Potentiometer_THT:Potentiometer_Bourns_3296W_Vertical"
+			(at 102.616 158.496 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5129,7 +5185,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Variable resistor"
+		(property "Description" "Potentiometer"
 			(at 102.616 158.496 0)
 			(effects
 				(font
@@ -5143,6 +5199,9 @@
 		)
 		(pin "1"
 			(uuid "c80a1748-22fe-4566-bb41-c4d0b9ccdeac")
+		)
+		(pin "3"
+			(uuid "04d96e0c-4001-4865-9e0e-303bf516f43b")
 		)
 		(instances
 			(project "Digital PSU"
