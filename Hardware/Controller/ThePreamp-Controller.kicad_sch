@@ -4553,6 +4553,16 @@
 	)
 	(wire
 		(pts
+			(xy 155.702 35.306) (xy 159.766 35.306)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1f6fc94a-b09e-40dc-ac5f-c58e49b882d5")
+	)
+	(wire
+		(pts
 			(xy 165.1 67.31) (xy 165.1 63.5)
 		)
 		(stroke
@@ -4620,6 +4630,16 @@
 			(type default)
 		)
 		(uuid "2a1330b9-b207-4448-8c70-fd9eadf2485e")
+	)
+	(wire
+		(pts
+			(xy 167.386 35.306) (xy 171.45 35.306)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2b917338-bc58-40c9-822b-438ab40adf72")
 	)
 	(wire
 		(pts
@@ -4700,6 +4720,16 @@
 			(type default)
 		)
 		(uuid "42cb7df1-72ac-4efd-aab8-6a5db677f358")
+	)
+	(wire
+		(pts
+			(xy 155.702 32.766) (xy 159.766 32.766)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4f4668e0-4143-4b1f-a8e6-41216c7ad4a1")
 	)
 	(wire
 		(pts
@@ -5020,6 +5050,16 @@
 			(type default)
 		)
 		(uuid "b9b3da27-dd33-44ee-92ec-38b234affb97")
+	)
+	(wire
+		(pts
+			(xy 167.386 32.766) (xy 171.45 32.766)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c031c186-1800-416f-aa0d-35a83a1ceca2")
 	)
 	(wire
 		(pts
@@ -5352,6 +5392,27 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "I2C:SDA"
+		(shape input)
+		(at 155.702 35.306 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "1ff4caa9-a970-4784-8c2a-49b2180391a8")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 389.382 121.666 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 				(hide yes)
 			)
 		)
@@ -5877,6 +5938,27 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "I2C:SCL"
+		(shape input)
+		(at 155.702 32.766 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "91612ea1-d857-4fcd-86da-f0aac70f1011")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 389.382 121.666 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 				(hide yes)
 			)
 		)
@@ -6665,6 +6747,71 @@
 		)
 	)
 	(symbol
+		(lib_id "power:+3.3V")
+		(at 171.45 35.306 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "120a276a-c3ff-4113-b824-3292413cdcd9")
+		(property "Reference" "#PWR030"
+			(at 167.64 35.306 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3 ESP32"
+			(at 180.34 35.306 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 171.45 35.306 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 171.45 35.306 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 171.45 35.306 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "1284d8b9-5018-4fbe-8bad-138ade2d190c")
+		)
+		(instances
+			(project "ThePreamp-Controller"
+				(path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
+					(reference "#PWR030")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Connector_Generic_MountingPin:Conn_02x08_Odd_Even_MountingPin")
 		(at 253.746 65.024 0)
 		(unit 1)
@@ -7304,6 +7451,73 @@
 			(project "ThePreamp-Controller"
 				(path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
 					(reference "#PWR028")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 163.576 35.306 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "4a131034-674d-4476-98ea-bb26035c1131")
+		(property "Reference" "R3"
+			(at 163.576 37.846 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "2K2"
+			(at 163.576 40.2703 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder"
+			(at 163.576 37.084 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 163.576 35.306 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 163.576 35.306 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "4b4ce8d3-4e8d-4426-841a-2ddc938f07ba")
+		)
+		(pin "2"
+			(uuid "5e7189ed-7da4-4a7b-85e3-f0d809355c14")
+		)
+		(instances
+			(project "ThePreamp-Controller"
+				(path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
+					(reference "R3")
 					(unit 1)
 				)
 			)
@@ -8209,6 +8423,74 @@
 			(project "ThePreamp-Controller"
 				(path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
 					(reference "#PWR017")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 163.576 32.766 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "72a55b67-4f95-40d3-9c03-16b183b72e91")
+		(property "Reference" "R2"
+			(at 163.576 27.6055 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "2K2"
+			(at 163.576 30.0298 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder"
+			(at 163.576 34.544 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 163.576 32.766 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 163.576 32.766 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "0d13a036-3018-4505-b30e-e8a429c55823")
+		)
+		(pin "2"
+			(uuid "df0f153f-79b2-475b-b016-94464f8ab7e8")
+		)
+		(instances
+			(project "ThePreamp-Controller"
+				(path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
+					(reference "R2")
 					(unit 1)
 				)
 			)
@@ -9484,6 +9766,71 @@
 			(project "ThePreamp-Controller"
 				(path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
 					(reference "C5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3.3V")
+		(at 171.45 32.766 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "c599bff8-967a-403c-b915-9e3e66e828a1")
+		(property "Reference" "#PWR029"
+			(at 167.64 32.766 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3 ESP32"
+			(at 180.34 32.766 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 171.45 32.766 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 171.45 32.766 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 171.45 32.766 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "89c08aed-e46d-4e79-994e-3270ca205184")
+		)
+		(instances
+			(project "ThePreamp-Controller"
+				(path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
+					(reference "#PWR029")
 					(unit 1)
 				)
 			)
