@@ -2220,6 +2220,413 @@
 				)
 			)
 		)
+		(symbol "Transformer_Hahn_BV_EL_603_1027:Hahn_BV_EL_603_1027"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "TR"
+				(at 4.064 5.842 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Hahn BV EL 603 1027"
+				(at 0 -6.35 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 -7.874 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 2.54 10.16 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "auxiliary gate drive transformer low insulation capacitance"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Transformer*Wurth*WE*AGDT*EP7*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Hahn_BV_EL_603_1027_0_1"
+				(arc
+					(start -1.27 -2.54)
+					(mid -0.6377 -1.905)
+					(end -1.27 -1.27)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start -1.27 -1.27)
+					(mid -0.6377 -0.635)
+					(end -1.27 0)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start -0.254 2.54)
+					(end 0.254 -2.54)
+					(stroke
+						(width 0.0254)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy -2.54 -2.54) (xy -1.27 -2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -2.54 2.54) (xy -1.27 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 -2.54) (xy 2.54 -2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 2.54) (xy 2.54 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "Hahn_BV_EL_603_1027_1_1"
+				(arc
+					(start -1.27 0)
+					(mid -0.6377 0.635)
+					(end -1.27 1.27)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start -1.27 1.27)
+					(mid -0.6377 1.905)
+					(end -1.27 2.54)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center -1.143 1.905)
+					(radius 0.127)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 1.143 1.905)
+					(radius 0.127)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 1.27 -1.27)
+					(mid 0.6377 -1.905)
+					(end 1.27 -2.54)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 1.27 0)
+					(mid 0.6377 -0.635)
+					(end 1.27 -1.27)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 1.27 1.27)
+					(mid 0.6377 0.635)
+					(end 1.27 0)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 1.27 2.54)
+					(mid 0.6377 1.905)
+					(end 1.27 1.27)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(text "15V AC"
+					(at 9.144 0 0)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(text "230V AC"
+					(at -8.636 0 0)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 2.54 0)
+					(length 2.54)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 -2.54 180)
+					(length 2.54)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "13"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin no_connect line
+					(at 1.27 2.54 270)
+					(length 2.54) hide
+					(name "NC"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin no_connect line
+					(at -1.27 -2.54 90)
+					(length 2.54) hide
+					(name "NC"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin no_connect line
+					(at 1.27 -2.54 90)
+					(length 2.54) hide
+					(name "NC"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin no_connect line
+					(at -1.27 2.54 270)
+					(length 2.54) hide
+					(name "NC"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -2.54 0)
+					(length 2.54)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 2.54 180)
+					(length 2.54)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "9"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "Transistor_BJT_AKL:MJE15030"
 			(pin_names hide)
 			(exclude_from_sim no)
@@ -3161,6 +3568,16 @@
 	)
 	(wire
 		(pts
+			(xy 26.416 24.13) (xy 26.416 21.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "10563fa9-4365-41ff-ae05-70eca7b09754")
+	)
+	(wire
+		(pts
 			(xy 22.86 33.528) (xy 22.86 39.624)
 		)
 		(stroke
@@ -3281,6 +3698,16 @@
 	)
 	(wire
 		(pts
+			(xy 26.416 21.59) (xy 30.734 21.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2309c93f-e502-4533-aac7-a8a238f9c1ea")
+	)
+	(wire
+		(pts
 			(xy 30.734 40.894) (xy 27.686 40.894)
 		)
 		(stroke
@@ -3338,6 +3765,16 @@
 			(type default)
 		)
 		(uuid "29227c9f-6272-42f6-8c4b-22c2289fd91e")
+	)
+	(wire
+		(pts
+			(xy 68.834 21.59) (xy 68.834 22.86)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2bda478c-7acb-4142-ab4b-a40d2943d65e")
 	)
 	(wire
 		(pts
@@ -3481,6 +3918,16 @@
 	)
 	(wire
 		(pts
+			(xy 38.354 21.59) (xy 49.022 21.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "54796055-25a8-44b9-8505-4c665f353c8e")
+	)
+	(wire
+		(pts
 			(xy 56.896 40.894) (xy 65.786 40.894)
 		)
 		(stroke
@@ -3488,6 +3935,26 @@
 			(type default)
 		)
 		(uuid "576bfd81-ef76-4332-9e85-f875c6038a02")
+	)
+	(wire
+		(pts
+			(xy 68.834 26.67) (xy 59.182 26.67)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5d6c3e99-8ac0-41ad-91b3-618d416a62e7")
+	)
+	(wire
+		(pts
+			(xy 59.182 21.59) (xy 68.834 21.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5f1c63db-a611-420d-95d2-c2ebc760a74d")
 	)
 	(wire
 		(pts
@@ -3538,6 +4005,16 @@
 			(type default)
 		)
 		(uuid "6fd35626-445f-4e9f-b8a1-981193754bb8")
+	)
+	(wire
+		(pts
+			(xy 40.64 26.67) (xy 49.022 26.67)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "70edfd64-6da6-49a2-bf07-78bbaf263c6d")
 	)
 	(wire
 		(pts
@@ -3761,6 +4238,16 @@
 	)
 	(wire
 		(pts
+			(xy 23.876 24.13) (xy 26.416 24.13)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9602971b-b293-4ac1-b738-21a048e765c6")
+	)
+	(wire
+		(pts
 			(xy 102.616 153.162) (xy 96.012 153.162)
 		)
 		(stroke
@@ -3808,6 +4295,16 @@
 			(type default)
 		)
 		(uuid "9cbe6a32-f146-4867-aaf1-3cf8ca393644")
+	)
+	(wire
+		(pts
+			(xy 40.64 23.368) (xy 40.64 26.67)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9d4e9b1e-a2f2-45ca-af56-368b536c340f")
 	)
 	(wire
 		(pts
@@ -3941,6 +4438,16 @@
 	)
 	(wire
 		(pts
+			(xy 25.4 23.368) (xy 40.64 23.368)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c4922a8b-21b8-443b-9e8d-aa1b98df3bb7")
+	)
+	(wire
+		(pts
 			(xy 112.776 98.806) (xy 112.776 84.074)
 		)
 		(stroke
@@ -3948,6 +4455,16 @@
 			(type default)
 		)
 		(uuid "cbb1a7ee-886c-449d-b343-6d0559ff2c37")
+	)
+	(wire
+		(pts
+			(xy 23.876 21.59) (xy 25.4 21.59)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ccf5da5e-929c-4db5-9c53-db151b35e924")
 	)
 	(wire
 		(pts
@@ -4071,6 +4588,16 @@
 	)
 	(wire
 		(pts
+			(xy 68.834 25.4) (xy 68.834 26.67)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e512b4ad-8629-489b-b4f7-e676b0f49250")
+	)
+	(wire
+		(pts
 			(xy 184.658 84.582) (xy 184.658 17.018)
 		)
 		(stroke
@@ -4148,6 +4675,16 @@
 			(type default)
 		)
 		(uuid "fb4988e2-7aa2-4b16-8283-8c09197b2563")
+	)
+	(wire
+		(pts
+			(xy 25.4 21.59) (xy 25.4 23.368)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fe68e9b6-2c7c-4ca1-9080-abc8d6c92b38")
 	)
 	(symbol
 		(lib_id "Reference_Current:LM334Z")
@@ -4382,6 +4919,73 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:Conn_01x02_Socket")
+		(at 18.796 24.13 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "17362b4c-6f7b-4cc2-b79f-4447c155a042")
+		(property "Reference" "J5"
+			(at 19.05 19.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "230V AC"
+			(at 16.256 22.606 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "THE_PREAMP_CONN_POWER_5_08:TBP01R1-508-02BK"
+			(at 18.796 24.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 18.796 24.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x02, script generated"
+			(at 18.796 24.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "7db033d1-e06a-4838-9fb4-dc5eb4ccf10e")
+		)
+		(pin "2"
+			(uuid "3cd53f1d-9213-4fd1-8478-345ae7de3142")
+		)
+		(instances
+			(project "Digital PSU"
+				(path "/5cc6b3bf-721e-4dc8-af0a-72c27b8cc795"
+					(reference "J5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R")
 		(at 106.426 40.64 270)
 		(unit 1)
@@ -4536,7 +5140,7 @@
 				)
 			)
 		)
-		(property "Value" "ACin"
+		(property "Value" "AC in"
 			(at 15.24 40.64 0)
 			(effects
 				(font
@@ -4996,6 +5600,73 @@
 			(project "Digital PSU"
 				(path "/5cc6b3bf-721e-4dc8-af0a-72c27b8cc795"
 					(reference "HS1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Socket")
+		(at 73.914 22.86 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "6d5558ac-ca6f-492a-a71b-f154dc7cd83f")
+		(property "Reference" "J4"
+			(at 73.66 27.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "15V AC"
+			(at 76.454 24.384 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "THE_PREAMP_CONN_POWER_5_08:TBP01R1-508-02BK"
+			(at 73.914 22.86 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 73.914 22.86 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x02, script generated"
+			(at 73.914 22.86 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "bbcecf05-899e-476c-938f-388011e42b96")
+		)
+		(pin "2"
+			(uuid "579ed166-c7ac-4548-9458-659b01904e80")
+		)
+		(instances
+			(project "Digital PSU"
+				(path "/5cc6b3bf-721e-4dc8-af0a-72c27b8cc795"
+					(reference "J4")
 					(unit 1)
 				)
 			)
@@ -6764,6 +7435,160 @@
 			(project "Digital PSU"
 				(path "/5cc6b3bf-721e-4dc8-af0a-72c27b8cc795"
 					(reference "D9")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Transformer_Hahn_BV_EL_603_1027:Hahn_BV_EL_603_1027")
+		(at 54.102 24.13 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "f71e7d16-8e03-4186-80f3-be9fd1341986")
+		(property "Reference" "TR1"
+			(at 54.0536 17.5598 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Hahn BV EL 603 1027"
+			(at 54.0536 19.9841 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Transformer_Hahn_BV_EL_603_1027:Transformer_Hahn_BV_EL_603_1027"
+			(at 54.102 32.004 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 56.642 13.97 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 54.102 24.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "7"
+			(uuid "8ff38cf2-419e-4864-b50c-5a7fb6da9562")
+		)
+		(pin "1"
+			(uuid "81b97e47-0c91-41ad-82f7-3e2bc744f12f")
+		)
+		(pin "9"
+			(uuid "7bc3a8a6-e279-419d-9842-11c258f737eb")
+		)
+		(pin "13"
+			(uuid "819782c2-7f01-41fc-ba70-a9ccc9a2369d")
+		)
+		(pin "2"
+			(uuid "b635d323-059c-4e15-a066-3fd6b50e8c6a")
+		)
+		(pin "7"
+			(uuid "71a8ddb1-52bd-4ab0-b08c-f406a5b657e6")
+		)
+		(pin "4"
+			(uuid "a1cc9489-d295-44b4-9cdf-6e8eb44639ba")
+		)
+		(pin "5"
+			(uuid "5c7771f2-9d25-4111-ad88-f128ae6d62d0")
+		)
+		(instances
+			(project "Digital PSU"
+				(path "/5cc6b3bf-721e-4dc8-af0a-72c27b8cc795"
+					(reference "TR1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:Fuse")
+		(at 34.544 21.59 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "fbd3f6f1-bef7-4fc4-a9fd-56d1e2310399")
+		(property "Reference" "F2"
+			(at 34.544 16.6835 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Fuse - 8A T"
+			(at 34.544 19.1078 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "ThePreAmp_PSU_Fuseholder:Keystone fuseholder 4527"
+			(at 34.544 23.368 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 34.544 21.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Fuse"
+			(at 34.544 21.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "ba09119e-671d-4893-b827-b49f94a99fe2")
+		)
+		(pin "1"
+			(uuid "73bb0dbd-d3e6-4607-a9e1-12f1ff6a85cb")
+		)
+		(instances
+			(project "Digital PSU"
+				(path "/5cc6b3bf-721e-4dc8-af0a-72c27b8cc795"
+					(reference "F2")
 					(unit 1)
 				)
 			)

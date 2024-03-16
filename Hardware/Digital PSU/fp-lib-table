@@ -3,4 +3,5 @@
   (lib (name "ThePreAmp_PSU_Heatsinks")(type "KiCad")(uri "${KIPRJMOD}/Libraries/Heatsinks/ThePreAmp_PSU_Heatsinks.pretty")(options "")(descr ""))
   (lib (name "ThePreAmp_PSU_Fuseholder")(type "KiCad")(uri "${KIPRJMOD}/Libraries/Keystone 4527 fuseholder/ThePreAmp_PSU_Fuseholder.pretty")(options "")(descr ""))
   (lib (name "THE_PREAMP_CONN_POWER_5_08")(type "KiCad")(uri "${KIPRJMOD}/Libraries/THE_PREAMP_CONN_POWER_5_08.pretty")(options "")(descr ""))
+  (lib (name "Transformer_Hahn_BV_EL_603_1027")(type "KiCad")(uri "${KIPRJMOD}/Libraries/Transformer/Transformer_Hahn_BV_EL_603_1027.pretty")(options "")(descr ""))
 )
