@@ -8308,7 +8308,7 @@
 		)
 		(fp_arc
 			(start -14.45 -8.074396)
-			(mid -13.587327 -8.949829)
+			(mid -13.587327 -8.949831)
 			(end -12.7 -8.099396)
 			(stroke
 				(width 0.12)
@@ -8341,7 +8341,7 @@
 		)
 		(fp_arc
 			(start -9.45 -8.125)
-			(mid -8.587327 -9.000434)
+			(mid -8.587327 -9.000436)
 			(end -7.7 -8.15)
 			(stroke
 				(width 0.12)
@@ -8666,11 +8666,22 @@
 			(solder_mask_margin 0.102)
 			(uuid "ad9e2c7f-6bfd-4bac-9029-e8e8ae837257")
 		)
+		(model "${KIPRJMOD}/Libraries/THE_PREAMP_CONN_POWER_5_08.pretty/CUI_DEVICES_TBP01R1-508-02BK.step"
+			(offset
+				(xyz 5.1 19 -0.1)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz -90 0 90)
+			)
+		)
 	)
 	(footprint "Capacitor_THT:CP_Radial_D10.0mm_P5.00mm"
 		(layer "F.Cu")
 		(uuid "3e817e97-dad8-4362-bfc8-be24d125a3f9")
-		(at 214.127323 53.202916)
+		(at 205.32 54.41)
 		(descr "CP, Radial series, Radial, pin pitch=5.00mm, , diameter=10mm, Electrolytic Capacitor")
 		(tags "CP Radial series Radial pin pitch 5.00mm  diameter 10mm Electrolytic Capacitor")
 		(property "Reference" "C3"
@@ -16855,6 +16866,17 @@
 			(solder_mask_margin 0.102)
 			(uuid "3dea001f-06b7-47ce-8406-46f2b8dc2d4d")
 		)
+		(model "${KIPRJMOD}/Libraries/THE_PREAMP_CONN_POWER_5_08.pretty/CUI_DEVICES_TBP01R1-508-02BK.step"
+			(offset
+				(xyz 5.1 19 -0.1)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz -90 0 90)
+			)
+		)
 	)
 	(footprint "LED_THT:LED_Rectangular_W5.0mm_H2.0mm"
 		(layer "F.Cu")
@@ -17696,7 +17718,7 @@
 		)
 		(fp_arc
 			(start -9.45 -8.125)
-			(mid -8.587327 -9.000434)
+			(mid -8.587327 -9.000436)
 			(end -7.7 -8.15)
 			(stroke
 				(width 0.12)
@@ -17729,7 +17751,7 @@
 		)
 		(fp_arc
 			(start -14.45 -8.074396)
-			(mid -13.587327 -8.949829)
+			(mid -13.587327 -8.949831)
 			(end -12.7 -8.099396)
 			(stroke
 				(width 0.12)
@@ -18072,7 +18094,7 @@
 		)
 		(fp_arc
 			(start -9.45 -8.125)
-			(mid -8.587327 -9.000434)
+			(mid -8.587327 -9.000436)
 			(end -7.7 -8.15)
 			(stroke
 				(width 0.12)
@@ -18105,7 +18127,7 @@
 		)
 		(fp_arc
 			(start -14.45 -8.074396)
-			(mid -13.587327 -8.949829)
+			(mid -13.587327 -8.949831)
 			(end -12.7 -8.099396)
 			(stroke
 				(width 0.12)
@@ -19587,6 +19609,17 @@
 			(solder_mask_margin 0.102)
 			(uuid "fb3d9f8c-bf99-400b-9fca-54e81db2e9ed")
 		)
+		(model "${KIPRJMOD}/Libraries/THE_PREAMP_CONN_POWER_5_08.pretty/CUI_DEVICES_TBP01R1-508-02BK.step"
+			(offset
+				(xyz 5.1 19 -0.1)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz -90 0 90)
+			)
+		)
 	)
 	(footprint "Package_TO_SOT_THT:TO-220-2_Vertical"
 		(layer "F.Cu")
@@ -20296,9 +20329,9 @@
 			(pintype "passive")
 			(uuid "0d9f469a-ee79-4f0a-a922-575c46a65962")
 		)
-		(model "${KICAD6_3DMODEL_DIR}/Package_TO_SOT_THT.3dshapes/TO-3P-3_Vertical.wrl"
+		(model "${KICAD8_3DMODEL_DIR}/Package_TO_SOT_THT.3dshapes/TO-3P-3_Vertical.step"
 			(offset
-				(xyz 0 0 0)
+				(xyz 0 0 6)
 			)
 			(scale
 				(xyz 1 1 1)
@@ -21229,9 +21262,9 @@
 			(pintype "passive")
 			(uuid "46ee4c82-29ac-4015-a170-328c974d21b1")
 		)
-		(model "${KICAD6_3DMODEL_DIR}/Package_TO_SOT_THT.3dshapes/TO-220-3_Vertical.wrl"
+		(model "${KICAD8_3DMODEL_DIR}/Package_TO_SOT_THT.3dshapes/TO-220-2_Vertical.wrl"
 			(offset
-				(xyz 0 0 0)
+				(xyz 0 0 3.5)
 			)
 			(scale
 				(xyz 1 1 1)
@@ -23602,7 +23635,7 @@
 		)
 		(fp_arc
 			(start -14.45 -8.074396)
-			(mid -13.587327 -8.949829)
+			(mid -13.587327 -8.949831)
 			(end -12.7 -8.099396)
 			(stroke
 				(width 0.12)
@@ -23635,7 +23668,7 @@
 		)
 		(fp_arc
 			(start -9.45 -8.125)
-			(mid -8.587327 -9.000434)
+			(mid -8.587327 -9.000436)
 			(end -7.7 -8.15)
 			(stroke
 				(width 0.12)
@@ -25817,7 +25850,7 @@
 		(uuid "df8f6a11-ebc2-4e78-9ca4-d7ea1ae65211")
 		(at 30.6975 56.38 90)
 		(property "Reference" "J5"
-			(at 0.105 -11.889 270)
+			(at 0.105 -11.889 -90)
 			(layer "F.SilkS")
 			(uuid "daf41e37-de87-400a-bf22-ec0752929d32")
 			(effects
@@ -25828,7 +25861,7 @@
 			)
 		)
 		(property "Value" "230V AC"
-			(at 13.44 3.361 270)
+			(at 13.44 3.361 -90)
 			(layer "F.Fab")
 			(uuid "61bf5fcb-0895-48f1-8f6a-259b1f50fb19")
 			(effects
@@ -26044,6 +26077,17 @@
 			(pintype "passive")
 			(solder_mask_margin 0.102)
 			(uuid "00159199-0644-4420-96a3-55d13ea507b3")
+		)
+		(model "${KIPRJMOD}/Libraries/THE_PREAMP_CONN_POWER_5_08.pretty/CUI_DEVICES_TBP01R1-508-02BK.step"
+			(offset
+				(xyz 5.1 19 -0.1)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz -90 0 90)
+			)
 		)
 	)
 	(footprint "LED_THT:LED_Rectangular_W5.0mm_H2.0mm"
@@ -27095,19 +27139,29 @@
 			)
 		)
 	)
-	(gr_rect
-		(start 20.01 24.59)
-		(end 229.45 112.02)
+	(gr_line
+		(start 103.19 17.75)
+		(end 103.19 130.67)
 		(stroke
-			(width 0.1)
+			(width 0.2)
+			(type default)
+		)
+		(layer "B.Cu")
+		(uuid "76391255-607d-4aa2-a982-981d3fa39616")
+	)
+	(gr_rect
+		(start 20.33 24.62)
+		(end 227.11 112.01)
+		(stroke
+			(width 0.05)
 			(type default)
 		)
 		(fill none)
-		(layer "F.SilkS")
-		(uuid "e0139b21-c9e9-4616-855e-085e2843d352")
+		(layer "Edge.Cuts")
+		(uuid "6bf6258c-1b11-4cdf-9046-3ce406578408")
 	)
-	(gr_text "TO-DO: Mounting holes on trafo pcb and L-adapter pcb"
-		(at 107.28 107.13 -0)
+	(gr_text "TO-DO: Mounting holes on trafo pcb and L-adapter pcb + cut-outs to allow transistors to be mounted on bottom of chassis + copper fills"
+		(at 44.88 110.81 0)
 		(layer "F.SilkS")
 		(uuid "ac69a482-a9e8-48d6-8b94-e25223d888f5")
 		(effects
@@ -27256,6 +27310,22 @@
 		(uuid "00e8358e-79ac-45e9-b446-a5516468a806")
 	)
 	(segment
+		(start 212.2125 62.942916)
+		(end 218.6925 69.422916)
+		(width 3)
+		(layer "B.Cu")
+		(net 2)
+		(uuid "0edb17fd-4f79-4274-8006-5a98ce9f30da")
+	)
+	(segment
+		(start 209.445 62.942916)
+		(end 212.2125 62.942916)
+		(width 3)
+		(layer "B.Cu")
+		(net 2)
+		(uuid "1347eba3-e4e4-46f3-96f0-3911c3205313")
+	)
+	(segment
 		(start 203.952677 67.042916)
 		(end 205.345 67.042916)
 		(width 3)
@@ -27270,14 +27340,6 @@
 		(layer "B.Cu")
 		(net 2)
 		(uuid "2a361674-0f78-4dfb-98b0-6433c3e75317")
-	)
-	(segment
-		(start 209.445 62.942916)
-		(end 209.445 49.090416)
-		(width 3)
-		(layer "B.Cu")
-		(net 2)
-		(uuid "3a540bc9-7380-45ea-bd51-161613dbd56e")
 	)
 	(segment
 		(start 205.085 68.175239)
@@ -27296,12 +27358,20 @@
 		(uuid "6e8ada92-1ce0-4568-a35f-b42e41012742")
 	)
 	(segment
-		(start 209.445 49.090416)
-		(end 213.855 44.680416)
+		(start 213.855 44.680416)
+		(end 213.855 58.532916)
 		(width 3)
 		(layer "B.Cu")
 		(net 2)
-		(uuid "c1353a73-dde4-4af2-917b-41d064b3ecaf")
+		(uuid "7383b4eb-0735-4503-a8f5-7bf7a784b5c2")
+	)
+	(segment
+		(start 213.855 58.532916)
+		(end 209.445 62.942916)
+		(width 3)
+		(layer "B.Cu")
+		(net 2)
+		(uuid "d2d59545-69bf-4c2f-8d46-8306a3125d41")
 	)
 	(segment
 		(start 209.445 62.942916)
@@ -27368,20 +27438,20 @@
 		(uuid "c12ae486-9413-4403-874f-f776cfe3dcbf")
 	)
 	(segment
-		(start 214.127323 53.202916)
-		(end 214.127323 52.225239)
+		(start 210.715 69.952916)
+		(end 210.715 68.045)
 		(width 1)
 		(layer "F.Cu")
 		(net 4)
-		(uuid "1eaee922-04d9-4572-b577-03896a755a75")
+		(uuid "06799505-f979-4fd4-a944-2754fc616df3")
 	)
 	(segment
-		(start 212.015 67.352916)
-		(end 214.127323 65.240593)
+		(start 210.715 68.045)
+		(end 205.32 62.65)
 		(width 1)
 		(layer "F.Cu")
 		(net 4)
-		(uuid "5f37e92e-fb48-4611-801d-b2d21db70750")
+		(uuid "3191fa6a-43f8-4c90-8a1c-400c94a185c4")
 	)
 	(segment
 		(start 222.855 67.352916)
@@ -27400,6 +27470,14 @@
 		(uuid "6ba5c042-ef41-4641-90d7-cd243a84bbb2")
 	)
 	(segment
+		(start 205.32 62.65)
+		(end 205.32 54.41)
+		(width 1)
+		(layer "F.Cu")
+		(net 4)
+		(uuid "7457c7cf-63fc-4cd5-ba2e-4abbb2f635e2")
+	)
+	(segment
 		(start 210.715 68.652916)
 		(end 210.715 69.952916)
 		(width 1)
@@ -27416,20 +27494,12 @@
 		(uuid "8ba55e97-7f61-4bfd-9e44-3698eb54fbb9")
 	)
 	(segment
-		(start 214.127323 52.225239)
+		(start 205.32 49.607916)
 		(end 208.415 46.512916)
 		(width 1)
 		(layer "F.Cu")
 		(net 4)
-		(uuid "97740dd9-8aa1-4a8d-aac5-65b3d9f8b32b")
-	)
-	(segment
-		(start 214.127323 65.240593)
-		(end 214.127323 53.202916)
-		(width 1)
-		(layer "F.Cu")
-		(net 4)
-		(uuid "99c877cf-fad2-4009-8e4b-23850be938d4")
+		(uuid "9756060d-d3a3-4cc0-9d9d-bdc51f4803f9")
 	)
 	(segment
 		(start 223.885 68.382916)
@@ -27454,6 +27524,14 @@
 		(layer "F.Cu")
 		(net 4)
 		(uuid "df1adb0c-a4cb-467c-aec8-d9b70a0958fa")
+	)
+	(segment
+		(start 205.32 54.41)
+		(end 205.32 49.607916)
+		(width 1)
+		(layer "F.Cu")
+		(net 4)
+		(uuid "e5f7c5a1-53ae-4d87-85e0-3a692560fb29")
 	)
 	(segment
 		(start 208.415 46.512916)
