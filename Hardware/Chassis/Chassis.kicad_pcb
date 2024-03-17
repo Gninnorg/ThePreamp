@@ -6,7 +6,7 @@
 		(thickness 1.6)
 		(legacy_teardrops no)
 	)
-	(paper "A0")
+	(paper "A2")
 	(layers
 		(0 "F.Cu" signal)
 		(31 "B.Cu" signal)
@@ -83,9 +83,9 @@
 	(footprint "THE_PREAMP_CONN_POWER_5_08:TBP01R2-508-02BK (VERT)"
 		(layer "F.Cu")
 		(uuid "5f884669-82b4-4cd6-b924-df44329230c7")
-		(at 741.66 318.02)
+		(at 371.7 81.25)
 		(property "Reference" "J6"
-			(at -0.08 -2.9675 360)
+			(at -0.08 -2.9675 0)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "4e3eacae-600e-49ac-a0cc-eb0c54a84463")
@@ -97,7 +97,7 @@
 			)
 		)
 		(property "Value" "3.3V (Opt)"
-			(at 13.44 5.261 360)
+			(at 13.44 5.261 0)
 			(layer "F.Fab")
 			(uuid "dc230d6d-732b-47c7-b00f-1c18e1eaca80")
 			(effects
@@ -349,7 +349,7 @@
 	(footprint "THE_PREAMP_CONN_POWER_5_08:TBP01R2-508-02BK (VERT)"
 		(layer "F.Cu")
 		(uuid "99782812-2ec7-4a5f-94e7-18d397359eed")
-		(at 709.39 318.0225)
+		(at 339.43 81.2525)
 		(property "Reference" "J2"
 			(at -0.02 -2.82 0)
 			(layer "F.SilkS")
@@ -616,7 +616,7 @@
 	(footprint "Connector_IDC:IDC-Header_2x08_P2.54mm_Vertical"
 		(layer "B.Cu")
 		(uuid "79db04f9-88b0-4108-89b1-208c8d3f9afe")
-		(at 471.31 459.425 90)
+		(at 101.35 222.655 90)
 		(descr "Through hole IDC box header, 2x08, 2.54mm pitch, DIN 41651 / IEC 60603-13, double rows, https://docs.google.com/spreadsheets/d/16SsEcesNF15N3Lb4niX7dcUr-NY5_MFPQhobNuNppn4/edit#gid=0")
 		(tags "Through hole vertical IDC box header THT 2x08 2.54mm double row")
 		(property "Reference" "J3"
@@ -1189,7 +1189,7 @@
 	(footprint "THEPREAMP_POWER_CON:TBP01R2-508-02BK (VERT)"
 		(layer "B.Cu")
 		(uuid "b93e75e2-fffb-4890-a5f2-d656b9c1f135")
-		(at 444.3 458.03 180)
+		(at 74.34 221.26 180)
 		(property "Reference" "J8"
 			(at 0.105 6.489 180)
 			(layer "B.SilkS")
@@ -1456,7 +1456,7 @@
 	(footprint "Connector_IDC:IDC-Header_2x08_P2.54mm_Vertical"
 		(layer "B.Cu")
 		(uuid "cde6c49f-268b-47aa-93d0-38b02a22899c")
-		(at 453.62 315.99 -90)
+		(at 83.66 79.22 -90)
 		(descr "Through hole IDC box header, 2x08, 2.54mm pitch, DIN 41651 / IEC 60603-13, double rows, https://docs.google.com/spreadsheets/d/16SsEcesNF15N3Lb4niX7dcUr-NY5_MFPQhobNuNppn4/edit#gid=0")
 		(tags "Through hole vertical IDC box header THT 2x08 2.54mm double row")
 		(property "Reference" "J5"
@@ -2030,7 +2030,7 @@
 	(footprint "THE_PREAMP_CONN_POWER_5_08:TBP01R2-508-02BK (VERT)"
 		(layer "B.Cu")
 		(uuid "d060b949-19f8-4fd1-8f71-3cafdff6d0f9")
-		(at 485.83 317.97 180)
+		(at 115.87 81.2 180)
 		(property "Reference" "J1"
 			(at -0.06 3.2775 0)
 			(layer "B.SilkS")
@@ -2296,8 +2296,74 @@
 		)
 	)
 	(gr_rect
-		(start 448.02 337.83)
-		(end 460.11 344.16)
+		(start 0 0)
+		(end 428 8)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill none)
+		(layer "Dwgs.User")
+		(uuid "237b6960-acce-440b-9d94-c2e4ac062268")
+	)
+	(gr_rect
+		(start 0 338)
+		(end 428 342)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill none)
+		(layer "Dwgs.User")
+		(uuid "263a227e-bccf-4b04-a73c-10ba60fdec9b")
+	)
+	(gr_rect
+		(start 387.809875 309.162776)
+		(end 359.809875 337.922776)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill none)
+		(layer "Dwgs.User")
+		(uuid "3548ad41-13f1-4a74-8d1d-f753d940f218")
+	)
+	(gr_circle
+		(center 273.92 12.92)
+		(end 275.92 12.92)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill none)
+		(layer "Dwgs.User")
+		(uuid "3cbdf5bf-3db9-42d5-9398-c12b23a23284")
+	)
+	(gr_circle
+		(center 9.12 308.12)
+		(end 11.12 308.12)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill none)
+		(layer "Dwgs.User")
+		(uuid "43540d8d-1f9f-4ee6-b9e7-6d77b9e94af6")
+	)
+	(gr_circle
+		(center 9.12 172.94)
+		(end 11.12 172.94)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill none)
+		(layer "Dwgs.User")
+		(uuid "51ff29c7-5ee6-4700-b394-aadda330aff7")
+	)
+	(gr_rect
+		(start 78.06 101.06)
+		(end 90.15 107.39)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -2306,9 +2372,130 @@
 		(layer "Dwgs.User")
 		(uuid "53b732d9-444a-4236-b579-08bce4512397")
 	)
+	(gr_circle
+		(center 418.92 172.94)
+		(end 420.92 172.94)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill none)
+		(layer "Dwgs.User")
+		(uuid "5cfbd145-1d07-4970-b206-5e64625a4a34")
+	)
+	(gr_circle
+		(center 33.92 12.92)
+		(end 35.92 12.92)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill none)
+		(layer "Dwgs.User")
+		(uuid "663268d2-c9ae-444b-8734-33b6d1e90a62")
+	)
+	(gr_circle
+		(center 9.3 38.49)
+		(end 7.3 38.49)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill none)
+		(layer "Dwgs.User")
+		(uuid "6b5341c0-55ea-4ea4-8984-f93ab318d218")
+	)
+	(gr_circle
+		(center 153.92 332.97)
+		(end 155.92 332.97)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill none)
+		(layer "Dwgs.User")
+		(uuid "730cd3fe-d25d-4300-9d2c-b8a15362613e")
+	)
 	(gr_rect
-		(start 448.37 432.08)
-		(end 477.28 439.72)
+		(start 14 18)
+		(end 414 328)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill none)
+		(layer "Dwgs.User")
+		(uuid "74b71571-e08c-434c-a4c6-a47b7525e853")
+	)
+	(gr_rect
+		(start 0 8)
+		(end 4 338)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill none)
+		(layer "Dwgs.User")
+		(uuid "8c2cd286-da3a-4231-9f25-f7db04ce6e34")
+	)
+	(gr_circle
+		(center 393.92 12.92)
+		(end 395.92 12.92)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill none)
+		(layer "Dwgs.User")
+		(uuid "8fa52701-6bc4-4298-9f19-c9c4c42b0bd8")
+	)
+	(gr_rect
+		(start 4 8)
+		(end 424 338)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill none)
+		(layer "Dwgs.User")
+		(uuid "8ff5125c-0b5e-4204-a1d0-f024d5916be5")
+	)
+	(gr_circle
+		(center 153.92 12.92)
+		(end 155.92 12.92)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill none)
+		(layer "Dwgs.User")
+		(uuid "a1876dcb-a442-47a9-a37d-5724a8e61a1c")
+	)
+	(gr_circle
+		(center 33.92 332.97)
+		(end 35.92 332.97)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill none)
+		(layer "Dwgs.User")
+		(uuid "be59b0bc-1ac4-4b63-a8f5-00f4f8ea00af")
+	)
+	(gr_circle
+		(center 419.1 38.49)
+		(end 417.1 38.49)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill none)
+		(layer "Dwgs.User")
+		(uuid "cc142d7c-df45-4e7d-b235-5c7441c5f8e7")
+	)
+	(gr_rect
+		(start 78.41 195.31)
+		(end 107.32 202.95)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -2317,9 +2504,53 @@
 		(layer "Dwgs.User")
 		(uuid "d6aa00c4-cf05-4ace-a853-e69f9b62b928")
 	)
+	(gr_circle
+		(center 418.92 308.12)
+		(end 420.92 308.12)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill none)
+		(layer "Dwgs.User")
+		(uuid "e161513b-f7f9-4322-b7d7-258ed9a3894b")
+	)
 	(gr_rect
-		(start 405.66 453.16)
-		(end 690.66 518.16)
+		(start 424 8)
+		(end 428 338)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill none)
+		(layer "Dwgs.User")
+		(uuid "e856410c-3938-4697-b60c-1b651dd5d1c1")
+	)
+	(gr_circle
+		(center 273.92 332.97)
+		(end 275.92 332.97)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill none)
+		(layer "Dwgs.User")
+		(uuid "e9817c4d-170e-4cd7-940d-df3dfadd19c4")
+	)
+	(gr_circle
+		(center 393.92 332.97)
+		(end 395.92 332.97)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill none)
+		(layer "Dwgs.User")
+		(uuid "ee47471d-c323-421d-a266-896c1d40f4ad")
+	)
+	(gr_rect
+		(start 35.7 216.39)
+		(end 320.7 281.39)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -2329,8 +2560,8 @@
 		(uuid "d1ad31e2-3255-49b6-a327-0d6cc407800a")
 	)
 	(gr_rect
-		(start 420.05 337.78)
-		(end 494.49 439.55)
+		(start 50.09 101.01)
+		(end 124.53 202.78)
 		(stroke
 			(width 0.05)
 			(type default)
@@ -2340,8 +2571,8 @@
 		(uuid "e0cc28a4-9dfb-4710-9e09-0873295a50c6")
 	)
 	(gr_rect
-		(start 447.98 277.89)
-		(end 750.48 322.39)
+		(start 78.02 41.12)
+		(end 380.52 85.62)
 		(stroke
 			(width 0.15)
 			(type default)
@@ -2350,8 +2581,56 @@
 		(layer "Edge.Cuts")
 		(uuid "e24e8021-eacd-4d65-8327-885a4f99e1f8")
 	)
+	(gr_text "Back 4mm"
+		(at 434.11 341.78 0)
+		(layer "Dwgs.User")
+		(uuid "0df7296a-cd23-4a12-a27f-24668f1ea7ec")
+		(effects
+			(font
+				(size 3 3)
+				(thickness 0.3)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "Front 8mm"
+		(at 434.7 5.98 0)
+		(layer "Dwgs.User")
+		(uuid "1797ac74-2a5d-4823-9e91-c7065ac90528")
+		(effects
+			(font
+				(size 3 3)
+				(thickness 0.3)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "230VAC"
+		(at 365.42 321.58 0)
+		(layer "Dwgs.User")
+		(uuid "1e1ddceb-93fe-47f6-ac8b-6f4060bded48")
+		(effects
+			(font
+				(size 3 3)
+				(thickness 0.3)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "Sides 4mm"
+		(at 434.79 167.99 0)
+		(layer "Dwgs.User")
+		(uuid "6e6b536d-1526-47e6-9870-cbbe777f3055")
+		(effects
+			(font
+				(size 3 3)
+				(thickness 0.3)
+			)
+			(justify left bottom)
+		)
+	)
 	(gr_text "A/C in"
-		(at 737.91 514.62 0)
+		(at 367.95 277.85 0)
 		(layer "User.4")
 		(uuid "19f13073-83db-496e-a619-ad94b50df4bd")
 		(effects
