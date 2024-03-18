@@ -6,7 +6,7 @@
 		(thickness 1.6)
 		(legacy_teardrops no)
 	)
-	(paper "A2")
+	(paper "A1")
 	(layers
 		(0 "F.Cu" signal)
 		(31 "B.Cu" signal)
@@ -41,6 +41,7 @@
 	(setup
 		(pad_to_mask_clearance 0)
 		(allow_soldermask_bridges_in_footprints no)
+		(grid_origin 143.39 466.22)
 		(pcbplotparams
 			(layerselection 0x00010fc_ffffffff)
 			(plot_on_all_layers_selection 0x0000000_00000000)
@@ -81,9 +82,10 @@
 	)
 	(net 0 "")
 	(footprint "RCA ALI:RCA Connector ALI"
+		(locked yes)
 		(layer "F.Cu")
 		(uuid "0178d9a1-0823-4960-91fd-b7f50fbc3147")
-		(at 246.94 359.33)
+		(at 386.47 483.55)
 		(property "Reference" "RCA10"
 			(at -4.42 -6.04 0)
 			(unlocked yes)
@@ -218,9 +220,10 @@
 		)
 	)
 	(footprint "RCA ALI:RCA Connector ALI"
+		(locked yes)
 		(layer "F.Cu")
 		(uuid "0b244f52-7bcf-4ebc-bae0-528af5242794")
-		(at 70.8 367.65)
+		(at 210.33 491.87)
 		(property "Reference" "RCA3"
 			(at -4.42 -6.04 0)
 			(unlocked yes)
@@ -355,9 +358,10 @@
 		)
 	)
 	(footprint "RCA ALI:RCA Connector ALI"
+		(locked yes)
 		(layer "F.Cu")
 		(uuid "33caed7f-2eb6-415f-9425-ff5afa25cfb2")
-		(at 70.8 385.85)
+		(at 210.33 510.07)
 		(property "Reference" "RCA8"
 			(at -4.42 -6.04 0)
 			(unlocked yes)
@@ -492,9 +496,10 @@
 		)
 	)
 	(footprint "Connector_M8:M8 3 pin"
+		(locked yes)
 		(layer "F.Cu")
 		(uuid "393d9ae8-6dc5-450a-b7bb-8013b3757848")
-		(at 294.19 389.24 180)
+		(at 433.72 513.46 180)
 		(property "Reference" "J14"
 			(at 5.6 5.85 180)
 			(unlocked yes)
@@ -631,9 +636,10 @@
 		)
 	)
 	(footprint "RCA ALI:RCA Connector ALI"
+		(locked yes)
 		(layer "F.Cu")
 		(uuid "41d10972-7f8b-4137-9934-d6d36ba9c2d3")
-		(at 121.8 385.85)
+		(at 261.33 510.07)
 		(property "Reference" "RCA6"
 			(at -4.42 -6.04 0)
 			(unlocked yes)
@@ -768,9 +774,10 @@
 		)
 	)
 	(footprint "RCA ALI:RCA Connector ALI"
+		(locked yes)
 		(layer "F.Cu")
 		(uuid "4276e77c-87ae-45e2-a332-f7d7eb733728")
-		(at 246.94 389.33)
+		(at 386.47 513.55)
 		(property "Reference" "RCA5"
 			(at -4.42 -6.04 0)
 			(unlocked yes)
@@ -907,7 +914,7 @@
 	(footprint "THE_PREAMP_CONN_POWER_5_08:TBP01R2-508-02BK (VERT)"
 		(layer "F.Cu")
 		(uuid "5f884669-82b4-4cd6-b924-df44329230c7")
-		(at 371.7 81.25)
+		(at 485.26 108.1575)
 		(property "Reference" "J6"
 			(at -0.08 -2.9675 0)
 			(layer "F.SilkS")
@@ -1171,9 +1178,10 @@
 		)
 	)
 	(footprint "RCA ALI:RCA Connector ALI"
+		(locked yes)
 		(layer "F.Cu")
 		(uuid "836e1fc3-3db4-4fb3-b69c-a527d19c1683")
-		(at 96.3 367.65)
+		(at 235.83 491.87)
 		(property "Reference" "RCA2"
 			(at -4.42 -6.04 0)
 			(unlocked yes)
@@ -1308,9 +1316,10 @@
 		)
 	)
 	(footprint "RCA ALI:RCA Connector ALI"
+		(locked yes)
 		(layer "F.Cu")
 		(uuid "8a9ed93b-4c92-42b6-b321-873123d26493")
-		(at 45.3 385.85)
+		(at 184.83 510.07)
 		(property "Reference" "RCA9"
 			(at -4.42 -6.04 0)
 			(unlocked yes)
@@ -1445,9 +1454,10 @@
 		)
 	)
 	(footprint "RCA ALI:RCA Connector ALI"
+		(locked yes)
 		(layer "F.Cu")
 		(uuid "8fb22d34-035c-4008-80b9-fd768b0181b6")
-		(at 45.3 367.65)
+		(at 184.83 491.87)
 		(property "Reference" "RCA4"
 			(at -4.42 -6.04 0)
 			(unlocked yes)
@@ -1584,7 +1594,7 @@
 	(footprint "THE_PREAMP_CONN_POWER_5_08:TBP01R2-508-02BK (VERT)"
 		(layer "F.Cu")
 		(uuid "99782812-2ec7-4a5f-94e7-18d397359eed")
-		(at 339.43 81.2525)
+		(at 452.99 108.16)
 		(property "Reference" "J2"
 			(at -0.02 -2.82 0)
 			(layer "F.SilkS")
@@ -1849,9 +1859,10 @@
 		)
 	)
 	(footprint "RCA ALI:RCA Connector ALI"
+		(locked yes)
 		(layer "F.Cu")
 		(uuid "a9fe3146-8d16-4494-a28b-032b54d18ec1")
-		(at 96.3 385.85)
+		(at 235.83 510.07)
 		(property "Reference" "RCA7"
 			(at -4.42 -6.04 0)
 			(unlocked yes)
@@ -1986,9 +1997,10 @@
 		)
 	)
 	(footprint "RCA ALI:RCA Connector ALI"
+		(locked yes)
 		(layer "F.Cu")
 		(uuid "e2e92605-f9eb-4c74-9e4c-068cba625436")
-		(at 121.8 367.65)
+		(at 261.33 491.87)
 		(property "Reference" "RCA1"
 			(at -4.42 -6.04 0)
 			(unlocked yes)
@@ -2123,9 +2135,10 @@
 		)
 	)
 	(footprint "Connector_M8:M8 4 pin"
+		(locked yes)
 		(layer "F.Cu")
 		(uuid "f7926187-53da-48fa-8da0-5dd3964f5e0f")
-		(at 276.72 389.28 180)
+		(at 416.25 513.5 180)
 		(property "Reference" "J13"
 			(at 5.6 5.85 180)
 			(unlocked yes)
@@ -2271,9 +2284,10 @@
 		)
 	)
 	(footprint "Connector_M8:M8 3 pin"
+		(locked yes)
 		(layer "F.Cu")
 		(uuid "fb9916a2-8b06-47a1-9873-884921a5cd4b")
-		(at 294.09 359.48 180)
+		(at 433.62 483.7 180)
 		(property "Reference" "J12"
 			(at 5.6 5.85 180)
 			(unlocked yes)
@@ -2409,9 +2423,10 @@
 		)
 	)
 	(footprint "Connector_M8:M8 4 pin"
+		(locked yes)
 		(layer "F.Cu")
 		(uuid "fecb6f78-bb30-4566-9272-f1d96e3a9dd9")
-		(at 276.71 359.4 180)
+		(at 416.24 483.62 180)
 		(property "Reference" "J11"
 			(at 5.6 5.85 180)
 			(unlocked yes)
@@ -2557,9 +2572,10 @@
 		)
 	)
 	(footprint "Connector_IDC:IDC-Header_2x08_P2.54mm_Vertical"
+		(locked yes)
 		(layer "B.Cu")
 		(uuid "79db04f9-88b0-4108-89b1-208c8d3f9afe")
-		(at 71.56 352.895 90)
+		(at 211.09 477.115 90)
 		(descr "Through hole IDC box header, 2x08, 2.54mm pitch, DIN 41651 / IEC 60603-13, double rows, https://docs.google.com/spreadsheets/d/16SsEcesNF15N3Lb4niX7dcUr-NY5_MFPQhobNuNppn4/edit#gid=0")
 		(tags "Through hole vertical IDC box header THT 2x08 2.54mm double row")
 		(property "Reference" "J3"
@@ -3130,9 +3146,10 @@
 		)
 	)
 	(footprint "THEPREAMP_POWER_CON:TBP01R2-508-02BK (VERT)"
+		(locked yes)
 		(layer "B.Cu")
 		(uuid "b93e75e2-fffb-4890-a5f2-d656b9c1f135")
-		(at 44.55 351.5 180)
+		(at 184.08 475.72 180)
 		(property "Reference" "J8"
 			(at 0.555 6.519 180)
 			(layer "B.SilkS")
@@ -3400,7 +3417,7 @@
 	(footprint "Connector_IDC:IDC-Header_2x08_P2.54mm_Vertical"
 		(layer "B.Cu")
 		(uuid "cde6c49f-268b-47aa-93d0-38b02a22899c")
-		(at 83.66 79.22 -90)
+		(at 197.22 106.1275 -90)
 		(descr "Through hole IDC box header, 2x08, 2.54mm pitch, DIN 41651 / IEC 60603-13, double rows, https://docs.google.com/spreadsheets/d/16SsEcesNF15N3Lb4niX7dcUr-NY5_MFPQhobNuNppn4/edit#gid=0")
 		(tags "Through hole vertical IDC box header THT 2x08 2.54mm double row")
 		(property "Reference" "J5"
@@ -3974,7 +3991,7 @@
 	(footprint "THE_PREAMP_CONN_POWER_5_08:TBP01R2-508-02BK (VERT)"
 		(layer "B.Cu")
 		(uuid "d060b949-19f8-4fd1-8f71-3cafdff6d0f9")
-		(at 115.87 81.2 180)
+		(at 229.43 108.1075 180)
 		(property "Reference" "J1"
 			(at -0.06 3.2775 0)
 			(layer "B.SilkS")
@@ -4240,8 +4257,8 @@
 		)
 	)
 	(gr_rect
-		(start 0 0)
-		(end 428 8)
+		(start 143.39 124.22)
+		(end 571.39 132.22)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -4251,8 +4268,8 @@
 		(uuid "237b6960-acce-440b-9d94-c2e4ac062268")
 	)
 	(gr_rect
-		(start 0 338)
-		(end 428 342)
+		(start 143.39 462.22)
+		(end 571.39 466.22)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -4262,8 +4279,8 @@
 		(uuid "263a227e-bccf-4b04-a73c-10ba60fdec9b")
 	)
 	(gr_rect
-		(start 359.809875 309.162776)
-		(end 387.809875 337.922776)
+		(start 503.199875 433.382776)
+		(end 531.199875 462.142776)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -4273,8 +4290,8 @@
 		(uuid "3548ad41-13f1-4a74-8d1d-f753d940f218")
 	)
 	(gr_circle
-		(center 273.92 12.92)
-		(end 275.92 12.92)
+		(center 417.31 137.14)
+		(end 419.31 137.14)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -4284,8 +4301,8 @@
 		(uuid "3cbdf5bf-3db9-42d5-9398-c12b23a23284")
 	)
 	(gr_circle
-		(center 9.12 308.12)
-		(end 11.12 308.12)
+		(center 152.51 432.34)
+		(end 154.51 432.34)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -4295,8 +4312,8 @@
 		(uuid "43540d8d-1f9f-4ee6-b9e7-6d77b9e94af6")
 	)
 	(gr_circle
-		(center 9.12 172.94)
-		(end 11.12 172.94)
+		(center 152.51 297.16)
+		(end 154.51 297.16)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -4306,8 +4323,8 @@
 		(uuid "51ff29c7-5ee6-4700-b394-aadda330aff7")
 	)
 	(gr_rect
-		(start 78.06 101.06)
-		(end 90.15 107.39)
+		(start 508.03 226.165)
+		(end 520.12 232.495)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -4317,8 +4334,8 @@
 		(uuid "53b732d9-444a-4236-b579-08bce4512397")
 	)
 	(gr_circle
-		(center 418.92 172.94)
-		(end 420.92 172.94)
+		(center 562.31 297.16)
+		(end 564.31 297.16)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -4328,8 +4345,8 @@
 		(uuid "5cfbd145-1d07-4970-b206-5e64625a4a34")
 	)
 	(gr_circle
-		(center 33.92 12.92)
-		(end 35.92 12.92)
+		(center 177.31 137.14)
+		(end 179.31 137.14)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -4339,8 +4356,8 @@
 		(uuid "663268d2-c9ae-444b-8734-33b6d1e90a62")
 	)
 	(gr_circle
-		(center 9.3 38.49)
-		(end 7.3 38.49)
+		(center 152.69 162.71)
+		(end 150.69 162.71)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -4350,8 +4367,8 @@
 		(uuid "6b5341c0-55ea-4ea4-8984-f93ab318d218")
 	)
 	(gr_circle
-		(center 153.92 332.97)
-		(end 155.92 332.97)
+		(center 297.31 457.19)
+		(end 299.31 457.19)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -4361,8 +4378,8 @@
 		(uuid "730cd3fe-d25d-4300-9d2c-b8a15362613e")
 	)
 	(gr_rect
-		(start 14 18)
-		(end 414 328)
+		(start 157.39 142.22)
+		(end 557.39 452.22)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -4372,8 +4389,8 @@
 		(uuid "74b71571-e08c-434c-a4c6-a47b7525e853")
 	)
 	(gr_rect
-		(start 0 8)
-		(end 4 338)
+		(start 143.39 132.22)
+		(end 147.39 462.22)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -4383,8 +4400,8 @@
 		(uuid "8c2cd286-da3a-4231-9f25-f7db04ce6e34")
 	)
 	(gr_circle
-		(center 393.92 12.92)
-		(end 395.92 12.92)
+		(center 537.31 137.14)
+		(end 539.31 137.14)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -4394,8 +4411,8 @@
 		(uuid "8fa52701-6bc4-4298-9f19-c9c4c42b0bd8")
 	)
 	(gr_rect
-		(start 4 8)
-		(end 424 338)
+		(start 147.39 132.22)
+		(end 567.39 462.22)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -4405,8 +4422,8 @@
 		(uuid "8ff5125c-0b5e-4204-a1d0-f024d5916be5")
 	)
 	(gr_circle
-		(center 153.92 12.92)
-		(end 155.92 12.92)
+		(center 297.31 137.14)
+		(end 299.31 137.14)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -4416,8 +4433,8 @@
 		(uuid "a1876dcb-a442-47a9-a37d-5724a8e61a1c")
 	)
 	(gr_circle
-		(center 33.92 332.97)
-		(end 35.92 332.97)
+		(center 177.31 457.19)
+		(end 179.31 457.19)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -4427,8 +4444,8 @@
 		(uuid "be59b0bc-1ac4-4b63-a8f5-00f4f8ea00af")
 	)
 	(gr_circle
-		(center 419.1 38.49)
-		(end 417.1 38.49)
+		(center 562.49 162.71)
+		(end 560.49 162.71)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -4438,8 +4455,8 @@
 		(uuid "cc142d7c-df45-4e7d-b235-5c7441c5f8e7")
 	)
 	(gr_circle
-		(center 418.92 308.12)
-		(end 420.92 308.12)
+		(center 562.31 432.34)
+		(end 564.31 432.34)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -4449,8 +4466,8 @@
 		(uuid "e161513b-f7f9-4322-b7d7-258ed9a3894b")
 	)
 	(gr_rect
-		(start 424 8)
-		(end 428 338)
+		(start 567.39 132.22)
+		(end 571.39 462.22)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -4460,8 +4477,8 @@
 		(uuid "e856410c-3938-4697-b60c-1b651dd5d1c1")
 	)
 	(gr_circle
-		(center 273.92 332.97)
-		(end 275.92 332.97)
+		(center 417.31 457.19)
+		(end 419.31 457.19)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -4471,8 +4488,8 @@
 		(uuid "e9817c4d-170e-4cd7-940d-df3dfadd19c4")
 	)
 	(gr_circle
-		(center 393.92 332.97)
-		(end 395.92 332.97)
+		(center 537.31 457.19)
+		(end 539.31 457.19)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -4482,8 +4499,9 @@
 		(uuid "ee47471d-c323-421d-a266-896c1d40f4ad")
 	)
 	(gr_rect
-		(start 18.36 346.63)
-		(end 303.36 411.63)
+		(start 157.89 470.85)
+		(end 442.89 535.85)
+		(locked yes)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -4493,8 +4511,8 @@
 		(uuid "d1ad31e2-3255-49b6-a327-0d6cc407800a")
 	)
 	(gr_rect
-		(start 50.09 101.01)
-		(end 124.53 202.78)
+		(start 480.06 226.115)
+		(end 554.5 327.885)
 		(stroke
 			(width 0.05)
 			(type default)
@@ -4504,8 +4522,8 @@
 		(uuid "e0cc28a4-9dfb-4710-9e09-0873295a50c6")
 	)
 	(gr_rect
-		(start 78.02 41.12)
-		(end 380.52 85.62)
+		(start 191.58 68.0275)
+		(end 494.08 112.5275)
 		(stroke
 			(width 0.15)
 			(type default)
@@ -4515,7 +4533,7 @@
 		(uuid "e24e8021-eacd-4d65-8327-885a4f99e1f8")
 	)
 	(gr_text "Back 4mm"
-		(at 434.11 341.78 0)
+		(at 577.5 466 0)
 		(layer "Dwgs.User")
 		(uuid "0df7296a-cd23-4a12-a27f-24668f1ea7ec")
 		(effects
@@ -4527,7 +4545,7 @@
 		)
 	)
 	(gr_text "Front 8mm"
-		(at 434.7 5.98 0)
+		(at 578.09 130.2 0)
 		(layer "Dwgs.User")
 		(uuid "1797ac74-2a5d-4823-9e91-c7065ac90528")
 		(effects
@@ -4539,7 +4557,7 @@
 		)
 	)
 	(gr_text "230VAC"
-		(at 365.42 321.58 0)
+		(at 508.81 445.8 0)
 		(layer "Dwgs.User")
 		(uuid "1e1ddceb-93fe-47f6-ac8b-6f4060bded48")
 		(effects
@@ -4551,7 +4569,7 @@
 		)
 	)
 	(gr_text "Sides 4mm"
-		(at 434.79 167.99 0)
+		(at 578.18 292.21 0)
 		(layer "Dwgs.User")
 		(uuid "6e6b536d-1526-47e6-9870-cbbe777f3055")
 		(effects
@@ -4562,8 +4580,21 @@
 			(justify left bottom)
 		)
 	)
+	(gr_text "12V"
+		(at 232.89 286.72 0)
+		(layer "Dwgs.User")
+		(uuid "c7a08f0f-35e5-4786-bac6-d68ba95fa450")
+		(effects
+			(font
+				(size 10 20)
+				(thickness 0.15)
+			)
+			(justify left bottom)
+		)
+	)
 	(gr_text "Dette bør være placeret rigtigt"
-		(at 138.39 376.92 0)
+		(locked yes)
+		(at 277.92 501.14 0)
 		(layer "Dwgs.User")
 		(uuid "e9451cfe-9479-4141-9cbf-75197f8217b7")
 		(effects
@@ -4572,6 +4603,111 @@
 				(thickness 0.15)
 			)
 			(justify left bottom)
+		)
+	)
+	(zone
+		(net 0)
+		(net_name "")
+		(layer "Dwgs.User")
+		(uuid "51e1de36-fdfc-4303-8504-92df9ea34926")
+		(hatch full 0.5)
+		(connect_pads
+			(clearance 0)
+		)
+		(min_thickness 0.25)
+		(filled_areas_thickness no)
+		(keepout
+			(tracks not_allowed)
+			(vias not_allowed)
+			(pads not_allowed)
+			(copperpour allowed)
+			(footprints allowed)
+		)
+		(fill
+			(thermal_gap 0.5)
+			(thermal_bridge_width 0.5)
+		)
+		(polygon
+			(pts
+				(xy 191.89 115.72) (xy 192.39 466.22) (xy 219.89 466.22) (xy 219.89 114.72)
+			)
+		)
+	)
+	(zone
+		(net 0)
+		(net_name "")
+		(layer "Dwgs.User")
+		(uuid "a30c2850-1b4d-48ec-97d0-2272165e5393")
+		(hatch full 2)
+		(connect_pads
+			(clearance 0)
+		)
+		(min_thickness 0.25)
+		(filled_areas_thickness no)
+		(keepout
+			(tracks not_allowed)
+			(vias not_allowed)
+			(pads not_allowed)
+			(copperpour allowed)
+			(footprints allowed)
+		)
+		(fill
+			(thermal_gap 0.5)
+			(thermal_bridge_width 0.5)
+		)
+		(polygon
+			(pts
+				(xy 507.39 115.72) (xy 508.03 226.165) (xy 520.12 226.165) (xy 520.39 115.72)
+			)
+		)
+	)
+	(zone
+		(net 0)
+		(net_name "")
+		(layer "Dwgs.User")
+		(uuid "fcea47ed-842e-412d-990d-2e0074bb2a0c")
+		(hatch full 2)
+		(connect_pads
+			(clearance 0)
+		)
+		(min_thickness 0.25)
+		(filled_areas_thickness no)
+		(keepout
+			(tracks not_allowed)
+			(vias not_allowed)
+			(pads not_allowed)
+			(copperpour allowed)
+			(footprints allowed)
+		)
+		(fill
+			(thermal_gap 0.5)
+			(thermal_bridge_width 0.5)
+		)
+		(polygon
+			(pts
+				(xy 220.89 114.72) (xy 220.89 465.72) (xy 233.39 466.22) (xy 232.89 114.72)
+			)
+		)
+	)
+	(group ""
+		(uuid "019cae3e-17f0-43b4-98ed-4b93304b7133")
+		(locked yes)
+		(members "0178d9a1-0823-4960-91fd-b7f50fbc3147" "0b244f52-7bcf-4ebc-bae0-528af5242794"
+			"33caed7f-2eb6-415f-9425-ff5afa25cfb2" "393d9ae8-6dc5-450a-b7bb-8013b3757848"
+			"41d10972-7f8b-4137-9934-d6d36ba9c2d3" "4276e77c-87ae-45e2-a332-f7d7eb733728"
+			"79db04f9-88b0-4108-89b1-208c8d3f9afe" "836e1fc3-3db4-4fb3-b69c-a527d19c1683"
+			"8a9ed93b-4c92-42b6-b321-873123d26493" "8fb22d34-035c-4008-80b9-fd768b0181b6"
+			"a9fe3146-8d16-4494-a28b-032b54d18ec1" "b93e75e2-fffb-4890-a5f2-d656b9c1f135"
+			"d1ad31e2-3255-49b6-a327-0d6cc407800a" "e2e92605-f9eb-4c74-9e4c-068cba625436"
+			"e9451cfe-9479-4141-9cbf-75197f8217b7" "f7926187-53da-48fa-8da0-5dd3964f5e0f"
+			"fb9916a2-8b06-47a1-9873-884921a5cd4b" "fecb6f78-bb30-4566-9272-f1d96e3a9dd9"
+		)
+	)
+	(group ""
+		(uuid "14e2fea2-387f-4e45-9f9b-a4db2aeb5297")
+		(members "5f884669-82b4-4cd6-b924-df44329230c7" "99782812-2ec7-4a5f-94e7-18d397359eed"
+			"cde6c49f-268b-47aa-93d0-38b02a22899c" "d060b949-19f8-4fd1-8f71-3cafdff6d0f9"
+			"e24e8021-eacd-4d65-8327-885a4f99e1f8"
 		)
 	)
 )
