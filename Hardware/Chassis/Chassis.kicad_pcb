@@ -82,7 +82,6 @@
 	)
 	(net 0 "")
 	(footprint "RCA ALI:RCA Connector ALI"
-		(locked yes)
 		(layer "F.Cu")
 		(uuid "0178d9a1-0823-4960-91fd-b7f50fbc3147")
 		(at 386.47 483.55)
@@ -220,7 +219,6 @@
 		)
 	)
 	(footprint "RCA ALI:RCA Connector ALI"
-		(locked yes)
 		(layer "F.Cu")
 		(uuid "0b244f52-7bcf-4ebc-bae0-528af5242794")
 		(at 210.33 491.87)
@@ -358,7 +356,6 @@
 		)
 	)
 	(footprint "RCA ALI:RCA Connector ALI"
-		(locked yes)
 		(layer "F.Cu")
 		(uuid "33caed7f-2eb6-415f-9425-ff5afa25cfb2")
 		(at 210.33 510.07)
@@ -496,7 +493,6 @@
 		)
 	)
 	(footprint "Connector_M8:M8 3 pin"
-		(locked yes)
 		(layer "F.Cu")
 		(uuid "393d9ae8-6dc5-450a-b7bb-8013b3757848")
 		(at 433.72 513.46 180)
@@ -636,7 +632,6 @@
 		)
 	)
 	(footprint "RCA ALI:RCA Connector ALI"
-		(locked yes)
 		(layer "F.Cu")
 		(uuid "41d10972-7f8b-4137-9934-d6d36ba9c2d3")
 		(at 261.33 510.07)
@@ -774,7 +769,6 @@
 		)
 	)
 	(footprint "RCA ALI:RCA Connector ALI"
-		(locked yes)
 		(layer "F.Cu")
 		(uuid "4276e77c-87ae-45e2-a332-f7d7eb733728")
 		(at 386.47 513.55)
@@ -1178,7 +1172,6 @@
 		)
 	)
 	(footprint "RCA ALI:RCA Connector ALI"
-		(locked yes)
 		(layer "F.Cu")
 		(uuid "836e1fc3-3db4-4fb3-b69c-a527d19c1683")
 		(at 235.83 491.87)
@@ -1316,7 +1309,6 @@
 		)
 	)
 	(footprint "RCA ALI:RCA Connector ALI"
-		(locked yes)
 		(layer "F.Cu")
 		(uuid "8a9ed93b-4c92-42b6-b321-873123d26493")
 		(at 184.83 510.07)
@@ -1454,7 +1446,6 @@
 		)
 	)
 	(footprint "RCA ALI:RCA Connector ALI"
-		(locked yes)
 		(layer "F.Cu")
 		(uuid "8fb22d34-035c-4008-80b9-fd768b0181b6")
 		(at 184.83 491.87)
@@ -1859,7 +1850,6 @@
 		)
 	)
 	(footprint "RCA ALI:RCA Connector ALI"
-		(locked yes)
 		(layer "F.Cu")
 		(uuid "a9fe3146-8d16-4494-a28b-032b54d18ec1")
 		(at 235.83 510.07)
@@ -1997,7 +1987,6 @@
 		)
 	)
 	(footprint "RCA ALI:RCA Connector ALI"
-		(locked yes)
 		(layer "F.Cu")
 		(uuid "e2e92605-f9eb-4c74-9e4c-068cba625436")
 		(at 261.33 491.87)
@@ -2135,7 +2124,6 @@
 		)
 	)
 	(footprint "Connector_M8:M8 4 pin"
-		(locked yes)
 		(layer "F.Cu")
 		(uuid "f7926187-53da-48fa-8da0-5dd3964f5e0f")
 		(at 416.25 513.5 180)
@@ -2284,7 +2272,6 @@
 		)
 	)
 	(footprint "Connector_M8:M8 3 pin"
-		(locked yes)
 		(layer "F.Cu")
 		(uuid "fb9916a2-8b06-47a1-9873-884921a5cd4b")
 		(at 433.62 483.7 180)
@@ -2423,7 +2410,6 @@
 		)
 	)
 	(footprint "Connector_M8:M8 4 pin"
-		(locked yes)
 		(layer "F.Cu")
 		(uuid "fecb6f78-bb30-4566-9272-f1d96e3a9dd9")
 		(at 416.24 483.62 180)
@@ -2572,10 +2558,9 @@
 		)
 	)
 	(footprint "Connector_IDC:IDC-Header_2x08_P2.54mm_Vertical"
-		(locked yes)
 		(layer "B.Cu")
 		(uuid "79db04f9-88b0-4108-89b1-208c8d3f9afe")
-		(at 211.09 477.115 90)
+		(at 214.77 477.115 90)
 		(descr "Through hole IDC box header, 2x08, 2.54mm pitch, DIN 41651 / IEC 60603-13, double rows, https://docs.google.com/spreadsheets/d/16SsEcesNF15N3Lb4niX7dcUr-NY5_MFPQhobNuNppn4/edit#gid=0")
 		(tags "Through hole vertical IDC box header THT 2x08 2.54mm double row")
 		(property "Reference" "J3"
@@ -3146,7 +3131,6 @@
 		)
 	)
 	(footprint "THEPREAMP_POWER_CON:TBP01R2-508-02BK (VERT)"
-		(locked yes)
 		(layer "B.Cu")
 		(uuid "b93e75e2-fffb-4890-a5f2-d656b9c1f135")
 		(at 184.08 475.72 180)
@@ -4501,7 +4485,6 @@
 	(gr_rect
 		(start 157.89 470.85)
 		(end 442.89 535.85)
-		(locked yes)
 		(stroke
 			(width 0.1)
 			(type default)
@@ -4593,7 +4576,6 @@
 		)
 	)
 	(gr_text "Dette bør være placeret rigtigt"
-		(locked yes)
 		(at 277.92 501.14 0)
 		(layer "Dwgs.User")
 		(uuid "e9451cfe-9479-4141-9cbf-75197f8217b7")
@@ -4691,7 +4673,6 @@
 	)
 	(group ""
 		(uuid "019cae3e-17f0-43b4-98ed-4b93304b7133")
-		(locked yes)
 		(members "0178d9a1-0823-4960-91fd-b7f50fbc3147" "0b244f52-7bcf-4ebc-bae0-528af5242794"
 			"33caed7f-2eb6-415f-9425-ff5afa25cfb2" "393d9ae8-6dc5-450a-b7bb-8013b3757848"
 			"41d10972-7f8b-4137-9934-d6d36ba9c2d3" "4276e77c-87ae-45e2-a332-f7d7eb733728"
