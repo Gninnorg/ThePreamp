@@ -5,6 +5,126 @@
 	(uuid "f6c644f4-3036-41a6-9e14-2c08c079c6cd")
 	(paper "A3")
 	(lib_symbols
+		(symbol "+12V_1"
+			(power)
+			(pin_numbers hide)
+			(pin_names
+				(offset 0) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "#PWR"
+				(at 0 -3.81 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Value" "+12V"
+				(at 0 3.556 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Power symbol creates a global label with name \"+12V\""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "global power"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "+12V_1_0_1"
+				(polyline
+					(pts
+						(xy -0.762 1.27) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 2.54) (xy 0.762 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "+12V_1_1_1"
+				(pin power_in line
+					(at 0 0 90)
+					(length 0)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
 		(symbol "Connector:Conn_01x02_Pin"
 			(pin_names
 				(offset 1.016) hide)
@@ -3825,138 +3945,6 @@
 				)
 			)
 		)
-		(symbol "POWER_CONN_5_08:TBP01R2-508-02BK"
-			(pin_names
-				(offset 1.016)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "J"
-				(at -5.588 5.08 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left bottom)
-				)
-			)
-			(property "Value" "TBP01R2-508-02BK"
-				(at -5.08 -5.08 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left bottom)
-				)
-			)
-			(property "Footprint" "CUI_TBP01R2-508-02BK"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left bottom)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left bottom)
-					(hide yes)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "STANDARD" "Manufacturer Recommendations"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left bottom)
-					(hide yes)
-				)
-			)
-			(property "MANUFACTURER" "CUI"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(justify left bottom)
-					(hide yes)
-				)
-			)
-			(property "ki_locked" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "TBP01R2-508-02BK_0_0"
-				(rectangle
-					(start -5.08 -2.54)
-					(end 5.08 5.08)
-					(stroke
-						(width 0.254)
-						(type solid)
-					)
-					(fill
-						(type background)
-					)
-				)
-				(pin passive line
-					(at -10.16 2.54 0)
-					(length 5.08)
-					(name "1"
-						(effects
-							(font
-								(size 1.016 1.016)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.016 1.016)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at -10.16 0 0)
-					(length 5.08)
-					(name "2"
-						(effects
-							(font
-								(size 1.016 1.016)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.016 1.016)
-							)
-						)
-					)
-				)
-			)
-		)
 		(symbol "RCA ALI:RCA_Connector_ALI"
 			(pin_names
 				(offset 1.016) hide)
@@ -5046,22 +5034,16 @@
 		(uuid "5f6afe3e-3cb2-473a-819c-dc94ae52a6be")
 	)
 	(junction
-		(at 128.27 228.092)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "8141c6bf-08bb-4c9b-a808-6d7e10b21678")
-	)
-	(junction
 		(at 128.27 238.252)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "88ae3c97-4a08-4680-9195-45dbfe5b7540")
 	)
 	(junction
-		(at 128.27 223.012)
+		(at 125.73 220.472)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "9448b97e-d183-4e83-8065-c52962a0bfec")
+		(uuid "91876c46-edf4-4f8d-b9b5-ceb75e6a5bb6")
 	)
 	(junction
 		(at 327.66 63.5)
@@ -5313,16 +5295,6 @@
 	)
 	(wire
 		(pts
-			(xy 128.27 220.472) (xy 128.27 223.012)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "12e53eab-0b4f-45ef-bcae-8b40f89ac64e")
-	)
-	(wire
-		(pts
 			(xy 86.614 200.66) (xy 99.06 200.66)
 		)
 		(stroke
@@ -5563,13 +5535,13 @@
 	)
 	(wire
 		(pts
-			(xy 125.73 223.012) (xy 128.27 223.012)
+			(xy 125.73 223.012) (xy 125.73 220.472)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "8ef62a17-6878-4c13-9525-596b6d0d24b3")
+		(uuid "8438b766-9867-4f12-b386-cda497dec9c3")
 	)
 	(wire
 		(pts
@@ -5643,16 +5615,6 @@
 	)
 	(wire
 		(pts
-			(xy 125.73 220.472) (xy 128.27 220.472)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b751a5e4-5500-4749-89db-0e946740cca5")
-	)
-	(wire
-		(pts
 			(xy 125.73 235.712) (xy 128.27 235.712)
 		)
 		(stroke
@@ -5660,16 +5622,6 @@
 			(type default)
 		)
 		(uuid "b84885e4-db9c-4721-8621-fb557c20edaf")
-	)
-	(wire
-		(pts
-			(xy 128.27 223.012) (xy 128.27 228.092)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ba99da90-6e3a-4f21-bc2c-14b3b0c670f7")
 	)
 	(wire
 		(pts
@@ -5793,6 +5745,16 @@
 	)
 	(wire
 		(pts
+			(xy 125.73 220.472) (xy 125.73 220.218)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ed73ab41-12bd-4e02-8b9e-212d334abf5e")
+	)
+	(wire
+		(pts
 			(xy 238.252 83.82) (xy 238.252 87.63)
 		)
 		(stroke
@@ -5800,6 +5762,16 @@
 			(type default)
 		)
 		(uuid "f699494a-77d6-4c73-bd50-29c1c1c5b879")
+	)
+	(wire
+		(pts
+			(xy 125.73 220.218) (xy 131.318 220.218)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fc082f3a-dbb9-4335-a010-b64e6b6b3ca8")
 	)
 	(text "https://ez.analog.com/interface-isolation/f/q-a/568260/spi-bus-with-adum1401"
 		(exclude_from_sim no)
@@ -8519,73 +8491,6 @@
 		)
 	)
 	(symbol
-		(lib_id "power:+12V")
-		(at 184.404 217.678 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "08738b8a-949a-45f9-8944-17dda3f8a3cb")
-		(property "Reference" "#PWR031"
-			(at 188.214 217.678 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "+12V"
-			(at 180.086 217.6779 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 184.404 217.678 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 184.404 217.678 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 184.404 217.678 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "9f5b9d64-cb93-4317-a6cc-64a29c36b74a")
-		)
-		(instances
-			(project "ThePreamp-Analogue"
-				(path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
-					(reference "#PWR031")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "RCA ALI:RCA_Connector_ALI")
 		(at 101.854 59.182 0)
 		(unit 1)
@@ -10738,6 +10643,74 @@
 		)
 	)
 	(symbol
+		(lib_name "+12V_1")
+		(lib_id "power:+12V")
+		(at 131.318 220.218 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "633c0953-f761-4fb4-bd6f-d4dd4639da5f")
+		(property "Reference" "#PWR023"
+			(at 127.508 220.218 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+12V"
+			(at 134.493 220.218 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 131.318 220.218 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 131.318 220.218 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+12V\""
+			(at 131.318 220.218 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "d3940f2c-4db4-4388-9381-375441850f58")
+		)
+		(instances
+			(project "ThePreamp-Analogue"
+				(path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
+					(reference "#PWR023")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R")
 		(at 331.47 63.5 270)
 		(unit 1)
@@ -11348,97 +11321,6 @@
 			(project "ThePreamp-Analogue"
 				(path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
 					(reference "J5")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "POWER_CONN_5_08:TBP01R2-508-02BK")
-		(at 194.564 220.218 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "901d2acf-e5dc-4ad8-9ff5-8614d5929f26")
-		(property "Reference" "J8"
-			(at 188.976 215.138 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left bottom)
-			)
-		)
-		(property "Value" "Relay Power In"
-			(at 215.9 219.964 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" "THEPREAMP_POWER_CON:TBP01R2-508-02BK (VERT)"
-			(at 194.564 220.218 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left bottom)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 194.564 220.218 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left bottom)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 194.564 220.218 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "STANDARD" "Manufacturer Recommendations"
-			(at 194.564 220.218 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left bottom)
-				(hide yes)
-			)
-		)
-		(property "MANUFACTURER" "CUI"
-			(at 194.564 220.218 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left bottom)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "7728b516-684d-4517-a1f6-009172e90daf")
-		)
-		(pin "2"
-			(uuid "b9c986bb-61e4-43cf-b692-b33b63eea180")
-		)
-		(instances
-			(project "ThePreamp-Analogue"
-				(path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
-					(reference "J8")
 					(unit 1)
 				)
 			)
@@ -14409,73 +14291,6 @@
 			(project "ThePreamp-Analogue"
 				(path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
 					(reference "#PWR014")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 184.404 220.218 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "eb3774f0-b667-49ae-8ec5-fc941c96e709")
-		(property "Reference" "#PWR032"
-			(at 178.054 220.218 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 180.848 220.2179 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(property "Footprint" ""
-			(at 184.404 220.218 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 184.404 220.218 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 184.404 220.218 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "971528f2-e740-4f30-a599-4304cbdd9dba")
-		)
-		(instances
-			(project "ThePreamp-Analogue"
-				(path "/f6c644f4-3036-41a6-9e14-2c08c079c6cd"
-					(reference "#PWR032")
 					(unit 1)
 				)
 			)
