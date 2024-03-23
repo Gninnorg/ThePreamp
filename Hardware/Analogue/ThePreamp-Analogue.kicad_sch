@@ -5034,18 +5034,6 @@
 		(uuid "5f6afe3e-3cb2-473a-819c-dc94ae52a6be")
 	)
 	(junction
-		(at 128.27 238.252)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "88ae3c97-4a08-4680-9195-45dbfe5b7540")
-	)
-	(junction
-		(at 125.73 220.472)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "91876c46-edf4-4f8d-b9b5-ceb75e6a5bb6")
-	)
-	(junction
 		(at 327.66 63.5)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -5058,22 +5046,22 @@
 		(uuid "968a7d65-7c82-4b0b-86c5-3974413f8628")
 	)
 	(junction
-		(at 131.318 225.552)
+		(at 128.27 221.742)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "ad17fe55-7662-4365-83e3-82e8d88455bd")
+		(uuid "990a6adb-a61e-41e0-a41d-eb803b66e932")
+	)
+	(junction
+		(at 128.27 228.092)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "be9f5423-a438-4b18-b747-7bfd40f770ad")
 	)
 	(junction
 		(at 128.27 235.712)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "cbe2eb95-de01-4179-8fe3-7475d7e54c3b")
-	)
-	(junction
-		(at 128.27 233.172)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "d63bec62-92b3-4ad0-96de-962c2eb9b655")
 	)
 	(junction
 		(at 327.66 59.69)
@@ -5265,7 +5253,7 @@
 	)
 	(wire
 		(pts
-			(xy 131.318 230.632) (xy 131.318 225.552)
+			(xy 128.27 230.632) (xy 128.27 228.092)
 		)
 		(stroke
 			(width 0)
@@ -5282,6 +5270,16 @@
 			(type default)
 		)
 		(uuid "0f560957-a8c5-442f-b20c-c2d88613742c")
+	)
+	(wire
+		(pts
+			(xy 128.27 220.472) (xy 125.73 220.472)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "11df5a21-95a2-4dc2-b50e-55859529027e")
 	)
 	(wire
 		(pts
@@ -5312,16 +5310,6 @@
 			(type default)
 		)
 		(uuid "17ed3508-fa2e-4593-a799-bfd39a6cc14d")
-	)
-	(wire
-		(pts
-			(xy 131.064 238.252) (xy 128.27 238.252)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "196fa825-3586-48d7-9f16-4626c397746a")
 	)
 	(wire
 		(pts
@@ -5385,16 +5373,6 @@
 	)
 	(wire
 		(pts
-			(xy 128.27 228.092) (xy 128.27 233.172)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "2b1b350a-b2b6-4da3-8a15-f328526135b6")
-	)
-	(wire
-		(pts
 			(xy 125.73 233.172) (xy 128.27 233.172)
 		)
 		(stroke
@@ -5455,7 +5433,7 @@
 	)
 	(wire
 		(pts
-			(xy 125.73 230.632) (xy 131.318 230.632)
+			(xy 125.73 230.632) (xy 128.27 230.632)
 		)
 		(stroke
 			(width 0)
@@ -5535,7 +5513,17 @@
 	)
 	(wire
 		(pts
-			(xy 125.73 223.012) (xy 125.73 220.472)
+			(xy 128.27 228.092) (xy 128.27 225.552)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "83022e21-e32d-4c40-b037-df88b37ed7c2")
+	)
+	(wire
+		(pts
+			(xy 128.27 223.012) (xy 128.27 221.742)
 		)
 		(stroke
 			(width 0)
@@ -5592,6 +5580,16 @@
 			(type default)
 		)
 		(uuid "af38a2d6-81ad-49a4-9ea1-e7047578364f")
+	)
+	(wire
+		(pts
+			(xy 128.27 223.012) (xy 125.73 223.012)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b4314d1c-3365-4ccd-a080-89e80f96f312")
 	)
 	(wire
 		(pts
@@ -5685,7 +5683,7 @@
 	)
 	(wire
 		(pts
-			(xy 125.73 225.552) (xy 131.318 225.552)
+			(xy 125.73 225.552) (xy 128.27 225.552)
 		)
 		(stroke
 			(width 0)
@@ -5745,7 +5743,7 @@
 	)
 	(wire
 		(pts
-			(xy 125.73 220.472) (xy 125.73 220.218)
+			(xy 128.27 221.742) (xy 128.27 220.472)
 		)
 		(stroke
 			(width 0)
@@ -5762,16 +5760,6 @@
 			(type default)
 		)
 		(uuid "f699494a-77d6-4c73-bd50-29c1c1c5b879")
-	)
-	(wire
-		(pts
-			(xy 125.73 220.218) (xy 131.318 220.218)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "fc082f3a-dbb9-4335-a010-b64e6b6b3ca8")
 	)
 	(text "https://ez.analog.com/interface-isolation/f/q-a/568260/spi-bus-with-adum1401"
 		(exclude_from_sim no)
@@ -10645,7 +10633,7 @@
 	(symbol
 		(lib_name "+12V_1")
 		(lib_id "power:+12V")
-		(at 131.318 220.218 270)
+		(at 128.27 235.712 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -10654,7 +10642,7 @@
 		(fields_autoplaced yes)
 		(uuid "633c0953-f761-4fb4-bd6f-d4dd4639da5f")
 		(property "Reference" "#PWR023"
-			(at 127.508 220.218 0)
+			(at 124.46 235.712 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10663,7 +10651,7 @@
 			)
 		)
 		(property "Value" "+12V"
-			(at 134.493 220.218 90)
+			(at 131.445 235.712 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10672,7 +10660,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 131.318 220.218 0)
+			(at 128.27 235.712 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10681,7 +10669,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 131.318 220.218 0)
+			(at 128.27 235.712 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -10690,7 +10678,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+12V\""
-			(at 131.318 220.218 0)
+			(at 128.27 235.712 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12392,7 +12380,7 @@
 	)
 	(symbol
 		(lib_id "power:+3.3V")
-		(at 131.318 225.552 270)
+		(at 128.27 228.092 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -12401,7 +12389,7 @@
 		(fields_autoplaced yes)
 		(uuid "b54f1b0a-5ba5-4c35-9674-88610d8bfd1a")
 		(property "Reference" "#PWR022"
-			(at 127.508 225.552 0)
+			(at 124.46 228.092 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12410,7 +12398,7 @@
 			)
 		)
 		(property "Value" "+3.3V"
-			(at 134.493 225.552 90)
+			(at 131.445 228.092 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12419,7 +12407,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 131.318 225.552 0)
+			(at 128.27 228.092 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12428,7 +12416,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 131.318 225.552 0)
+			(at 128.27 228.092 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12437,7 +12425,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 131.318 225.552 0)
+			(at 128.27 228.092 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13084,7 +13072,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 131.064 238.252 90)
+		(at 128.27 221.742 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -13092,7 +13080,7 @@
 		(dnp no)
 		(uuid "c8549d6c-181b-476d-b7e4-f2cd26b3bdf1")
 		(property "Reference" "#PWR021"
-			(at 137.414 238.252 0)
+			(at 134.62 221.742 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13101,7 +13089,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 134.3152 238.125 90)
+			(at 131.5212 221.615 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13110,7 +13098,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 131.064 238.252 0)
+			(at 128.27 221.742 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13119,7 +13107,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 131.064 238.252 0)
+			(at 128.27 221.742 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -13128,7 +13116,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 131.064 238.252 0)
+			(at 128.27 221.742 0)
 			(effects
 				(font
 					(size 1.27 1.27)

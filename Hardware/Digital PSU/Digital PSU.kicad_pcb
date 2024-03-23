@@ -8849,7 +8849,7 @@
 		)
 		(fp_arc
 			(start -14.45 -8.074396)
-			(mid -13.587327 -8.949835)
+			(mid -13.587327 -8.949836)
 			(end -12.7 -8.099396)
 			(stroke
 				(width 0.12)
@@ -8882,7 +8882,7 @@
 		)
 		(fp_arc
 			(start -9.45 -8.125)
-			(mid -8.587327 -9.00044)
+			(mid -8.587328 -9.00044)
 			(end -7.7 -8.15)
 			(stroke
 				(width 0.12)
@@ -18469,7 +18469,7 @@
 		)
 		(fp_arc
 			(start -9.45 -8.125)
-			(mid -8.587327 -9.00044)
+			(mid -8.587328 -9.00044)
 			(end -7.7 -8.15)
 			(stroke
 				(width 0.12)
@@ -18502,7 +18502,7 @@
 		)
 		(fp_arc
 			(start -14.45 -8.074396)
-			(mid -13.587327 -8.949835)
+			(mid -13.587327 -8.949836)
 			(end -12.7 -8.099396)
 			(stroke
 				(width 0.12)
@@ -18845,7 +18845,7 @@
 		)
 		(fp_arc
 			(start -14.45 -8.074396)
-			(mid -13.587327 -8.949828)
+			(mid -13.587327 -8.949829)
 			(end -12.7 -8.099396)
 			(stroke
 				(width 0.12)
@@ -18856,7 +18856,7 @@
 		)
 		(fp_arc
 			(start -9.45 -8.125)
-			(mid -8.587327 -9.000433)
+			(mid -8.587327 -9.000434)
 			(end -7.7 -8.15)
 			(stroke
 				(width 0.12)
@@ -19221,7 +19221,7 @@
 		)
 		(fp_arc
 			(start -14.45 -8.074396)
-			(mid -13.587327 -8.949828)
+			(mid -13.587327 -8.949829)
 			(end -12.7 -8.099396)
 			(stroke
 				(width 0.12)
@@ -19232,7 +19232,7 @@
 		)
 		(fp_arc
 			(start -9.45 -8.125)
-			(mid -8.587327 -9.000433)
+			(mid -8.587327 -9.000434)
 			(end -7.7 -8.15)
 			(stroke
 				(width 0.12)
@@ -19597,7 +19597,7 @@
 		)
 		(fp_arc
 			(start -9.45 -8.125)
-			(mid -8.587327 -9.00044)
+			(mid -8.587328 -9.00044)
 			(end -7.7 -8.15)
 			(stroke
 				(width 0.12)
@@ -19630,7 +19630,7 @@
 		)
 		(fp_arc
 			(start -14.45 -8.074396)
-			(mid -13.587327 -8.949835)
+			(mid -13.587327 -8.949836)
 			(end -12.7 -8.099396)
 			(stroke
 				(width 0.12)
@@ -26265,7 +26265,7 @@
 		)
 		(fp_arc
 			(start -14.45 -8.074396)
-			(mid -13.587327 -8.949835)
+			(mid -13.587327 -8.949836)
 			(end -12.7 -8.099396)
 			(stroke
 				(width 0.12)
@@ -26298,7 +26298,7 @@
 		)
 		(fp_arc
 			(start -9.45 -8.125)
-			(mid -8.587327 -9.00044)
+			(mid -8.587328 -9.00044)
 			(end -7.7 -8.15)
 			(stroke
 				(width 0.12)
@@ -30468,7 +30468,18 @@
 		(layer "Edge.Cuts")
 		(uuid "6bf6258c-1b11-4cdf-9046-3ce406578408")
 	)
-	(gr_text "TO-DO: Mounting holes on trafo pcb and L-adapter pcb + cut-outs to allow transistors to be mounted on bottom of chassis + copper fills"
+	(gr_rect
+		(start 20.34 24.63)
+		(end 102.58 112.06)
+		(stroke
+			(width 0.2)
+			(type default)
+		)
+		(fill none)
+		(layer "F.Fab")
+		(uuid "09d43a81-c6c4-42b8-9f02-0a5e27467464")
+	)
+	(gr_text "TO-DO: Mounting holes on trafo pcb and L-adapter pcb + cut-outs to allow transistors to be mounted on bottom of chassis + copper fills + led wiring"
 		(at 44.88 110.81 0)
 		(layer "F.SilkS")
 		(uuid "ac69a482-a9e8-48d6-8b94-e25223d888f5")
