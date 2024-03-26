@@ -1,0 +1,1748 @@
+(kicad_sch
+	(version 20231120)
+	(generator "eeschema")
+	(generator_version "8.0")
+	(uuid "5cc6b3bf-721e-4dc8-af0a-72c27b8cc795")
+	(paper "A4")
+	(lib_symbols
+		(symbol "Connector:Conn_01x02_Socket"
+			(pin_names
+				(offset 1.016) hide)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "J"
+				(at 0 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Conn_01x02_Socket"
+				(at 0 -5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Generic connector, single row, 01x02, script generated"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_locked" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "connector"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Connector*:*_1x??_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Conn_01x02_Socket_1_1"
+				(arc
+					(start 0 -2.032)
+					(mid -0.5058 -2.54)
+					(end 0 -3.048)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 -2.54) (xy -0.508 -2.54)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 0) (xy -0.508 0)
+					)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 0 0.508)
+					(mid -0.5058 0)
+					(end 0 -0.508)
+					(stroke
+						(width 0.1524)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 3.81)
+					(name "Pin_1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -5.08 -2.54 0)
+					(length 3.81)
+					(name "Pin_2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Device:Fuse"
+			(pin_numbers hide)
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "F"
+				(at 2.032 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Fuse"
+				(at -1.905 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at -1.778 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Fuse"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "fuse"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "*Fuse*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Fuse_0_1"
+				(rectangle
+					(start -0.762 -2.54)
+					(end 0.762 2.54)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 2.54) (xy 0 -2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "Fuse_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 1.27)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 1.27)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+		(symbol "Mechanical:MountingHole"
+			(pin_names
+				(offset 1.016)
+			)
+			(exclude_from_sim yes)
+			(in_bom no)
+			(on_board yes)
+			(property "Reference" "H"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "MountingHole"
+				(at 0 3.175 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Mounting Hole without connection"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "mounting hole"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "MountingHole*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "MountingHole_0_1"
+				(circle
+					(center 0 0)
+					(radius 1.27)
+					(stroke
+						(width 1.27)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+		)
+		(symbol "Transformer_Hahn_BV_EL_603_1027:Transformer_Hahn_BV_EL_603_COMBINED"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "U"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Transformer_Hahn_BV_EL_603_COMBINED_0_1"
+				(polyline
+					(pts
+						(xy 0 1.27) (xy 1.27 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 6.35) (xy 1.27 6.35)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 3.81 1.27) (xy 5.08 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 3.81 6.35) (xy 5.08 6.35)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 1.27 1.27)
+					(mid 1.9023 1.905)
+					(end 1.27 2.54)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 1.27 2.54)
+					(mid 1.9023 3.175)
+					(end 1.27 3.81)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(rectangle
+					(start 2.286 6.35)
+					(end 2.794 1.27)
+					(stroke
+						(width 0.0254)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+			)
+			(symbol "Transformer_Hahn_BV_EL_603_COMBINED_1_1"
+				(arc
+					(start 1.27 3.81)
+					(mid 1.9023 4.445)
+					(end 1.27 5.08)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 1.27 5.08)
+					(mid 1.9023 5.715)
+					(end 1.27 6.35)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 1.397 5.715)
+					(radius 0.127)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 3.683 5.715)
+					(radius 0.127)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 3.81 2.54)
+					(mid 3.1777 1.905)
+					(end 3.81 1.27)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 3.81 3.81)
+					(mid 3.1777 3.175)
+					(end 3.81 2.54)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 3.81 5.08)
+					(mid 3.1777 4.445)
+					(end 3.81 3.81)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(arc
+					(start 3.81 6.35)
+					(mid 3.1777 5.715)
+					(end 3.81 5.08)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(text "15V AC"
+					(at 11.684 3.81 0)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(text "18V AC"
+					(at 11.684 -0.508 0)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(text "18V AC"
+					(at 11.684 8.89 0)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(text "230V AC"
+					(at -6.096 3.81 0)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(pin passive line
+					(at -2.54 6.35 0)
+					(length 2.54)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 7.62 1.27 180)
+					(length 2.54)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "13"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 7.62 -2.54 180)
+					(length 2.54)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "14"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin no_connect line
+					(at 3.81 6.35 270)
+					(length 2.54) hide
+					(name "NC"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin no_connect line
+					(at 1.27 1.27 90)
+					(length 2.54) hide
+					(name "NC"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin no_connect line
+					(at 3.81 1.27 90)
+					(length 2.54) hide
+					(name "NC"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin no_connect line
+					(at 1.27 6.35 270)
+					(length 2.54) hide
+					(name "NC"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -2.54 1.27 0)
+					(length 2.54)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 7.62 11.43 180)
+					(length 2.54)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 7.62 6.35 180)
+					(length 2.54)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "9"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+	)
+	(junction
+		(at 103.378 103.886)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "26625317-eadc-463c-a80c-f17f24fa3969")
+	)
+	(junction
+		(at 106.68 98.806)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "5e7531de-9244-490e-bb04-8414d82e894e")
+	)
+	(wire
+		(pts
+			(xy 106.68 96.012) (xy 106.934 96.012)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "092c6cb2-758c-4433-82c3-4eb9bdfca087")
+	)
+	(wire
+		(pts
+			(xy 64.262 101.346) (xy 64.262 98.806)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "10563fa9-4365-41ff-ae05-70eca7b09754")
+	)
+	(wire
+		(pts
+			(xy 64.262 98.806) (xy 68.58 98.806)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2309c93f-e502-4533-aac7-a8a238f9c1ea")
+	)
+	(wire
+		(pts
+			(xy 106.68 98.806) (xy 106.68 100.076)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2bda478c-7acb-4142-ab4b-a40d2943d65e")
+	)
+	(wire
+		(pts
+			(xy 76.2 98.806) (xy 86.868 98.806)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "54796055-25a8-44b9-8505-4c665f353c8e")
+	)
+	(wire
+		(pts
+			(xy 97.028 93.726) (xy 105.918 93.726)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "56edf6b4-5eba-4c68-9e73-92a8ec7e8453")
+	)
+	(wire
+		(pts
+			(xy 97.028 107.696) (xy 109.22 107.696)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5c0293e0-5461-4523-9550-27aa1c9db18d")
+	)
+	(wire
+		(pts
+			(xy 106.68 103.886) (xy 103.378 103.886)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5d6c3e99-8ac0-41ad-91b3-618d416a62e7")
+	)
+	(wire
+		(pts
+			(xy 97.028 98.806) (xy 106.68 98.806)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5f1c63db-a611-420d-95d2-c2ebc760a74d")
+	)
+	(wire
+		(pts
+			(xy 78.486 103.886) (xy 86.868 103.886)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "70edfd64-6da6-49a2-bf07-78bbaf263c6d")
+	)
+	(wire
+		(pts
+			(xy 105.918 93.472) (xy 106.934 93.472)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7ade1170-7014-4ef5-ac57-591e4a938128")
+	)
+	(wire
+		(pts
+			(xy 103.378 103.886) (xy 103.378 110.236)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8ac4bace-7cdb-47a7-839f-30f2120e60b2")
+	)
+	(wire
+		(pts
+			(xy 103.378 103.886) (xy 97.028 103.886)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "93874439-bef8-4b85-8f7b-e9dc0a6bf3ed")
+	)
+	(wire
+		(pts
+			(xy 61.722 101.346) (xy 64.262 101.346)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9602971b-b293-4ac1-b738-21a048e765c6")
+	)
+	(wire
+		(pts
+			(xy 103.378 110.236) (xy 109.22 110.236)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9aa282f4-7026-40ee-9e8c-3fa04b95066c")
+	)
+	(wire
+		(pts
+			(xy 78.486 100.584) (xy 78.486 103.886)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9d4e9b1e-a2f2-45ca-af56-368b536c340f")
+	)
+	(wire
+		(pts
+			(xy 106.68 98.806) (xy 106.68 96.012)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a42d5604-ae17-4ecd-baf5-cc53c055cbb8")
+	)
+	(wire
+		(pts
+			(xy 63.246 100.584) (xy 78.486 100.584)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c4922a8b-21b8-443b-9e8d-aa1b98df3bb7")
+	)
+	(wire
+		(pts
+			(xy 61.722 98.806) (xy 63.246 98.806)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ccf5da5e-929c-4db5-9c53-db151b35e924")
+	)
+	(wire
+		(pts
+			(xy 106.68 102.616) (xy 106.68 103.886)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e512b4ad-8629-489b-b4f7-e676b0f49250")
+	)
+	(wire
+		(pts
+			(xy 105.918 93.726) (xy 105.918 93.472)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fa767005-1cad-4723-a503-964e4473b2e0")
+	)
+	(wire
+		(pts
+			(xy 63.246 98.806) (xy 63.246 100.584)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "fe68e9b6-2c7c-4ca1-9080-abc8d6c92b38")
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Socket")
+		(at 56.642 101.346 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "17362b4c-6f7b-4cc2-b79f-4447c155a042")
+		(property "Reference" "J5"
+			(at 56.896 96.266 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "230V AC"
+			(at 54.102 99.822 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "THE_PREAMP_CONN_POWER_5_08:TBP01R1-508-02BK"
+			(at 56.642 101.346 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 56.642 101.346 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x02, script generated"
+			(at 56.642 101.346 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "7db033d1-e06a-4838-9fb4-dc5eb4ccf10e")
+		)
+		(pin "2"
+			(uuid "3cd53f1d-9213-4fd1-8478-345ae7de3142")
+		)
+		(instances
+			(project "Digital PSU - Transformer"
+				(path "/5cc6b3bf-721e-4dc8-af0a-72c27b8cc795"
+					(reference "J5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Socket")
+		(at 114.3 110.236 0)
+		(mirror x)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "23bfa132-5b9d-4188-ac45-191a20b601f1")
+		(property "Reference" "J11"
+			(at 116.586 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "18V AC"
+			(at 119.38 110.236 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "THE_PREAMP_CONN_POWER_5_08:TBP01R1-508-02BK"
+			(at 114.3 110.236 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 114.3 110.236 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x02, script generated"
+			(at 114.3 110.236 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "99b48e78-2889-47c9-afdf-5900ddf1866b")
+		)
+		(pin "2"
+			(uuid "791e6d77-04c1-4bb8-9f3b-8a1865a1497d")
+		)
+		(instances
+			(project "Digital PSU - Transformer"
+				(path "/5cc6b3bf-721e-4dc8-af0a-72c27b8cc795"
+					(reference "J11")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Socket")
+		(at 111.76 100.076 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "6d5558ac-ca6f-492a-a71b-f154dc7cd83f")
+		(property "Reference" "J4"
+			(at 111.506 105.156 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "15V AC"
+			(at 114.3 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "THE_PREAMP_CONN_POWER_5_08:TBP01R1-508-02BK"
+			(at 111.76 100.076 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 111.76 100.076 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x02, script generated"
+			(at 111.76 100.076 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "bbcecf05-899e-476c-938f-388011e42b96")
+		)
+		(pin "2"
+			(uuid "579ed166-c7ac-4548-9458-659b01904e80")
+		)
+		(instances
+			(project "Digital PSU - Transformer"
+				(path "/5cc6b3bf-721e-4dc8-af0a-72c27b8cc795"
+					(reference "J4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 63.5 192.024 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "7c1eaf47-5c0c-45e7-b4a1-8177e89a5fae")
+		(property "Reference" "H4"
+			(at 66.04 190.8118 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 66.04 193.2361 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_DIN965"
+			(at 63.5 192.024 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 63.5 192.024 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 63.5 192.024 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "Digital PSU - Transformer"
+				(path "/5cc6b3bf-721e-4dc8-af0a-72c27b8cc795"
+					(reference "H4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Socket")
+		(at 112.014 93.472 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "7f82f8a5-266f-46d2-b9a1-f756b3a6d764")
+		(property "Reference" "J10"
+			(at 111.76 98.552 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "18V AC"
+			(at 114.554 94.996 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "THE_PREAMP_CONN_POWER_5_08:TBP01R1-508-02BK"
+			(at 112.014 93.472 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 112.014 93.472 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x02, script generated"
+			(at 112.014 93.472 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "fdd3e1df-a28b-40e8-8d74-b1ab47fd321c")
+		)
+		(pin "2"
+			(uuid "2ac538c8-97ee-480d-b98d-1a47adb10148")
+		)
+		(instances
+			(project "Digital PSU - Transformer"
+				(path "/5cc6b3bf-721e-4dc8-af0a-72c27b8cc795"
+					(reference "J10")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 63.5 186.944 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "ade5b65e-23ec-49da-9076-c0b89e9c757a")
+		(property "Reference" "H3"
+			(at 66.04 185.7318 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 66.04 188.1561 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_DIN965"
+			(at 63.5 186.944 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 63.5 186.944 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 63.5 186.944 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "Digital PSU - Transformer"
+				(path "/5cc6b3bf-721e-4dc8-af0a-72c27b8cc795"
+					(reference "H3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 63.5 181.864 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "b960080e-b415-40ed-959a-569fd9f015ee")
+		(property "Reference" "H2"
+			(at 66.04 180.6518 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 66.04 183.0761 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_DIN965"
+			(at 63.5 181.864 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 63.5 181.864 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 63.5 181.864 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "Digital PSU - Transformer"
+				(path "/5cc6b3bf-721e-4dc8-af0a-72c27b8cc795"
+					(reference "H2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 63.5 176.784 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c7425269-e8e3-4f36-b893-19954fbf2c76")
+		(property "Reference" "H1"
+			(at 66.04 175.5718 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 66.04 177.9961 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_DIN965"
+			(at 63.5 176.784 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 63.5 176.784 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 63.5 176.784 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "Digital PSU - Transformer"
+				(path "/5cc6b3bf-721e-4dc8-af0a-72c27b8cc795"
+					(reference "H1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Transformer_Hahn_BV_EL_603_1027:Transformer_Hahn_BV_EL_603_COMBINED")
+		(at 89.408 105.156 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "f71e7d16-8e03-4186-80f3-be9fd1341986")
+		(property "Reference" "TR1"
+			(at 91.8996 89.7085 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Hahn BV EL 603 1027"
+			(at 91.8996 92.1328 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Transformer_Hahn_BV_EL_603_1027:Transformer_Hahn_BV_EL_603_COMBINED"
+			(at 89.408 105.156 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 89.408 105.156 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 89.408 105.156 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "7"
+			(uuid "8ff38cf2-419e-4864-b50c-5a7fb6da9562")
+		)
+		(pin "1"
+			(uuid "81b97e47-0c91-41ad-82f7-3e2bc744f12f")
+		)
+		(pin "9"
+			(uuid "7bc3a8a6-e279-419d-9842-11c258f737eb")
+		)
+		(pin "13"
+			(uuid "819782c2-7f01-41fc-ba70-a9ccc9a2369d")
+		)
+		(pin "2"
+			(uuid "b635d323-059c-4e15-a066-3fd6b50e8c6a")
+		)
+		(pin "7"
+			(uuid "71a8ddb1-52bd-4ab0-b08c-f406a5b657e6")
+		)
+		(pin "4"
+			(uuid "a1cc9489-d295-44b4-9cdf-6e8eb44639ba")
+		)
+		(pin "5"
+			(uuid "5c7771f2-9d25-4111-ad88-f128ae6d62d0")
+		)
+		(pin "8"
+			(uuid "7f072281-8739-43b9-9d4e-ab2171fbd3ff")
+		)
+		(pin "14"
+			(uuid "a7af9045-0ab7-4170-87b7-4a198c94063b")
+		)
+		(instances
+			(project "Digital PSU - Transformer"
+				(path "/5cc6b3bf-721e-4dc8-af0a-72c27b8cc795"
+					(reference "TR1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:Fuse")
+		(at 72.39 98.806 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "fbd3f6f1-bef7-4fc4-a9fd-56d1e2310399")
+		(property "Reference" "F2"
+			(at 72.39 93.8995 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Fuse - 8A T"
+			(at 72.39 96.3238 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "ThePreAmp_PSU_Fuseholder:Keystone fuseholder 4527"
+			(at 72.39 100.584 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 72.39 98.806 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Fuse"
+			(at 72.39 98.806 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "ba09119e-671d-4893-b827-b49f94a99fe2")
+		)
+		(pin "1"
+			(uuid "73bb0dbd-d3e6-4607-a9e1-12f1ff6a85cb")
+		)
+		(instances
+			(project "Digital PSU - Transformer"
+				(path "/5cc6b3bf-721e-4dc8-af0a-72c27b8cc795"
+					(reference "F2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+)
