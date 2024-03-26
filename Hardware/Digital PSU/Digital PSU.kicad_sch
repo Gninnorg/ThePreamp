@@ -2336,6 +2336,88 @@
 				)
 			)
 		)
+		(symbol "Mechanical:MountingHole"
+			(pin_names
+				(offset 1.016)
+			)
+			(exclude_from_sim yes)
+			(in_bom no)
+			(on_board yes)
+			(property "Reference" "H"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "MountingHole"
+				(at 0 3.175 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Mounting Hole without connection"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "mounting hole"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "MountingHole*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "MountingHole_0_1"
+				(circle
+					(center 0 0)
+					(radius 1.27)
+					(stroke
+						(width 1.27)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+		)
 		(symbol "Reference_Current:LM334Z"
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -4568,7 +4650,7 @@
 	)
 	(wire
 		(pts
-			(xy 248.92 135.89) (xy 248.92 140.208)
+			(xy 217.424 77.47) (xy 217.424 81.788)
 		)
 		(stroke
 			(width 0)
@@ -4908,7 +4990,7 @@
 	)
 	(wire
 		(pts
-			(xy 249.936 135.89) (xy 248.92 135.89)
+			(xy 218.44 77.47) (xy 217.424 77.47)
 		)
 		(stroke
 			(width 0)
@@ -5208,7 +5290,7 @@
 	)
 	(wire
 		(pts
-			(xy 248.92 132.588) (xy 248.92 127.508)
+			(xy 217.424 74.168) (xy 217.424 69.088)
 		)
 		(stroke
 			(width 0)
@@ -5328,7 +5410,7 @@
 	)
 	(wire
 		(pts
-			(xy 249.936 135.636) (xy 249.936 135.89)
+			(xy 218.44 77.216) (xy 218.44 77.47)
 		)
 		(stroke
 			(width 0)
@@ -5408,7 +5490,7 @@
 	)
 	(wire
 		(pts
-			(xy 249.936 133.096) (xy 249.936 132.588)
+			(xy 218.44 74.676) (xy 218.44 74.168)
 		)
 		(stroke
 			(width 0)
@@ -5428,7 +5510,7 @@
 	)
 	(wire
 		(pts
-			(xy 249.936 132.588) (xy 248.92 132.588)
+			(xy 218.44 74.168) (xy 217.424 74.168)
 		)
 		(stroke
 			(width 0)
@@ -6172,6 +6254,70 @@
 		)
 	)
 	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 88.9 176.784 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "1f2d470b-bdf9-4016-b2cb-3756b7db7066")
+		(property "Reference" "H5"
+			(at 91.44 175.5718 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 91.44 177.9961 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_DIN965"
+			(at 88.9 176.784 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 88.9 176.784 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 88.9 176.784 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "Digital PSU"
+				(path "/5cc6b3bf-721e-4dc8-af0a-72c27b8cc795"
+					(reference "H5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:R")
 		(at 106.426 40.64 270)
 		(unit 1)
@@ -6373,6 +6519,70 @@
 			(project "Digital PSU"
 				(path "/5cc6b3bf-721e-4dc8-af0a-72c27b8cc795"
 					(reference "C4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 88.9 181.864 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "2f556041-31d1-4780-998b-2277e6668553")
+		(property "Reference" "H6"
+			(at 91.44 180.6518 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 91.44 183.0761 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_DIN965"
+			(at 88.9 181.864 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 88.9 181.864 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 88.9 181.864 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "Digital PSU"
+				(path "/5cc6b3bf-721e-4dc8-af0a-72c27b8cc795"
+					(reference "H6")
 					(unit 1)
 				)
 			)
@@ -7204,6 +7414,70 @@
 		)
 	)
 	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 262.128 85.344 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "5f7a26b7-3c82-4400-88d3-2b6627c3ead2")
+		(property "Reference" "H11"
+			(at 264.668 84.1318 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 264.668 86.5561 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_DIN965"
+			(at 262.128 85.344 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 262.128 85.344 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 262.128 85.344 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "Digital PSU"
+				(path "/5cc6b3bf-721e-4dc8-af0a-72c27b8cc795"
+					(reference "H11")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 232.41 38.608 0)
 		(unit 1)
@@ -7328,6 +7602,70 @@
 			(project "Digital PSU"
 				(path "/5cc6b3bf-721e-4dc8-af0a-72c27b8cc795"
 					(reference "HS1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 262.128 80.264 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "6cd209e2-983f-4a2c-90a8-d413a3142513")
+		(property "Reference" "H10"
+			(at 264.668 79.0518 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 264.668 81.4761 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_DIN965"
+			(at 262.128 80.264 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 262.128 80.264 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 262.128 80.264 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "Digital PSU"
+				(path "/5cc6b3bf-721e-4dc8-af0a-72c27b8cc795"
+					(reference "H10")
 					(unit 1)
 				)
 			)
@@ -7613,7 +7951,7 @@
 	)
 	(symbol
 		(lib_id "Mechanical:Heatsink")
-		(at 235.204 100.076 0)
+		(at 241.3 77.216 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -7622,7 +7960,7 @@
 		(fields_autoplaced yes)
 		(uuid "75851afa-b500-4765-8a59-24bd526bb6f6")
 		(property "Reference" "HS6"
-			(at 238.8108 96.9588 0)
+			(at 244.9068 74.0988 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7631,7 +7969,7 @@
 			)
 		)
 		(property "Value" "Heatsink"
-			(at 238.8108 99.3831 0)
+			(at 244.9068 76.5231 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7640,7 +7978,7 @@
 			)
 		)
 		(property "Footprint" "ThePreAmp_PSU_Heatsinks:Heatsink_Fischer_SK145-STS_29x12mm_2xDrill2.5mm"
-			(at 235.5088 100.076 0)
+			(at 241.6048 77.216 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7649,7 +7987,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 235.5088 100.076 0)
+			(at 241.6048 77.216 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7658,7 +7996,7 @@
 			)
 		)
 		(property "Description" "Heatsink"
-			(at 235.204 100.076 0)
+			(at 241.3 77.216 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7670,6 +8008,70 @@
 			(project "Digital PSU"
 				(path "/5cc6b3bf-721e-4dc8-af0a-72c27b8cc795"
 					(reference "HS6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 63.5 192.024 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "7c1eaf47-5c0c-45e7-b4a1-8177e89a5fae")
+		(property "Reference" "H4"
+			(at 66.04 190.8118 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 66.04 193.2361 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_DIN965"
+			(at 63.5 192.024 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 63.5 192.024 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 63.5 192.024 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "Digital PSU"
+				(path "/5cc6b3bf-721e-4dc8-af0a-72c27b8cc795"
+					(reference "H4")
 					(unit 1)
 				)
 			)
@@ -8032,7 +8434,7 @@
 	)
 	(symbol
 		(lib_id "Mechanical:Heatsink")
-		(at 235.204 107.95 0)
+		(at 241.3 85.09 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -8041,7 +8443,7 @@
 		(fields_autoplaced yes)
 		(uuid "98156d57-e97b-4c81-bf86-65b2fe60b508")
 		(property "Reference" "HS7"
-			(at 238.8108 104.8328 0)
+			(at 244.9068 81.9728 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8050,7 +8452,7 @@
 			)
 		)
 		(property "Value" "Heatsink"
-			(at 238.8108 107.2571 0)
+			(at 244.9068 84.3971 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8059,7 +8461,7 @@
 			)
 		)
 		(property "Footprint" "ThePreAmp_PSU_Heatsinks:Heatsink_Fischer_SK145-STS_29x12mm_2xDrill2.5mm"
-			(at 235.5088 107.95 0)
+			(at 241.6048 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8068,7 +8470,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 235.5088 107.95 0)
+			(at 241.6048 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8077,7 +8479,7 @@
 			)
 		)
 		(property "Description" "Heatsink"
-			(at 235.204 107.95 0)
+			(at 241.3 85.09 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8390,16 +8792,17 @@
 		)
 	)
 	(symbol
-		(lib_id "Connector:Conn_01x02_Socket")
-		(at 255.016 133.096 0)
+		(lib_id "Mechanical:MountingHole")
+		(at 262.128 75.184 0)
 		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
+		(exclude_from_sim yes)
+		(in_bom no)
 		(on_board yes)
 		(dnp no)
-		(uuid "a65ebde8-ff88-4f69-95ed-3dcad6e82d36")
-		(property "Reference" "J9"
-			(at 256.286 133.604 0)
+		(fields_autoplaced yes)
+		(uuid "a2d3da94-eb06-480d-a759-280db07d5b3b")
+		(property "Reference" "H9"
+			(at 264.668 73.9718 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8407,8 +8810,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Relay power"
-			(at 256.286 135.636 0)
+		(property "Value" "MountingHole"
+			(at 264.668 76.3961 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8416,8 +8819,8 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "THE_PREAMP_CONN_POWER_5_08:TBP01R1-508-02BK"
-			(at 255.016 133.096 0)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_DIN965"
+			(at 262.128 75.184 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8426,7 +8829,70 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 255.016 133.096 0)
+			(at 262.128 75.184 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 262.128 75.184 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "Digital PSU"
+				(path "/5cc6b3bf-721e-4dc8-af0a-72c27b8cc795"
+					(reference "H9")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Socket")
+		(at 223.52 74.676 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "a65ebde8-ff88-4f69-95ed-3dcad6e82d36")
+		(property "Reference" "J9"
+			(at 224.79 75.184 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Relay power"
+			(at 224.79 77.216 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "THE_PREAMP_CONN_POWER_5_08:TBP01R1-508-02BK"
+			(at 223.52 74.676 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 223.52 74.676 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8435,7 +8901,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x02, script generated"
-			(at 255.016 133.096 0)
+			(at 223.52 74.676 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8453,6 +8919,70 @@
 			(project "Digital PSU"
 				(path "/5cc6b3bf-721e-4dc8-af0a-72c27b8cc795"
 					(reference "J9")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 88.9 192.024 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a726c3f4-5ae8-4459-abe3-1efea92b2a75")
+		(property "Reference" "H8"
+			(at 91.44 190.8118 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 91.44 193.2361 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_DIN965"
+			(at 88.9 192.024 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 88.9 192.024 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 88.9 192.024 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "Digital PSU"
+				(path "/5cc6b3bf-721e-4dc8-af0a-72c27b8cc795"
+					(reference "H8")
 					(unit 1)
 				)
 			)
@@ -8524,6 +9054,70 @@
 			(project "Digital PSU"
 				(path "/5cc6b3bf-721e-4dc8-af0a-72c27b8cc795"
 					(reference "Q2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 262.128 90.424 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a936f4e6-4467-4e44-a7e3-421a4f7426b0")
+		(property "Reference" "H12"
+			(at 264.668 89.2118 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 264.668 91.6361 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_DIN965"
+			(at 262.128 90.424 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 262.128 90.424 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 262.128 90.424 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "Digital PSU"
+				(path "/5cc6b3bf-721e-4dc8-af0a-72c27b8cc795"
+					(reference "H12")
 					(unit 1)
 				)
 			)
@@ -8783,6 +9377,70 @@
 		)
 	)
 	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 63.5 186.944 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "ade5b65e-23ec-49da-9076-c0b89e9c757a")
+		(property "Reference" "H3"
+			(at 66.04 185.7318 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 66.04 188.1561 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_DIN965"
+			(at 63.5 186.944 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 63.5 186.944 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 63.5 186.944 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "Digital PSU"
+				(path "/5cc6b3bf-721e-4dc8-af0a-72c27b8cc795"
+					(reference "H3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:D_45deg_Filled")
 		(at 33.274 38.354 90)
 		(unit 1)
@@ -8865,6 +9523,70 @@
 			(project "Digital PSU"
 				(path "/5cc6b3bf-721e-4dc8-af0a-72c27b8cc795"
 					(reference "D4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 63.5 181.864 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "b960080e-b415-40ed-959a-569fd9f015ee")
+		(property "Reference" "H2"
+			(at 66.04 180.6518 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 66.04 183.0761 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_DIN965"
+			(at 63.5 181.864 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 63.5 181.864 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 63.5 181.864 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "Digital PSU"
+				(path "/5cc6b3bf-721e-4dc8-af0a-72c27b8cc795"
+					(reference "H2")
 					(unit 1)
 				)
 			)
@@ -9005,6 +9727,70 @@
 		)
 	)
 	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 63.5 176.784 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "c7425269-e8e3-4f36-b893-19954fbf2c76")
+		(property "Reference" "H1"
+			(at 66.04 175.5718 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 66.04 177.9961 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_DIN965"
+			(at 63.5 176.784 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 63.5 176.784 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 63.5 176.784 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "Digital PSU"
+				(path "/5cc6b3bf-721e-4dc8-af0a-72c27b8cc795"
+					(reference "H1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Mechanical:Heatsink")
 		(at 26.67 187.706 0)
 		(unit 1)
@@ -9070,7 +9856,7 @@
 	)
 	(symbol
 		(lib_id "power:+12V")
-		(at 248.92 127.508 270)
+		(at 217.424 69.088 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -9079,7 +9865,7 @@
 		(fields_autoplaced yes)
 		(uuid "da49a7e8-c22b-4186-bc75-81b0dec848bf")
 		(property "Reference" "#PWR07"
-			(at 245.11 127.508 0)
+			(at 213.614 69.088 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9088,7 +9874,7 @@
 			)
 		)
 		(property "Value" "+12V"
-			(at 252.095 127.508 90)
+			(at 220.599 69.088 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9097,7 +9883,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 248.92 127.508 0)
+			(at 217.424 69.088 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9106,7 +9892,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 248.92 127.508 0)
+			(at 217.424 69.088 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9115,7 +9901,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+12V\""
-			(at 248.92 127.508 0)
+			(at 217.424 69.088 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9130,6 +9916,70 @@
 			(project "Digital PSU"
 				(path "/5cc6b3bf-721e-4dc8-af0a-72c27b8cc795"
 					(reference "#PWR07")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Mechanical:MountingHole")
+		(at 88.9 186.944 0)
+		(unit 1)
+		(exclude_from_sim yes)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "dc0007b4-63d9-4ea5-86f4-5b61cc7e7255")
+		(property "Reference" "H7"
+			(at 91.44 185.7318 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MountingHole"
+			(at 91.44 188.1561 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3_DIN965"
+			(at 88.9 186.944 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 88.9 186.944 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Mounting Hole without connection"
+			(at 88.9 186.944 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(instances
+			(project "Digital PSU"
+				(path "/5cc6b3bf-721e-4dc8-af0a-72c27b8cc795"
+					(reference "H7")
 					(unit 1)
 				)
 			)
@@ -9432,7 +10282,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 248.92 140.208 90)
+		(at 217.424 81.788 90)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -9441,7 +10291,7 @@
 		(fields_autoplaced yes)
 		(uuid "e7b996c3-6a88-4f00-bd3a-e8ce66af7ee7")
 		(property "Reference" "#PWR08"
-			(at 255.27 140.208 0)
+			(at 223.774 81.788 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9450,7 +10300,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 252.095 140.208 90)
+			(at 220.599 81.788 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9459,7 +10309,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 248.92 140.208 0)
+			(at 217.424 81.788 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9468,7 +10318,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 248.92 140.208 0)
+			(at 217.424 81.788 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9477,7 +10327,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 248.92 140.208 0)
+			(at 217.424 81.788 0)
 			(effects
 				(font
 					(size 1.27 1.27)
