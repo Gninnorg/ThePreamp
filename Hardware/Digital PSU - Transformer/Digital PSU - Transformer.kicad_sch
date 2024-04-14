@@ -831,10 +831,32 @@
 		(uuid "26625317-eadc-463c-a80c-f17f24fa3969")
 	)
 	(junction
+		(at 67.31 98.806)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "5bb1d784-210a-4aa0-9b08-049e7f8c6f03")
+	)
+	(junction
 		(at 106.68 98.806)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "5e7531de-9244-490e-bb04-8414d82e894e")
+	)
+	(junction
+		(at 65.278 100.584)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "7d4a6701-3b0c-4420-ac8f-1c23569d8998")
+	)
+	(wire
+		(pts
+			(xy 65.278 105.918) (xy 65.278 100.584)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "04d78a94-76be-40f9-a9f5-af31de36858e")
 	)
 	(wire
 		(pts
@@ -858,7 +880,17 @@
 	)
 	(wire
 		(pts
-			(xy 64.262 98.806) (xy 68.58 98.806)
+			(xy 67.31 98.806) (xy 68.58 98.806)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1598d701-a45b-4dae-bb1c-aca9de1b4087")
+	)
+	(wire
+		(pts
+			(xy 64.262 98.806) (xy 67.31 98.806)
 		)
 		(stroke
 			(width 0)
@@ -875,6 +907,16 @@
 			(type default)
 		)
 		(uuid "2bda478c-7acb-4142-ab4b-a40d2943d65e")
+	)
+	(wire
+		(pts
+			(xy 67.31 108.458) (xy 67.31 98.806)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "35af54df-aebc-4be3-97f4-a82c5fca8940")
 	)
 	(wire
 		(pts
@@ -928,6 +970,16 @@
 	)
 	(wire
 		(pts
+			(xy 61.722 108.458) (xy 67.31 108.458)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "61a81661-af02-419b-92b3-1743287deddc")
+	)
+	(wire
+		(pts
 			(xy 78.486 103.886) (xy 86.868 103.886)
 		)
 		(stroke
@@ -965,6 +1017,16 @@
 			(type default)
 		)
 		(uuid "93874439-bef8-4b85-8f7b-e9dc0a6bf3ed")
+	)
+	(wire
+		(pts
+			(xy 65.278 100.584) (xy 78.486 100.584)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "93d69fe6-9f54-4793-8ef3-1514b684c09e")
 	)
 	(wire
 		(pts
@@ -1008,13 +1070,23 @@
 	)
 	(wire
 		(pts
-			(xy 63.246 100.584) (xy 78.486 100.584)
+			(xy 63.246 100.584) (xy 65.278 100.584)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "c4922a8b-21b8-443b-9e8d-aa1b98df3bb7")
+	)
+	(wire
+		(pts
+			(xy 61.722 105.918) (xy 65.278 105.918)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c91b60c8-0705-47fe-8d72-4fa45904d35f")
 	)
 	(wire
 		(pts
@@ -1384,6 +1456,73 @@
 			(project "Digital PSU - Transformer"
 				(path "/5cc6b3bf-721e-4dc8-af0a-72c27b8cc795"
 					(reference "J10")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:Conn_01x02_Socket")
+		(at 56.642 108.458 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "9edd7f74-9948-4148-b49e-5157375cb668")
+		(property "Reference" "J1"
+			(at 56.896 103.378 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "230V AC"
+			(at 54.102 106.934 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "THE_PREAMP_CONN_POWER_5_08:TBP01R1-508-02BK"
+			(at 56.642 108.458 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 56.642 108.458 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Generic connector, single row, 01x02, script generated"
+			(at 56.642 108.458 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "87f996f4-e556-4176-8a85-0ea0ce37d5a5")
+		)
+		(pin "2"
+			(uuid "9201d354-74aa-4f6a-a25d-d45066005c78")
+		)
+		(instances
+			(project "Digital PSU - Transformer"
+				(path "/5cc6b3bf-721e-4dc8-af0a-72c27b8cc795"
+					(reference "J1")
 					(unit 1)
 				)
 			)
