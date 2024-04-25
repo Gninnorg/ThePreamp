@@ -2267,7 +2267,7 @@
 		(descr "4-lead though-hole mounted DIP package, row spacing 7.62 mm (300 mils)")
 		(tags "THT DIP DIL PDIP 2.54mm 7.62mm 300mil")
 		(property "Reference" "U4"
-			(at 3.81 2.33 270)
+			(at 3.81 2.33 -90)
 			(layer "B.SilkS")
 			(hide yes)
 			(uuid "940343e2-6d1f-4d73-8d4e-7699b8958eeb")
@@ -3705,7 +3705,7 @@
 		(descr "Resistor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal with elongated pad for handsoldering. (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "resistor handsolder")
 		(property "Reference" "R2"
-			(at -2.63 -0.1 270)
+			(at -2.63 -0.1 -90)
 			(layer "B.SilkS")
 			(hide yes)
 			(uuid "bb5f6ed8-8801-4f69-9b5e-2adcb950f9f2")
@@ -8691,7 +8691,7 @@
 		(uuid "d1f39c87-52d1-4ae4-872c-0e6449d83258")
 		(at 209.015 64.55 -90)
 		(property "Reference" "U3"
-			(at -11.355 27.36 270)
+			(at -11.355 27.36 -90)
 			(layer "B.SilkS")
 			(hide yes)
 			(uuid "5e42dd4a-363d-4749-b52e-bc04dc036f5c")
@@ -9885,7 +9885,7 @@
 		(descr "Resistor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal with elongated pad for handsoldering. (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator")
 		(tags "resistor handsolder")
 		(property "Reference" "R1"
-			(at 0 1.65 360)
+			(at 0 1.65 0)
 			(layer "B.SilkS")
 			(hide yes)
 			(uuid "19203665-7dd6-4d37-a999-18434cdad69d")
@@ -9898,7 +9898,7 @@
 			)
 		)
 		(property "Value" "330R"
-			(at 0 -1.65 360)
+			(at 0 -1.65 0)
 			(layer "B.Fab")
 			(uuid "83d5f4f4-8b82-4845-9e8a-bb86ebf65a6c")
 			(effects
@@ -10054,7 +10054,7 @@
 			(uuid "7aa2544b-090c-4a97-b699-024141b02f1b")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 360)
+			(at 0 0 0)
 			(layer "B.Fab")
 			(uuid "f9713735-b477-425c-84bb-183d9a3fae15")
 			(effects
