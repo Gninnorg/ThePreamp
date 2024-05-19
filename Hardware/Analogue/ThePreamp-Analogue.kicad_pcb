@@ -497,7 +497,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -1859,7 +1859,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -4241,7 +4241,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -7685,7 +7685,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -8386,7 +8386,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "The PreAmp logo:The PreAmp logo"
 			(at 0 0 180)
 			(unlocked yes)
 			(layer "F.Fab")
@@ -10224,7 +10224,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "PinSocket_1x03_P2.54mm_Vertical"
+		(property "Footprint" "Connector_PinSocket_2.54mm:PinSocket_1x03_P2.54mm_Vertical"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "B.Fab")
@@ -10720,7 +10720,7 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "PinSocket_1x03_P2.54mm_Vertical"
+		(property "Footprint" "Connector_PinSocket_2.54mm:PinSocket_1x03_P2.54mm_Vertical"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "B.Fab")
@@ -11822,7 +11822,7 @@
 			(justify left bottom mirror)
 		)
 	)
-	(gr_text "3.3"
+	(gr_text "3V3"
 		(at 20.55 139.44 90)
 		(layer "B.SilkS")
 		(uuid "0d01739a-8246-4505-8160-a7f4206f2bad")
@@ -11918,6 +11918,18 @@
 			(justify left bottom mirror)
 		)
 	)
+	(gr_text "3V3"
+		(at 23.15 139.43 90)
+		(layer "B.SilkS")
+		(uuid "36bf4414-6f1f-4913-a50c-65efaf26bbe6")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.15)
+			)
+			(justify left bottom mirror)
+		)
+	)
 	(gr_text "Input 5 (Opt.)"
 		(at 144.5 138.9 0)
 		(layer "B.SilkS")
@@ -11942,7 +11954,7 @@
 			(justify left bottom mirror)
 		)
 	)
-	(gr_text "3.3"
+	(gr_text "3V3"
 		(at 25.65 139.44 90)
 		(layer "B.SilkS")
 		(uuid "3a18f0a0-937d-44f0-bd49-28fcb7ac0cdd")
@@ -11954,7 +11966,7 @@
 			(justify left bottom mirror)
 		)
 	)
-	(gr_text "GND"
+	(gr_text "12V"
 		(at 28.13 139.44 90)
 		(layer "B.SilkS")
 		(uuid "3a6bec1d-148d-42d5-b236-c32cb7660002")
@@ -12021,18 +12033,6 @@
 		(effects
 			(font
 				(size 0.8 0.8)
-				(thickness 0.15)
-			)
-			(justify left bottom mirror)
-		)
-	)
-	(gr_text "GND"
-		(at 23.03 139.44 90)
-		(layer "B.SilkS")
-		(uuid "52f5a089-a8e5-4477-bc68-69ab2704fa07")
-		(effects
-			(font
-				(size 0.8 0.7)
 				(thickness 0.15)
 			)
 			(justify left bottom mirror)
@@ -12122,7 +12122,7 @@
 			(justify left bottom mirror)
 		)
 	)
-	(gr_text "GND"
+	(gr_text "12V"
 		(at 33.24 139.44 90)
 		(layer "B.SilkS")
 		(uuid "6a17b41d-38d2-4ac7-bcc7-4b1dfc1251d9")
@@ -12230,7 +12230,7 @@
 			(justify left bottom mirror)
 		)
 	)
-	(gr_text "GND"
+	(gr_text "12V\n"
 		(at 30.67 139.44 90)
 		(layer "B.SilkS")
 		(uuid "92b4dd0b-1b39-4291-ac6b-e5c2af46c407")

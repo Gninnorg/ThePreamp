@@ -115,7 +115,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Transformer_Hahn_BV_EL_603_1027:Transformer_Hahn_BV_EL_603_1027"
+		(property "Footprint" "Transformer_Hahn_BV_EL_603_1027:Transformer_Hahn_BV_EL_603_COMBINED"
 			(at 0 0 0)
 			(unlocked yes)
 			(layer "F.Fab")

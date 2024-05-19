@@ -1,0 +1,12 @@
+﻿Designator,Footprint,Quantity,Value,LCSC Part #
+C5,0805,1,330nF,
+C6,0805,1,100nF,
+C7,0805,1,10nF,
+C8,1206,1,10uF 16V,
+"HS6, HS7",Heatsink_Fischer_SK145-STS_29x12mm_2xDrill2.5mm,2,Heatsink,
+J6,TBP01R1-508-02BK,1,ESP32 power,
+J7,TBP01R1-508-02BK,1,Opt. 3V3 power,
+J8,TBP01R1-508-02BK,1,DC in,
+J9,TBP01R1-508-02BK,1,Relay power,
+U2,TO-220-3_Vertical,1,LM7808_TO220,
+U3,TO-220-3_Vertical,1,LD1117V33,
