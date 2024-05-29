@@ -504,7 +504,7 @@
       "gencad": "",
       "idf": "",
       "netlist": "Mezmerize_B1_Controller.net",
-      "plot": "",
+      "plot": "Gerber/",
       "pos_files": "",
       "specctra_dsn": "",
       "step": "",
