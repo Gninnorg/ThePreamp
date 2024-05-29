@@ -500,12 +500,14 @@ void loop() {
     relayController.pinMode(pin, OUTPUT);
     relayController.digitalWrite(pin, HIGH);
   }
-  delay(1000);
+  digitalWrite(POWER_CONTROL_PIN, HIGH);
+  delay(5000);
   for (byte pin = 0; pin <= 7; pin++)
   {
     relayController.pinMode(pin, OUTPUT);
     relayController.digitalWrite(pin, LOW);
   }
+  digitalWrite(POWER_CONTROL_PIN, LOW);
 
   // Read setting from EEPROM
   readSettingsFromEEPROM();
