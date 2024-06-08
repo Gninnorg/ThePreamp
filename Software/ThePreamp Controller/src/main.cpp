@@ -17,6 +17,10 @@
 #include <extEEPROM.h>
 #include <ClickEncoder.h>
 #define ROTARY_ENCODER_STEPS 4
+#include <IRremoteESP8266.h>
+#include <IRrecv.h>
+#include <IRutils.h>
+#include <Muses72320.h>
 
 /* ----- Hardware SPI -----
   GND    ->    GND
@@ -132,8 +136,12 @@ SDA    ->    D21
 
 Adafruit_ADS1115 ads1115;
 
-// ----- OTHER PIN DEFINITIONS ---- 
 #define IR_RECEIVER_INPUT_PIN 15
+IRrecv irrecv(IR_RECEIVER_INPUT_PIN);
+
+decode_results IRresults;
+
+// ----- OTHER PIN DEFINITIONS ---- 
 #define ROTARY2_CW_PIN 27
 #define ROTARY2_CCW_PIN 14
 #define ROTARY2_SW_PIN 35
@@ -141,11 +149,6 @@ Adafruit_ADS1115 ads1115;
 #define ROTARY1_CCW_PIN 26
 #define ROTARY1_SW_PIN 34
 #define POWER_CONTROL_PIN 2
-
-// TO DO Other library?
-#include <irmpSelectMain15Protocols.h> // This enables 15 main protocols
-#define IRMP_SUPPORT_NEC_PROTOCOL 1    // this enables only one protocol
-#include <irmp.hpp>
 
 #define INPUT_HT_PASSTHROUGH 0
 #define INPUT_NORMAL 1
@@ -226,22 +229,22 @@ typedef union
 
     float ADC_Calibration; // Used for calibration of the ADC readings when reading temperatures from the attached NTCs. The value differs (quite a lot) between ESP32's
 
-    IRMP_DATA IR_ONOFF;            // IR data to be interpreted as ON/OFF - switch between running and suspend mode (and turn triggers off)
-    IRMP_DATA IR_UP;               // IR data to be interpreted as UP
-    IRMP_DATA IR_DOWN;             // IR data to be interpreted as DOWN
-    IRMP_DATA IR_REPEAT;           // IR data to be interpreted as REPEAT (ie Apple remotes sends a specific code, if a key is held down to indicate repeat of the previously sent code
-    IRMP_DATA IR_LEFT;             // IR data to be interpreted as LEFT
-    IRMP_DATA IR_RIGHT;            // IR data to be interpreted as RIGHT
-    IRMP_DATA IR_SELECT;           // IR data to be interpreted as SELECT
-    IRMP_DATA IR_BACK;             // IR data to be interpreted as BACK
-    IRMP_DATA IR_MUTE;             // IR data to be interpreted as MUTE
-    IRMP_DATA IR_PREVIOUS;         // IR data to be interpreted as "switch to previous selected input"
-    IRMP_DATA IR_1;                // IR data to be interpreted as 1 (to select input 1 directly)
-    IRMP_DATA IR_2;                // IR data to be interpreted as 2
-    IRMP_DATA IR_3;                // IR data to be interpreted as 3
-    IRMP_DATA IR_5;                // IR data to be interpreted as 5
-    IRMP_DATA IR_4;                // IR data to be interpreted as 4
-    IRMP_DATA IR_6;                // IR data to be interpreted as 6
+    uint64_t IR_ONOFF;            // IR data to be interpreted as ON/OFF - switch between running and suspend mode (and turn triggers off)
+    uint64_t IR_UP;               // IR data to be interpreted as UP
+    uint64_t IR_DOWN;             // IR data to be interpreted as DOWN
+    uint64_t IR_REPEAT;           // IR data to be interpreted as REPEAT (ie Apple remotes sends a specific code, if a key is held down to indicate repeat of the previously sent code
+    uint64_t IR_LEFT;             // IR data to be interpreted as LEFT
+    uint64_t IR_RIGHT;            // IR data to be interpreted as RIGHT
+    uint64_t IR_SELECT;           // IR data to be interpreted as SELECT
+    uint64_t IR_BACK;             // IR data to be interpreted as BACK
+    uint64_t IR_MUTE;             // IR data to be interpreted as MUTE
+    uint64_t IR_PREVIOUS;         // IR data to be interpreted as "switch to previous selected input"
+    uint64_t IR_1;                // IR data to be interpreted as 1 (to select input 1 directly)
+    uint64_t IR_2;                // IR data to be interpreted as 2
+    uint64_t IR_3;                // IR data to be interpreted as 3
+    uint64_t IR_5;                // IR data to be interpreted as 5
+    uint64_t IR_4;                // IR data to be interpreted as 4
+    uint64_t IR_6;                // IR data to be interpreted as 6
     
     struct InputSettings Input[6]; // Settings for all 6 inputs
     bool ExtPowerRelayTrigger;     // Enable triggering of relay for external power (we use it to control the power of the Mezmerize)
@@ -322,6 +325,7 @@ void setupRotaryEncoders()
 
 // Setup Muses72323 -----------------------------------------------------------
 // TO DO
+Muses72320 muses(0);
 
 // Setup Relay Controller------------------------------------------------------
 Adafruit_MCP23008 relayController;
@@ -362,16 +366,24 @@ void readRuntimeSettingsFromEEPROM(void);
 void writeRuntimeSettingsToEEPROM(void);
 void readUserSettingsFromEEPROM(void);
 void writeUserSettingsToEEPROM(void);
+void setVolume(int16_t);
 
 void setup() {
   // Serial port for debugging purposes
   Serial.begin(115200);
+  
+  SPI.begin();
 
-  left_display.begin();
-  left_display.setFont(u8g2_font_inr38_mf); 
-
+  delay(2500);
   right_display.begin();
-  right_display.setFont(u8g2_font_inr38_mf);
+  right_display.setPowerSave(0);
+  right_display.setFont(u8g2_font_cu12_tr); // u8g2_font_inr38_mf
+  
+  left_display.begin();
+  left_display.setPowerSave(0);
+  left_display.setFont(u8g2_font_cu12_tr); 
+
+  
   
   Wire.begin();
 
@@ -386,11 +398,10 @@ void setup() {
     relayController.digitalWrite(pin, LOW);
   }
   
-  // TO DO
-  //muses.begin();
+  muses.begin();
 
-  ads1115.setGain(GAIN_ONE);        // 1x gain   +/- 4.096V  1 bit = 2mV      0.125mV
-  ads1115.begin();
+  //- ads1115.setGain(GAIN_ONE);        // 1x gain   +/- 4.096V  1 bit = 2mV      0.125mV
+  //- ads1115.begin();
   /*
   if (!ads1115.begin())
   {
@@ -400,26 +411,29 @@ void setup() {
   */ 
 
   // Start IR reader
-  // TO DO
-  //irmp_init();
+  irrecv.enableIRIn();
 
   // Read setting from EEPROM
   readSettingsFromEEPROM();
   readRuntimeSettingsFromEEPROM();
 
-  // Check if settings stored in EEPROM are INVALID - if so, we write the default settings to the EEPROM and reboots
- /* 
- if ((Settings.Version != (float)VERSION) || (RuntimeSettings.Version != (float)VERSION))
+  // Check if settings stored in EEPROM are INVALID - if so, we write the default settings to the EEPROM and continue with those
+  if ((Settings.Version != (float)VERSION) || (RuntimeSettings.Version != (float)VERSION))
   {
-    oled.clear();
-    oled.setCursor(0, 1);
-    oled.print("Restoring default");
-    oled.setCursor(0, 2);
-    oled.print(F("settings..."));
+    right_display.clearBuffer();
+    right_display.drawStr(0, 63, "Reset");  // 0 left, 0 top bottom appx 100
+    right_display.sendBuffer();
     delay(2000);
     writeDefaultSettingsToEEPROM();
   }
-*/
+  else
+  {
+    right_display.clearBuffer();
+    right_display.drawStr(0, 63, "Eeprom ok");  // 0 left, 0 top bottom appx 100
+    right_display.sendBuffer();
+    delay(2000);
+  }
+  
   // Connect to Wifi
   // TO DO
   //setupWIFIsupport();
@@ -495,13 +509,15 @@ void startUp()
 
 void loop() {
   //For test purposes
+  /*
   for (byte pin = 0; pin <= 7; pin++)
   {
     relayController.pinMode(pin, OUTPUT);
     relayController.digitalWrite(pin, HIGH);
   }
   digitalWrite(POWER_CONTROL_PIN, HIGH);
-  delay(5000);
+  delay(2000);
+  */
   for (byte pin = 0; pin <= 7; pin++)
   {
     relayController.pinMode(pin, OUTPUT);
@@ -509,33 +525,7 @@ void loop() {
   }
   digitalWrite(POWER_CONTROL_PIN, LOW);
 
-  // Read setting from EEPROM
-  readSettingsFromEEPROM();
-  readRuntimeSettingsFromEEPROM();
-
-  // Check if settings stored in EEPROM are INVALID - if so, we write the default settings to the EEPROM and reboots
-  if ((Settings.Version != (float)VERSION) || (RuntimeSettings.Version != (float)VERSION))
-  {
-    right_display.clearBuffer();
-    right_display.drawStr(0, 63, "Reset");  // 0 left, 0 top bottom appx 100
-    right_display.sendBuffer();
-    delay(2000);
-    writeDefaultSettingsToEEPROM();
-  }
-  else
-  {
-    right_display.clearBuffer();
-    right_display.drawStr(0, 63, "EEprom ok");  // 0 left, 0 top bottom appx 100
-    right_display.sendBuffer();
-    delay(2000);
-  }
-  
-  // Display logo
-  right_display.clearBuffer();
-  right_display.drawXBMP(77, 0, 130, 64, thePreAmpLogo);
-  right_display.sendBuffer();
-  delay(10000);
-
+  /*
   for (int i=0; i < 240; i++) {
     right_display.clearBuffer();
     right_display.drawStr(i, 63, "Let's");  // 0 left, 0 top bottom appx 100
@@ -544,7 +534,15 @@ void loop() {
     left_display.drawStr(i, 63, "rock");  // 0 left, 0 top bottom appx 100
     left_display.sendBuffer();
   }
-  
+  */
+
+  // Display logo
+  right_display.clearBuffer();
+  right_display.drawXBMP(77, 0, 130, 64, thePreAmpLogo);
+  right_display.sendBuffer();
+  delay(2000);
+
+  /*
   int16_t adc0, adc1, adc2, adc3;
   float volts0, volts1, volts2, volts3;
  
@@ -562,12 +560,34 @@ void loop() {
   left_display.setCursor(1, 63);
   left_display.print(volts0);
   left_display.sendBuffer();
-  
-  for (int i=0; i < 256; i++) {
-    right_display.clearBuffer();
-    right_display.setCursor(i, 63);
-    right_display.print(i);
-    right_display.sendBuffer();
+  delay(2000);
+  */
+
+  for (int i=0; i < 100; i++) {
+    if (irrecv.decode(&IRresults)) {
+      right_display.clearBuffer();
+      right_display.drawStr(0, 63, uint64ToString(IRresults.value, HEX).c_str());  // 0 left, 0 top bottom appx 100
+      right_display.sendBuffer();
+      irrecv.resume();  // Receive the next value
+    }
+    else 
+    {
+      right_display.clearBuffer();
+      right_display.drawStr(0, 63, "No IR received");  // 0 left, 0 top bottom appx 100
+      right_display.sendBuffer();
+    }
+     left_display.clearBuffer();
+    left_display.setCursor(1, 63);
+    left_display.print("Vol 0");
+    left_display.sendBuffer();
+    setVolume(0);
+    delay(1000);
+    left_display.clearBuffer();
+    left_display.setCursor(1, 63);
+    left_display.print("Vol 200");
+    left_display.sendBuffer();
+    setVolume(200);
+    delay(1000);
   }
 }
 
@@ -647,38 +667,22 @@ void setSettingsToDefault()
   Settings.MaxStartVolume = Settings.VolumeSteps;
   Settings.MuteLevel = 0;
   Settings.RecallSetLevel = true;
-  Settings.IR_UP.address = 0x2;
-  Settings.IR_UP.command = 0xA;
-  Settings.IR_DOWN.address = 0x2;
-  Settings.IR_DOWN.command = 0xB;
-  Settings.IR_REPEAT.address = 0x00;
-  Settings.IR_REPEAT.command = 0x00;
-  Settings.IR_LEFT.address = 0x2;
-  Settings.IR_LEFT.command = 0x1D;
-  Settings.IR_RIGHT.address = 0x2;
-  Settings.IR_RIGHT.command = 0x1B;
-  Settings.IR_SELECT.address = 0x2;
-  Settings.IR_SELECT.command = 0x19;
-  Settings.IR_BACK.address = 0x2;
-  Settings.IR_BACK.command = 0x1F;
-  Settings.IR_MUTE.address = 0x2;
-  Settings.IR_MUTE.command = 0x1C;
-  Settings.IR_PREVIOUS.address = 0x00;
-  Settings.IR_PREVIOUS.command = 0x00;
-  Settings.IR_ONOFF.address = 0x2;
-  Settings.IR_ONOFF.command = 0xF;
-  Settings.IR_1.address = 0x2;
-  Settings.IR_1.command = 0x0;
-  Settings.IR_2.address = 0x2;
-  Settings.IR_2.command = 0x1;
-  Settings.IR_3.address = 0x2;
-  Settings.IR_3.command = 0x2;
-  Settings.IR_4.address = 0x2;
-  Settings.IR_4.command = 0x3;
-  Settings.IR_5.address = 0x2;
-  Settings.IR_5.command = 0x4;
-  Settings.IR_6.address = 0x2;
-  Settings.IR_6.command = 0x5;
+  Settings.IR_UP = 0x0;
+  Settings.IR_DOWN = 0x0;
+  Settings.IR_REPEAT = 0x0;
+  Settings.IR_LEFT = 0x0;
+  Settings.IR_RIGHT = 0x0;
+  Settings.IR_SELECT = 0x0;
+  Settings.IR_BACK = 0x0;
+  Settings.IR_MUTE = 0x0;
+  Settings.IR_PREVIOUS = 0x00;
+  Settings.IR_ONOFF = 0x0;
+  Settings.IR_1 = 0x0;
+  Settings.IR_2 = 0x0;
+  Settings.IR_3 = 0x0;
+  Settings.IR_4 = 0x0;
+  Settings.IR_5 = 0x0;
+  Settings.IR_6 = 0x0;
   Settings.Input[0].Active = INPUT_NORMAL;
   strcpy(Settings.Input[0].Name, "Input 1   ");
   Settings.Input[0].MaxVol = Settings.VolumeSteps;
@@ -739,4 +743,9 @@ void setSettingsToDefault()
   RuntimeSettings.InputLastBal[5] = 127;
   RuntimeSettings.PrevSelectedInput = 0;
   RuntimeSettings.Version = VERSION;
+}
+
+void setVolume(int16_t newVolumeStep)
+{
+  muses.setVolume(newVolumeStep);
 }

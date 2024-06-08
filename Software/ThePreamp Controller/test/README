@@ -12,7 +12,7 @@ More information about PlatformIO Unit Testing:
 
 TO DO
 
-Test IR
+Test IR - PASSED
 Test rotary encoders
 Test SPI on analogue board (Muses)
 Test triggers 12V + Switch
