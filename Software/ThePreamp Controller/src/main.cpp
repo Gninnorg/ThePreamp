@@ -396,11 +396,12 @@ void setup() {
   SPI.begin();
   Wire.begin();
 
-  delay(3000);
+  right_display.setBusClock(2000000);
   right_display.begin();
   right_display.setPowerSave(0);
   right_display.setFont(u8g2_font_cu12_tr); // u8g2_font_inr38_mf
   
+  left_display.setBusClock(2000000);
   left_display.begin();
   left_display.setPowerSave(0);
   left_display.setFont(u8g2_font_cu12_tr); 
@@ -430,6 +431,7 @@ void setup() {
   // Check if settings stored in EEPROM are INVALID - if so, we write the default settings to the EEPROM and continue with those
   if ((Settings.Version != (float)VERSION) || (RuntimeSettings.Version != (float)VERSION))
   {
+    right_display.setBusClock(2000000);
     right_display.clearBuffer();
     right_display.drawStr(0, 63, "Reset");  // 0 left, 0 top bottom appx 100
     right_display.sendBuffer();
@@ -450,6 +452,7 @@ void setup() {
 void startUp()
 {
   // Display logo
+  left_display.setBusClock(2000000);
   left_display.clearBuffer();
   left_display.drawXBMP(77, 0, 130, 64, thePreAmpLogo);
   left_display.sendBuffer();
@@ -797,7 +800,7 @@ void setSettingsToDefault()
 
 void setVolume(int16_t newVolumeStep)
 {
-    if (appMode == APP_NORMAL_MODE || appMode == APP_BALANCE_MODE)
+  if (appMode == APP_NORMAL_MODE || appMode == APP_BALANCE_MODE)
   {
     if (newVolumeStep < Settings.Input[RuntimeSettings.CurrentInput].MinVol)
       newVolumeStep = Settings.Input[RuntimeSettings.CurrentInput].MinVol;
@@ -835,6 +838,7 @@ void left_display_update(void)
     if (ScreenSaverIsOn)
       ScreenSaverOff();
     
+    left_display.setBusClock(2000000);
     left_display.clearBuffer();
     left_display.setCursor(0, 63);
     left_display.print(Settings.Input[RuntimeSettings.CurrentInput].Name);  
@@ -848,8 +852,10 @@ void right_display_update(void)
   {
     if (ScreenSaverIsOn)
       ScreenSaverOff();
+
     if (!RuntimeSettings.Muted)
     {
+      right_display.setBusClock(2000000);
       // If show volume in steps
       if (Settings.DisplayVolume == 1)
       {
@@ -868,6 +874,7 @@ void right_display_update(void)
     }
     else
     {
+      right_display.setBusClock(2000000);
       right_display.clearBuffer();
       right_display.setCursor(0, 63);
       right_display.print("MUTE");  
