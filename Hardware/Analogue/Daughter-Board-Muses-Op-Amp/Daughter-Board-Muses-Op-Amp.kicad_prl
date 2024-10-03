@@ -1,11 +1,15 @@
 {
   "board": {
-    "active_layer": 32,
+    "active_layer": 0,
     "active_layer_preset": "",
     "auto_track_width": true,
     "hidden_netclasses": [],
     "hidden_nets": [
-      ""
+      "",
+      "GNDA",
+      "-15V",
+      "+15V",
+      "GNDD"
     ],
     "high_contrast_mode": 0,
     "net_color_mode": 1,

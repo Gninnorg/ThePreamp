@@ -1,0 +1,5 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "Toshiba-JFET")(type "KiCad")(uri "${KIPRJMOD}/Toshiba-JFET.kicad_sym")(options "")(descr ""))
+  (lib (name "Toshiba 2sk170")(type "KiCad")(uri "${KIPRJMOD}/Toshiba 2sk170.kicad_sym")(options "")(descr ""))
+)

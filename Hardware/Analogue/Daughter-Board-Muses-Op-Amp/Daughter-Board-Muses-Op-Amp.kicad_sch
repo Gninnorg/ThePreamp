@@ -1388,7 +1388,7 @@
 				)
 			)
 		)
-		(symbol "PCM_Transistor_JFET_AKL:2SK30"
+		(symbol "Toshiba 2sk170:2SK170"
 			(pin_names hide)
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -1402,7 +1402,7 @@
 					(justify left)
 				)
 			)
-			(property "Value" "2SK30"
+			(property "Value" "2SK170"
 				(at 5.08 -1.27 0)
 				(effects
 					(font
@@ -1411,7 +1411,7 @@
 					(justify left)
 				)
 			)
-			(property "Footprint" "Package_TO_SOT_THT_AKL:TO-92_Inline_Wide_SGD"
+			(property "Footprint" "PCM_Package_TO_SOT_THT_AKL:TO-92L_Inline"
 				(at 5.08 2.54 0)
 				(effects
 					(font
@@ -1420,7 +1420,7 @@
 					(hide yes)
 				)
 			)
-			(property "Datasheet" "https://datasheet.octopart.com/2SK30A-Toshiba-datasheet-101654.pdf"
+			(property "Datasheet" ""
 				(at 0 -1.27 0)
 				(effects
 					(font
@@ -1429,7 +1429,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "TO-92 N-JFET transistor, 50V, 0.3mA, 100mW, Alternate KiCAD Library"
+			(property "Description" "TO-92 N-JFET transistor, 40V, 10mA, 400mW, Alternate KiCAD Library"
 				(at 0 0 0)
 				(effects
 					(font
@@ -1447,7 +1447,7 @@
 					(hide yes)
 				)
 			)
-			(symbol "2SK30_0_1"
+			(symbol "2SK170_0_1"
 				(polyline
 					(pts
 						(xy 0 -1.27) (xy 0.254 -1.27)
@@ -1520,11 +1520,11 @@
 					)
 				)
 			)
-			(symbol "2SK30_1_1"
+			(symbol "2SK170_1_1"
 				(pin passive line
-					(at 2.54 -5.08 90)
+					(at 2.54 5.08 270)
 					(length 2.54)
-					(name "S"
+					(name "D"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1558,9 +1558,9 @@
 					)
 				)
 				(pin passive line
-					(at 2.54 5.08 270)
+					(at 2.54 -5.08 90)
 					(length 2.54)
-					(name "D"
+					(name "S"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -2879,6 +2879,12 @@
 		(uuid "7d8e221a-fa1e-4faa-9442-95359b33a649")
 	)
 	(junction
+		(at 241.046 90.678)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "8552d0b4-e0ca-4f3f-8148-28425dd8f916")
+	)
+	(junction
 		(at 76.708 163.068)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -3082,7 +3088,7 @@
 	)
 	(wire
 		(pts
-			(xy 230.124 90.678) (xy 257.556 90.678)
+			(xy 230.124 90.678) (xy 241.046 90.678)
 		)
 		(stroke
 			(width 0)
@@ -3362,6 +3368,16 @@
 	)
 	(wire
 		(pts
+			(xy 241.046 90.678) (xy 257.556 90.678)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "55365e7b-d77d-47a5-ad43-b83ede70fd3d")
+	)
+	(wire
+		(pts
 			(xy 98.298 205.74) (xy 103.378 205.74)
 		)
 		(stroke
@@ -3539,6 +3555,16 @@
 			(type default)
 		)
 		(uuid "7115f56c-71c3-4a19-a5c1-a89f0eb1dccc")
+	)
+	(wire
+		(pts
+			(xy 241.046 90.678) (xy 241.046 90.932)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "71859814-c46f-4449-ac3f-0f6539920420")
 	)
 	(wire
 		(pts
@@ -5579,7 +5605,7 @@
 		)
 	)
 	(symbol
-		(lib_id "PCM_Transistor_JFET_AKL:2SK30")
+		(lib_id "Toshiba 2sk170:2SK170")
 		(at 73.914 199.39 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -5589,7 +5615,7 @@
 		(fields_autoplaced yes)
 		(uuid "1a3f0b2c-12f9-405e-9e49-c4491ef9913c")
 		(property "Reference" "Q3"
-			(at 79.502 198.1199 0)
+			(at 78.74 198.1199 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5597,8 +5623,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "2SK30"
-			(at 79.502 200.6599 0)
+		(property "Value" "2SK170"
+			(at 78.74 200.6599 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5606,7 +5632,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_THT:TO-92"
+		(property "Footprint" "PCM_Package_TO_SOT_THT_AKL:TO-92L_Inline"
 			(at 78.994 196.85 0)
 			(effects
 				(font
@@ -5624,7 +5650,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "TO-92 N-JFET transistor, 50V, 0.3mA, 100mW, Alternate KiCAD Library"
+		(property "Description" "TO-92 N-JFET transistor, 40V, 10mA, 400mW, Alternate KiCAD Library"
 			(at 73.914 199.39 0)
 			(effects
 				(font
@@ -6282,7 +6308,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm"
+		(property "Footprint" "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm"
 			(at 220.218 104.4448 0)
 			(effects
 				(font
@@ -7225,7 +7251,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm"
+		(property "Footprint" "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm"
 			(at 220.218 43.2308 0)
 			(effects
 				(font
@@ -8320,7 +8346,7 @@
 		)
 	)
 	(symbol
-		(lib_id "PCM_Transistor_JFET_AKL:2SK30")
+		(lib_id "Toshiba 2sk170:2SK170")
 		(at 74.168 155.956 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -8330,7 +8356,7 @@
 		(fields_autoplaced yes)
 		(uuid "88bae4bf-fa6d-49b0-af4b-ed8129fad922")
 		(property "Reference" "Q2"
-			(at 79.756 154.6859 0)
+			(at 78.74 154.6859 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8338,8 +8364,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "2SK30"
-			(at 79.756 157.2259 0)
+		(property "Value" "2SK170"
+			(at 78.74 157.2259 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8347,7 +8373,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_THT:TO-92"
+		(property "Footprint" "PCM_Package_TO_SOT_THT_AKL:TO-92L_Inline"
 			(at 79.248 153.416 0)
 			(effects
 				(font
@@ -8365,7 +8391,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "TO-92 N-JFET transistor, 50V, 0.3mA, 100mW, Alternate KiCAD Library"
+		(property "Description" "TO-92 N-JFET transistor, 40V, 10mA, 400mW, Alternate KiCAD Library"
 			(at 74.168 155.956 0)
 			(effects
 				(font
@@ -8419,7 +8445,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D4.3mm_W1.9mm_P5.00mm"
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
 			(at 242.0112 37.084 0)
 			(effects
 				(font
@@ -8597,7 +8623,7 @@
 		)
 	)
 	(symbol
-		(lib_id "PCM_Transistor_JFET_AKL:2SK30")
+		(lib_id "Toshiba 2sk170:2SK170")
 		(at 74.168 141.732 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -8607,7 +8633,7 @@
 		(fields_autoplaced yes)
 		(uuid "9dabac7f-2a4e-4317-87e0-e25d0ea4bf5d")
 		(property "Reference" "Q1"
-			(at 79.756 140.4619 0)
+			(at 78.74 140.4619 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8615,8 +8641,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "2SK30"
-			(at 79.756 143.0019 0)
+		(property "Value" "2SK170"
+			(at 78.74 143.0019 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8624,7 +8650,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_THT:TO-92"
+		(property "Footprint" "PCM_Package_TO_SOT_THT_AKL:TO-92L_Inline"
 			(at 79.248 139.192 0)
 			(effects
 				(font
@@ -8642,7 +8668,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "TO-92 N-JFET transistor, 50V, 0.3mA, 100mW, Alternate KiCAD Library"
+		(property "Description" "TO-92 N-JFET transistor, 40V, 10mA, 400mW, Alternate KiCAD Library"
 			(at 74.168 141.732 0)
 			(effects
 				(font
@@ -9012,7 +9038,7 @@
 		)
 	)
 	(symbol
-		(lib_id "PCM_Transistor_JFET_AKL:2SK30")
+		(lib_id "Toshiba 2sk170:2SK170")
 		(at 73.914 213.614 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -9022,7 +9048,7 @@
 		(fields_autoplaced yes)
 		(uuid "c37f49ac-e7cf-4f96-9636-357ab4ef22c8")
 		(property "Reference" "Q4"
-			(at 79.502 212.3439 0)
+			(at 78.74 212.3439 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9030,8 +9056,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "2SK30"
-			(at 79.502 214.8839 0)
+		(property "Value" "2SK170"
+			(at 78.74 214.8839 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9039,7 +9065,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Package_TO_SOT_THT:TO-92"
+		(property "Footprint" "PCM_Package_TO_SOT_THT_AKL:TO-92L_Inline"
 			(at 78.994 211.074 0)
 			(effects
 				(font
@@ -9057,7 +9083,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "TO-92 N-JFET transistor, 50V, 0.3mA, 100mW, Alternate KiCAD Library"
+		(property "Description" "TO-92 N-JFET transistor, 40V, 10mA, 400mW, Alternate KiCAD Library"
 			(at 73.914 213.614 0)
 			(effects
 				(font
@@ -9398,7 +9424,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D4.3mm_W1.9mm_P5.00mm"
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
 			(at 242.0112 98.552 0)
 			(effects
 				(font
@@ -10075,7 +10101,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:CP_Radial_D8.0mm_P3.50mm"
+		(property "Footprint" "Capacitor_THT:CP_Radial_D5.0mm_P2.00mm"
 			(at 119.126 87.5792 0)
 			(effects
 				(font
