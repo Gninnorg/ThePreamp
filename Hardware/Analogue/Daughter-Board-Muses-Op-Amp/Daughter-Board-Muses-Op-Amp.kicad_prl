@@ -6,9 +6,6 @@
     "hidden_netclasses": [],
     "hidden_nets": [
       "",
-      "GNDA",
-      "-15V",
-      "+15V",
       "GNDD"
     ],
     "high_contrast_mode": 0,
@@ -72,7 +69,7 @@
       35,
       36
     ],
-    "visible_layers": "000f270_80000001",
+    "visible_layers": "000f2f0_80000001",
     "zone_display_mode": 0
   },
   "git": {

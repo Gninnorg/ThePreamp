@@ -2861,12 +2861,6 @@
 		(uuid "6cc0cb60-939d-45dc-9699-8c509ccd1617")
 	)
 	(junction
-		(at 76.454 205.74)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "6e07e0fe-521d-4e44-9c66-47b20cb49b5f")
-	)
-	(junction
 		(at 165.862 49.276)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2901,6 +2895,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "b0a679e6-8bce-42ba-a21c-3d676945f869")
+	)
+	(junction
+		(at 76.454 205.74)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "b28c639e-2bfc-44df-a19d-14162db15993")
 	)
 	(junction
 		(at 241.046 49.276)
@@ -3215,16 +3215,6 @@
 			(type default)
 		)
 		(uuid "3729ad01-8c4c-4e7f-880b-89b3b20227c1")
-	)
-	(wire
-		(pts
-			(xy 76.454 205.74) (xy 76.454 208.534)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3c8c9977-6162-4cd3-8b2e-37bc0adcd151")
 	)
 	(wire
 		(pts
@@ -4028,6 +4018,16 @@
 	)
 	(wire
 		(pts
+			(xy 76.454 205.74) (xy 76.454 208.534)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e7d15c63-ddae-4333-9d25-9c72155728da")
+	)
+	(wire
+		(pts
 			(xy 154.432 91.694) (xy 165.1 91.694)
 		)
 		(stroke
@@ -4233,7 +4233,7 @@
 			)
 		)
 	)
-	(global_label "Audio L"
+	(global_label "Audio R"
 		(shape input)
 		(at 46.228 200.66 180)
 		(fields_autoplaced yes)
@@ -4245,7 +4245,7 @@
 		)
 		(uuid "4727455f-e0de-4e58-b9d9-c68d0c2e90b8")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 36.7609 200.66 0)
+			(at 36.519 200.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4255,7 +4255,7 @@
 			)
 		)
 	)
-	(global_label "Buffer L"
+	(global_label "Buffer R"
 		(shape input)
 		(at 103.378 205.74 0)
 		(fields_autoplaced yes)
@@ -4267,7 +4267,7 @@
 		)
 		(uuid "49f1398a-dc7f-4f8b-977d-ef8ff130c743")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 113.4499 205.74 0)
+			(at 113.6918 205.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4277,7 +4277,7 @@
 			)
 		)
 	)
-	(global_label "Buffer R"
+	(global_label "Buffer L"
 		(shape input)
 		(at 101.854 148.082 0)
 		(fields_autoplaced yes)
@@ -4289,7 +4289,7 @@
 		)
 		(uuid "4c4e1452-8ac6-4749-9fef-6952aaa37e07")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 112.1678 148.082 0)
+			(at 111.9259 148.082 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4408,7 +4408,7 @@
 			)
 		)
 	)
-	(global_label "Audio R"
+	(global_label "Audio L"
 		(shape input)
 		(at 46.482 143.002 180)
 		(fields_autoplaced yes)
@@ -4420,7 +4420,7 @@
 		)
 		(uuid "90d5767e-17e4-4d84-a4a3-a9b20f429665")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 36.7797 143.0814 0)
+			(at 37.0149 143.002 0)
 			(effects
 				(font
 					(size 1.27 1.27)
