@@ -5632,7 +5632,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "PCM_Package_TO_SOT_THT_AKL:TO-92L_Inline"
+		(property "Footprint" "Package_TO_SOT_THT:TO-92_HandSolder"
 			(at 78.994 196.85 0)
 			(effects
 				(font
@@ -8012,7 +8012,7 @@
 				)
 			)
 		)
-		(property "Footprint" "PCM_Package_SO_AKL:SSOP-32_11.305x20.495mm_P1.27mm"
+		(property "Footprint" "Muses:TSSOP-32_6.1x11mm_P0.65mm"
 			(at 154.432 94.234 0)
 			(effects
 				(font
@@ -8373,7 +8373,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "PCM_Package_TO_SOT_THT_AKL:TO-92L_Inline"
+		(property "Footprint" "Package_TO_SOT_THT:TO-92_HandSolder"
 			(at 79.248 153.416 0)
 			(effects
 				(font
@@ -8650,7 +8650,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "PCM_Package_TO_SOT_THT_AKL:TO-92L_Inline"
+		(property "Footprint" "Package_TO_SOT_THT:TO-92_HandSolder"
 			(at 79.248 139.192 0)
 			(effects
 				(font
@@ -9065,7 +9065,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "PCM_Package_TO_SOT_THT_AKL:TO-92L_Inline"
+		(property "Footprint" "Package_TO_SOT_THT:TO-92_HandSolder"
 			(at 78.994 211.074 0)
 			(effects
 				(font

@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "Muses")(type "KiCad")(uri "F:/Jan/Dokumenter/Elektronik/ThePreamp/ThePreamp/Hardware/Analogue/Muses/muses.pretty")(options "")(descr ""))
+)
