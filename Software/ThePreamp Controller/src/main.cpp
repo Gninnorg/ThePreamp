@@ -20,7 +20,7 @@
 #include <IRremoteESP8266.h>
 #include <IRrecv.h>
 #include <IRutils.h>
-#include <Muses72320.h>
+#include <Muses72323.h>
 
 // To enable debug define DEBUG 1
 // To disable debug define DEBUG 0
@@ -179,7 +179,7 @@ unsigned long mil_onRefreshTemperatureDisplay; // Used to time how often the dis
 #define TEMP_REFRESH_INTERVAL 10000         // Interval while on
 #define TEMP_REFRESH_INTERVAL_STANDBY 60000 // Interval while in standby
 
-//  What state are active?
+//  What state is active?
 enum AppModeValues
 {
   APP_NORMAL_MODE,
@@ -344,8 +344,7 @@ void setupRotaryEncoders()
 }
 
 // Setup Muses72323 -----------------------------------------------------------
-// TO DO
-Muses72320 muses(0);
+Muses72323 muses(0, SPI_CS_MUSES_PIN);
 
 // Setup Relay Controller------------------------------------------------------
 Adafruit_MCP23008 relayController;
@@ -458,15 +457,14 @@ void startUp()
   left_display.sendBuffer();
   delay(2000);
 
-  /*oled.lcdOn();
-  oled.clear();
-
+  /*  
   // Turn on Mezmerize B1 Buffer via power on/off relay
   if (Settings.ExtPowerRelayTrigger)
   {
     digitalWrite(POWER_RELAY_PIN, HIGH);
   }
   */ 
+  
   // The controller is now ready - save the timestamp
   mil_On = millis();
 
@@ -511,6 +509,7 @@ void startUp()
 */
   ScreenSaverOff();
   appMode = APP_NORMAL_MODE;
+  
   // Keep start volume for current input lower than max allowed start volume
   RuntimeSettings.InputLastVol[RuntimeSettings.CurrentInput] = minimum(RuntimeSettings.InputLastVol[RuntimeSettings.CurrentInput], Settings.MaxStartVolume); // Avoid setting volume higher than MaxStartVol
   setInput(RuntimeSettings.CurrentInput);
@@ -817,9 +816,9 @@ void setVolume(int16_t newVolumeStep)
 
       int Attenuation = getAttenuation(Settings.VolumeSteps, RuntimeSettings.CurrentVolume, Settings.MinAttenuation, Settings.MaxAttenuation);
       
-      muses.setVolume(Attenuation);
+      muses.setVolume(Attenuation, Attenuation);
       if (RuntimeSettings.InputLastBal[RuntimeSettings.CurrentInput] == 127 || RuntimeSettings.InputLastBal[RuntimeSettings.CurrentInput] < 118 || RuntimeSettings.InputLastBal[RuntimeSettings.CurrentInput] > 136) // Both channels same attenuation
-        muses.setVolume(Attenuation);
+        muses.setVolume(Attenuation, Attenuation);
       else if (RuntimeSettings.InputLastBal[RuntimeSettings.CurrentInput] < 127) // Shift balance to the left channel by lowering the right channel - TO DO: seems like the channels is reversed in the Muses library??
         muses.setVolume(Attenuation + (127 - RuntimeSettings.InputLastBal[RuntimeSettings.CurrentInput]), Attenuation);
       else if (RuntimeSettings.InputLastBal[RuntimeSettings.CurrentInput] > 127) // Shift balance to the right channel by lowering the left channel - TO DO: seems like the channels is reversed in the Muses library??
@@ -1002,6 +1001,7 @@ byte getUserInput()
 
 void toAppNormalMode()
 {
+  debugln("toStandbyMode");
   left_display_update();
   right_display_update();
   appMode = APP_NORMAL_MODE;
@@ -1066,15 +1066,21 @@ boolean setInput(uint8_t NewInput)
     if (!RuntimeSettings.Muted)
       mute();
 
+    // Input 1 relay -> RuntimeSettings.CurrentInput = 0 -> MCP23008 pin 7
+    // Input 2 relay -> RuntimeSettings.CurrentInput = 1 -> MCP23008 pin 6
+    // Input 3 relay -> RuntimeSettings.CurrentInput = 2 -> MCP23008 pin 5
+    // Input 4 relay -> RuntimeSettings.CurrentInput = 3 -> MCP23008 pin 4
+    // Input 5 relay -> RuntimeSettings.CurrentInput = 4 -> MCP23008 pin 3
+
     // Unselect currently selected input
-    relayController.digitalWrite(RuntimeSettings.CurrentInput, LOW);
+    relayController.digitalWrite(7 - RuntimeSettings.CurrentInput, LOW);
 
     // Save the currently selected input to enable switching between two inputs
     RuntimeSettings.PrevSelectedInput = RuntimeSettings.CurrentInput;
 
     // Select new input
     RuntimeSettings.CurrentInput = NewInput;
-    relayController.digitalWrite(NewInput, HIGH);
+    relayController.digitalWrite(7 - NewInput, HIGH);
 
     if (Settings.RecallSetLevel)
       RuntimeSettings.CurrentVolume = RuntimeSettings.InputLastVol[RuntimeSettings.CurrentInput];
@@ -1118,7 +1124,8 @@ void setNextInput(void)
 void mute()
 {
   if (Settings.MuteLevel)
-    muses.setVolume(getAttenuation(Settings.VolumeSteps, Settings.MuteLevel, Settings.MinAttenuation, Settings.MaxAttenuation));
+  // TO DO: This does not consider if channel balance has been set - it might not be a problem at all
+    muses.setVolume(getAttenuation(Settings.VolumeSteps, Settings.MuteLevel, Settings.MinAttenuation, Settings.MaxAttenuation), getAttenuation(Settings.VolumeSteps, Settings.MuteLevel, Settings.MinAttenuation, Settings.MaxAttenuation));
   else
     muses.mute();
   RuntimeSettings.Muted = true;
