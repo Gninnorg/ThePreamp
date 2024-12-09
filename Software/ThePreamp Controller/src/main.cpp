@@ -6,7 +6,7 @@
 **
 */
 
-#define VERSION (float)0.98
+#define VERSION (float)0.99
 
 #include <Arduino.h>
 #include <SPI.h>
@@ -258,11 +258,10 @@ typedef union
     uint64_t IR_1;                // IR data to be interpreted as 1 (to select input 1 directly)
     uint64_t IR_2;                // IR data to be interpreted as 2
     uint64_t IR_3;                // IR data to be interpreted as 3
-    uint64_t IR_5;                // IR data to be interpreted as 5
-    uint64_t IR_4;                // IR data to be interpreted as 4
-    uint64_t IR_6;                // IR data to be interpreted as 6
+    uint64_t IR_4;                // IR data to be interpreted as 5
+    uint64_t IR_5;                // IR data to be interpreted as 4
     
-    struct InputSettings Input[6]; // Settings for all 6 inputs
+    struct InputSettings Input[5]; // Settings for all 5 inputs
     bool ExtPowerRelayTrigger;     // Enable triggering of relay for external power (we use it to control the power of the Mezmerize)
     byte Trigger1Active;           // 0 = the trigger is not active, 1 = the trigger is active
     byte Trigger1Type;             // 0 = momentary, 1 = latching
@@ -283,7 +282,7 @@ typedef union
     byte DisplayTemperature2;      // 0 = do not display the temperature measured by NTC 2, 1 = display in number of degrees Celcious, 2 = display as graphical representation, 3 = display both
     float Version;                 // Used to check if data read from the EEPROM is valid with the compiled version of the code - if not a reset to default settings is necessary and they must be written to the EEPROM
   };
-  byte data[232]; // Allows us to be able to write/read settings from EEPROM byte-by-byte (to avoid specific serialization/deserialization code)
+  byte data[324]; // Allows us to be able to write/read settings from EEPROM byte-by-byte (to avoid specific serialization/deserialization code)
 } mySettings;
 
 mySettings Settings; // Holds all the current settings
@@ -296,12 +295,12 @@ typedef union
     byte CurrentInput;      // The number of the currently set input
     byte CurrentVolume;     // The currently set volume
     bool Muted;             // Indicates if we are in mute mode or not
-    byte InputLastVol[6];   // The last set volume for each input
-    byte InputLastBal[6];   // The last set balance for each input: 127 = no balance shift (values < 127 = shift balance to the left channel, values > 127 = shift balance to the right channel)
+    byte InputLastVol[5];   // The last set volume for each input
+    byte InputLastBal[5];   // The last set balance for each input: 127 = no balance shift (values < 127 = shift balance to the left channel, values > 127 = shift balance to the right channel)
     byte PrevSelectedInput; // Holds the input selected before the current one (enables switching back and forth between two inputs, eg. while A-B testing)
     float Version;          // Used to check if data read from the EEPROM is valid with the compiled version of the compiled code - if not a reset to defaults is necessary and they must be written to the EEPROM
   };
-  byte data[20]; // Allows us to be able to write/read settings from EEPROM byte-by-byte (to avoid specific serialization/deserialization code)
+  byte data[18]; // Allows us to be able to write/read settings from EEPROM byte-by-byte (to avoid specific serialization/deserialization code)
 } myRuntimeSettings;
 
 myRuntimeSettings RuntimeSettings;
@@ -369,7 +368,7 @@ float readVoltage(byte);
 float getTemperature(uint8_t);
 void left_display_update(void);
 void right_display_update(void);
-int16_t getAttenuation(uint8_t, uint8_t, uint8_t, uint8_t);
+int calculateAttenuation(byte logicalStep, byte maxLogicalSteps, byte minAttenuation, byte maxAttenuation);
 void setVolume(int16_t);
 bool changeBalance(void);
 void displayBalance(byte);
@@ -398,12 +397,12 @@ void setup() {
   right_display.setBusClock(2000000);
   right_display.begin();
   right_display.setPowerSave(0);
-  right_display.setFont(u8g2_font_cu12_tr); // u8g2_font_inr38_mf
+  right_display.setFont(u8g2_font_inb63_mn); // u8g2_font_inr38_mf
   
   left_display.setBusClock(2000000);
   left_display.begin();
   left_display.setPowerSave(0);
-  left_display.setFont(u8g2_font_cu12_tr); 
+  left_display.setFont(u8g2_font_inb63_mn); //
   
   setupRotaryEncoders();
   
@@ -416,6 +415,8 @@ void setup() {
   }
   
   muses.begin();
+  muses.setExternalClock(false);
+  muses.setGain(0);
 
   ads1115.setGain(GAIN_ONE);        // 1x gain   +/- 4.096V  1 bit = 2mV      0.125mV
   ads1115.begin();
@@ -444,6 +445,9 @@ void setup() {
 
   // Set pin mode for control of power relay
   pinMode(POWER_CONTROL_PIN, OUTPUT);
+
+  // Enable output / trigger output relay
+  relayController.digitalWrite(0, HIGH);
 
   startUp();
 }
@@ -734,7 +738,6 @@ void setSettingsToDefault()
   Settings.IR_3 = 0xD;
   Settings.IR_4 = 0xE;
   Settings.IR_5 = 0xF;
-  Settings.IR_6 = 0x11;
   Settings.Input[0].Active = INPUT_NORMAL;
   strcpy(Settings.Input[0].Name, "Input 1   ");
   Settings.Input[0].MaxVol = Settings.VolumeSteps;
@@ -751,14 +754,10 @@ void setSettingsToDefault()
   strcpy(Settings.Input[3].Name, "Input 4   ");
   Settings.Input[3].MaxVol = Settings.VolumeSteps;
   Settings.Input[3].MinVol = 0;
-  Settings.Input[4].Active = INPUT_NORMAL;
+  Settings.Input[4].Active = INPUT_INACTIVATED;
   strcpy(Settings.Input[4].Name, "Input 5   ");
   Settings.Input[4].MaxVol = Settings.VolumeSteps;
   Settings.Input[4].MinVol = 0;
-  Settings.Input[5].Active = INPUT_NORMAL;
-  strcpy(Settings.Input[5].Name, "Input 6   ");
-  Settings.Input[5].MaxVol = Settings.VolumeSteps;
-  Settings.Input[5].MinVol = 0;
   Settings.Trigger1Active = 1;
   Settings.Trigger1Type = 0;
   Settings.Trigger1OnDelay = 0;
@@ -786,13 +785,11 @@ void setSettingsToDefault()
   RuntimeSettings.InputLastVol[2] = 0;
   RuntimeSettings.InputLastVol[3] = 0;
   RuntimeSettings.InputLastVol[4] = 0;
-  RuntimeSettings.InputLastVol[5] = 0;
   RuntimeSettings.InputLastBal[0] = 127; // 127 = no balance shift (values < 127 = shift balance to the left channel, values > 127 = shift balance to the right channel)
   RuntimeSettings.InputLastBal[1] = 127;
   RuntimeSettings.InputLastBal[2] = 127;
   RuntimeSettings.InputLastBal[3] = 127;
   RuntimeSettings.InputLastBal[4] = 127;
-  RuntimeSettings.InputLastBal[5] = 127;
   RuntimeSettings.PrevSelectedInput = 0;
   RuntimeSettings.Version = VERSION;
 }
@@ -814,8 +811,7 @@ void setVolume(int16_t newVolumeStep)
         RuntimeSettings.CurrentVolume = Settings.Input[RuntimeSettings.CurrentInput].MaxVol; // Set to max volume
       RuntimeSettings.InputLastVol[RuntimeSettings.CurrentInput] = RuntimeSettings.CurrentVolume;
 
-      int Attenuation = getAttenuation(Settings.VolumeSteps, RuntimeSettings.CurrentVolume, Settings.MinAttenuation, Settings.MaxAttenuation);
-      
+      int Attenuation = calculateAttenuation(RuntimeSettings.CurrentVolume, Settings.VolumeSteps, Settings.MinAttenuation, Settings.MaxAttenuation);
       muses.setVolume(Attenuation, Attenuation);
       if (RuntimeSettings.InputLastBal[RuntimeSettings.CurrentInput] == 127 || RuntimeSettings.InputLastBal[RuntimeSettings.CurrentInput] < 118 || RuntimeSettings.InputLastBal[RuntimeSettings.CurrentInput] > 136) // Both channels same attenuation
         muses.setVolume(Attenuation, Attenuation);
@@ -867,7 +863,7 @@ void right_display_update(void)
       {
         right_display.clearBuffer();
         right_display.setCursor(0, 63);
-        right_display.print((getAttenuation(Settings.VolumeSteps, RuntimeSettings.CurrentVolume, Settings.MinAttenuation, Settings.MaxAttenuation) / 2) * -10);  // Display volume as -dB - RuntimeSettings.CurrentAttennuation are converted to -dB and multiplied by 10 to be able to show 0.5 dB steps
+        right_display.print((calculateAttenuation(RuntimeSettings.CurrentVolume, Settings.VolumeSteps, Settings.MinAttenuation, Settings.MaxAttenuation) / 4) * -10);  // Display volume as -dB - RuntimeSettings.CurrentAttennuation are converted to -dB and multiplied by 10 to be able to show 0.5 dB steps
         right_display.sendBuffer();
       }
     }
@@ -1016,10 +1012,6 @@ void toStandbyMode()
   left_display.clearDisplay();
   right_display.clearDisplay();
   /*- TO DO
-  oled.setCursor(0, 1);
-  oled.print(F("Going to sleep!"));
-  oled.setCursor(11, 3);
-  oled.print(F("...zzzZZZ"));
   setTrigger1Off();
   setTrigger2Off();
   if (Settings.ExtPowerRelayTrigger)
@@ -1101,23 +1093,32 @@ boolean setInput(uint8_t NewInput)
 // Select the next active input (DOWN)
 void setPrevInput(void)
 {
+  debug("setPrevInput: "); debugln(RuntimeSettings.CurrentInput); 
   byte nextInput = (RuntimeSettings.CurrentInput == 0) ? 4 : RuntimeSettings.CurrentInput - 1;
 
+  debug("setPrevInput: try "); debugln(nextInput);
   while (Settings.Input[nextInput].Active == INPUT_INACTIVATED)
   {
-    nextInput = (nextInput == 0) ? 4 : nextInput - 1;
+    nextInput = (nextInput == 0) ? 5 : nextInput - 1;
+    debug("setPrevInput: try again "); debugln(nextInput);
   }
+  debug("setPrevInput: found "); debugln(nextInput);
   setInput(nextInput);
 }
 
 // Select the next active input (UP)
 void setNextInput(void)
 {
+  debug("setNextInput: "); debugln(RuntimeSettings.CurrentInput); 
   byte nextInput = (RuntimeSettings.CurrentInput == 4) ? 0 : RuntimeSettings.CurrentInput + 1;
+  
+  debug("setNextInput: try "); debugln(nextInput);
   while (Settings.Input[nextInput].Active == INPUT_INACTIVATED)
   {
-    nextInput = (nextInput > 4) ? 0 : nextInput + 1;
+    nextInput = (nextInput == 4) ? 0 : nextInput + 1;
+    debug("setNextInput: try again "); debugln(nextInput);
   }
+  debug("setNextInput: found "); debugln(nextInput);
   setInput(nextInput);
 }
 
@@ -1125,7 +1126,7 @@ void mute()
 {
   if (Settings.MuteLevel)
   // TO DO: This does not consider if channel balance has been set - it might not be a problem at all
-    muses.setVolume(getAttenuation(Settings.VolumeSteps, Settings.MuteLevel, Settings.MinAttenuation, Settings.MaxAttenuation), getAttenuation(Settings.VolumeSteps, Settings.MuteLevel, Settings.MinAttenuation, Settings.MaxAttenuation));
+    muses.setVolume(calculateAttenuation(Settings.MuteLevel, Settings.VolumeSteps, Settings.MinAttenuation, Settings.MaxAttenuation), calculateAttenuation(Settings.MuteLevel, Settings.VolumeSteps, Settings.MinAttenuation, Settings.MaxAttenuation));
   else
     muses.mute();
   RuntimeSettings.Muted = true;
@@ -1218,64 +1219,51 @@ void displayBalance(byte Value)
   */
 }
 
-int16_t getAttenuation(uint8_t steps, uint8_t selStep, uint8_t min_dB, uint8_t max_dB)
+int calculateAttenuation(byte logicalStep, byte maxLogicalSteps, byte minAttenuation_dB, byte maxAttenuation_dB) 
 {
   /*
-  ** Return the attenuation required by the setvolume function of the Muses72320 based upon the configured 
-  ** number of steps, the selected step and the configured minimum and maximum attenuation in dBs.
-  **
-  ** The purpose of the algoritm is the divide the potentionmeter into to sections. To get a more even step
-  ** size in terms of the experienced sound preassure. One section will have larger attenuation step sizes.
-  ** This will be in section starting from the maximum attenuation. Another section will have smaller step sizes.
-  ** This will be in section closer to the minimum attenuation.
+  ** Return the attenuation required by the setvolume function of the Muses72323 based upon the selected step, configured 
+  ** number of steps and the configured minimum and maximum attenuation in dBs.
   ** 
   ** Parameters
-  **   steps   : Number of desired step for you potentiometer. 
-  **             Maximum number of step = (max_dB-min_dB) * 2 
-  **   selStep : Selected step in potentiometer ladder from which you wan't the attenuation calculated
-  **             selStep = 0      (equals max_dB attenuation)
-  **             selStep = steps  (equals min_db attenuation)
-  **   min_dB  : Minimum attenuation for the potentiometer      0 dB = absolute minimum 
-  **   max_dB  : Maximum attenuation for the potentionmeter   111 dB = absolute maximum
+  **   logicalStep:       Selected step in potentiometer ladder from which you want the attenuation calculated
+  **                        logicalStep = 1                (equals max_dB attenuation)
+  **                        logicalStep = maxLogicalsteps  (equals min_db attenuation)
+  **   maxLogicalSteps:   Number of desired step for you potentiometer. 
+  **                        Maximum number of step = (max_dB-min_dB) * 2
+  **   minAttenuation_dB: Minimum attenuation for the potentiometer         0 dB = absolute minimum 
+  **   maxAttenuation_dB: Maximum attenuation for the potentionmeter   111.75 dB = absolute maximum
   **
   ** Constraints
-  **   max_dB < min_dB
-  **   selStep <= steps
-  **   steps >= 10 
-  **   steps <= (max_dB - min_dB) / 2
+  **   maxAttenuation_dB < minAttenuation_dB
+  **   logicalStep <= maxLogicalSteps
+  **   maxLogicalSteps >= 10 
+  **   maxLogicalSteps <= (maxAttenuation_dB - minAttenuation_dB) / 4
   **
-  ** If the above constraints are not meet the getAttenuation() will return 223 (111.5 max attenuation);
+  ** If the above constraints are not meet the calculateAttenuation() will return 0 (mute);
   **
   */
-  debug("steps: "); debug(steps); debug(" selectedStep: "); debug(selStep); debug(" min_dB: "); debug(min_dB); debug(" max_dB: "); debugln(max_dB);
-  if (min_dB >= max_dB ||
-      selStep > steps ||
-      steps < 10 ||
-      steps <= ((max_dB - min_dB) / 2)) return -223;
+  
+  if (minAttenuation_dB >= maxAttenuation_dB ||
+      logicalStep <= 0 ||
+      logicalStep > maxLogicalSteps ||
+      maxLogicalSteps < 10 ||
+      maxLogicalSteps <= ((maxAttenuation_dB - minAttenuation_dB) / 4)) return 0;
 
-  // Calculate attenuation range in dB
-  uint8_t att_dB = max_dB - min_dB;
-
-  // Calculate step size in DB for attenuation steps
-  float sizeOfMajorSteps = round(pow(2.0, att_dB / steps) - 0.5);
-  float sizeOfMinorSteps = sizeOfMajorSteps / 2;
-
-  // Calculate number of minor steps for section with minor steps 
-  // Use as many steps as possible for minor steps
-  uint8_t numberOfMinorSteps = (sizeOfMajorSteps * steps - att_dB) / sizeOfMinorSteps;
-
-  // return calculated for total attenuation for selected step off_set equals min_db
-  return minimum((min_dB + 
-                  // total attenuation in dB from number of selected steps in minor step section
-                  // Start using minor steps - we want as many of these as possible.
-                  // Equals when attenuation is close to 0 the steps should be as fine as possible
-                  minimum(steps - selStep, numberOfMinorSteps) * sizeOfMinorSteps +   
-                  // total attenuation in dB from number of selected step in major step section
-                  // When every minor step is used start using large steps
-                  // Equals when attenuation is close to max remaing steps should be the major ones.
-                  max(steps - numberOfMinorSteps - selStep, 0) * sizeOfMajorSteps),
-                  // total attenuation cannot exceed max_db   
-                  max_dB) * 
-                  // Total attenuation in db * 2 to calculation value in 1/2 dB steps 
-                  -2;                                           
+    // Calculate the total attenuation range
+    float attenuationRange = maxAttenuation_dB - minAttenuation_dB;
+    // Calculate the attenuation per logical step
+    float attenuationPerStep = attenuationRange / (maxLogicalSteps - 1);
+    // Calculate the attenuation in dB for the given logical step (reversed)
+    float attenuation = maxAttenuation_dB - (logicalStep - 1) * attenuationPerStep;
+    // Round the attenuation to the nearest 0.25 dB
+    attenuation = round(attenuation * 4) / 4;
+    // Calculate the volume step
+    int volumeStep = static_cast<int>(attenuation * -4);
+    return volumeStep;
 }
+
+
+// Trigger 1 relay -> MCP23008 pin 2
+// Trigger 2 relay -> MCP23008 pin 1
+// Mute relay -> MCP23008 pin 0
