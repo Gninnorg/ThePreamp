@@ -397,12 +397,12 @@ void setup() {
   right_display.setBusClock(2000000);
   right_display.begin();
   right_display.setPowerSave(0);
-  right_display.setFont(u8g2_font_inb63_mn); // u8g2_font_inr38_mf
+  right_display.setFont(u8g2_font_inb63_mn); 
   
   left_display.setBusClock(2000000);
   left_display.begin();
   left_display.setPowerSave(0);
-  left_display.setFont(u8g2_font_inb63_mn); //
+  left_display.setFont(u8g2_font_inb63_mn);
   
   setupRotaryEncoders();
   
@@ -739,23 +739,23 @@ void setSettingsToDefault()
   Settings.IR_4 = 0xE;
   Settings.IR_5 = 0xF;
   Settings.Input[0].Active = INPUT_NORMAL;
-  strcpy(Settings.Input[0].Name, "Input 1   ");
+  strcpy(Settings.Input[0].Name, "Input 1");
   Settings.Input[0].MaxVol = Settings.VolumeSteps;
   Settings.Input[0].MinVol = 0;
   Settings.Input[1].Active = INPUT_NORMAL;
-  strcpy(Settings.Input[1].Name, "Input 2   ");
+  strcpy(Settings.Input[1].Name, "Input 2");
   Settings.Input[1].MaxVol = Settings.VolumeSteps;
   Settings.Input[1].MinVol = 0;
   Settings.Input[2].Active = INPUT_NORMAL;
-  strcpy(Settings.Input[2].Name, "Input 3   ");
+  strcpy(Settings.Input[2].Name, "Input 3");
   Settings.Input[2].MaxVol = Settings.VolumeSteps;
   Settings.Input[2].MinVol = 0;
   Settings.Input[3].Active = INPUT_NORMAL;
-  strcpy(Settings.Input[3].Name, "Input 4   ");
+  strcpy(Settings.Input[3].Name, "Input 4");
   Settings.Input[3].MaxVol = Settings.VolumeSteps;
   Settings.Input[3].MinVol = 0;
   Settings.Input[4].Active = INPUT_INACTIVATED;
-  strcpy(Settings.Input[4].Name, "Input 5   ");
+  strcpy(Settings.Input[4].Name, "Input 5");
   Settings.Input[4].MaxVol = Settings.VolumeSteps;
   Settings.Input[4].MinVol = 0;
   Settings.Trigger1Active = 1;
@@ -834,10 +834,20 @@ void left_display_update(void)
       ScreenSaverOff();
     
     left_display.setBusClock(2000000);
+    left_display.setFont(u8g2_font_inb42_mr);
+      
+    // Calculate the width of the text 
+    int16_t textWidth = left_display.getStrWidth(Settings.Input[RuntimeSettings.CurrentInput].Name);
+    // Calculate the height of the text 
+    int16_t textHeight = left_display.getMaxCharHeight(); 
+    // Calculate the x-position to center the text horizontally 
+    int16_t xPos = (256 - textWidth) / 2; 
+    // Calculate the y-position to center the text vertically 
+    int16_t yPos = 52; 
+    // Draw the text 
     left_display.clearBuffer();
-    left_display.setCursor(0, 63);
-    left_display.print(Settings.Input[RuntimeSettings.CurrentInput].Name);  
-    left_display.sendBuffer();  
+    left_display.drawStr(xPos, yPos, Settings.Input[RuntimeSettings.CurrentInput].Name);  
+    left_display.sendBuffer(); 
   }
 }
 
@@ -854,25 +864,60 @@ void right_display_update(void)
       // If show volume in steps
       if (Settings.DisplayVolume == 1)
       {
-        right_display.clearBuffer();
-        right_display.setCursor(0, 63);
-        right_display.print(RuntimeSettings.CurrentVolume);  // Display volume as step
-        right_display.sendBuffer();        
+        // Display volume as step
+        // Convert the integer to a string 
+        char buffer[10]; 
+        // Buffer to hold the string representation of the integer 
+        snprintf(buffer, sizeof(buffer), "%d", RuntimeSettings.CurrentVolume);
+        // Calculate the width of the text 
+        int16_t textWidth = right_display.getStrWidth(buffer); 
+        // Calculate the x-position to center the text horizontally 
+        int16_t xPos = (256 - textWidth) / 2; 
+        // Calculate the y-position to center the text vertically 
+        int16_t yPos = 63; 
+        // Draw the text
+        right_display.clearBuffer(); 
+        right_display.drawStr(xPos, yPos, buffer);
+        right_display.sendBuffer();
       }
-      else // Show volume in -dB (-99.5 to 0)
+      else 
       {
-        right_display.clearBuffer();
-        right_display.setCursor(0, 63);
-        right_display.print((calculateAttenuation(RuntimeSettings.CurrentVolume, Settings.VolumeSteps, Settings.MinAttenuation, Settings.MaxAttenuation) / 4) * -10);  // Display volume as -dB - RuntimeSettings.CurrentAttennuation are converted to -dB and multiplied by 10 to be able to show 0.5 dB steps
+        // Display volume as -dB - RuntimeSettings.CurrentAttennuation are converted to -dB and multiplied by 10 to be able to show 0.25 dB steps
+        right_display.setFont(u8g2_font_inb63_mn);        
+        // Convert the integer to a string 
+        char buffer[10]; 
+        // Buffer to hold the string representation of the integer 
+        snprintf(buffer, sizeof(buffer), "%d dB", (calculateAttenuation(RuntimeSettings.CurrentVolume, Settings.VolumeSteps, Settings.MinAttenuation, Settings.MaxAttenuation) / 4) * -10);
+        // Calculate the width of the text 
+        int16_t textWidth = right_display.getStrWidth(buffer); 
+        // Calculate the height of the text 
+        int16_t textHeight = right_display.getMaxCharHeight(); 
+        // Calculate the x-position to center the text horizontally 
+        int16_t xPos = (256 - textWidth) / 2; 
+        // Calculate the y-position to center the text vertically 
+        int16_t yPos = 63; 
+        // Draw the text
+        right_display.clearBuffer(); 
+        right_display.drawStr(xPos,yPos, buffer);
         right_display.sendBuffer();
       }
     }
     else
     {
       right_display.setBusClock(2000000);
+      right_display.setFont(u8g2_font_inb63_mn);
+      
+      // Calculate the width of the text 
+      int16_t textWidth = right_display.getStrWidth("MUTE"); 
+      // Calculate the height of the text 
+      int16_t textHeight = right_display.getMaxCharHeight(); 
+      // Calculate the x-position to center the text horizontally 
+      int16_t xPos = (256 - textWidth) / 2; 
+      // Calculate the y-position to center the text vertically 
+      int16_t yPos = 63; 
+      // Draw the text 
       right_display.clearBuffer();
-      right_display.setCursor(0, 63);
-      right_display.print("MUTE");  
+      right_display.drawStr(xPos,yPos, "MUTE");  
       right_display.sendBuffer();
     }
   }
@@ -997,7 +1042,7 @@ byte getUserInput()
 
 void toAppNormalMode()
 {
-  debugln("toStandbyMode");
+  debugln("toAppNormalMode");
   left_display_update();
   right_display_update();
   appMode = APP_NORMAL_MODE;
