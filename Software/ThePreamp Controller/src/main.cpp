@@ -433,7 +433,7 @@ void setup() {
   {
     right_display.setBusClock(2000000);
     right_display.clearBuffer();
-    right_display.drawStr(0, 63, "Reset");  // 0 left, 0 top bottom appx 100
+    right_display.drawStr(0, 63, "Reset");
     right_display.sendBuffer();
     delay(2000);
     writeDefaultSettingsToEEPROM();
@@ -1309,6 +1309,6 @@ int calculateAttenuation(byte logicalStep, byte maxLogicalSteps, byte minAttenua
 }
 
 
-// Trigger 1 relay -> MCP23008 pin 2
-// Trigger 2 relay -> MCP23008 pin 1
+// Trigger 1 relay -> MCP23008 pin 2 Right
+// Trigger 2 relay -> MCP23008 pin 1 Left
 // Mute relay -> MCP23008 pin 0
