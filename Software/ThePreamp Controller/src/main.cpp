@@ -21,6 +21,11 @@
 #include <IRrecv.h>
 #include <IRutils.h>
 #include <Muses72323.h>
+#include <WiFi.h>
+#include <ESPAsyncWebServer.h>
+#include <ElegantOTA.h>
+#include "SPIFFS.h"
+
 
 // To enable debug define DEBUG 1
 // To disable debug define DEBUG 0
@@ -37,6 +42,29 @@
 #ifndef minimum
 #define minimum(a, b) ((a) < (b) ? (a) : (b))
 #endif
+
+// Webserver
+
+AsyncWebServer server(80);
+
+// Search for parameter in HTTP POST request - used for wifi configuration page
+const char *PARAM_INPUT_1 = "ssid";
+const char *PARAM_INPUT_2 = "pass";
+const char *PARAM_INPUT_3 = "ip";
+const char *PARAM_INPUT_4 = "gateway";
+
+IPAddress localIP;
+// IPAddress localIP(192, 168, 1, 200); // hardcoded
+
+// Set your Gateway IP address
+IPAddress localGateway;
+// IPAddress localGateway(192, 168, 1, 1); //hardcoded
+IPAddress subnet(255, 255, 0, 0);
+
+// Timer variables
+unsigned long previousMillis = 0;
+const long interval = 10000; // interval to wait for Wi-Fi connection (milliseconds)
+
 
 /* ----- Hardware SPI -----
   GND    ->    GND
@@ -386,6 +414,11 @@ void readUserSettingsFromEEPROM(void);
 void writeUserSettingsToEEPROM(void);
 void setVolume(int16_t);
 byte getUserInput(void);
+void setupWIFIsupport(void);
+void initSPIFFS(void);
+boolean initWiFi(void);
+String readFile(fs::FS &fs, const char *path);
+
 
 void setup() {
   // Serial port for debugging purposes
@@ -439,9 +472,7 @@ void setup() {
     writeDefaultSettingsToEEPROM();
   }
   
-  // Connect to Wifi
-  // TO DO
-  //setupWIFIsupport();
+  setupWIFIsupport();
 
   // Set pin mode for control of power relay
   pinMode(POWER_CONTROL_PIN, OUTPUT);
@@ -452,6 +483,189 @@ void setup() {
   startUp();
 }
 
+// Initialize SPIFFS
+void initSPIFFS()
+{
+  if (!SPIFFS.begin(true))
+  {
+    debugln("An error has occurred while mounting SPIFFS");
+  }
+  debugln("SPIFFS mounted successfully");
+}
+
+String readFile(fs::FS &fs, const char *path)
+{
+  Serial.printf("Reading file: %s\r\n", path);
+
+  File file = fs.open(path);
+  if (!file || file.isDirectory())
+  {
+    debugln("- failed to open file for reading");
+    return String();
+  }
+
+  String fileContent;
+  while (file.available())
+  {
+    fileContent = file.readStringUntil('\n');
+    break;
+  }
+  return fileContent;
+}
+
+bool initWiFi()
+{
+  if (Settings.ssid == "" || Settings.ip == "")
+  {
+    debugln("Undefined SSID or IP address.");
+    return false;
+  }
+
+  WiFi.mode(WIFI_STA);
+  localIP.fromString(Settings.ip);
+  localGateway.fromString(Settings.gateway);
+
+  if (!WiFi.config(localIP, localGateway, subnet))
+  {
+    debugln("STA Failed to configure");
+    return false;
+  }
+  WiFi.begin(Settings.ssid, Settings.pass);
+  debugln("Connecting to WiFi...");
+
+  unsigned long currentMillis = millis();
+  previousMillis = currentMillis;
+
+  while (WiFi.status() != WL_CONNECTED)
+  {
+    currentMillis = millis();
+    if (currentMillis - previousMillis >= interval)
+    {
+      debugln("Failed to connect.");
+      return false;
+    }
+  }
+
+  debugln(WiFi.localIP());
+  return true;
+}
+
+void setupWIFIsupport()
+{
+  initSPIFFS();
+
+  if (initWiFi())
+  {
+    // to be deleted? initWebSocket();
+
+    // Web Server Root URL
+    //server.on("/", HTTP_GET, [](AsyncWebServerRequest *request)
+    //          { request->send(SPIFFS, "/index.html", "text/html"); });
+    
+    // Web : InputSelector
+    server.on("/INPUT0", HTTP_GET, [](AsyncWebServerRequest *request)
+              { request->send(200, "text/plain", String(setInput(0)));});
+
+    server.on("/INPUT1", HTTP_GET, [](AsyncWebServerRequest *request)
+              { request->send(200, "text/plain", String(setInput(1)));});
+
+    server.on("/INPUT2", HTTP_GET, [](AsyncWebServerRequest *request)
+              { request->send(200, "text/plain", String(setInput(2)));});
+
+    server.on("/INPUT3", HTTP_GET, [](AsyncWebServerRequest *request)
+              { request->send(200, "text/plain", String(setInput(3)));});
+
+    server.on("/INPUT4", HTTP_GET, [](AsyncWebServerRequest *request)
+              { request->send(200, "text/plain", String(setInput(4)));});
+        
+
+    server.serveStatic("/", SPIFFS, "/");
+
+    ElegantOTA.begin(&server);
+    server.begin();
+  }
+  else
+  {
+    // Connect to Wi-Fi network with SSID and password
+    debugln("Setting AP (Access Point)");
+    // NULL sets an open Access Point
+    WiFi.softAP("PreAmp", NULL);
+
+    IPAddress IP = WiFi.softAPIP();
+    debug("AP IP address: ");
+    debugln(IP);
+
+    //oled.clear();
+    //oled.setCursor(0, 1);
+    //oled.print(F("WiFi: PreAmp"));
+    //oled.setCursor(0, 2);
+    //oled.print(IP);
+    //delay(10000);
+
+    // Web Server Root URL
+    server.on("/", HTTP_GET, [](AsyncWebServerRequest *request)
+              { request->send(SPIFFS, "/wifi.html", "text/html"); });
+
+    server.serveStatic("/", SPIFFS, "/");
+
+    server.on("/", HTTP_POST, [](AsyncWebServerRequest *request)
+       {
+      int params = request->params();
+      for(size_t i=0;i<params;i++){
+        const AsyncWebParameter* p = request->getParam(i);
+        if(p->isPost()){
+          // HTTP POST ssid value
+          if (p->name() == PARAM_INPUT_1) {
+            strcpy(Settings.ssid, p->value().c_str()); /* String copy*/
+            debug("SSID set to: ");
+            debugln(Settings.ssid);
+            // Write file to save value
+            //writeFile(SPIFFS, ssidPath, ssid.c_str());
+          }
+          // HTTP POST pass value
+          if (p->name() == PARAM_INPUT_2) {
+            strcpy(Settings.pass, p->value().c_str()); /* String copy */
+            debug("Password set to: ");
+            debugln(Settings.pass);
+            // Write file to save value
+            // writeFile(SPIFFS, passPath, pass.c_str());
+          }
+          // HTTP POST ip value
+          if (p->name() == PARAM_INPUT_3) {
+            strcpy(Settings.ip, p->value().c_str()); /* String copy*/
+            debug("IP Address set to: ");
+            debugln(Settings.ip);
+            // Write file to save value
+            //writeFile(SPIFFS, ipPath, ip.c_str());
+          }
+          // HTTP POST gateway value
+          if (p->name() == PARAM_INPUT_4) {
+            strcpy(Settings.gateway, p->value().c_str()); /* String copy */
+            debug("Gateway set to: ");
+            debugln(Settings.gateway);
+            // Write file to save value
+            //writeFile(SPIFFS, gatewayPath, gateway.c_str());
+          }
+          //Serial.printf("POST[%s]: %s\n", p->name().c_str(), p->value().c_str());
+        }
+      }
+
+      writeSettingsToEEPROM();
+      request->send(200, "text/plain", "Done. ESP will restart, connect to your router and go to IP address: " + String(Settings.ip));
+      //oled.clear();
+      //oled.setCursor(0, 1);
+      //oled.print(F("Wifi is configured"));
+      //oled.setCursor(0, 3);
+      //oled.print(F("Restarting..."));
+      delay(3000);
+      ESP.restart(); 
+    });
+    ElegantOTA.begin(&server);
+    server.begin();
+  }
+}
+
+
 void startUp()
 {
   // Display logo
@@ -460,6 +674,12 @@ void startUp()
   left_display.drawXBMP(77, 0, 130, 64, thePreAmpLogo);
   left_display.sendBuffer();
   delay(2000);
+
+  if(WiFi.status() != WL_CONNECTED)
+  {
+    initWiFi();
+  }
+
 
   /*  
   // Turn on Mezmerize B1 Buffer via power on/off relay
@@ -527,6 +747,8 @@ void startUp()
 
 void loop()
 {
+  ElegantOTA.loop();
+
   UIkey = getUserInput();
 
   switch (appMode)
@@ -992,7 +1214,7 @@ byte getUserInput()
   // Check if any input from the IR remote
   if (irrecv.decode(&IRresults))
   {
-      debug("IR code: "); debugln(uint64ToString(IRresults.value, HEX).c_str());
+      //debug("IR code: "); debugln(uint64ToString(IRresults.value, HEX).c_str());
       // Map the received IR input to UserInput values
       if (IRresults.value == Settings.IR_UP)
         receivedInput = KEY_UP;
