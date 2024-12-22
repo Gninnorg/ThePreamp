@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ThePreAmp</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet"  href="style.css">
+</head>
+<body>
+  <main class="container">
+  <nav>
+    <ul>
+      <li><h1>ThePreAmp</h1></li>
+    </ul>
+    <ul>
+      <li><a href="#">Setup Wifi</a></li>
+    </ul>
+  </nav>
+  <form action="/" method="POST">
+          <p>To connect ThePreAmp to your network enter SSID and Password to your Wifi.</p>
+            <input type="text" id ="ssid" name="ssid" placeholder="SSID"/>
+            <input type="text" id ="pass" name="pass" placeholder="Password"/>
+          <p></p>
+          <p>Leave the fields blank if you want this configuration to be done by you router. If you want ThePreAmp to have fixed IP-address. </p>
+            <input type="text" id ="ip" name="ip" placeholder="IP-adress"/>
+            <input type="text" id ="gateway" name="gateway" value="" placeholder="Router adress"/>
+            <input type ="submit" value ="Submit">
+          </p>
+      </form>
+  </main>
+</body>
+</html>
