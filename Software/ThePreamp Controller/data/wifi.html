@@ -1,33 +1,31 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>ESP Wi-Fi Manager</title>
+  <title>ThePreAmp</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" href="data:,">
-  <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet"  href="style.css">
 </head>
 <body>
-  <div class="topnav">
-    <h1>PreAmp Controller</h1>
-  </div>
-  <div class="content">
-    <div class="card-grid">
-      <div class="card">
-        <form action="/" method="POST">
-          <p>
-            <label for="ssid">SSID</label>
-            <input type="text" id ="ssid" name="ssid"><br>
-            <label for="pass">Password</label>
-            <input type="text" id ="pass" name="pass"><br>
-            <label for="ip">IP Address</label>
-            <input type="text" id ="ip" name="ip" value="192.168.1.200"><br>
-            <label for="gateway">Gateway Address</label>
-            <input type="text" id ="gateway" name="gateway" value="192.168.1.1"><br>
+  <main class="container">
+  <nav>
+    <ul>
+      <li><h1>ThePreAmp</h1></li>
+    </ul>
+    <ul>
+      <li><a href="#">Setup Wifi</a></li>
+    </ul>
+  </nav>
+  <form action="/" method="POST">
+          <p>To connect ThePreAmp to your network enter SSID and Password to your Wifi.</p>
+            <input type="text" id ="ssid" name="ssid" placeholder="SSID"/>
+            <input type="text" id ="pass" name="pass" placeholder="Password"/>
+          <p></p>
+          <p>Leave the fields blank if you want this configuration to be done by your router. Enter IP if you want ThePreAmp to use fixed IP-address. </p>
+            <input type="text" id ="ip" name="ip" placeholder="IP-adress"/>
+            <input type="text" id ="gateway" name="gateway" value="" placeholder="Router adress"/>
             <input type ="submit" value ="Submit">
           </p>
-        </form>
-      </div>
-    </div>
-  </div>
+      </form>
+  </main>
 </body>
 </html>
