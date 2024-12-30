@@ -47,6 +47,7 @@
 // Webserver
 
 AsyncWebServer server(80);
+DNSServer dnsServer;
 
 // Search for parameter in HTTP POST request - used for wifi configuration page
 const char *PARAM_INPUT_1 = "ssid";
@@ -567,6 +568,11 @@ bool initWiFi()
     debugln("STA Failed to configure");
     return false;
   }
+
+  // debug - want to trigger - wifi config for testing
+  strncpy(Settings.pass, "12345678", sizeof(Settings.pass) - 1);
+  Settings.pass[sizeof(Settings.pass) - 1] = '\0'; // Ensure null-termination
+
   WiFi.begin(Settings.ssid, Settings.pass);
   debugln("Connecting to WiFi...");
 
@@ -627,6 +633,7 @@ void setupWIFIsupport()
     debugln("Setting AP (Access Point)");
     // NULL sets an open Access Point
     WiFi.softAP("ThePreAmp", NULL);
+    dnsServer.start(53, "*", WiFi.softAPIP());
 
     IPAddress IP = WiFi.softAPIP();
     debug("AP IP address: ");
@@ -639,10 +646,23 @@ void setupWIFIsupport()
     left_display.sendBuffer();
     delay(20000);
 
+    server.onNotFound([](AsyncWebServerRequest *request)
+    {
+      request->send(SPIFFS, "/WiFi.html", "text/html");
+    });
+
     // Web Server Root URL
     server.on("/", HTTP_GET, [](AsyncWebServerRequest *request)
               { request->send(SPIFFS, "/wifi.html", "text/html"); });
 
+    server.on("/style.css", HTTP_GET, [](AsyncWebServerRequest *request)
+              { AsyncWebServerResponse *response = request->beginResponse(SPIFFS, "/style.css.gz", "text/css");
+                response->addHeader("Content-Encoding", "gzip");
+                request->send(response);
+                debugln("style.css");
+    });
+
+    //What this statement ment for?
     server.serveStatic("/", SPIFFS, "/");
 
     server.on("/", HTTP_POST, [](AsyncWebServerRequest *request)
@@ -714,7 +734,8 @@ void startUp()
 
   if(WiFi.status() != WL_CONNECTED)
   {
-    initWiFi();
+     //Temporary turned off to test wifi portal
+     //initWiFi();
   }
 
 
@@ -785,6 +806,8 @@ void startUp()
 void loop()
 {
   ElegantOTA.loop();
+  dnsServer.processNextRequest();
+
 
   UIkey = getUserInput();
 
