@@ -24,6 +24,7 @@
 #include <WiFi.h>
 #include <ESPAsyncWebServer.h>
 #include <ElegantOTA.h>
+#include <DNSServer.h>
 #include "SPIFFS.h"
 
 
