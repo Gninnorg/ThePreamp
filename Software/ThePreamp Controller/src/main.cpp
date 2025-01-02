@@ -560,6 +560,7 @@ bool initWiFi()
   }
 
   WiFi.mode(WIFI_STA);
+  WiFi.setTxPower(WIFI_POWER_19_5dBm); // Set maximum transmit power
   localIP.fromString(Settings.ip);
   localGateway.fromString(Settings.gateway);
 
@@ -629,31 +630,18 @@ void setupWIFIsupport()
   }
   else
   {
-    // Connect to Wi-Fi network with SSID and password
+    // Setting up AP (Access Point) for WiFi configuration 
     debugln("Setting AP (Access Point)");
     // NULL sets an open Access Point
-    WiFi.softAP("ThePreAmp", NULL);
+
+    WiFi.mode(WIFI_AP);
+    WiFi.setTxPower(WIFI_POWER_19_5dBm); // Set maximum transmit power
+    WiFi.softAP("ThePreAmp", NULL, 6,0);
     dnsServer.start(53, "*", WiFi.softAPIP());
 
     IPAddress IP = WiFi.softAPIP();
     debug("AP IP address: ");
     debugln(IP);
-
-    // Display WiFi QR code
-    left_display.setBusClock(2000000);
-    left_display.clearBuffer();
-    left_display.drawXBMP(0, 0, 64, 64, ThePreAmp_wifi_QR);
-    left_display.sendBuffer();
-    delay(20000);
-
-    server.onNotFound([](AsyncWebServerRequest *request)
-    {
-      request->send(SPIFFS, "/WiFi.html", "text/html");
-    });
-
-    // Web Server Root URL
-    server.on("/", HTTP_GET, [](AsyncWebServerRequest *request)
-              { request->send(SPIFFS, "/wifi.html", "text/html"); });
 
     server.on("/style.css", HTTP_GET, [](AsyncWebServerRequest *request)
               { AsyncWebServerResponse *response = request->beginResponse(SPIFFS, "/style.css.gz", "text/css");
@@ -662,8 +650,18 @@ void setupWIFIsupport()
                 debugln("style.css");
     });
 
+
+    server.onNotFound([](AsyncWebServerRequest *request)
+    {
+      request->send(SPIFFS, "/wifi.html", "text/html");
+      debug(request->url());
+      debug(request->host());
+      debug(": ");
+      debugln("NotFound");
+    });
+
     //What this statement ment for?
-    server.serveStatic("/", SPIFFS, "/");
+    //server.serveStatic("/", SPIFFS, "/");
 
     server.on("/", HTTP_POST, [](AsyncWebServerRequest *request)
        {
@@ -713,29 +711,55 @@ void setupWIFIsupport()
       //oled.setCursor(0, 1);
       //oled.print(F("Wifi is configured"));
       //oled.setCursor(0, 3);
-      //oled.print(F("Restarting..."));
+      debugln("Restarting...");
       delay(3000);
       ESP.restart(); 
     });
     ElegantOTA.begin(&server);
     server.begin();
+
+    // Display WiFi QR code
+    left_display.setBusClock(2000000);
+    left_display.clearBuffer();
+    left_display.drawXBMP(0, 0, 64, 64, ThePreAmp_wifi_QR);
+    left_display.setFont(u8g2_font_luBS18_tf);
+    left_display.drawStr(74, 31, "Scan to");
+    left_display.drawStr(74, 58, "setup WiFi");
+    left_display.sendBuffer();
+
+    right_display.setBusClock(2000000);
+    right_display.clearBuffer();
+    right_display.setFont(u8g2_font_luBS18_tf);
+    right_display.drawStr(0, 31, "Push volume");
+    right_display.drawStr(0, 58, "button to skip");
+    right_display.sendBuffer();
+    while (getUserInput() != KEY_SELECT) {
+       ElegantOTA.loop();
+       dnsServer.processNextRequest();
+    };
+
   }
+
 }
 
 
 void startUp()
 {
+  debugln("Starting up...");
   // Display logo
   left_display.setBusClock(2000000);
   left_display.clearBuffer();
   left_display.drawXBMP(77, 0, 130, 64, thePreAmpLogo);
   left_display.sendBuffer();
+  right_display.setBusClock(2000000);
+  right_display.clearBuffer();
+  right_display.sendBuffer();
   delay(2000);
 
   if(WiFi.status() != WL_CONNECTED)
   {
      //Temporary turned off to test wifi portal
-     //initWiFi();
+     initWiFi();
   }
 
 
