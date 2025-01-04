@@ -434,6 +434,7 @@ float readVoltage(byte);
 float getTemperature(uint8_t);
 void left_display_update(void);
 void right_display_update(void);
+void drawSignalStrength(int); 
 int calculateAttenuation(byte logicalStep, byte maxLogicalSteps, byte minAttenuation, byte maxAttenuation);
 void setVolume(int16_t);
 bool changeBalance(void);
@@ -502,7 +503,7 @@ void setup() {
   // Check if settings stored in EEPROM are INVALID - if so, we write the default settings to the EEPROM and continue with those
   if ((Settings.Version != (float)VERSION) || (RuntimeSettings.Version != (float)VERSION))
   {
-    right_display.setBusClock(2000000);
+    debugln("Eeprom settings are invalid - writing default settings to EEPROM");
     right_display.clearBuffer();
     right_display.drawStr(0, 63, "Reset");
     right_display.sendBuffer();
@@ -719,7 +720,6 @@ void setupWIFIsupport()
     server.begin();
 
     // Display WiFi QR code
-    left_display.setBusClock(2000000);
     left_display.clearBuffer();
     left_display.drawXBMP(0, 0, 64, 64, ThePreAmp_wifi_QR);
     left_display.setFont(u8g2_font_luBS18_tf);
@@ -727,7 +727,6 @@ void setupWIFIsupport()
     left_display.drawStr(74, 58, "setup WiFi");
     left_display.sendBuffer();
 
-    right_display.setBusClock(2000000);
     right_display.clearBuffer();
     right_display.setFont(u8g2_font_luBS18_tf);
     right_display.drawStr(0, 31, "Push volume");
@@ -737,9 +736,7 @@ void setupWIFIsupport()
        ElegantOTA.loop();
        dnsServer.processNextRequest();
     };
-
   }
-
 }
 
 
@@ -747,18 +744,16 @@ void startUp()
 {
   debugln("Starting up...");
   // Display logo
-  left_display.setBusClock(2000000);
   left_display.clearBuffer();
   left_display.drawXBMP(77, 0, 130, 64, thePreAmpLogo);
   left_display.sendBuffer();
-  right_display.setBusClock(2000000);
+
   right_display.clearBuffer();
   right_display.sendBuffer();
   delay(2000);
 
   if(WiFi.status() != WL_CONNECTED)
   {
-     //Temporary turned off to test wifi portal
      initWiFi();
   }
 
@@ -1139,7 +1134,6 @@ void left_display_update(void)
     if (ScreenSaverIsOn)
       ScreenSaverOff();
     
-    left_display.setBusClock(2000000);
     left_display.setFont(u8g2_font_inb42_mr);
       
     // Calculate the width of the text 
@@ -1159,14 +1153,14 @@ void left_display_update(void)
 
 void right_display_update(void)
 {
+  right_display.clearBuffer();
+
+  // Display the volume or mute status
   if (Settings.DisplayVolume)
   {
-    if (ScreenSaverIsOn)
-      ScreenSaverOff();
-
+    right_display.setFont(u8g2_font_inb63_mn);
     if (!RuntimeSettings.Muted)
     {
-      right_display.setBusClock(2000000);
       // If show volume in steps
       if (Settings.DisplayVolume == 1)
       {
@@ -1181,16 +1175,12 @@ void right_display_update(void)
         int16_t xPos = (256 - textWidth) / 2; 
         // Calculate the y-position to center the text vertically 
         int16_t yPos = 63; 
-        // Draw the text
-        right_display.clearBuffer(); 
+        // Draw the text 
         right_display.drawStr(xPos, yPos, buffer);
-        right_display.sendBuffer();
       }
       else 
       {
-        // Display volume as -dB - RuntimeSettings.CurrentAttennuation are converted to -dB and multiplied by 10 to be able to show 0.25 dB steps
-        right_display.setFont(u8g2_font_inb63_mn);        
-        // Convert the integer to a string 
+        // Display volume as -dB - RuntimeSettings.CurrentAttennuation are converted to -dB and multiplied by 10 to be able to show 0.25 dB steps        
         char buffer[10]; 
         // Buffer to hold the string representation of the integer 
         snprintf(buffer, sizeof(buffer), "%d dB", (calculateAttenuation(RuntimeSettings.CurrentVolume, Settings.VolumeSteps, Settings.MinAttenuation, Settings.MaxAttenuation) / 4) * -10);
@@ -1202,17 +1192,13 @@ void right_display_update(void)
         int16_t xPos = (256 - textWidth) / 2; 
         // Calculate the y-position to center the text vertically 
         int16_t yPos = 63; 
-        // Draw the text
-        right_display.clearBuffer(); 
+        // Draw the text 
         right_display.drawStr(xPos,yPos, buffer);
-        right_display.sendBuffer();
       }
     }
     else
     {
-      right_display.setBusClock(2000000);
       right_display.setFont(u8g2_font_inb63_mn);
-      
       // Calculate the width of the text 
       int16_t textWidth = right_display.getStrWidth("MUTE"); 
       // Calculate the height of the text 
@@ -1222,11 +1208,43 @@ void right_display_update(void)
       // Calculate the y-position to center the text vertically 
       int16_t yPos = 63; 
       // Draw the text 
-      right_display.clearBuffer();
       right_display.drawStr(xPos,yPos, "MUTE");  
-      right_display.sendBuffer();
     }
   }
+
+  // Display the WiFi status
+  switch(WiFi.status())
+  {
+    case WL_CONNECTED:
+      drawSignalStrength(WiFi.RSSI());
+      break;
+  }
+  right_display.sendBuffer();
+  if (ScreenSaverIsOn)
+      ScreenSaverOff();
+}
+
+void drawSignalStrength(int rssi) 
+{ 
+  int signalLevels[5][5] = { {242, 7, 4, 1, 1}, {237, 6, 4, 2, 1}, {242, 4, 4, 4, 1}, {247, 2, 4, 6, 1}, {252, 0, 4, 8, 1} }; 
+  for (int i = 0; i < 5; i++) 
+  { 
+    if (i == 0 || rssi < -55 - (i - 1) * 10) 
+    { 
+      for (int j = 0; j < 5; j++) 
+      { 
+        if (signalLevels[j][4] == 1) 
+        { 
+          right_display.drawBox(signalLevels[j][0], signalLevels[j][1], signalLevels[j][2], signalLevels[j][3]); 
+        } 
+        else 
+        { 
+          right_display.drawFrame(signalLevels[j][0], signalLevels[j][1], signalLevels[j][2], signalLevels[j][3]); 
+        } 
+      } 
+      signalLevels[i][4] = 0; // Draw frame instead of box for this level 
+    } 
+  } 
 }
 
 // Returns input from the user - enumerated to be the same value no matter if input is from encoders or IR remote
