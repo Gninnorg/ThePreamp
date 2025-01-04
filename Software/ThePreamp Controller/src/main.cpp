@@ -576,6 +576,7 @@ bool initWiFi()
   Settings.pass[sizeof(Settings.pass) - 1] = '\0'; // Ensure null-termination
 
   WiFi.begin(Settings.ssid, Settings.pass);
+  
   debugln("Connecting to WiFi...");
 
   unsigned long currentMillis = millis();
@@ -1226,24 +1227,42 @@ void right_display_update(void)
 
 void drawSignalStrength(int rssi) 
 { 
-  int signalLevels[5][5] = { {242, 7, 4, 1, 1}, {237, 6, 4, 2, 1}, {242, 4, 4, 4, 1}, {247, 2, 4, 6, 1}, {252, 0, 4, 8, 1} }; 
-  for (int i = 0; i < 5; i++) 
-  { 
-    if (i == 0 || rssi < -55 - (i - 1) * 10) 
-    { 
-      for (int j = 0; j < 5; j++) 
-      { 
-        if (signalLevels[j][4] == 1) 
-        { 
-          right_display.drawBox(signalLevels[j][0], signalLevels[j][1], signalLevels[j][2], signalLevels[j][3]); 
-        } 
-        else 
-        { 
-          right_display.drawFrame(signalLevels[j][0], signalLevels[j][1], signalLevels[j][2], signalLevels[j][3]); 
-        } 
-      } 
-      signalLevels[i][4] = 0; // Draw frame instead of box for this level 
-    } 
+  if (rssi >= -55) {
+    right_display.drawBox(232,4,4,4);
+    right_display.drawBox(237,3,4,5);
+    right_display.drawBox(242,2,4,6);
+    right_display.drawBox(247,1,4,7);
+    right_display.drawBox(252,0,4,8);
+  } else if (rssi >= -65) {
+    right_display.drawBox(232,4,4,4);
+    right_display.drawBox(237,3,4,5);
+    right_display.drawBox(242,2,4,6);
+    right_display.drawBox(247,1,4,7);
+    right_display.drawFrame(252,0,4,8);
+  } else if (rssi >= -75) {
+    right_display.drawBox(232,4,4,4);
+    right_display.drawBox(237,3,4,5);
+    right_display.drawBox(242,2,4,6);
+    right_display.drawFrame(247,1,4,7);
+    right_display.drawFrame(252,0,4,8);
+  } else if (rssi >= -85) {
+    right_display.drawBox(232,4,4,4);
+    right_display.drawBox(237,3,4,5);
+    right_display.drawFrame(242,2,4,6);
+    right_display.drawFrame(247,1,4,7);
+    right_display.drawFrame(252,0,4,8);
+  } else if (rssi >= -96) {
+     right_display.drawBox(232,4,4,4);
+     right_display.drawFrame(237,3,4,5);
+     right_display.drawFrame(242,2,4,6);
+     right_display.drawFrame(247,1,4,7);
+     right_display.drawFrame(252,0,4,8);
+  } else {
+     right_display.drawFrame(232,4,4,4);
+     right_display.drawFrame(237,3,4,5);
+     right_display.drawFrame(242,2,4,6);
+     right_display.drawFrame(247,1,4,7);
+     right_display.drawFrame(252,0,4,8);
   } 
 }
 
