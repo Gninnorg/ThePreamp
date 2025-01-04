@@ -1233,25 +1233,25 @@ void drawSignalStrength(int rssi)
     right_display.drawBox(242,2,4,6);
     right_display.drawBox(247,1,4,7);
     right_display.drawBox(252,0,4,8);
-  } else if (rssi >= -65) {
+  } else if (rssi >= -67) {
     right_display.drawBox(232,4,4,4);
     right_display.drawBox(237,3,4,5);
     right_display.drawBox(242,2,4,6);
     right_display.drawBox(247,1,4,7);
     right_display.drawFrame(252,0,4,8);
-  } else if (rssi >= -75) {
+  } else if (rssi >= -70) {
     right_display.drawBox(232,4,4,4);
     right_display.drawBox(237,3,4,5);
     right_display.drawBox(242,2,4,6);
     right_display.drawFrame(247,1,4,7);
     right_display.drawFrame(252,0,4,8);
-  } else if (rssi >= -85) {
+  } else if (rssi >= -80) {
     right_display.drawBox(232,4,4,4);
     right_display.drawBox(237,3,4,5);
     right_display.drawFrame(242,2,4,6);
     right_display.drawFrame(247,1,4,7);
     right_display.drawFrame(252,0,4,8);
-  } else if (rssi >= -96) {
+  } else if (rssi >= -90) {
      right_display.drawBox(232,4,4,4);
      right_display.drawFrame(237,3,4,5);
      right_display.drawFrame(242,2,4,6);
