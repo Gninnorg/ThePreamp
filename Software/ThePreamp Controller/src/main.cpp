@@ -45,7 +45,6 @@
 #endif
 
 // Webserver
-
 AsyncWebServer server(80);
 DNSServer dnsServer;
 
@@ -66,7 +65,6 @@ IPAddress subnet(255, 255, 0, 0);
 // Timer variables
 unsigned long previousMillis = 0;
 const long interval = 10000; // interval to wait for Wi-Fi connection (milliseconds)
-
 
 /* ----- Hardware SPI -----
   GND    ->    GND
@@ -419,51 +417,49 @@ Adafruit_MCP23008 relayController;
 extEEPROM eeprom(kbits_64, 1, 32); // Set to use 24C64 Eeprom - look in the datasheet for capacity in kbits (kbits_64) and page size in bytes (32) if you use another type 
 
 // Function declarations
-void startUp(void);
-void toStandbyMode(void);
-void toAppNormalMode(void);
-void ScreenSaverOff(void);
-void ScreenSaverOn(void);
-void setTrigger1On(void);
-void setTrigger2On(void);
-void setTrigger1Off(void);
-void setTrigger2Off(void);
-void setMuteRelayOn(void);
-void setMuteRelayOff(void);
-void displayTemperatures(void);
-void displayTempDetails(float, uint8_t, uint8_t, uint8_t);
-float readVoltage(byte);
-float getTemperature(uint8_t);
-void left_display_update(void);
-void right_display_update(void);
-void drawSignalStrength(int); 
-int calculateAttenuation(byte logicalStep, byte maxLogicalSteps, byte minAttenuation, byte maxAttenuation);
+void setup();
+void initSPIFFS();
+bool initWiFi();
+void setupWIFIsupport();
+void startUp();
+void loop();
+void writeSettingsToEEPROM();
+void readSettingsFromEEPROM();
+void writeDefaultSettingsToEEPROM();
+void writeRuntimeSettingsToEEPROM();
+void readRuntimeSettingsFromEEPROM();
+void readUserSettingsFromEEPROM();
+void writeUserSettingsToEEPROM();
+void setSettingsToDefault();
 void setVolume(int16_t);
-bool changeBalance(void);
-void displayBalance(byte);
-void mute(void);
-void unmute(void);
+void left_display_update();
+void right_display_update();
+void drawSignalStrength(int);
+byte getUserInput();
+void toAppNormalMode();
+void toStandbyMode();
+void ScreenSaverOn();
+void ScreenSaverOff();
 boolean setInput(uint8_t);
-void setPrevInput(void);
-void setNextInput(void);
-void readSettingsFromEEPROM(void);
-void writeSettingsToEEPROM(void);
-void writeDefaultSettingsToEEPROM(void);
-void readRuntimeSettingsFromEEPROM(void);
-void writeRuntimeSettingsToEEPROM(void);
-void readUserSettingsFromEEPROM(void);
-void writeUserSettingsToEEPROM(void);
-void setVolume(int16_t);
-byte getUserInput(void);
-void setupWIFIsupport(void);
-void initSPIFFS(void);
-boolean initWiFi(void);
-String readFile(fs::FS &fs, const char *path);
-
+void setPrevInput();
+void setNextInput();
+void mute();
+void unmute();
+bool changeBalance();
+void displayBalance(byte);
+int calculateAttenuation(byte logicalStep, byte maxLogicalSteps, byte minAttenuation_dB, byte maxAttenuation_dB);
+void setTrigger1On();
+void setTrigger1Off();
+void setTrigger2On();
+void setTrigger2Off();
+void setMuteRelayOn();
+void setMuteRelayOff();
 
 void setup() {
   // Serial port for debugging purposes
-  Serial.begin(115200);
+  #if DEBUG == 1
+    Serial.begin(115200);
+  #endif
   
   SPI.begin();
   Wire.begin();
@@ -534,26 +530,7 @@ void initSPIFFS()
   debugln("SPIFFS mounted successfully");
 }
 
-String readFile(fs::FS &fs, const char *path)
-{
-  Serial.printf("Reading file: %s\r\n", path);
-
-  File file = fs.open(path);
-  if (!file || file.isDirectory())
-  {
-    debugln("- failed to open file for reading");
-    return String();
-  }
-
-  String fileContent;
-  while (file.available())
-  {
-    fileContent = file.readStringUntil('\n');
-    break;
-  }
-  return fileContent;
-}
-
+// Initialize WiFi
 bool initWiFi()
 {
   if (Settings.ssid == "" || Settings.ip == "")
@@ -593,7 +570,7 @@ bool initWiFi()
       return false;
     }
   }
-
+  debug("Connected to WiFi. IP: ");
   debugln(WiFi.localIP());
   return true;
 }
@@ -604,11 +581,9 @@ void setupWIFIsupport()
 
   if (initWiFi())
   {
-    // to be deleted? initWebSocket();
-
     // Web Server Root URL
-    //server.on("/", HTTP_GET, [](AsyncWebServerRequest *request)
-    //          { request->send(SPIFFS, "/index.html", "text/html"); });
+    server.on("/", HTTP_GET, [](AsyncWebServerRequest *request)
+              { request->send(SPIFFS, "/index.html", "text/html"); });
     
     // Web : InputSelector
     server.on("/INPUT0", HTTP_GET, [](AsyncWebServerRequest *request)
@@ -636,11 +611,10 @@ void setupWIFIsupport()
   {
     // Setting up AP (Access Point) for WiFi configuration 
     debugln("Setting AP (Access Point)");
-    // NULL sets an open Access Point
 
     WiFi.mode(WIFI_AP);
     WiFi.setTxPower(WIFI_POWER_19_5dBm); // Set maximum transmit power
-    WiFi.softAP("ThePreAmp", NULL, 6,0);
+    WiFi.softAP("ThePreAmp", NULL, 6, 0); // NULL sets an open Access Point
     dnsServer.start(53, "*", WiFi.softAPIP());
 
     IPAddress IP = WiFi.softAPIP();
@@ -678,32 +652,24 @@ void setupWIFIsupport()
             strcpy(Settings.ssid, p->value().c_str()); /* String copy*/
             debug("SSID set to: ");
             debugln(Settings.ssid);
-            // Write file to save value
-            //writeFile(SPIFFS, ssidPath, ssid.c_str());
           }
           // HTTP POST pass value
           if (p->name() == PARAM_INPUT_2) {
             strcpy(Settings.pass, p->value().c_str()); /* String copy */
             debug("Password set to: ");
             debugln(Settings.pass);
-            // Write file to save value
-            // writeFile(SPIFFS, passPath, pass.c_str());
           }
           // HTTP POST ip value
           if (p->name() == PARAM_INPUT_3) {
             strcpy(Settings.ip, p->value().c_str()); /* String copy*/
             debug("IP Address set to: ");
             debugln(Settings.ip);
-            // Write file to save value
-            //writeFile(SPIFFS, ipPath, ip.c_str());
           }
           // HTTP POST gateway value
           if (p->name() == PARAM_INPUT_4) {
             strcpy(Settings.gateway, p->value().c_str()); /* String copy */
             debug("Gateway set to: ");
             debugln(Settings.gateway);
-            // Write file to save value
-            //writeFile(SPIFFS, gatewayPath, gateway.c_str());
           }
           //Serial.printf("POST[%s]: %s\n", p->name().c_str(), p->value().c_str());
         }
