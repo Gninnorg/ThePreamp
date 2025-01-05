@@ -428,6 +428,8 @@ void setTrigger1On(void);
 void setTrigger2On(void);
 void setTrigger1Off(void);
 void setTrigger2Off(void);
+void setMuteRelayOn(void);
+void setMuteRelayOff(void);
 void displayTemperatures(void);
 void displayTempDetails(float, uint8_t, uint8_t, uint8_t);
 float readVoltage(byte);
@@ -517,7 +519,7 @@ void setup() {
   pinMode(POWER_CONTROL_PIN, OUTPUT);
 
   // Enable output / trigger output relay
-  relayController.digitalWrite(0, HIGH);
+  setMuteRelayOff();
 
   startUp();
 }
@@ -757,29 +759,19 @@ void startUp()
   {
      initWiFi();
   }
-
-
-  /*  
-  // Turn on Mezmerize B1 Buffer via power on/off relay
+ 
+  // Turn on external circuit via optocoupler
   if (Settings.ExtPowerRelayTrigger)
   {
-    digitalWrite(POWER_RELAY_PIN, HIGH);
+    digitalWrite(POWER_CONTROL_PIN, HIGH);
   }
-  */ 
   
   // The controller is now ready - save the timestamp
   mil_On = millis();
 
-  /*
   // If triggers are active then wait for the set number of seconds and turn them on
   unsigned long delayTrigger1 = (Settings.Trigger1Active) ? (mil_On + Settings.Trigger1OnDelay * 1000) : 0;
   unsigned long delayTrigger2 = (Settings.Trigger2Active) ? (mil_On + Settings.Trigger2OnDelay * 1000) : 0;
-
-  if (delayTrigger1 || delayTrigger2)
-  {
-    oled.clear();
-    oled.print(F("Wait..."));
-  }
 
   while (delayTrigger1 || delayTrigger2)
   {
@@ -791,8 +783,8 @@ void startUp()
     }
     else
     {
-      if (Settings.Trigger1Active && delayTrigger1 != 0)
-        oled.print3x3Number(2, 1, (delayTrigger1 - millis()) / 1000, false);
+      //if (Settings.Trigger1Active && delayTrigger1 != 0)
+        // oled.print3x3Number(2, 1, (delayTrigger1 - millis()) / 1000, false);
     }
 
     if (millis() > delayTrigger2 && delayTrigger2 != 0)
@@ -803,12 +795,12 @@ void startUp()
     }
     else
     {
-      if (Settings.Trigger2Active && delayTrigger2 != 0)
-        oled.print3x3Number(11, 1, (delayTrigger2 - millis()) / 1000, false);
+      //if (Settings.Trigger2Active && delayTrigger2 != 0)
+      //  oled.print3x3Number(11, 1, (delayTrigger2 - millis()) / 1000, false);
     }
   }
-  oled.clear();
-*/
+  // oled.clear();
+
   ScreenSaverOff();
   appMode = APP_NORMAL_MODE;
   
@@ -1399,28 +1391,17 @@ void toStandbyMode()
   mute();
   left_display.clearDisplay();
   right_display.clearDisplay();
-  /*- TO DO
   setTrigger1Off();
   setTrigger2Off();
   if (Settings.ExtPowerRelayTrigger)
   {
-    digitalWrite(POWER_RELAY_PIN, LOW);
+    digitalWrite(POWER_CONTROL_PIN, LOW);
   }
-  last_KEY_ONOFF = millis();
-  delay(3000);
-  oled.lcdOff();
-  */
   last_KEY_ONOFF = millis();
 }
 
 void ScreenSaverOn(void)
 {
-  /*- TO DO - clean up settings etc to not support dimlevel
-  if (Settings.DisplayDimLevel == 0)
-      oled.lcdOff();
-   else
-      oled.backlight(Settings.DisplayDimLevel * 4 - 1);
-  */
   debugln("Screensaver on");
   ScreenSaverIsOn = true;
   left_display.clearDisplay();
@@ -1651,7 +1632,70 @@ int calculateAttenuation(byte logicalStep, byte maxLogicalSteps, byte minAttenua
     return volumeStep;
 }
 
-
 // Trigger 1 relay -> MCP23008 pin 2 Right
 // Trigger 2 relay -> MCP23008 pin 1 Left
+
+void setTrigger1On()
+{
+  if (Settings.Trigger1Active)
+  {
+    relayController.digitalWrite(2, HIGH);
+    if (Settings.Trigger1Type == 0) // Momentary
+    {
+      delay(200);
+      relayController.digitalWrite(2, LOW);
+    }
+  }
+  
+}
+
+void setTrigger1Off()
+{
+  if (Settings.Trigger1Active)
+  {
+    if (Settings.Trigger1Type == 0) // Momentary
+    {
+      relayController.digitalWrite(2, HIGH);
+      delay(200);
+    }
+    relayController.digitalWrite(2, LOW);
+  }
+}
+
+void setTrigger2On()
+{
+  if (Settings.Trigger2Active)
+  {
+    relayController.digitalWrite(1, HIGH);
+    if (Settings.Trigger2Type == 0) // Momentary
+    {
+      delay(200);
+      relayController.digitalWrite(1, LOW);
+    }
+  }
+}
+
+void setTrigger2Off()
+{
+  if (Settings.Trigger2Active)
+  {
+    if (Settings.Trigger2Type == 0) // Momentary
+    {
+      relayController.digitalWrite(1, HIGH);
+      delay(200);
+    }
+    relayController.digitalWrite(1, LOW);
+  }
+}
+
 // Mute relay -> MCP23008 pin 0
+
+void setMuteRelayOn()
+{
+  relayController.digitalWrite(0, LOW);
+}
+
+void setMuteRelayOff()
+{
+  relayController.digitalWrite(0, HIGH);
+}
