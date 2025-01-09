@@ -6,7 +6,8 @@
 **
 */
 
-#define VERSION (float)0.99
+
+#define VERSION (float)0.992
 
 #include <Arduino.h>
 #include <SPI.h>
@@ -281,9 +282,11 @@ unsigned long last_KEY_ONOFF = millis(); // Used to ensure that fast repetition 
 struct InputSettings
 {
   byte Active;
-  char Name[11];
-  byte MaxVol;
-  byte MinVol;
+  char Name[8];
+  byte MaxVol;  // The maximum volume allowed for this input in steps
+  byte MinVol;  // The minimum volume allowed for this input in steps
+  byte Gain;
+
 };
 
 // This holds all the settings of the controller
@@ -346,7 +349,7 @@ typedef union
     byte DisplayTemperature2;      // 0 = do not display the temperature measured by NTC 2, 1 = display in number of degrees Celcious, 2 = display as graphical representation, 3 = display both
     float Version;                 // Used to check if data read from the EEPROM is valid with the compiled version of the code - if not a reset to default settings is necessary and they must be written to the EEPROM
   };
-  byte data[324]; // Allows us to be able to write/read settings from EEPROM byte-by-byte (to avoid specific serialization/deserialization code)
+  byte data[314]; // Allows us to be able to write/read settings from EEPROM byte-by-byte (to avoid specific serialization/deserialization code)
 } mySettings;
 
 mySettings Settings; // Holds all the current settings
@@ -357,7 +360,7 @@ typedef union
   struct
   {
     byte CurrentInput;      // The number of the currently set input
-    byte CurrentVolume;     // The currently set volume
+    byte CurrentVolume;     // The currently set volume step 
     bool Muted;             // Indicates if we are in mute mode or not
     byte InputLastVol[5];   // The last set volume for each input
     byte InputLastBal[5];   // The last set balance for each input: 127 = no balance shift (values < 127 = shift balance to the left channel, values > 127 = shift balance to the right channel)
@@ -549,10 +552,6 @@ bool initWiFi()
     debugln("STA Failed to configure");
     return false;
   }
-
-  // debug - want to trigger - wifi config for testing
-  strncpy(Settings.pass, "12345678", sizeof(Settings.pass) - 1);
-  Settings.pass[sizeof(Settings.pass) - 1] = '\0'; // Ensure null-termination
 
   WiFi.begin(Settings.ssid, Settings.pass);
   
@@ -784,9 +783,7 @@ void startUp()
 void loop()
 {
   ElegantOTA.loop();
-  dnsServer.processNextRequest();
-
-
+  
   UIkey = getUserInput();
 
   switch (appMode)
@@ -977,7 +974,7 @@ void setSettingsToDefault()
   strcpy(Settings.gateway, "               ");
   Settings.ExtPowerRelayTrigger = true;
   Settings.ADC_Calibration = 1.0; // TO DO Remove
-  Settings.VolumeSteps = 60;
+  Settings.VolumeSteps = 90;
   Settings.MinAttenuation = 0;
   Settings.MaxAttenuation = 60;
   Settings.MaxStartVolume = Settings.VolumeSteps;
@@ -1001,23 +998,28 @@ void setSettingsToDefault()
   Settings.Input[0].Active = INPUT_NORMAL;
   strcpy(Settings.Input[0].Name, "Input 1");
   Settings.Input[0].MaxVol = Settings.VolumeSteps;
-  Settings.Input[0].MinVol = 0;
+  Settings.Input[0].MinVol = 1;
+  Settings.Input[0].Gain = 0;
   Settings.Input[1].Active = INPUT_NORMAL;
   strcpy(Settings.Input[1].Name, "Input 2");
   Settings.Input[1].MaxVol = Settings.VolumeSteps;
-  Settings.Input[1].MinVol = 0;
+  Settings.Input[1].MinVol = 1;
+  Settings.Input[1].Gain = 0;
   Settings.Input[2].Active = INPUT_NORMAL;
   strcpy(Settings.Input[2].Name, "Input 3");
   Settings.Input[2].MaxVol = Settings.VolumeSteps;
-  Settings.Input[2].MinVol = 0;
+  Settings.Input[2].MinVol = 1;
+  Settings.Input[2].Gain = 0;
   Settings.Input[3].Active = INPUT_NORMAL;
   strcpy(Settings.Input[3].Name, "Input 4");
   Settings.Input[3].MaxVol = Settings.VolumeSteps;
-  Settings.Input[3].MinVol = 0;
+  Settings.Input[3].MinVol = 1;
+  Settings.Input[3].Gain = 0;
   Settings.Input[4].Active = INPUT_INACTIVATED;
   strcpy(Settings.Input[4].Name, "Input 5");
   Settings.Input[4].MaxVol = Settings.VolumeSteps;
-  Settings.Input[4].MinVol = 0;
+  Settings.Input[4].MinVol = 1;
+  Settings.Input[4].Gain = 0;
   Settings.Trigger1Active = 1;
   Settings.Trigger1Type = 0;
   Settings.Trigger1OnDelay = 0;
@@ -1031,7 +1033,7 @@ void setSettingsToDefault()
   Settings.DisplayOnLevel = 3;
   Settings.DisplayDimLevel = 0;
   Settings.DisplayTimeout = 30;
-  Settings.DisplayVolume = 1;
+  Settings.DisplayVolume = 2;
   Settings.DisplaySelectedInput = true;
   Settings.DisplayTemperature1 = 3;
   Settings.DisplayTemperature2 = 3;
@@ -1142,7 +1144,7 @@ void right_display_update(void)
         // Display volume as -dB - RuntimeSettings.CurrentAttennuation are converted to -dB and multiplied by 10 to be able to show 0.25 dB steps        
         char buffer[10]; 
         // Buffer to hold the string representation of the integer 
-        snprintf(buffer, sizeof(buffer), "%d dB", (calculateAttenuation(RuntimeSettings.CurrentVolume, Settings.VolumeSteps, Settings.MinAttenuation, Settings.MaxAttenuation) / 4) * -10);
+        snprintf(buffer, sizeof(buffer), "%d", (calculateAttenuation(RuntimeSettings.CurrentVolume, Settings.VolumeSteps, Settings.MinAttenuation, Settings.MaxAttenuation) / 4) );
         // Calculate the width of the text 
         int16_t textWidth = right_display.getStrWidth(buffer); 
         // Calculate the height of the text 
@@ -1406,8 +1408,9 @@ boolean setInput(uint8_t NewInput)
     RuntimeSettings.PrevSelectedInput = RuntimeSettings.CurrentInput;
 
     // Select new input
+    muses.setGain(Settings.Input[RuntimeSettings.CurrentInput].Gain);
     RuntimeSettings.CurrentInput = NewInput;
-    relayController.digitalWrite(7 - NewInput, HIGH);
+
 
     if (Settings.RecallSetLevel)
       RuntimeSettings.CurrentVolume = RuntimeSettings.InputLastVol[RuntimeSettings.CurrentInput];
@@ -1416,6 +1419,9 @@ boolean setInput(uint8_t NewInput)
     else if (RuntimeSettings.CurrentVolume < Settings.Input[RuntimeSettings.CurrentInput].MinVol)
       RuntimeSettings.CurrentVolume = Settings.Input[RuntimeSettings.CurrentInput].MinVol;
     setVolume(RuntimeSettings.CurrentVolume);
+    
+    relayController.digitalWrite(7 - NewInput, HIGH);
+    
     if (RuntimeSettings.Muted)
       unmute();
 
@@ -1578,12 +1584,13 @@ int calculateAttenuation(byte logicalStep, byte maxLogicalSteps, byte minAttenua
   ** If the above constraints are not meet the calculateAttenuation() will return 0 (mute);
   **
   */
-  
+  debug("Logical step: "); debugln(logicalStep);
+
   if (minAttenuation_dB >= maxAttenuation_dB ||
-      logicalStep <= 0 ||
+      logicalStep < 1 ||
       logicalStep > maxLogicalSteps ||
       maxLogicalSteps < 10 ||
-      maxLogicalSteps <= ((maxAttenuation_dB - minAttenuation_dB) / 4)) return 0;
+      maxLogicalSteps <= ((maxAttenuation_dB - minAttenuation_dB) / 4)) return minAttenuation_dB*-4;
 
     // Calculate the total attenuation range
     float attenuationRange = maxAttenuation_dB - minAttenuation_dB;
@@ -1595,7 +1602,9 @@ int calculateAttenuation(byte logicalStep, byte maxLogicalSteps, byte minAttenua
     attenuation = round(attenuation * 4) / 4;
     // Calculate the volume step
     int volumeStep = static_cast<int>(attenuation * -4);
+    debug("calculateAttenuation: "); debugln(volumeStep);
     return volumeStep;
+    
 }
 
 // Trigger 1 relay -> MCP23008 pin 2 Right
