@@ -1187,7 +1187,7 @@ void right_display_update(void)
   {
     drawTemperatureMeasurements();
   }
-  
+
   right_display.sendBuffer();
   if (ScreenSaverIsOn)
       ScreenSaverOff();
@@ -1234,7 +1234,7 @@ void drawSignalStrength(int rssi)
   } 
 }
 
-void drawTemperatureMeasurements(void);
+void drawTemperatureMeasurements(void)
 {
   // TO DO
 }
