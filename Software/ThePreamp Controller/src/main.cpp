@@ -438,6 +438,7 @@ void setVolume(int16_t);
 void left_display_update();
 void right_display_update();
 void drawSignalStrength(int);
+void drawTemperatureMeasurements(void);
 byte getUserInput();
 void toAppNormalMode();
 void toStandbyMode();
@@ -1180,6 +1181,13 @@ void right_display_update(void)
       drawSignalStrength(WiFi.RSSI());
       break;
   }
+
+  // Display temperature measurements?
+  if (Settings.DisplayTemperature1 || Settings.DisplayTemperature2)
+  {
+    drawTemperatureMeasurements();
+  }
+  
   right_display.sendBuffer();
   if (ScreenSaverIsOn)
       ScreenSaverOff();
@@ -1224,6 +1232,11 @@ void drawSignalStrength(int rssi)
      right_display.drawFrame(247,1,4,7);
      right_display.drawFrame(252,0,4,8);
   } 
+}
+
+void drawTemperatureMeasurements(void);
+{
+  // TO DO
 }
 
 // Returns input from the user - enumerated to be the same value no matter if input is from encoders or IR remote
