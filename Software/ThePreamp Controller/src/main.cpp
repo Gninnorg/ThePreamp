@@ -438,6 +438,7 @@ void setVolume(int16_t);
 void left_display_update();
 void right_display_update();
 void drawSignalStrength(int);
+float getTemperature(uint8_t pinNmbr);
 void drawTemperatureMeasurements(void);
 byte getUserInput();
 void toAppNormalMode();
@@ -1234,9 +1235,47 @@ void drawSignalStrength(int rssi)
   } 
 }
 
+// Read temperature from NTC on specified pin
+float getTemperature(uint8_t pinNmbr)
+{
+  float Vin = 3.3;   // Input voltage 3.3V for ESP32
+  float Vout = 0;    // Measured voltage
+  float Rref = 2200; // Reference resistor's value in ohms
+  float Rntc = 0;    // Measured resistance of NTC+
+  float Temp;
+
+   // Read the analog value from the specified channel
+  int16_t adcValue = ads1115.readADC_SingleEnded(pinNmbr);
+  Vout = (adcValue * Vin) / 32767.0; // Convert ADC value to voltage
+
+  Rntc = Rref * (Vin / Vout - 1); // Calculate the resistance of the NTC
+
+  if (Rntc < 0)
+    Temp = 0;
+  else
+    Temp = (-25.37 * log(Rntc)) + 239.43; // Calculate temperature from resistance
+
+  if (Temp < 0)
+    Temp = 0;
+  else if (Temp > 99)
+    Temp = 99;
+
+  debug("Voltage: ");
+  debugln(Vout);
+  debug(" Resistance: ");
+  debugln(Rntc);
+  debug(" Temperature: ");
+  debugln(Temp);
+  
+  return Temp;
+} 
+
+
 void drawTemperatureMeasurements(void)
 {
   // TO DO
+
+
 }
 
 // Returns input from the user - enumerated to be the same value no matter if input is from encoders or IR remote
