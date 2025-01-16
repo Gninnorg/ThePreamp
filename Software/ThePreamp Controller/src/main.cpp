@@ -1235,7 +1235,7 @@ void drawSignalStrength(int rssi)
   } 
 }
 
-// Read temperature from NTC on specified pin
+// Read temperature from NTC on specified pin on ADS1115
 float getTemperature(uint8_t pinNmbr)
 {
   float Vin = 3.3;   // Input voltage 3.3V for ESP32
