@@ -1236,7 +1236,6 @@ void drawSignalStrength(int rssi)
 }
 
 // Read temperature from NTC on specified pin bla bla
-// Something
 float getTemperature(uint8_t pinNmbr)
 {
   float Vin = 3.3;   // Input voltage 3.3V for ESP32
@@ -1245,7 +1244,7 @@ float getTemperature(uint8_t pinNmbr)
   float Rntc = 0;    // Measured resistance of NTC+
   float Temp;
 
-   // Read the analog value from the specified channel
+   // Read the analog value from the specified pin
   int16_t adcValue = ads1115.readADC_SingleEnded(pinNmbr);
   Vout = (adcValue * Vin) / 32767.0; // Convert ADC value to voltage
 
