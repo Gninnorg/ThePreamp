@@ -538,6 +538,8 @@ void initSPIFFS()
 // Initialize WiFi
 bool initWiFi()
 {
+  //strcpy(Settings.ssid, "ssid
+  //strcpy(Settings.pass, "password"); 
   if (Settings.ssid == "" || Settings.ip == "")
   {
     debugln("Undefined SSID or IP address.");
@@ -1238,9 +1240,11 @@ void drawSignalStrength(int rssi)
 // Read temperature from NTC on specified pin on ADS1115
 float getTemperature(uint8_t pinNmbr)
 {
+  // 0 = A0 = Right channel NTC, 1 = A1 = Left channel NTC
+
   float Vin = 3.3;   // Input voltage 3.3V for ESP32
   float Vout = 0;    // Measured voltage
-  float Rref = 2200; // Reference resistor's value in ohms
+  float Rref = 10000; // Reference resistor's value in ohms
   float Rntc = 0;    // Measured resistance of NTC+
   float Temp;
 
@@ -1257,8 +1261,8 @@ float getTemperature(uint8_t pinNmbr)
 
   if (Temp < 0)
     Temp = 0;
-  else if (Temp > 99)
-    Temp = 99;
+  else if (Temp > 65)
+    Temp = 65;
 
   debug("Voltage: ");
   debugln(Vout);
@@ -1273,9 +1277,32 @@ float getTemperature(uint8_t pinNmbr)
 
 void drawTemperatureMeasurements(void)
 {
-  // TO DO
+  // TO DO: Implement handling of Settings.DisplayTemperature1 and Settings.DisplayTemperature2 
+  
+  right_display.drawFrame(232,34,24,14);
+  right_display.drawFrame(232,50,24,14);
+  
+  right_display.setFontMode(1);
+  right_display.setDrawColor(1);
 
+  right_display.drawFrame(232,34,24,14);
+  int tempRight = static_cast<int>(getTemperature(0)); // Get temperature for right channel and convert to integer  
+  right_display.drawBox(234,36,map(tempRight, 0, 65, 0, 20),10);
 
+  right_display.drawFrame(232,50,24,14);
+  int tempLeft = static_cast<int>(getTemperature(1)); // Get temperature for left channel and convert to integer
+  right_display.drawBox(234,52,map(tempLeft, 0, 65, 0, 20),10);
+
+  right_display.setDrawColor(2);
+  right_display.setFont(u8g2_font_profont10_mf);
+
+  char tempRightStr[3];
+  snprintf(tempRightStr, sizeof(tempRightStr), "%d", tempRight);
+  right_display.drawStr(239, 44, tempRightStr);
+
+  char tempLeftStr[3];
+  snprintf(tempLeftStr, sizeof(tempLeftStr), "%d", tempLeft);
+  right_display.drawStr(239, 60, tempLeftStr);
 }
 
 // Returns input from the user - enumerated to be the same value no matter if input is from encoders or IR remote
