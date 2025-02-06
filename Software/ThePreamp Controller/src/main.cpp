@@ -4,10 +4,21 @@
 **
 **    Copyright (c) 2024 Carsten Grønning, Jan Abkjer Tofft
 **
+**
+**   Todo
+**   - clean up
+**   - Add support for learning IR codes (add discrete on/off)
+**   - Add support for balance control
+**   - Add support for gain control
+**   - Add support for temperature display
+**   - Add support for MQTT
+**   - Add UI for settings
+**   - Shrink Elegant OTA - Remove personalization
+**
 */
 
 
-#define VERSION (float)0.992
+#define VERSION (float)0.993
 
 #include <Arduino.h>
 #include <SPI.h>
@@ -17,7 +28,6 @@
 #include <Adafruit_MCP23008.h>
 #include <extEEPROM.h>
 #include <ClickEncoder.h>
-#define ROTARY_ENCODER_STEPS 4
 #include <IRremoteESP8266.h>
 #include <IRrecv.h>
 #include <IRutils.h>
@@ -28,6 +38,7 @@
 #include <DNSServer.h>
 #include "SPIFFS.h"
 
+#define ROTARY_ENCODER_STEPS 4
 
 // To enable debug define DEBUG 1
 // To disable debug define DEBUG 0
@@ -211,7 +222,6 @@ VCC    ->    3V3
 SCL    ->    D22
 SDA    ->    D21
 */
-
 #define I2C_SCL_PIN 22 // ESP32 standard pin for SCL
 #define I2C_SDA_PIN 21 // ESP32 standard pin for SDA
 
@@ -230,7 +240,6 @@ decode_results IRresults;
 #define ROTARY2_CCW_PIN 14
 #define ROTARY2_SW_PIN 35
 #define POWER_CONTROL_PIN 2
-
 #define INPUT_HT_PASSTHROUGH 0
 #define INPUT_NORMAL 1
 #define INPUT_INACTIVATED 2
@@ -310,8 +319,6 @@ typedef union
     byte MuteLevel;      // The level to be set when Mute is activated by the user. The Mute function of the Muses72320 is activated if 0 is specified
     byte RecallSetLevel; // Remember/store the volume level for each separate input
 
-    float ADC_Calibration; // Used for calibration of the ADC readings when reading temperatures from the attached NTCs. The value differs (quite a lot) between ESP32's
-
     uint64_t IR_ONOFF;            // IR data to be interpreted as ON/OFF - switch between running and suspend mode (and turn triggers off)
     uint64_t IR_UP;               // IR data to be interpreted as UP
     uint64_t IR_DOWN;             // IR data to be interpreted as DOWN
@@ -349,7 +356,7 @@ typedef union
     byte DisplayTemperature2;      // 0 = do not display the temperature measured by NTC 2, 1 = display in number of degrees Celcious, 2 = display as graphical representation, 3 = display both
     float Version;                 // Used to check if data read from the EEPROM is valid with the compiled version of the code - if not a reset to default settings is necessary and they must be written to the EEPROM
   };
-  byte data[314]; // Allows us to be able to write/read settings from EEPROM byte-by-byte (to avoid specific serialization/deserialization code)
+  byte data[310]; // Allows us to be able to write/read settings from EEPROM byte-by-byte (to avoid specific serialization/deserialization code)
 } mySettings;
 
 mySettings Settings; // Holds all the current settings
@@ -631,7 +638,6 @@ void setupWIFIsupport()
                 debugln("style.css");
     });
 
-
     server.onNotFound([](AsyncWebServerRequest *request)
     {
       request->send(SPIFFS, "/wifi.html", "text/html");
@@ -710,7 +716,6 @@ void setupWIFIsupport()
     };
   }
 }
-
 
 void startUp()
 {
@@ -977,7 +982,6 @@ void setSettingsToDefault()
   strcpy(Settings.ip, "               ");
   strcpy(Settings.gateway, "               ");
   Settings.ExtPowerRelayTrigger = true;
-  Settings.ADC_Calibration = 1.0; // TO DO Remove
   Settings.VolumeSteps = 90;
   Settings.MinAttenuation = 0;
   Settings.MaxAttenuation = 60;
