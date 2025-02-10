@@ -514,11 +514,19 @@ void setup() {
   if ((Settings.Version != (float)VERSION) || (RuntimeSettings.Version != (float)VERSION))
   {
     debugln("Eeprom settings are invalid - writing default settings to EEPROM");
+    debug("Settings.Version: "); debug(Settings.Version); debug(" != "); debugln((float)VERSION);
+    debug("RuntimeSettings.Version: "); debug(RuntimeSettings.Version); debug(" != "); debugln((float)VERSION);
     right_display.clearBuffer();
     right_display.drawStr(0, 63, "Reset");
     right_display.sendBuffer();
     delay(2000);
     writeDefaultSettingsToEEPROM();
+  }
+  else
+  {
+    debugln("Eeprom settings are ok");
+    debug("Settings.Version: "); debug(Settings.Version); debug(" = "); debugln((float)VERSION);
+    debug("RuntimeSettings.Version: "); debug(RuntimeSettings.Version); debug(" = "); debugln((float)VERSION);
   }
   
   setupWIFIsupport();
@@ -544,9 +552,7 @@ void initSPIFFS()
 
 // Initialize WiFi
 bool initWiFi()
-{
-  //strcpy(Settings.ssid, "ssid
-  //strcpy(Settings.pass, "password"); 
+{ 
   if (Settings.ssid == "" || Settings.ip == "")
   {
     debugln("Undefined SSID or IP address.");
@@ -566,7 +572,7 @@ bool initWiFi()
 
   WiFi.begin(Settings.ssid, Settings.pass);
   
-  debugln("Connecting to WiFi...");
+  debug("Connecting to WiFi... "); debugln(Settings.ssid);
 
   unsigned long currentMillis = millis();
   previousMillis = currentMillis;
@@ -580,8 +586,7 @@ bool initWiFi()
       return false;
     }
   }
-  debug("Connected to WiFi. IP: ");
-  debugln(WiFi.localIP());
+  debug("Connected to WiFi. IP: "); debugln(WiFi.localIP());
   return true;
 }
 
@@ -743,6 +748,7 @@ void startUp()
   // The controller is now ready - save the timestamp
   mil_On = millis();
 
+  /*
   // If triggers are active then wait for the set number of seconds and turn them on
   unsigned long delayTrigger1 = (Settings.Trigger1Active) ? (mil_On + Settings.Trigger1OnDelay * 1000) : 0;
   unsigned long delayTrigger2 = (Settings.Trigger2Active) ? (mil_On + Settings.Trigger2OnDelay * 1000) : 0;
@@ -774,6 +780,7 @@ void startUp()
     }
   }
   // oled.clear();
+  */
 
   ScreenSaverOff();
   appMode = APP_NORMAL_MODE;
@@ -1253,7 +1260,8 @@ float getTemperature(uint8_t pinNmbr)
   float Temp;
 
   // Read the analog value from the specified pin
-  int16_t adcValue = ads1115.readADC_SingleEnded(pinNmbr);
+  //int16_t adcValue = ads1115.readADC_SingleEnded(pinNmbr);
+  int16_t adcValue = 15000; // TO DO: Implement reading of ADC value from ADS1115
   Vout = (adcValue * Vin) / 32767.0; // Convert ADC value to voltage
 
   Rntc = Rref * (Vin / Vout - 1); // Calculate the resistance of the NTC
