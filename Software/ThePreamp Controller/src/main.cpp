@@ -408,8 +408,10 @@ void setupRotaryEncoders()
 {
   pinMode(ROTARY1_CW_PIN, INPUT_PULLUP);
   pinMode(ROTARY1_CCW_PIN, INPUT_PULLUP);
+  pinMode(ROTARY1_SW_PIN, INPUT); // No internal pullup resistor on this pin
   pinMode(ROTARY2_CW_PIN, INPUT_PULLUP);
   pinMode(ROTARY2_CCW_PIN, INPUT_PULLUP);
+  pinMode(ROTARY2_SW_PIN, INPUT); // No internal pullup resistor on this pin
   timer = timerBegin(0, 80, true);
   timerAttachInterrupt(timer, &timerIsr, true);
   timerAlarmWrite(timer, 1000, true);
