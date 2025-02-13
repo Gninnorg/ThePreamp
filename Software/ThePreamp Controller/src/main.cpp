@@ -1388,7 +1388,7 @@ byte getUserInput()
   // Check if any input from the IR remote
   if (irrecv.decode(&IRresults))
   {
-      //debug("IR code: "); debugln(uint64ToString(IRresults.value, HEX).c_str());
+      debug("IR code: "); debugln(uint64ToString(IRresults.value, HEX).c_str());
       // Map the received IR input to UserInput values
       if (IRresults.value == Settings.IR_UP)
         receivedInput = KEY_UP;
