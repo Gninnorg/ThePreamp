@@ -314,9 +314,9 @@ typedef union
 
     byte VolumeSteps;    // The number of steps of the volume control
     byte MinAttenuation; // Minimum attenuation in -dB (as 0 db equals no attenuation this is equal to the highest volume allowed)
-    byte MaxAttenuation; // Maximum attenuation in -dB (as -111.5 db is the limit of the Muses72320 this is equal to the lowest volume possible). We only keep this setting as a positive number, and we do also only allow the user to set the value in 1 dB steps
+    byte MaxAttenuation; // Maximum attenuation in -dB (as -111.5 db is the limit of the Muses72323 this is equal to the lowest volume possible). We only keep this setting as a positive number, and we do also only allow the user to set the value in 1 dB steps
     byte MaxStartVolume; // If StoreSetLevel is true, then limit the volume to the specified value when the controller is powered on
-    byte MuteLevel;      // The level to be set when Mute is activated by the user. The Mute function of the Muses72320 is activated if 0 is specified
+    byte MuteLevel;      // The level to be set when Mute is activated by the user. The Mute function of the Muses72323 is activated if 0 is specified
     byte RecallSetLevel; // Remember/store the volume level for each separate input
 
     uint64_t IR_ONOFF;            // IR data to be interpreted as ON/OFF - switch between running and suspend mode (and turn triggers off)
@@ -499,7 +499,6 @@ void setup() {
   }
   
   muses.begin();
-  muses.setExternalClock(false);
   muses.setGain(0);
 
   ads1115.setGain(GAIN_ONE);        // 1x gain   +/- 4.096V  1 bit = 2mV      0.125mV
@@ -643,6 +642,15 @@ void setupWIFIsupport()
                 response->addHeader("Content-Encoding", "gzip");
                 request->send(response);
                 debugln("style.css");
+    });
+
+    server.on("update.html", HTTP_GET, [](AsyncWebServerRequest *request)
+    {
+      request->send(SPIFFS, "/update.html", "text/html");
+      debug(request->url());
+      debug(request->host());
+      debug(": ");
+      debugln("NotFound");
     });
 
     server.onNotFound([](AsyncWebServerRequest *request)
