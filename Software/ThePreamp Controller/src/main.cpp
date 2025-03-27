@@ -18,7 +18,7 @@
 */
 
 
-#define VERSION (float)0.993
+#define VERSION (float)0.994
 
 #include <Arduino.h>
 #include <SPI.h>
@@ -999,9 +999,9 @@ void setSettingsToDefault()
   strcpy(Settings.ip, "               ");
   strcpy(Settings.gateway, "               ");
   Settings.ExtPowerRelayTrigger = true;
-  Settings.VolumeSteps = 90;
+  Settings.VolumeSteps = 60;
   Settings.MinAttenuation = 0;
-  Settings.MaxAttenuation = 60;
+  Settings.MaxAttenuation = 59;
   Settings.MaxStartVolume = Settings.VolumeSteps;
   Settings.MuteLevel = 0;
   Settings.RecallSetLevel = true;
@@ -1058,7 +1058,7 @@ void setSettingsToDefault()
   Settings.DisplayOnLevel = 3;
   Settings.DisplayDimLevel = 0;
   Settings.DisplayTimeout = 30;
-  Settings.DisplayVolume = 2;
+  Settings.DisplayVolume = 1;
   Settings.DisplaySelectedInput = true;
   Settings.DisplayTemperature1 = 3;
   Settings.DisplayTemperature2 = 3;
@@ -1509,7 +1509,8 @@ boolean setInput(uint8_t NewInput)
     RuntimeSettings.PrevSelectedInput = RuntimeSettings.CurrentInput;
 
     // Select new input
-    muses.setGain(Settings.Input[RuntimeSettings.CurrentInput].Gain);
+    // TO DO: Set gain for the input
+   // muses.setGain(Settings.Input[RuntimeSettings.CurrentInput].Gain);
     RuntimeSettings.CurrentInput = NewInput;
 
 
