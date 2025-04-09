@@ -419,7 +419,7 @@ void setupRotaryEncoders()
 }
 
 // Setup Muses72323 -----------------------------------------------------------
-Muses72323 muses(0, SPI_CS_MUSES_PIN);
+Muses72323 muses(0, SPI_CS_MUSES_PIN); // Run at 500kHz
 
 // Setup Relay Controller------------------------------------------------------
 Adafruit_MCP23008 relayController;
