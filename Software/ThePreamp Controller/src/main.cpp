@@ -497,9 +497,6 @@ void setup() {
     relayController.pinMode(pin, OUTPUT);
     relayController.digitalWrite(pin, LOW);
   }
-  
-  muses.begin();
-  muses.setGain(0);
 
   ads1115.setGain(GAIN_ONE);        // 1x gain   +/- 4.096V  1 bit = 2mV      0.125mV
   ads1115.begin();
@@ -534,6 +531,9 @@ void setup() {
 
   // Set pin mode for control of power relay
   pinMode(POWER_CONTROL_PIN, OUTPUT);
+
+  muses.begin();
+  muses.setGain(0);
 
   // Enable output / trigger output relay
   setMuteRelayOff();
