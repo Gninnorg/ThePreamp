@@ -1286,12 +1286,14 @@ float getTemperature(uint8_t pinNmbr)
   else if (Temp > 65)
     Temp = 65;
 
-  debug("Voltage: ");
+  /*
+    debug("Voltage: ");
   debugln(Vout);
   debug(" Resistance: ");
   debugln(Rntc);
   debug(" Temperature: ");
   debugln(Temp);
+  */
   
   return Temp;
 } 
@@ -1520,12 +1522,13 @@ boolean setInput(uint8_t NewInput)
       RuntimeSettings.CurrentVolume = Settings.Input[RuntimeSettings.CurrentInput].MaxVol;
     else if (RuntimeSettings.CurrentVolume < Settings.Input[RuntimeSettings.CurrentInput].MinVol)
       RuntimeSettings.CurrentVolume = Settings.Input[RuntimeSettings.CurrentInput].MinVol;
-    setVolume(RuntimeSettings.CurrentVolume);
-    
+        
     relayController.digitalWrite(7 - NewInput, HIGH);
     
     if (RuntimeSettings.Muted)
       unmute();
+    else
+      setVolume(RuntimeSettings.CurrentVolume);
 
     left_display_update();
     result = true;
