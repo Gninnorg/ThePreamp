@@ -18,7 +18,7 @@
 */
 
 
-#define VERSION (float)0.994
+#define VERSION (float)0.995
 
 #include <Arduino.h>
 #include <SPI.h>
@@ -1005,21 +1005,21 @@ void setSettingsToDefault()
   Settings.MaxStartVolume = Settings.VolumeSteps;
   Settings.MuteLevel = 0;
   Settings.RecallSetLevel = true;
-  Settings.IR_UP = 0x1;
-  Settings.IR_DOWN = 0x2;
-  Settings.IR_REPEAT = 0x3;
-  Settings.IR_LEFT = 0x4;
-  Settings.IR_RIGHT = 0x5;
-  Settings.IR_SELECT = 0x6;
-  Settings.IR_BACK = 0x7;
-  Settings.IR_MUTE = 0x8;
-  Settings.IR_PREVIOUS = 0x9;
-  Settings.IR_ONOFF = 0xA;
-  Settings.IR_1 = 0xB;
-  Settings.IR_2 = 0xC;
-  Settings.IR_3 = 0xD;
-  Settings.IR_4 = 0xE;
-  Settings.IR_5 = 0xF;
+  Settings.IR_UP = 0x80840BF;
+  Settings.IR_DOWN = 0x808E01F;
+  Settings.IR_REPEAT = 0xFFFFFFFFFFFFFFFF;
+  Settings.IR_LEFT = 0x808807F;
+  Settings.IR_RIGHT = 0x808609F;
+  Settings.IR_SELECT = 0x808AC53;
+  Settings.IR_BACK = 0x80822DD;
+  Settings.IR_MUTE = 0x80828D7;
+  Settings.IR_PREVIOUS = 0x80818E7;
+  Settings.IR_ONOFF = 0x808926D;
+  Settings.IR_1 = 0x808827D;
+  Settings.IR_2 = 0x80842BD;
+  Settings.IR_3 = 0x808E21D;
+  Settings.IR_4 = 0x808CC33;
+  Settings.IR_5 = 0x8082CD3;
   Settings.Input[0].Active = INPUT_NORMAL;
   strcpy(Settings.Input[0].Name, "Input 1");
   Settings.Input[0].MaxVol = Settings.VolumeSteps;
