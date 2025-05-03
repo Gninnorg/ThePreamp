@@ -37,6 +37,8 @@
 #include <ElegantOTA.h>
 #include <DNSServer.h>
 #include "SPIFFS.h"
+#include <AsyncTCP.h>
+#include <WebSerial.h>
 
 #define ROTARY_ENCODER_STEPS 4
 
@@ -44,8 +46,8 @@
 // To disable debug define DEBUG 0
 #define DEBUG 1
 #if DEBUG == 1
-#define debug(x) Serial.print(x)
-#define debugln(x) Serial.println(x)
+#define debug(x) Serial.print(x); WebSerial.print(x);
+#define debugln(x) Serial.println(x); WebSerial.println(x);
 #else
 #define debug(x)
 #define debugln(x)
@@ -621,6 +623,21 @@ void setupWIFIsupport()
     server.serveStatic("/", SPIFFS, "/");
 
     ElegantOTA.begin(&server);
+    WebSerial.begin(&server); // WebSerial is accessible at "<IP Address>/webserial" in browser
+
+    /* Attach Message Callback */
+    WebSerial.onMessage([&](uint8_t *data, size_t len) {
+      Serial.printf("Received %u bytes from WebSerial: ", len);
+      Serial.write(data, len);
+      Serial.println();
+      WebSerial.println("Received Data...");
+      String d = "";
+      for(size_t i=0; i < len; i++){
+        d += char(data[i]);
+      }
+      WebSerial.println(d);
+    });
+
     server.begin();
   }
   else
@@ -809,6 +826,7 @@ void startUp()
 void loop()
 {
   ElegantOTA.loop();
+  WebSerial.loop();
   
   UIkey = getUserInput();
 
