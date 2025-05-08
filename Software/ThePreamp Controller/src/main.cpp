@@ -6,14 +6,17 @@
 **
 **
 **   Todo
+**   - DONE - check output relay
 **   - clean up
-**   - Add support for learning IR codes (add discrete on/off)
+**   - DONE - add discrete on/off
+**   - Add support for learning IR codes 
 **   - Add support for balance control
 **   - Add support for gain control
 **   - Add support for temperature display
 **   - Add support for MQTT
 **   - Add UI for settings
 **   - Shrink Elegant OTA - Remove personalization
+**   - Add trigger control at startup - around line 780
 **
 */
 
@@ -282,7 +285,8 @@ enum UserInput
   KEY_4,       // IR
   KEY_5,       // IR
   KEY_MUTE,    // IR
-  KEY_ONOFF,   // IR
+  KEY_ON,      // IR
+  KEY_OFF,     // IR
   KEY_PREVIOUS // IR
 };
 
@@ -321,7 +325,8 @@ typedef union
     byte MuteLevel;      // The level to be set when Mute is activated by the user. The Mute function of the Muses72323 is activated if 0 is specified
     byte RecallSetLevel; // Remember/store the volume level for each separate input
 
-    uint64_t IR_ONOFF;            // IR data to be interpreted as ON/OFF - switch between running and suspend mode (and turn triggers off)
+    uint64_t IR_ON;               // IR data to be interpreted as ON
+    uint64_t IR_OFF;              // IR data to be interpreted as OFF
     uint64_t IR_UP;               // IR data to be interpreted as UP
     uint64_t IR_DOWN;             // IR data to be interpreted as DOWN
     uint64_t IR_REPEAT;           // IR data to be interpreted as REPEAT (ie Apple remotes sends a specific code, if a key is held down to indicate repeat of the previously sent code
@@ -358,7 +363,7 @@ typedef union
     byte DisplayTemperature2;      // 0 = do not display the temperature measured by NTC 2, 1 = display in number of degrees Celcious, 2 = display as graphical representation, 3 = display both
     float Version;                 // Used to check if data read from the EEPROM is valid with the compiled version of the code - if not a reset to default settings is necessary and they must be written to the EEPROM
   };
-  byte data[310]; // Allows us to be able to write/read settings from EEPROM byte-by-byte (to avoid specific serialization/deserialization code)
+  byte data[318]; // Allows us to be able to write/read settings from EEPROM byte-by-byte (to avoid specific serialization/deserialization code)
 } mySettings;
 
 mySettings Settings; // Holds all the current settings
@@ -468,8 +473,8 @@ void setTrigger1On();
 void setTrigger1Off();
 void setTrigger2On();
 void setTrigger2Off();
-void setMuteRelayOn();
-void setMuteRelayOff();
+void setOutputRelayOff();
+void setOutputRelayOn();
 
 void setup() {
   // Serial port for debugging purposes
@@ -535,11 +540,7 @@ void setup() {
   pinMode(POWER_CONTROL_PIN, OUTPUT);
 
   muses.begin();
-  muses.setGain(0);
-
-  // Enable output / trigger output relay
-  setMuteRelayOff();
-
+    
   startUp();
 }
 
@@ -604,19 +605,19 @@ void setupWIFIsupport()
               { request->send(SPIFFS, "/index.html", "text/html"); });
     
     // Web : InputSelector
-    server.on("/INPUT0", HTTP_GET, [](AsyncWebServerRequest *request)
+    server.on("/INPUT1", HTTP_GET, [](AsyncWebServerRequest *request)
               { request->send(200, "text/plain", String(setInput(0)));});
 
-    server.on("/INPUT1", HTTP_GET, [](AsyncWebServerRequest *request)
+    server.on("/INPUT2", HTTP_GET, [](AsyncWebServerRequest *request)
               { request->send(200, "text/plain", String(setInput(1)));});
 
-    server.on("/INPUT2", HTTP_GET, [](AsyncWebServerRequest *request)
+    server.on("/INPUT3", HTTP_GET, [](AsyncWebServerRequest *request)
               { request->send(200, "text/plain", String(setInput(2)));});
 
-    server.on("/INPUT3", HTTP_GET, [](AsyncWebServerRequest *request)
+    server.on("/INPUT4", HTTP_GET, [](AsyncWebServerRequest *request)
               { request->send(200, "text/plain", String(setInput(3)));});
 
-    server.on("/INPUT4", HTTP_GET, [](AsyncWebServerRequest *request)
+    server.on("/INPUT5", HTTP_GET, [](AsyncWebServerRequest *request)
               { request->send(200, "text/plain", String(setInput(4)));});
         
 
@@ -816,6 +817,9 @@ void startUp()
   RuntimeSettings.InputLastVol[RuntimeSettings.CurrentInput] = minimum(RuntimeSettings.InputLastVol[RuntimeSettings.CurrentInput], Settings.MaxStartVolume); // Avoid setting volume higher than MaxStartVol
   setInput(RuntimeSettings.CurrentInput);
 
+  // Enable output / trigger output relay
+  setOutputRelayOn();
+
   left_display_update();
   right_display_update();
 
@@ -911,7 +915,7 @@ void loop()
       changeBalance();
       toAppNormalMode();
       break;
-    case KEY_ONOFF:
+    case KEY_OFF:
       if (last_KEY_ONOFF + 5000 < millis()) // Cancel received KEY_ONOFF if it has been received within the last 5 seconds
       {
         last_KEY_ONOFF = millis();
@@ -926,7 +930,7 @@ void loop()
     // Do nothing if in APP_STANDBY_MODE - unless the user presses KEY_ONOFF. By the way: you don't need an IR remote: a doubleclick on encoder_2 is also KEY_ONOFF
     switch (UIkey)
     {
-    case KEY_ONOFF:
+    case KEY_ON:
       if (last_KEY_ONOFF + 5000 < millis()) // Cancel received KEY_ONOFF if it has been received within the last 5 seconds
       {
         last_KEY_ONOFF = millis();
@@ -1032,7 +1036,8 @@ void setSettingsToDefault()
   Settings.IR_BACK = 0x80822DD;
   Settings.IR_MUTE = 0x80828D7;
   Settings.IR_PREVIOUS = 0x80818E7;
-  Settings.IR_ONOFF = 0x808926D;
+  Settings.IR_ON = 0x808926D;
+  Settings.IR_OFF = 0x808926D;
   Settings.IR_1 = 0x808827D;
   Settings.IR_2 = 0x80842BD;
   Settings.IR_3 = 0x808E21D;
@@ -1406,7 +1411,10 @@ byte getUserInput()
     break;
   
   case ClickEncoder::DoubleClicked:
-    receivedInput = KEY_ONOFF;
+    if (appMode == APP_STANDBY_MODE)
+      receivedInput = KEY_ON;
+    else 
+      receivedInput = KEY_OFF;
     break;
   
   default:
@@ -1416,7 +1424,7 @@ byte getUserInput()
   // Check if any input from the IR remote
   if (irrecv.decode(&IRresults))
   {
-      debug("IR code: "); debugln(uint64ToString(IRresults.value, HEX).c_str());
+      debug("IR code: "); debug(uint64ToString(IRresults.value, HEX).c_str());debugln("");
       // Map the received IR input to UserInput values
       if (IRresults.value == Settings.IR_UP)
         receivedInput = KEY_UP;
@@ -1432,8 +1440,10 @@ byte getUserInput()
         receivedInput = KEY_BACK;
       else if (IRresults.value == Settings.IR_MUTE)
         receivedInput = KEY_MUTE;
-      else if (IRresults.value == Settings.IR_ONOFF)
-        receivedInput = KEY_ONOFF;
+      else if (appMode == APP_STANDBY_MODE && IRresults.value == Settings.IR_ON)
+        receivedInput = KEY_ON;
+      else if (appMode == APP_NORMAL_MODE && IRresults.value == Settings.IR_OFF)
+        receivedInput = KEY_OFF;
       else if (IRresults.value == Settings.IR_1)
         receivedInput = KEY_1;
       else if (IRresults.value == Settings.IR_2)
@@ -1478,6 +1488,7 @@ void toStandbyMode()
   appMode = APP_STANDBY_MODE;
   writeRuntimeSettingsToEEPROM();
   mute();
+  setOutputRelayOff();
   left_display.clearDisplay();
   right_display.clearDisplay();
   setTrigger1Off();
@@ -1529,8 +1540,7 @@ boolean setInput(uint8_t NewInput)
     RuntimeSettings.PrevSelectedInput = RuntimeSettings.CurrentInput;
 
     // Select new input
-    // TO DO: Set gain for the input
-   // muses.setGain(Settings.Input[RuntimeSettings.CurrentInput].Gain);
+    muses.setGain(Settings.Input[RuntimeSettings.CurrentInput].Gain);
     RuntimeSettings.CurrentInput = NewInput;
 
 
@@ -1725,7 +1735,8 @@ int calculateAttenuation(byte logicalStep, byte maxLogicalSteps, byte minAttenua
     attenuation = round(attenuation * 4) / 4;
     // Calculate the volume step
     int volumeStep = static_cast<int>(attenuation * -4);
-    debug("calculateAttenuation: "); debugln(volumeStep);
+    debug("Attenuation: "); debugln((int)attenuation);
+    debug("Volume step: "); debugln(volumeStep);
     return volumeStep;
     
 }
@@ -1788,12 +1799,12 @@ void setTrigger2Off()
 
 // Mute relay -> MCP23008 pin 0
 
-void setMuteRelayOn()
+void setOutputRelayOff()
 {
   relayController.digitalWrite(0, LOW);
 }
 
-void setMuteRelayOff()
+void setOutputRelayOn()
 {
   relayController.digitalWrite(0, HIGH);
 }
