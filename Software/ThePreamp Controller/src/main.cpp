@@ -9,9 +9,9 @@
 **   - DONE - check output relay
 **   - clean up
 **   - DONE - add discrete on/off
-**   - Add support for learning IR codes 
+**   - DONE - add support for learning IR codes 
 **   - Add support for balance control
-**   - Add support for gain control
+**   - DONE - Add support for gain control
 **   - Add support for temperature display
 **   - Add support for MQTT
 **   - Add UI for settings
@@ -22,6 +22,12 @@
 
 
 #define VERSION (float)0.995
+// IRCONF == 1 Jan 
+// IRCONF == 0 Carsten
+// Remember to change VERSION to update eprom
+
+#define IRCONF 1
+
 
 #include <Arduino.h>
 #include <SPI.h>
@@ -628,15 +634,36 @@ void setupWIFIsupport()
 
     /* Attach Message Callback */
     WebSerial.onMessage([&](uint8_t *data, size_t len) {
-      Serial.printf("Received %u bytes from WebSerial: ", len);
-      Serial.write(data, len);
-      Serial.println();
-      WebSerial.println("Received Data...");
-      String d = "";
-      for(size_t i=0; i < len; i++){
-        d += char(data[i]);
+    Serial.printf("Received %u bytes from WebSerial: ", len);
+    Serial.write(data, len);
+    Serial.println();
+    WebSerial.println("Received Data...");
+    String input = "";
+    String command = "";
+    String value = "";
+    for(size_t i=0; i < len; i++){
+      input += char(data[i]);
+    }
+      int spaceIndex = input.indexOf(' ');
+      if (spaceIndex > 0) {
+        command = input.substring(0, spaceIndex);
+        value = input.substring(spaceIndex + 1);
+      } else {
+        command = input;
+        value = "";
       }
-      WebSerial.println(d);
+      command.trim();
+      value.trim();
+           
+      WebSerial.print("Command: ");
+      WebSerial.println(command);
+      WebSerial.print("Value: ");
+      WebSerial.println(value);
+
+      if (command == "HELP") {
+        WebSerial.println("IR_UP value");
+        WebSerial.println("IR_DOWN value");
+      }
     });
 
     server.begin();
@@ -1027,6 +1054,44 @@ void setSettingsToDefault()
   Settings.MaxStartVolume = Settings.VolumeSteps;
   Settings.MuteLevel = 0;
   Settings.RecallSetLevel = true;
+
+  #if IRCONF == 1
+    Settings.IR_UP = 0x80840BF;
+    Settings.IR_DOWN = 0x808E01F;
+    Settings.IR_REPEAT = 0xFFFFFFFFFFFFFFFF;
+    Settings.IR_LEFT = 0x808807F;
+    Settings.IR_RIGHT = 0x808609F;
+    Settings.IR_SELECT = 0x808AC53;
+    Settings.IR_BACK = 0x80822DD;
+    Settings.IR_MUTE = 0x80828D7;
+    Settings.IR_PREVIOUS = 0x80818E7;
+    Settings.IR_ON = 0x808926D;
+    Settings.IR_OFF = 0x808926D;
+    Settings.IR_1 = 0x808827D;
+    Settings.IR_2 = 0x80842BD;
+    Settings.IR_3 = 0x808E21D;
+    Settings.IR_4 = 0x808CC33;
+    Settings.IR_5 = 0x8082CD3;
+  #else
+    Settings.IR_UP = 0x48AC40BF;
+    Settings.IR_DOWN = 0x48AC609F;
+    Settings.IR_REPEAT = 0xFFFFFFFFFFFFFFFF;
+    Settings.IR_LEFT = 0x48ACC03F;
+    Settings.IR_RIGHT = 0x48ACA05F;
+    Settings.IR_SELECT = 0x48AC20DF;
+    Settings.IR_BACK = 0x80822DD;
+    Settings.IR_MUTE = 0x80828D7;
+    Settings.IR_PREVIOUS = 0x80818E7;
+    Settings.IR_ON = 0x48AC807F;
+    Settings.IR_OFF = 0x48AC807F;
+    Settings.IR_1 = 0x808827D;
+    Settings.IR_2 = 0x80842BD;
+    Settings.IR_3 = 0x808E21D;
+    Settings.IR_4 = 0x808CC33;
+    Settings.IR_5 = 0x8082CD3;
+  #endif
+
+/*
   Settings.IR_UP = 0x80840BF;
   Settings.IR_DOWN = 0x808E01F;
   Settings.IR_REPEAT = 0xFFFFFFFFFFFFFFFF;
@@ -1043,6 +1108,24 @@ void setSettingsToDefault()
   Settings.IR_3 = 0x808E21D;
   Settings.IR_4 = 0x808CC33;
   Settings.IR_5 = 0x8082CD3;
+
+  Settings.IR_UP = 0x48AC40BF;
+  Settings.IR_DOWN = 0x48AC609F;
+  Settings.IR_REPEAT = 0xFFFFFFFFFFFFFFFF;
+  Settings.IR_LEFT = 0x48ACC03F;
+  Settings.IR_RIGHT = 0x48ACA05F;
+  Settings.IR_SELECT = 0x48AC20DF;
+  Settings.IR_BACK = 0x80822DD;
+  Settings.IR_MUTE = 0x80828D7;
+  Settings.IR_PREVIOUS = 0x80818E7;
+  Settings.IR_ON = 0x48AC807F;
+  Settings.IR_OFF = 0x48AC807F;
+  Settings.IR_1 = 0x808827D;
+  Settings.IR_2 = 0x80842BD;
+  Settings.IR_3 = 0x808E21D;
+  Settings.IR_4 = 0x808CC33;
+  Settings.IR_5 = 0x8082CD3;
+*/   
   Settings.Input[0].Active = INPUT_NORMAL;
   strcpy(Settings.Input[0].Name, "Input 1");
   Settings.Input[0].MaxVol = Settings.VolumeSteps;
