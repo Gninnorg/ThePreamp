@@ -48,6 +48,7 @@
 #include "SPIFFS.h"
 #include <AsyncTCP.h>
 #include <WebSerial.h>
+#include <ArduinoJson.h>
 
 #define ROTARY_ENCODER_STEPS 4
 
@@ -1890,4 +1891,71 @@ void setOutputRelayOff()
 void setOutputRelayOn()
 {
   relayController.digitalWrite(0, HIGH);
+}
+
+String exportSettingsAsJson() {
+    StaticJsonDocument<2048> doc;
+
+    doc["ssid"] = Settings.ssid;
+    doc["pass"] = Settings.pass;
+    doc["ip"] = Settings.ip;
+    doc["gateway"] = Settings.gateway;
+
+    doc["VolumeSteps"] = Settings.VolumeSteps;
+    doc["MinAttenuation"] = Settings.MinAttenuation;
+    doc["MaxAttenuation"] = Settings.MaxAttenuation;
+    doc["MaxStartVolume"] = Settings.MaxStartVolume;
+    doc["MuteLevel"] = Settings.MuteLevel;
+    doc["RecallSetLevel"] = Settings.RecallSetLevel;
+
+    doc["IR_ON"] = String(Settings.IR_ON);
+    doc["IR_OFF"] = String(Settings.IR_OFF);
+    doc["IR_UP"] = String(Settings.IR_UP);
+    doc["IR_DOWN"] = String(Settings.IR_DOWN);
+    doc["IR_REPEAT"] = String(Settings.IR_REPEAT);
+    doc["IR_LEFT"] = String(Settings.IR_LEFT);
+    doc["IR_RIGHT"] = String(Settings.IR_RIGHT);
+    doc["IR_SELECT"] = String(Settings.IR_SELECT);
+    doc["IR_BACK"] = String(Settings.IR_BACK);
+    doc["IR_MUTE"] = String(Settings.IR_MUTE);
+    doc["IR_PREVIOUS"] = String(Settings.IR_PREVIOUS);
+    doc["IR_1"] = String(Settings.IR_1);
+    doc["IR_2"] = String(Settings.IR_2);
+    doc["IR_3"] = String(Settings.IR_3);
+    doc["IR_4"] = String(Settings.IR_4);
+    doc["IR_5"] = String(Settings.IR_5);
+
+    JsonArray inputs = doc.createNestedArray("Input");
+    for (int i = 0; i < 5; i++) {
+        JsonObject input = inputs.createNestedObject();
+        input["Active"] = Settings.Input[i].Active;
+        input["Name"] = Settings.Input[i].Name;
+        input["MaxVol"] = Settings.Input[i].MaxVol;
+        input["MinVol"] = Settings.Input[i].MinVol;
+        input["Gain"] = Settings.Input[i].Gain;
+    }
+
+    doc["ExtPowerRelayTrigger"] = Settings.ExtPowerRelayTrigger;
+    doc["Trigger1Active"] = Settings.Trigger1Active;
+    doc["Trigger1Type"] = Settings.Trigger1Type;
+    doc["Trigger1OnDelay"] = Settings.Trigger1OnDelay;
+    doc["Trigger1Temp"] = Settings.Trigger1Temp;
+    doc["Trigger2Active"] = Settings.Trigger2Active;
+    doc["Trigger2Type"] = Settings.Trigger2Type;
+    doc["Trigger2OnDelay"] = Settings.Trigger2OnDelay;
+    doc["Trigger2Temp"] = Settings.Trigger2Temp;
+    doc["TriggerInactOffTimer"] = Settings.TriggerInactOffTimer;
+    doc["ScreenSaverActive"] = Settings.ScreenSaverActive;
+    doc["DisplayOnLevel"] = Settings.DisplayOnLevel;
+    doc["DisplayDimLevel"] = Settings.DisplayDimLevel;
+    doc["DisplayTimeout"] = Settings.DisplayTimeout;
+    doc["DisplayVolume"] = Settings.DisplayVolume;
+    doc["DisplaySelectedInput"] = Settings.DisplaySelectedInput;
+    doc["DisplayTemperature1"] = Settings.DisplayTemperature1;
+    doc["DisplayTemperature2"] = Settings.DisplayTemperature2;
+    doc["Version"] = Settings.Version;
+
+    String output;
+    serializeJson(doc, output);
+    return output;
 }
