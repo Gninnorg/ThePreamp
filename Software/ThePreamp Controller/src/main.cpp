@@ -482,6 +482,7 @@ void setTrigger2On();
 void setTrigger2Off();
 void setOutputRelayOff();
 void setOutputRelayOn();
+String exportSettingsAsJson();
 
 void setup() {
   // Serial port for debugging purposes
@@ -664,6 +665,11 @@ void setupWIFIsupport()
       if (command == "HELP") {
         WebSerial.println("IR_UP value");
         WebSerial.println("IR_DOWN value");
+      }
+
+      if (command == "EXPORT-SETTINGS") {
+        String json = exportSettingsAsJson();
+        WebSerial.println(json);
       }
     });
 
