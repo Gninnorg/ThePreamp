@@ -366,6 +366,8 @@ void setPrevInput();
 void setNextInput();
 void mute();
 void unmute();
+void muteOutput();
+void unmuteOutput();
 bool changeBalance();
 void displayBalance(byte);
 int calculateAttenuation(byte logicalStep, byte maxLogicalSteps, byte minAttenuation_dB, byte maxAttenuation_dB);
@@ -373,8 +375,8 @@ void setTrigger1On();
 void setTrigger1Off();
 void setTrigger2On();
 void setTrigger2Off();
-void setOutputRelayOff();
-void setOutputRelayOn();
+void unmuteOutput();
+void muteOutput();
 String exportSettingsAsJson();
 
 void setup() {
@@ -383,17 +385,16 @@ void setup() {
     Serial.begin(115200);
   #endif
   
+  delay(5000); // Allow power supply to stabilize before starting up the controller
   SPI.begin();
   Wire.begin();
 
-  right_display.setBusClock(2000000);
+  right_display.setBusClock(4000000);
   right_display.begin();
-  right_display.setPowerSave(0);
   right_display.setFont(u8g2_font_inb63_mn); 
   
-  left_display.setBusClock(2000000);
+  left_display.setBusClock(4000000);
   left_display.begin();
-  left_display.setPowerSave(0);
   left_display.setFont(u8g2_font_inb63_mn);
   
   setupRotaryEncoders();
@@ -520,7 +521,12 @@ void setupWIFIsupport()
 
     server.on("/INPUT5", HTTP_GET, [](AsyncWebServerRequest *request)
               { request->send(200, "text/plain", String(setInput(4)));});
-        
+
+    server.on("/MUTE", HTTP_GET, [](AsyncWebServerRequest *request)
+              { muteOutput(); request->send(200, "text/plain", "Mute");});
+
+    server.on("/UNMUTE", HTTP_GET, [](AsyncWebServerRequest *request)
+              { unmuteOutput(); request->send(200, "text/plain", "Unmute");});
 
     server.serveStatic("/", SPIFFS, "/");
 
@@ -745,7 +751,7 @@ void startUp()
   setInput(RuntimeSettings.CurrentInput);
 
   // Enable output / trigger output relay
-  setOutputRelayOn();
+  unmuteOutput();
 
   left_display_update();
   right_display_update();
@@ -1471,7 +1477,7 @@ void toStandbyMode()
   appMode = APP_STANDBY_MODE;
   writeRuntimeSettingsToEEPROM();
   mute();
-  setOutputRelayOff();
+  unmuteOutput();
   left_display.clearDisplay();
   right_display.clearDisplay();
   setTrigger1Off();
@@ -1782,12 +1788,12 @@ void setTrigger2Off()
 
 // Mute relay -> MCP23008 pin 0
 
-void setOutputRelayOff()
+void unmuteOutput()
 {
   relayController.digitalWrite(0, LOW);
 }
 
-void setOutputRelayOn()
+void muteOutput()
 {
   relayController.digitalWrite(0, HIGH);
 }
