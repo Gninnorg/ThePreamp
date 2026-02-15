@@ -1,7 +1,7 @@
 (kicad_pcb
-	(version 20240108)
+	(version 20241229)
 	(generator "pcbnew")
-	(generator_version "8.0")
+	(generator_version "9.0")
 	(general
 		(thickness 1.6)
 		(legacy_teardrops no)
@@ -12,34 +12,35 @@
 	)
 	(layers
 		(0 "F.Cu" signal)
-		(31 "B.Cu" signal)
-		(32 "B.Adhes" user "B.Adhesive")
-		(33 "F.Adhes" user "F.Adhesive")
-		(34 "B.Paste" user)
-		(35 "F.Paste" user)
-		(36 "B.SilkS" user "B.Silkscreen")
-		(37 "F.SilkS" user "F.Silkscreen")
-		(38 "B.Mask" user)
-		(39 "F.Mask" user)
-		(40 "Dwgs.User" user "User.Drawings")
-		(41 "Cmts.User" user "User.Comments")
-		(42 "Eco1.User" user "User.Eco1")
-		(43 "Eco2.User" user "User.Eco2")
-		(44 "Edge.Cuts" user)
-		(45 "Margin" user)
-		(46 "B.CrtYd" user "B.Courtyard")
-		(47 "F.CrtYd" user "F.Courtyard")
-		(48 "B.Fab" user)
-		(49 "F.Fab" user)
+		(2 "B.Cu" signal)
+		(9 "F.Adhes" user "F.Adhesive")
+		(11 "B.Adhes" user "B.Adhesive")
+		(13 "F.Paste" user)
+		(15 "B.Paste" user)
+		(5 "F.SilkS" user "F.Silkscreen")
+		(7 "B.SilkS" user "B.Silkscreen")
+		(1 "F.Mask" user)
+		(3 "B.Mask" user)
+		(17 "Dwgs.User" user "User.Drawings")
+		(19 "Cmts.User" user "User.Comments")
+		(21 "Eco1.User" user "User.Eco1")
+		(23 "Eco2.User" user "User.Eco2")
+		(25 "Edge.Cuts" user)
+		(27 "Margin" user)
+		(31 "F.CrtYd" user "F.Courtyard")
+		(29 "B.CrtYd" user "B.Courtyard")
+		(35 "F.Fab" user)
+		(33 "B.Fab" user)
 	)
 	(setup
 		(pad_to_mask_clearance 0.2)
 		(allow_soldermask_bridges_in_footprints no)
+		(tenting front back)
 		(aux_axis_origin 20.3 139.6)
 		(grid_origin 86.65 92.03)
 		(pcbplotparams
-			(layerselection 0x00010fc_ffffffff)
-			(plot_on_all_layers_selection 0x0000000_00000000)
+			(layerselection 0x00000000_00000000_55555555_5755f5ff)
+			(plot_on_all_layers_selection 0x00000000_00000000_00000000_00000000)
 			(disableapertmacros no)
 			(usegerberextensions yes)
 			(usegerberattributes no)
@@ -49,7 +50,6 @@
 			(dashed_line_gap_ratio 3.000000)
 			(svgprecision 6)
 			(plotframeref no)
-			(viasonmask no)
 			(mode 1)
 			(useauxorigin no)
 			(hpglpennumber 1)
@@ -57,16 +57,19 @@
 			(hpglpendiameter 15.000000)
 			(pdf_front_fp_property_popups yes)
 			(pdf_back_fp_property_popups yes)
+			(pdf_metadata yes)
+			(pdf_single_document no)
 			(dxfpolygonmode yes)
 			(dxfimperialunits yes)
 			(dxfusepcbnewfont yes)
 			(psnegative no)
 			(psa4output no)
-			(plotreference yes)
-			(plotvalue no)
-			(plotfptext yes)
-			(plotinvisibletext no)
+			(plot_black_and_white yes)
 			(sketchpadsonfab no)
+			(plotpadnumbers no)
+			(hidednponfab no)
+			(sketchdnponfab yes)
+			(crossoutdnponfab yes)
 			(subtractmaskfromsilk yes)
 			(outputformat 1)
 			(mirror no)
@@ -194,19 +197,6 @@
 				)
 			)
 		)
-		(property "Footprint" "RCA ALI:RCA Connector ALI"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "2bee5585-4bd9-4c51-8939-66200bd0e5a5")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" " ~"
 			(at 0 0 0)
 			(unlocked yes)
@@ -235,7 +225,7 @@
 		)
 		(property ki_fp_filters "*BNC* *SMA* *SMB* *SMC* *Cinch* *LEMO*")
 		(path "/23bf6457-7b50-46b4-bd93-92ecbbfa733f")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "ThePreamp-Analogue.kicad_sch")
 		(attr through_hole)
 		(fp_rect
@@ -245,7 +235,7 @@
 				(width 0.12)
 				(type solid)
 			)
-			(fill none)
+			(fill no)
 			(layer "F.SilkS")
 			(uuid "006ac4f9-ec1f-42ca-8f14-d5b8c71862c0")
 		)
@@ -256,7 +246,7 @@
 				(width 0.12)
 				(type solid)
 			)
-			(fill none)
+			(fill no)
 			(layer "F.SilkS")
 			(uuid "56ed533f-d415-4141-b8b0-8e2864669d19")
 		)
@@ -310,6 +300,7 @@
 			(pintype "passive")
 			(uuid "db3a3cc9-6e36-47ed-ad52-3cd29a97484e")
 		)
+		(embedded_fonts no)
 		(model "${KIPRJMOD}/RCA_CONNECTOR_ALI/RCA Connector ALI.step"
 			(offset
 				(xyz -5.75 -0.31 0)
@@ -354,19 +345,6 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Connector_M8:M8 3 pin"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "5795b5ca-3317-4d43-8878-10f2006ed99d")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 0)
 			(unlocked yes)
@@ -395,7 +373,7 @@
 		)
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/ab394d6f-d3b5-495d-9a04-b684cdcbc50e")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "ThePreamp-Analogue.kicad_sch")
 		(attr through_hole)
 		(fp_circle
@@ -405,7 +383,7 @@
 				(width 0.12)
 				(type default)
 			)
-			(fill none)
+			(fill no)
 			(layer "F.SilkS")
 			(uuid "2281207b-630e-4e14-a66e-cabea88990b5")
 		)
@@ -416,7 +394,7 @@
 				(width 0.12)
 				(type dot)
 			)
-			(fill none)
+			(fill no)
 			(layer "F.SilkS")
 			(uuid "12aaf74e-429e-4aa5-9aec-76da19312817")
 		)
@@ -424,7 +402,7 @@
 			(at 0 0)
 			(size 1 1)
 			(drill 1)
-			(layers "F&B.Cu" "*.Mask")
+			(layers "*.Cu" "*.Mask")
 			(uuid "707c7302-653c-43b5-81c8-ac65df895ff7")
 		)
 		(pad "1" thru_hole circle
@@ -460,6 +438,7 @@
 			(pintype "passive")
 			(uuid "6ffe977c-2262-4edf-bd7f-45fb94fbba08")
 		)
+		(embedded_fonts no)
 		(model "${KIPRJMOD}/M8 connector/M8 3 pin/c-t4040014031-000-a-3d.stp"
 			(offset
 				(xyz 0 0 19)
@@ -501,19 +480,6 @@
 				)
 			)
 		)
-		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "0d73b182-5c17-4b6a-9764-ed59ad6d6f41")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 0)
 			(unlocked yes)
@@ -548,7 +514,7 @@
 				(width 0.15)
 				(type solid)
 			)
-			(fill none)
+			(fill no)
 			(layer "Cmts.User")
 			(uuid "b59624f8-25a7-488d-a7fe-1f6b389bb245")
 		)
@@ -559,7 +525,7 @@
 				(width 0.05)
 				(type solid)
 			)
-			(fill none)
+			(fill no)
 			(layer "F.CrtYd")
 			(uuid "c42e4837-22ea-4c23-b8bb-9aa68fa74ba8")
 		)
@@ -581,6 +547,7 @@
 			(layers "*.Cu" "*.Mask")
 			(uuid "81865897-2879-4100-97ae-1d8dc1e2cd8b")
 		)
+		(embedded_fonts no)
 	)
 	(footprint "RCA ALI:RCA Connector ALI"
 		(locked yes)
@@ -608,19 +575,6 @@
 			(effects
 				(font
 					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Footprint" "RCA ALI:RCA Connector ALI"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "26b2aaa2-b344-4e7e-9a84-351f8d6e1f18")
-			(effects
-				(font
-					(size 1.27 1.27)
 					(thickness 0.15)
 				)
 			)
@@ -653,7 +607,7 @@
 		)
 		(property ki_fp_filters "*BNC* *SMA* *SMB* *SMC* *Cinch* *LEMO*")
 		(path "/fbf98c4a-1cf8-4e2c-b56c-144cbe3292b1")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "ThePreamp-Analogue.kicad_sch")
 		(attr through_hole)
 		(fp_rect
@@ -663,7 +617,7 @@
 				(width 0.12)
 				(type solid)
 			)
-			(fill none)
+			(fill no)
 			(layer "F.SilkS")
 			(uuid "6d869560-bc61-43cd-8ed9-d286d0c2c84f")
 		)
@@ -674,7 +628,7 @@
 				(width 0.12)
 				(type solid)
 			)
-			(fill none)
+			(fill no)
 			(layer "F.SilkS")
 			(uuid "7884a8b4-0583-4bb8-a609-d7f9b9d1ba43")
 		)
@@ -728,6 +682,7 @@
 			(pintype "passive")
 			(uuid "06e666cf-a112-4a67-ae5f-2e681cb151b8")
 		)
+		(embedded_fonts no)
 		(model "${KIPRJMOD}/RCA_CONNECTOR_ALI/RCA Connector ALI.step"
 			(offset
 				(xyz -5.75 -0.31 0)
@@ -766,19 +721,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.254)
-				)
-			)
-		)
-		(property "Footprint" "EA2-12NJ:DIPS762W60P254L1420H630Q10N"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "a77f4cdf-fc89-4732-8e7f-9084ba8e1c6d")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
 				)
 			)
 		)
@@ -941,7 +883,7 @@
 			)
 		)
 		(path "/39f1b830-1c61-4479-9c06-39aa49dd71f4")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "ThePreamp-Analogue.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -1174,6 +1116,7 @@
 			(pintype "passive")
 			(uuid "31d24de3-4a91-406e-a13c-c6a49d3a0083")
 		)
+		(embedded_fonts no)
 		(model "${KIPRJMOD}/EA2-12NJ/EA2-12NJ.step"
 			(offset
 				(xyz -0.75 2 0)
@@ -1212,19 +1155,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.254)
-				)
-			)
-		)
-		(property "Footprint" "EA2-12NJ:DIPS762W60P254L1420H630Q10N"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "28e81fca-7157-43d6-a5ef-6019dd78a09b")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
 				)
 			)
 		)
@@ -1387,7 +1317,7 @@
 			)
 		)
 		(path "/b28781c2-2fd7-40c7-ab85-41a2f6df50c6")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "ThePreamp-Analogue.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -1620,6 +1550,7 @@
 			(pintype "passive")
 			(uuid "5ab22367-4c26-4e3f-b80f-8e4e845b400f")
 		)
+		(embedded_fonts no)
 		(model "${KIPRJMOD}/EA2-12NJ/EA2-12NJ.step"
 			(offset
 				(xyz -0.75 2 0)
@@ -1661,20 +1592,6 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "8ba2bc1c-d81e-49ed-adb7-e32488e0d63f")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 0)
 			(unlocked yes)
@@ -1705,7 +1622,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/00000000-0000-0000-0000-00005de67d93")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "ThePreamp-Analogue.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -1822,7 +1739,7 @@
 		(pad "1" smd roundrect
 			(at -1 0 180)
 			(size 1.2 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.2083333333)
 			(net 9 "A1")
 			(pintype "passive")
@@ -1831,12 +1748,13 @@
 		(pad "2" smd roundrect
 			(at 1 0 180)
 			(size 1.2 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.2083333333)
 			(net 5 "+3.3V")
 			(pintype "passive")
 			(uuid "8f93ea73-a0f6-49ac-8eff-1bdbaa8dab16")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0805_2012Metric.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -1878,19 +1796,6 @@
 				)
 			)
 		)
-		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "8fe6c1b0-6c53-4f52-a7ca-cfbf054c43df")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 0)
 			(unlocked yes)
@@ -1925,7 +1830,7 @@
 				(width 0.15)
 				(type solid)
 			)
-			(fill none)
+			(fill no)
 			(layer "Cmts.User")
 			(uuid "5af32391-5bdd-4fed-a244-c4e7ee026c9e")
 		)
@@ -1936,7 +1841,7 @@
 				(width 0.05)
 				(type solid)
 			)
-			(fill none)
+			(fill no)
 			(layer "F.CrtYd")
 			(uuid "0bee6813-e562-40e5-9a51-7fafbb2428a2")
 		)
@@ -1958,6 +1863,7 @@
 			(layers "*.Cu" "*.Mask")
 			(uuid "f025527b-cbaa-4d7f-a790-ffd58d17f4ed")
 		)
+		(embedded_fonts no)
 	)
 	(footprint "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
 		(layer "F.Cu")
@@ -1984,19 +1890,6 @@
 			(effects
 				(font
 					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "9ac51bc2-f160-4d61-91a0-9ee694d40f3a")
-			(effects
-				(font
-					(size 1.27 1.27)
 					(thickness 0.15)
 				)
 			)
@@ -2029,7 +1922,7 @@
 		)
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/fbf88b9a-8761-4c2e-92be-f19a12cec026")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "ThePreamp-Analogue.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -2183,7 +2076,7 @@
 			(uuid "256a1eef-84a7-49b1-90ca-9f4f11c5ba35")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 1.27 -90)
+			(at 0 1.27 270)
 			(layer "F.Fab")
 			(uuid "0e122767-f6ce-4cd0-b62b-90d647feaa6f")
 			(effects
@@ -2215,6 +2108,7 @@
 			(pintype "passive")
 			(uuid "c75a1e51-b157-4a2f-806b-da91f4eb5f87")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Connector_PinHeader_2.54mm.3dshapes/PinHeader_1x02_P2.54mm_Vertical.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -2258,19 +2152,6 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_M8:M8 4 pin"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "9148b310-abc9-4511-b15d-43b9e7074ac2")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 0)
 			(unlocked yes)
@@ -2299,7 +2180,7 @@
 		)
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/83f37c1c-3af1-40ea-8418-1e73d0b215e6")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "ThePreamp-Analogue.kicad_sch")
 		(attr through_hole)
 		(fp_circle
@@ -2309,7 +2190,7 @@
 				(width 0.12)
 				(type default)
 			)
-			(fill none)
+			(fill no)
 			(layer "F.SilkS")
 			(uuid "3a8efcee-f25f-4124-835b-bc90cea2dba8")
 		)
@@ -2320,7 +2201,7 @@
 				(width 0.12)
 				(type dot)
 			)
-			(fill none)
+			(fill no)
 			(layer "F.SilkS")
 			(uuid "0bb652ac-aa29-4fdc-91f6-7bd1a859da9c")
 		)
@@ -2328,7 +2209,7 @@
 			(at 0 0)
 			(size 1 1)
 			(drill 1)
-			(layers "F&B.Cu" "*.Mask")
+			(layers "*.Cu" "*.Mask")
 			(uuid "05a81a49-4556-4447-9d82-d782d3428348")
 		)
 		(pad "1" thru_hole circle
@@ -2375,6 +2256,7 @@
 			(pintype "passive")
 			(uuid "6ba27bb8-4b43-4947-9429-5912de67c16c")
 		)
+		(embedded_fonts no)
 		(model "${KIPRJMOD}/M8 connector/M8 4 pin/c-t4040014041-000-a-3d.stp"
 			(offset
 				(xyz 0 0 19)
@@ -2413,19 +2295,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.254)
-				)
-			)
-		)
-		(property "Footprint" "EA2-12NJ:DIPS762W60P254L1420H630Q10N"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "9699f107-c5e8-4e78-b34e-4e25018dc67f")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
 				)
 			)
 		)
@@ -2588,7 +2457,7 @@
 			)
 		)
 		(path "/23d6ee0a-3967-43a3-be1b-91dd96501c4c")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "ThePreamp-Analogue.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -2821,6 +2690,7 @@
 			(pintype "passive")
 			(uuid "215737a3-f9d8-4804-ad1a-c46202acddf2")
 		)
+		(embedded_fonts no)
 		(model "${KIPRJMOD}/EA2-12NJ/EA2-12NJ.step"
 			(offset
 				(xyz -0.75 2 0)
@@ -2859,19 +2729,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.254)
-				)
-			)
-		)
-		(property "Footprint" "EA2-12NJ:DIPS762W60P254L1420H630Q10N"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "54f2e74b-4f69-47d8-94f4-72a4cec0b39a")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
 				)
 			)
 		)
@@ -3034,7 +2891,7 @@
 			)
 		)
 		(path "/e1e0beab-bd0b-4772-a29d-35e5941c8c5b")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "ThePreamp-Analogue.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -3267,6 +3124,7 @@
 			(pintype "passive")
 			(uuid "d3023bbb-e731-4c6e-9c30-81c89d17619c")
 		)
+		(embedded_fonts no)
 		(model "${KIPRJMOD}/EA2-12NJ/EA2-12NJ.step"
 			(offset
 				(xyz -0.75 2 0)
@@ -3310,19 +3168,6 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_M8:M8 4 pin"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "c25937eb-ce03-4745-856b-8ccc662a0957")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 0)
 			(unlocked yes)
@@ -3351,7 +3196,7 @@
 		)
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/f2b141f3-33d4-4299-b8df-c3414967f51b")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "ThePreamp-Analogue.kicad_sch")
 		(attr through_hole)
 		(fp_circle
@@ -3361,7 +3206,7 @@
 				(width 0.12)
 				(type default)
 			)
-			(fill none)
+			(fill no)
 			(layer "F.SilkS")
 			(uuid "1e24c91e-2b2c-438d-88fb-578544135320")
 		)
@@ -3372,7 +3217,7 @@
 				(width 0.12)
 				(type dot)
 			)
-			(fill none)
+			(fill no)
 			(layer "F.SilkS")
 			(uuid "7d767fd7-da45-4251-ae68-729f550d1f39")
 		)
@@ -3380,7 +3225,7 @@
 			(at 0 0)
 			(size 1 1)
 			(drill 1)
-			(layers "F&B.Cu" "*.Mask")
+			(layers "*.Cu" "*.Mask")
 			(uuid "0dc4afa6-987c-43c8-9d46-0bf21e6afa7a")
 		)
 		(pad "1" thru_hole circle
@@ -3427,6 +3272,7 @@
 			(pintype "passive")
 			(uuid "5782f131-f7db-446e-9330-dcd10a1f317c")
 		)
+		(embedded_fonts no)
 		(model "${KIPRJMOD}/M8 connector/M8 4 pin/c-t4040014041-000-a-3d.stp"
 			(offset
 				(xyz 0 0 19)
@@ -3469,19 +3315,6 @@
 				)
 			)
 		)
-		(property "Footprint" "RCA ALI:RCA Connector ALI"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "8b5b61ab-87fc-42b6-80b7-f4d2d9cea0f6")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" " ~"
 			(at 0 0 0)
 			(unlocked yes)
@@ -3510,7 +3343,7 @@
 		)
 		(property ki_fp_filters "*BNC* *SMA* *SMB* *SMC* *Cinch* *LEMO*")
 		(path "/9bb82c41-dc0f-42e8-8ee9-7163070f7fe9")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "ThePreamp-Analogue.kicad_sch")
 		(attr through_hole)
 		(fp_rect
@@ -3520,7 +3353,7 @@
 				(width 0.12)
 				(type solid)
 			)
-			(fill none)
+			(fill no)
 			(layer "F.SilkS")
 			(uuid "b705a9bb-8529-4f0f-b17e-6a4e950f0d75")
 		)
@@ -3531,7 +3364,7 @@
 				(width 0.12)
 				(type solid)
 			)
-			(fill none)
+			(fill no)
 			(layer "F.SilkS")
 			(uuid "80ec1e4e-5915-4a5a-b3c7-9edc518d27c6")
 		)
@@ -3585,6 +3418,7 @@
 			(pintype "passive")
 			(uuid "f4f70458-1b26-4f44-a090-c662294d0dc4")
 		)
+		(embedded_fonts no)
 		(model "${KIPRJMOD}/RCA_CONNECTOR_ALI/RCA Connector ALI.step"
 			(offset
 				(xyz -5.75 -0.31 0)
@@ -3626,19 +3460,6 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "2fa5c890-3182-4128-afb5-1a65581d1b72")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 180)
 			(unlocked yes)
@@ -3667,7 +3488,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/6b8aea30-6a6f-4720-b832-9dd0a97e978e")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "ThePreamp-Analogue.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -3784,7 +3605,7 @@
 		(pad "1" smd roundrect
 			(at -1 0 180)
 			(size 1.2 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.2083333333)
 			(net 80 "A2")
 			(pintype "passive")
@@ -3793,12 +3614,13 @@
 		(pad "2" smd roundrect
 			(at 1 0 180)
 			(size 1.2 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.2083333333)
 			(net 5 "+3.3V")
 			(pintype "passive")
 			(uuid "f5c5496a-3cd2-4eb9-9084-ce79d2a7f392")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0805_2012Metric.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -3837,19 +3659,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.254)
-				)
-			)
-		)
-		(property "Footprint" "EA2-12NJ:DIPS762W60P254L1420H630Q10N"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "e2acedb7-18b4-4a2d-b92d-f05a29cf0fd8")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
 				)
 			)
 		)
@@ -4012,7 +3821,7 @@
 			)
 		)
 		(path "/c2afad9f-e622-4aa6-acf2-9655f09f8e6d")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "ThePreamp-Analogue.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -4245,6 +4054,7 @@
 			(pintype "passive")
 			(uuid "3aa859aa-606c-4912-930f-69bb65cc6f99")
 		)
+		(embedded_fonts no)
 		(model "${KIPRJMOD}/EA2-12NJ/EA2-12NJ.step"
 			(offset
 				(xyz -0.75 2 0)
@@ -4287,19 +4097,6 @@
 				)
 			)
 		)
-		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "1b9a9007-3e4a-44ba-8abf-9772d63f492e")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 0)
 			(unlocked yes)
@@ -4334,7 +4131,7 @@
 				(width 0.15)
 				(type solid)
 			)
-			(fill none)
+			(fill no)
 			(layer "Cmts.User")
 			(uuid "f8e96e6b-893d-4c9a-ac2d-a5593b1db0d9")
 		)
@@ -4345,7 +4142,7 @@
 				(width 0.05)
 				(type solid)
 			)
-			(fill none)
+			(fill no)
 			(layer "F.CrtYd")
 			(uuid "5ee88be7-d09e-445f-bd4c-ed01f97d234d")
 		)
@@ -4367,6 +4164,7 @@
 			(layers "*.Cu" "*.Mask")
 			(uuid "99151f73-d176-4dca-93d7-3d98923ace1b")
 		)
+		(embedded_fonts no)
 	)
 	(footprint "Connector_PinHeader_2.54mm:PinHeader_1x10_P2.54mm_Vertical"
 		(layer "F.Cu")
@@ -4393,19 +4191,6 @@
 			(effects
 				(font
 					(size 1 1)
-					(thickness 0.15)
-				)
-			)
-		)
-		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x10_P2.54mm_Vertical"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "a0c1018d-acef-4407-9564-bf0f9d4d1503")
-			(effects
-				(font
-					(size 1.27 1.27)
 					(thickness 0.15)
 				)
 			)
@@ -4438,7 +4223,7 @@
 		)
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/ded9a6b8-e669-43fb-8532-5c92f6346ef0")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "ThePreamp-Analogue.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -4712,6 +4497,7 @@
 			(pintype "passive")
 			(uuid "e2e9eca9-8e8d-4aad-9481-b66c2424a114")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Connector_PinHeader_2.54mm.3dshapes/PinHeader_1x10_P2.54mm_Vertical.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -4754,19 +4540,6 @@
 				)
 			)
 		)
-		(property "Footprint" "RCA ALI:RCA Connector ALI"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "eb803303-6fbb-44f8-ad4c-66de6d8ae3e3")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" " ~"
 			(at 0 0 0)
 			(unlocked yes)
@@ -4795,7 +4568,7 @@
 		)
 		(property ki_fp_filters "*BNC* *SMA* *SMB* *SMC* *Cinch* *LEMO*")
 		(path "/af92639d-7b37-419a-8e92-e0dd46557f1c")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "ThePreamp-Analogue.kicad_sch")
 		(attr through_hole)
 		(fp_rect
@@ -4805,7 +4578,7 @@
 				(width 0.12)
 				(type solid)
 			)
-			(fill none)
+			(fill no)
 			(layer "F.SilkS")
 			(uuid "0c0fa62d-067e-4c46-8202-b07b695e5dcd")
 		)
@@ -4816,7 +4589,7 @@
 				(width 0.12)
 				(type solid)
 			)
-			(fill none)
+			(fill no)
 			(layer "F.SilkS")
 			(uuid "143f6f5b-8325-4764-8be0-d9f52b5099bc")
 		)
@@ -4870,6 +4643,7 @@
 			(pintype "passive")
 			(uuid "3fa2926b-6e53-428a-b53c-2f879b63a641")
 		)
+		(embedded_fonts no)
 		(model "${KIPRJMOD}/RCA_CONNECTOR_ALI/RCA Connector ALI.step"
 			(offset
 				(xyz -5.75 -0.31 0)
@@ -4908,19 +4682,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.254)
-				)
-			)
-		)
-		(property "Footprint" "EA2-12NJ:DIPS762W60P254L1420H630Q10N"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "75eba0b3-6dda-420e-ab29-1fcce1178eda")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
 				)
 			)
 		)
@@ -5083,7 +4844,7 @@
 			)
 		)
 		(path "/e700240e-e343-46ae-b76c-78dd93b5a9c4")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "ThePreamp-Analogue.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -5316,6 +5077,7 @@
 			(pintype "passive")
 			(uuid "bb55550b-0f83-45f1-bf1b-cc0006647d23")
 		)
+		(embedded_fonts no)
 		(model "${KIPRJMOD}/EA2-12NJ/EA2-12NJ.step"
 			(offset
 				(xyz -0.75 2 0)
@@ -5358,19 +5120,6 @@
 				)
 			)
 		)
-		(property "Footprint" "RCA ALI:RCA Connector ALI"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "27dcd203-79c8-4f11-b5dd-22358ca682ee")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" " ~"
 			(at 0 0 0)
 			(unlocked yes)
@@ -5399,7 +5148,7 @@
 		)
 		(property ki_fp_filters "*BNC* *SMA* *SMB* *SMC* *Cinch* *LEMO*")
 		(path "/09c8f157-2c93-41ca-8539-98ca09da717f")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "ThePreamp-Analogue.kicad_sch")
 		(attr through_hole)
 		(fp_rect
@@ -5409,7 +5158,7 @@
 				(width 0.12)
 				(type solid)
 			)
-			(fill none)
+			(fill no)
 			(layer "F.SilkS")
 			(uuid "c1a96b7c-d625-4900-a486-f0ab3b38117b")
 		)
@@ -5420,7 +5169,7 @@
 				(width 0.12)
 				(type solid)
 			)
-			(fill none)
+			(fill no)
 			(layer "F.SilkS")
 			(uuid "217da0d0-2045-4481-8dae-62f90ce87cc3")
 		)
@@ -5474,6 +5223,7 @@
 			(pintype "passive")
 			(uuid "8ce7af9a-0a30-47c0-946f-fbb1d6ed363e")
 		)
+		(embedded_fonts no)
 		(model "${KIPRJMOD}/RCA_CONNECTOR_ALI/RCA Connector ALI.step"
 			(offset
 				(xyz -5.75 -0.31 0)
@@ -5516,19 +5266,6 @@
 				)
 			)
 		)
-		(property "Footprint" "RCA ALI:RCA Connector ALI"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "fb02097c-0bdc-4e3f-87d2-9ae76d20a615")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" " ~"
 			(at 0 0 0)
 			(unlocked yes)
@@ -5557,7 +5294,7 @@
 		)
 		(property ki_fp_filters "*BNC* *SMA* *SMB* *SMC* *Cinch* *LEMO*")
 		(path "/91a58dc2-d144-452e-9eaa-e39dbf5cbdc3")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "ThePreamp-Analogue.kicad_sch")
 		(attr through_hole)
 		(fp_rect
@@ -5567,7 +5304,7 @@
 				(width 0.12)
 				(type solid)
 			)
-			(fill none)
+			(fill no)
 			(layer "F.SilkS")
 			(uuid "d9dbb1da-e27d-4232-80f5-142ac7414393")
 		)
@@ -5578,7 +5315,7 @@
 				(width 0.12)
 				(type solid)
 			)
-			(fill none)
+			(fill no)
 			(layer "F.SilkS")
 			(uuid "db2e6f30-4e13-4dfb-a7d1-723a6bee31b1")
 		)
@@ -5632,6 +5369,7 @@
 			(pintype "passive")
 			(uuid "c39e9262-704e-4e0b-b30a-f5d6d83a1e3f")
 		)
+		(embedded_fonts no)
 		(model "${KIPRJMOD}/RCA_CONNECTOR_ALI/RCA Connector ALI.step"
 			(offset
 				(xyz -5.75 -0.31 0)
@@ -5674,19 +5412,6 @@
 				)
 			)
 		)
-		(property "Footprint" "RCA ALI:RCA Connector ALI"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "51aba538-8f85-48da-a9c6-06f5bc62a893")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" " ~"
 			(at 0 0 0)
 			(unlocked yes)
@@ -5715,7 +5440,7 @@
 		)
 		(property ki_fp_filters "*BNC* *SMA* *SMB* *SMC* *Cinch* *LEMO*")
 		(path "/db27b8a5-d3ef-4612-9102-549166b91718")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "ThePreamp-Analogue.kicad_sch")
 		(attr through_hole)
 		(fp_rect
@@ -5725,7 +5450,7 @@
 				(width 0.12)
 				(type solid)
 			)
-			(fill none)
+			(fill no)
 			(layer "F.SilkS")
 			(uuid "718fee52-b290-4f57-b78d-c4d42730a3c4")
 		)
@@ -5736,7 +5461,7 @@
 				(width 0.12)
 				(type solid)
 			)
-			(fill none)
+			(fill no)
 			(layer "F.SilkS")
 			(uuid "eb300d83-bb4e-40a5-bb96-820c58378e67")
 		)
@@ -5790,6 +5515,7 @@
 			(pintype "passive")
 			(uuid "ff052a2d-2365-403d-a78b-cc873036252b")
 		)
+		(embedded_fonts no)
 		(model "${KIPRJMOD}/RCA_CONNECTOR_ALI/RCA Connector ALI.step"
 			(offset
 				(xyz -5.75 -0.31 0)
@@ -5828,19 +5554,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.254)
-				)
-			)
-		)
-		(property "Footprint" "EA2-12NJ:DIPS762W60P254L1420H630Q10N"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "246d33af-29e3-460e-91d7-05ebcf7c2fd3")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
 				)
 			)
 		)
@@ -6003,7 +5716,7 @@
 			)
 		)
 		(path "/3f51944a-a189-4f2c-b9f9-f674d064c39f")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "ThePreamp-Analogue.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -6236,6 +5949,7 @@
 			(pintype "passive")
 			(uuid "bdfb0f2f-e988-4aa5-bfc7-e7d8f41e5d51")
 		)
+		(embedded_fonts no)
 		(model "${KIPRJMOD}/EA2-12NJ/EA2-12NJ.step"
 			(offset
 				(xyz -0.75 2 0)
@@ -6277,19 +5991,6 @@
 				)
 			)
 		)
-		(property "Footprint" "RCA ALI:RCA Connector ALI"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "728ec2f5-e6c1-4b11-96bd-2da8b6e4dcff")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" " ~"
 			(at 0 0 0)
 			(unlocked yes)
@@ -6318,7 +6019,7 @@
 		)
 		(property ki_fp_filters "*BNC* *SMA* *SMB* *SMC* *Cinch* *LEMO*")
 		(path "/186840cf-843d-4197-a5a3-2b691d4effe0")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "ThePreamp-Analogue.kicad_sch")
 		(attr through_hole)
 		(fp_rect
@@ -6328,7 +6029,7 @@
 				(width 0.12)
 				(type solid)
 			)
-			(fill none)
+			(fill no)
 			(layer "F.SilkS")
 			(uuid "94226118-3873-4933-8c66-4cf350bac762")
 		)
@@ -6339,7 +6040,7 @@
 				(width 0.12)
 				(type solid)
 			)
-			(fill none)
+			(fill no)
 			(layer "F.SilkS")
 			(uuid "e3620878-3e83-4d69-881c-0a68028a1baf")
 		)
@@ -6393,6 +6094,7 @@
 			(pintype "passive")
 			(uuid "76cd7de0-8aa1-4674-852c-fb562217c86b")
 		)
+		(embedded_fonts no)
 		(model "${KIPRJMOD}/RCA_CONNECTOR_ALI/RCA Connector ALI.step"
 			(offset
 				(xyz -5.75 -0.31 0)
@@ -6436,19 +6138,6 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_M8:M8 3 pin"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "eb85539c-3693-42a1-ba2b-84a674c012aa")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 0)
 			(unlocked yes)
@@ -6477,7 +6166,7 @@
 		)
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/0584cad3-9d75-41ab-acb6-d0cea0e50c9b")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "ThePreamp-Analogue.kicad_sch")
 		(attr through_hole)
 		(fp_circle
@@ -6487,7 +6176,7 @@
 				(width 0.12)
 				(type default)
 			)
-			(fill none)
+			(fill no)
 			(layer "F.SilkS")
 			(uuid "86e52f2f-20b6-4648-bb92-7584f6907bc0")
 		)
@@ -6498,7 +6187,7 @@
 				(width 0.12)
 				(type dot)
 			)
-			(fill none)
+			(fill no)
 			(layer "F.SilkS")
 			(uuid "917c7446-c962-4b32-ba01-cf0d6ba5ba6a")
 		)
@@ -6506,7 +6195,7 @@
 			(at 0 0)
 			(size 1 1)
 			(drill 1)
-			(layers "F&B.Cu" "*.Mask")
+			(layers "*.Cu" "*.Mask")
 			(uuid "c466cb81-a1b5-4d66-b896-2668c641acf3")
 		)
 		(pad "1" thru_hole circle
@@ -6542,6 +6231,7 @@
 			(pintype "passive")
 			(uuid "37cdf0a5-e8ab-471c-95ed-4ef758a24437")
 		)
+		(embedded_fonts no)
 		(model "${KIPRJMOD}/M8 connector/M8 3 pin/c-t4040014031-000-a-3d.stp"
 			(offset
 				(xyz 0 0 19)
@@ -6584,19 +6274,6 @@
 				)
 			)
 		)
-		(property "Footprint" "RCA ALI:RCA Connector ALI"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "bbb8fe00-d15b-4875-9941-b7c47844d7ea")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" " ~"
 			(at 0 0 0)
 			(unlocked yes)
@@ -6625,7 +6302,7 @@
 		)
 		(property ki_fp_filters "*BNC* *SMA* *SMB* *SMC* *Cinch* *LEMO*")
 		(path "/d50d96ff-726b-49b8-8cfe-7b62058dc2d9")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "ThePreamp-Analogue.kicad_sch")
 		(attr through_hole)
 		(fp_rect
@@ -6635,7 +6312,7 @@
 				(width 0.12)
 				(type solid)
 			)
-			(fill none)
+			(fill no)
 			(layer "F.SilkS")
 			(uuid "84fa4fea-3578-43b4-9390-81a9cdc418d0")
 		)
@@ -6646,7 +6323,7 @@
 				(width 0.12)
 				(type solid)
 			)
-			(fill none)
+			(fill no)
 			(layer "F.SilkS")
 			(uuid "6691423d-0a6b-4bcd-87f7-ed453929d0cd")
 		)
@@ -6700,6 +6377,7 @@
 			(pintype "passive")
 			(uuid "3c49d15a-5fd3-46e2-a0d5-168bc17d2128")
 		)
+		(embedded_fonts no)
 		(model "${KIPRJMOD}/RCA_CONNECTOR_ALI/RCA Connector ALI.step"
 			(offset
 				(xyz -5.75 -0.31 0)
@@ -6741,19 +6419,6 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "f9669f68-a3d9-404e-97bf-9d593129ed7f")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 180)
 			(unlocked yes)
@@ -6782,7 +6447,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/503e3a63-349c-4b90-857d-fe631810671f")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "ThePreamp-Analogue.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -6899,7 +6564,7 @@
 		(pad "1" smd roundrect
 			(at -1 0 180)
 			(size 1.2 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.2083333333)
 			(net 77 "A3")
 			(pintype "passive")
@@ -6908,12 +6573,13 @@
 		(pad "2" smd roundrect
 			(at 1 0 180)
 			(size 1.2 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.2083333333)
 			(net 5 "+3.3V")
 			(pintype "passive")
 			(uuid "bffe133f-2356-4290-8e5b-17535c0479ea")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0805_2012Metric.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -6952,19 +6618,6 @@
 				(font
 					(size 1.27 1.27)
 					(thickness 0.254)
-				)
-			)
-		)
-		(property "Footprint" "EA2-12NJ:DIPS762W60P254L1420H630Q10N"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "6ee1c64b-fcca-4a14-9cd6-752579d7abdf")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
 				)
 			)
 		)
@@ -7127,7 +6780,7 @@
 			)
 		)
 		(path "/1fe90401-e183-4e30-8784-7e3f6a8cf2ee")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "ThePreamp-Analogue.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -7278,7 +6931,7 @@
 			(drill 0.9)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net 11 "Audio L out")
+			(net 51 "Net-(RCA5-In)")
 			(pinfunction "3")
 			(pintype "passive")
 			(uuid "d7a6d17b-95a0-4413-877f-276359d3daae")
@@ -7289,7 +6942,7 @@
 			(drill 0.9)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net 51 "Net-(RCA5-In)")
+			(net 11 "Audio L out")
 			(pinfunction "4")
 			(pintype "passive")
 			(uuid "5fad3602-8190-4306-aa6f-1cadf1276ce0")
@@ -7322,7 +6975,7 @@
 			(drill 0.9)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net 59 "Net-(RCA10-In)")
+			(net 10 "Audio R out")
 			(pinfunction "7")
 			(pintype "passive")
 			(uuid "f0cb36be-bea7-468d-9c90-1158e370cd8d")
@@ -7333,7 +6986,7 @@
 			(drill 0.9)
 			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
-			(net 10 "Audio R out")
+			(net 59 "Net-(RCA10-In)")
 			(pinfunction "8")
 			(pintype "passive")
 			(uuid "3aea5e67-2be4-4646-b8ad-bafa4fd01436")
@@ -7360,6 +7013,7 @@
 			(pintype "passive")
 			(uuid "7a42b3b5-ebe8-4141-a20a-b759d4010e64")
 		)
+		(embedded_fonts no)
 		(model "${KIPRJMOD}/EA2-12NJ/EA2-12NJ.step"
 			(offset
 				(xyz -0.75 2 0)
@@ -7402,19 +7056,6 @@
 				)
 			)
 		)
-		(property "Footprint" "RCA ALI:RCA Connector ALI"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "aa69764d-9741-419f-947a-1faef77555ab")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" " ~"
 			(at 0 0 0)
 			(unlocked yes)
@@ -7443,7 +7084,7 @@
 		)
 		(property ki_fp_filters "*BNC* *SMA* *SMB* *SMC* *Cinch* *LEMO*")
 		(path "/e00a96bb-2d2c-4d15-8ccb-6b0bdfe5b716")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "ThePreamp-Analogue.kicad_sch")
 		(attr through_hole)
 		(fp_rect
@@ -7453,7 +7094,7 @@
 				(width 0.12)
 				(type solid)
 			)
-			(fill none)
+			(fill no)
 			(layer "F.SilkS")
 			(uuid "e278ca13-9ab0-4a96-bf67-09981ffcfff6")
 		)
@@ -7464,7 +7105,7 @@
 				(width 0.12)
 				(type solid)
 			)
-			(fill none)
+			(fill no)
 			(layer "F.SilkS")
 			(uuid "e323a08e-1d8d-45d9-89f4-ff39ef6e566c")
 		)
@@ -7518,6 +7159,7 @@
 			(pintype "passive")
 			(uuid "f3198125-cc86-48f1-9b25-29939d663a6b")
 		)
+		(embedded_fonts no)
 		(model "${KIPRJMOD}/RCA_CONNECTOR_ALI/RCA Connector ALI.step"
 			(offset
 				(xyz -5.75 -0.31 0)
@@ -7559,20 +7201,6 @@
 				)
 			)
 		)
-		(property "Footprint" "Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "bb2e404e-6f01-4a2f-91ff-300fe83fb0ea")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 180)
 			(unlocked yes)
@@ -7603,7 +7231,7 @@
 		)
 		(property ki_fp_filters "R_*")
 		(path "/00000000-0000-0000-0000-00005de66fbc")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "ThePreamp-Analogue.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -7720,7 +7348,7 @@
 		(pad "1" smd roundrect
 			(at -1 0)
 			(size 1.2 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.2083333333)
 			(net 5 "+3.3V")
 			(pintype "passive")
@@ -7729,12 +7357,13 @@
 		(pad "2" smd roundrect
 			(at 1 0)
 			(size 1.2 1.4)
-			(layers "F.Cu" "F.Paste" "F.Mask")
+			(layers "F.Cu" "F.Mask" "F.Paste")
 			(roundrect_rratio 0.2083333333)
 			(net 7 "A0")
 			(pintype "passive")
 			(uuid "f70d9c91-cdb1-4966-a0ed-1f74cdb40d52")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Resistor_SMD.3dshapes/R_0805_2012Metric.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -7776,19 +7405,6 @@
 				)
 			)
 		)
-		(property "Footprint" "MountingHole:MountingHole_3.2mm_M3"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "369a04b8-fc4a-4b60-8efe-f8009f967498")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 0)
 			(unlocked yes)
@@ -7823,7 +7439,7 @@
 				(width 0.15)
 				(type solid)
 			)
-			(fill none)
+			(fill no)
 			(layer "Cmts.User")
 			(uuid "b6c6cc4e-11eb-4297-8c56-84fca4fb4df3")
 		)
@@ -7834,7 +7450,7 @@
 				(width 0.05)
 				(type solid)
 			)
-			(fill none)
+			(fill no)
 			(layer "F.CrtYd")
 			(uuid "27392391-2e9b-4134-8fc5-c0d18f54bf91")
 		)
@@ -7856,6 +7472,7 @@
 			(layers "*.Cu" "*.Mask")
 			(uuid "070c809b-5894-420e-9536-496e09714066")
 		)
+		(embedded_fonts no)
 	)
 	(footprint "Connector_IDC:IDC-Header_2x08_P2.54mm_Vertical"
 		(layer "B.Cu")
@@ -7888,21 +7505,8 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Connector_IDC:IDC-Header_2x08_P2.54mm_Vertical"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "b5eae65c-d9d3-4cff-b901-a370b5d3e4d4")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
@@ -7915,7 +7519,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
@@ -7929,7 +7533,7 @@
 		)
 		(property ki_fp_filters "Connector*:*_2x??-1MP*")
 		(path "/a0735817-1a62-490c-8181-da8af57f5240")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "ThePreamp-Analogue.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -8441,6 +8045,7 @@
 			(pintype "passive")
 			(uuid "990ea1a7-1405-4ac6-b0ee-d4431a0620ed")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Connector_IDC.3dshapes/IDC-Header_2x08_P2.54mm_Vertical.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -8483,19 +8088,6 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "The PreAmp logo:The PreAmp logo"
-			(at 0 0 180)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "165d8e28-27a0-4ed0-b8a6-4a7647caccbb")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 180)
 			(unlocked yes)
@@ -8534,7 +8126,7 @@
 				(width 0)
 				(type solid)
 			)
-			(fill solid)
+			(fill yes)
 			(layer "B.SilkS")
 			(uuid "8f11ae71-4246-49e3-838e-d099604c3349")
 		)
@@ -8549,7 +8141,7 @@
 				(width 0)
 				(type solid)
 			)
-			(fill solid)
+			(fill yes)
 			(layer "B.SilkS")
 			(uuid "998733c7-2015-48c5-9774-6c5eb169d96e")
 		)
@@ -8567,7 +8159,7 @@
 				(width 0)
 				(type solid)
 			)
-			(fill solid)
+			(fill yes)
 			(layer "B.SilkS")
 			(uuid "ecac0c03-ec13-4082-b377-9934c7eeb5e1")
 		)
@@ -8586,7 +8178,7 @@
 				(width 0)
 				(type solid)
 			)
-			(fill solid)
+			(fill yes)
 			(layer "B.SilkS")
 			(uuid "5e58ad05-f9d3-4919-9d00-13b9f5b25fba")
 		)
@@ -8605,7 +8197,7 @@
 				(width 0)
 				(type solid)
 			)
-			(fill solid)
+			(fill yes)
 			(layer "B.SilkS")
 			(uuid "210819b7-f0ad-4b48-b40a-10806ea62caa")
 		)
@@ -8625,7 +8217,7 @@
 				(width 0)
 				(type solid)
 			)
-			(fill solid)
+			(fill yes)
 			(layer "B.SilkS")
 			(uuid "85da83c6-26ed-4c32-b5b9-7cf9aba93bef")
 		)
@@ -8646,7 +8238,7 @@
 				(width 0)
 				(type solid)
 			)
-			(fill solid)
+			(fill yes)
 			(layer "B.SilkS")
 			(uuid "8d11d50d-80c8-4f79-907f-0f63e671ed25")
 		)
@@ -8670,7 +8262,7 @@
 				(width 0)
 				(type solid)
 			)
-			(fill solid)
+			(fill yes)
 			(layer "B.SilkS")
 			(uuid "2bad2af0-cb34-48fd-bc61-05c249ab787b")
 		)
@@ -8694,7 +8286,7 @@
 				(width 0)
 				(type solid)
 			)
-			(fill solid)
+			(fill yes)
 			(layer "B.SilkS")
 			(uuid "8b67b695-f4d7-489e-97c6-ae85cd600ee1")
 		)
@@ -8719,7 +8311,7 @@
 				(width 0)
 				(type solid)
 			)
-			(fill solid)
+			(fill yes)
 			(layer "B.SilkS")
 			(uuid "c8996474-2957-4a4f-a692-547b30faaafb")
 		)
@@ -8743,7 +8335,7 @@
 				(width 0)
 				(type solid)
 			)
-			(fill solid)
+			(fill yes)
 			(layer "B.SilkS")
 			(uuid "5a6d50c9-d95c-467a-8e4e-b9f99bd86e0b")
 		)
@@ -8768,7 +8360,7 @@
 				(width 0)
 				(type solid)
 			)
-			(fill solid)
+			(fill yes)
 			(layer "B.SilkS")
 			(uuid "bf068830-65a9-4422-95b1-16f544443a01")
 		)
@@ -8794,7 +8386,7 @@
 				(width 0)
 				(type solid)
 			)
-			(fill solid)
+			(fill yes)
 			(layer "B.SilkS")
 			(uuid "2aa6bea4-913d-4e7f-a7a6-89487e8a3b44")
 		)
@@ -8821,7 +8413,7 @@
 				(width 0)
 				(type solid)
 			)
-			(fill solid)
+			(fill yes)
 			(layer "B.SilkS")
 			(uuid "85beafda-1891-4984-9666-cfe426f9dfb1")
 		)
@@ -8851,7 +8443,7 @@
 				(width 0)
 				(type solid)
 			)
-			(fill solid)
+			(fill yes)
 			(layer "B.SilkS")
 			(uuid "bfb9a77c-5609-4b30-a4f9-89636ef8141b")
 		)
@@ -8881,7 +8473,7 @@
 				(width 0)
 				(type solid)
 			)
-			(fill solid)
+			(fill yes)
 			(layer "B.SilkS")
 			(uuid "2f1a9b62-66ee-405c-8b52-5b3d4b5db0a3")
 		)
@@ -8912,7 +8504,7 @@
 				(width 0)
 				(type solid)
 			)
-			(fill solid)
+			(fill yes)
 			(layer "B.SilkS")
 			(uuid "bc49c16e-b3f0-4e23-821c-62b74eab0a90")
 		)
@@ -8941,7 +8533,7 @@
 				(width 0)
 				(type solid)
 			)
-			(fill solid)
+			(fill yes)
 			(layer "B.SilkS")
 			(uuid "3617ead9-3b6d-4fc9-a54f-3c58e41c57fb")
 		)
@@ -8971,7 +8563,7 @@
 				(width 0)
 				(type solid)
 			)
-			(fill solid)
+			(fill yes)
 			(layer "B.SilkS")
 			(uuid "08f49eb6-5a18-4e9a-9159-2a9d20ef2faa")
 		)
@@ -9006,7 +8598,7 @@
 				(width 0)
 				(type solid)
 			)
-			(fill solid)
+			(fill yes)
 			(layer "B.SilkS")
 			(uuid "bfba39b4-7aac-460e-adaf-31808a05bd8c")
 		)
@@ -9039,7 +8631,7 @@
 				(width 0)
 				(type solid)
 			)
-			(fill solid)
+			(fill yes)
 			(layer "B.SilkS")
 			(uuid "244c8c27-1b8a-485c-b4da-c8860fc3f526")
 		)
@@ -9072,7 +8664,7 @@
 				(width 0)
 				(type solid)
 			)
-			(fill solid)
+			(fill yes)
 			(layer "B.SilkS")
 			(uuid "39183e75-28f8-43cf-bcf8-c67dd8079f55")
 		)
@@ -9105,7 +8697,7 @@
 				(width 0)
 				(type solid)
 			)
-			(fill solid)
+			(fill yes)
 			(layer "B.SilkS")
 			(uuid "bcab6f12-c7c5-4bb3-b7b9-eaf8aa8aaa9e")
 		)
@@ -9137,7 +8729,7 @@
 				(width 0)
 				(type solid)
 			)
-			(fill solid)
+			(fill yes)
 			(layer "B.SilkS")
 			(uuid "81c13126-38fc-4a89-93ce-7bfc1c1f8f74")
 		)
@@ -9174,10 +8766,11 @@
 				(width 0)
 				(type solid)
 			)
-			(fill solid)
+			(fill yes)
 			(layer "B.SilkS")
 			(uuid "e029680b-0fae-461e-b88c-0805117eeb6f")
 		)
+		(embedded_fonts no)
 	)
 	(footprint "Connector_PinSocket_2.54mm:PinSocket_1x10_P2.54mm_Vertical"
 		(layer "B.Cu")
@@ -9210,19 +8803,6 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Connector_PinSocket_2.54mm:PinSocket_1x10_P2.54mm_Vertical"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "1c3e68f8-8eda-4bd4-aeaa-78b73ec52cea")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 0)
 			(unlocked yes)
@@ -9251,7 +8831,7 @@
 		)
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/06c881b8-4358-4bae-a8f4-6fdcb40ea9ef")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "ThePreamp-Analogue.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -9526,6 +9106,7 @@
 			(pintype "passive")
 			(uuid "3eb84f89-ffa8-4d21-9b06-3aa7775f827a")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Connector_PinSocket_2.54mm.3dshapes/PinSocket_1x10_P2.54mm_Vertical.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -9545,7 +9126,7 @@
 		(descr "DW0020A")
 		(tags "Integrated Circuit")
 		(property "Reference" "IC1"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(layer "B.SilkS")
 			(hide yes)
 			(uuid "f499f4d3-77c4-48b8-b46f-c2c33d851ab4")
@@ -9567,19 +9148,6 @@
 					(thickness 0.25)
 				)
 				(justify mirror)
-			)
-		)
-		(property "Footprint" "ULN2803:SOIC127P1030X265-20N"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "dc7f4ebb-641a-4d8f-8a02-098f79a37ca8")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
 			)
 		)
 		(property "Datasheet" "https://www.ti.com/lit/ds/symlink/uln2803c.pdf?ts=1664254346163&ref_url=https%253A%252F%252Fwww.ti.com%252Fproduct%252FULN2803C%253FkeyMatch%253DULN2803C%2526tisearch%253Dsearch-everything%2526usecase%253DGPN"
@@ -9673,7 +9241,7 @@
 			)
 		)
 		(path "/e518e2a6-1d7c-4860-aeb1-63d2158ba172")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "ThePreamp-Analogue.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -9817,7 +9385,7 @@
 			(uuid "6b768281-7df7-4ab9-b713-e42584ff7c9b")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 0 -90)
+			(at 0 0 270)
 			(layer "B.Fab")
 			(uuid "1d69fa3d-a757-4d1d-9c9f-0ff9421f0a04")
 			(effects
@@ -9831,7 +9399,7 @@
 		(pad "1" smd rect
 			(at -4.725 5.715)
 			(size 0.65 1.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(net 37 "Net-(IC1-1B)")
 			(pinfunction "1B")
 			(pintype "passive")
@@ -9840,7 +9408,7 @@
 		(pad "2" smd rect
 			(at -4.725 4.445)
 			(size 0.65 1.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(net 38 "Net-(IC1-2B)")
 			(pinfunction "2B")
 			(pintype "passive")
@@ -9849,7 +9417,7 @@
 		(pad "3" smd rect
 			(at -4.725 3.175)
 			(size 0.65 1.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(net 39 "Net-(IC1-3B)")
 			(pinfunction "3B")
 			(pintype "passive")
@@ -9858,7 +9426,7 @@
 		(pad "4" smd rect
 			(at -4.725 1.905)
 			(size 0.65 1.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(net 40 "Net-(IC1-4B)")
 			(pinfunction "4B")
 			(pintype "passive")
@@ -9867,7 +9435,7 @@
 		(pad "5" smd rect
 			(at -4.725 0.635)
 			(size 0.65 1.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(net 41 "Net-(IC1-5B)")
 			(pinfunction "5B")
 			(pintype "passive")
@@ -9876,7 +9444,7 @@
 		(pad "6" smd rect
 			(at -4.725 -0.635)
 			(size 0.65 1.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(net 42 "Net-(IC1-6B)")
 			(pinfunction "6B")
 			(pintype "passive")
@@ -9885,7 +9453,7 @@
 		(pad "7" smd rect
 			(at -4.725 -1.905)
 			(size 0.65 1.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(net 43 "Net-(IC1-7B)")
 			(pinfunction "7B")
 			(pintype "passive")
@@ -9894,7 +9462,7 @@
 		(pad "8" smd rect
 			(at -4.725 -3.175)
 			(size 0.65 1.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(net 44 "Net-(IC1-8B)")
 			(pinfunction "8B")
 			(pintype "passive")
@@ -9903,7 +9471,7 @@
 		(pad "9" smd rect
 			(at -4.725 -4.445)
 			(size 0.65 1.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(net 88 "GND")
 			(pinfunction "GND")
 			(pintype "passive")
@@ -9912,7 +9480,7 @@
 		(pad "10" smd rect
 			(at -4.725 -5.715)
 			(size 0.65 1.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(net 45 "unconnected-(IC1-NC_1-Pad10)")
 			(pinfunction "NC_1")
 			(pintype "passive+no_connect")
@@ -9921,7 +9489,7 @@
 		(pad "11" smd rect
 			(at 4.725 -5.715)
 			(size 0.65 1.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(net 46 "unconnected-(IC1-NC_2-Pad11)")
 			(pinfunction "NC_2")
 			(pintype "passive+no_connect")
@@ -9930,7 +9498,7 @@
 		(pad "12" smd rect
 			(at 4.725 -4.445)
 			(size 0.65 1.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(net 6 "+12V")
 			(pinfunction "COM")
 			(pintype "passive")
@@ -9939,7 +9507,7 @@
 		(pad "13" smd rect
 			(at 4.725 -3.175)
 			(size 0.65 1.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(net 47 "RELAY8")
 			(pinfunction "8C")
 			(pintype "passive")
@@ -9948,7 +9516,7 @@
 		(pad "14" smd rect
 			(at 4.725 -1.905)
 			(size 0.65 1.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(net 48 "RELAY7")
 			(pinfunction "7C")
 			(pintype "passive")
@@ -9957,7 +9525,7 @@
 		(pad "15" smd rect
 			(at 4.725 -0.635)
 			(size 0.65 1.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(net 49 "RELAY6")
 			(pinfunction "6C")
 			(pintype "passive")
@@ -9966,7 +9534,7 @@
 		(pad "16" smd rect
 			(at 4.725 0.635)
 			(size 0.65 1.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(net 36 "RELAY5")
 			(pinfunction "5C")
 			(pintype "passive")
@@ -9975,7 +9543,7 @@
 		(pad "17" smd rect
 			(at 4.725 1.905)
 			(size 0.65 1.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(net 31 "RELAY4")
 			(pinfunction "4C")
 			(pintype "passive")
@@ -9984,7 +9552,7 @@
 		(pad "18" smd rect
 			(at 4.725 3.175)
 			(size 0.65 1.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(net 26 "RELAY3")
 			(pinfunction "3C")
 			(pintype "passive")
@@ -9993,7 +9561,7 @@
 		(pad "19" smd rect
 			(at 4.725 4.445)
 			(size 0.65 1.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(net 21 "RELAY2")
 			(pinfunction "2C")
 			(pintype "passive")
@@ -10002,12 +9570,13 @@
 		(pad "20" smd rect
 			(at 4.725 5.715)
 			(size 0.65 1.95)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(net 16 "RELAY1")
 			(pinfunction "1C")
 			(pintype "passive")
 			(uuid "054ddb94-524e-41bf-b4f4-cebef3a44186")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Package_SO.3dshapes/SOIC-20W_7.5x12.8mm_P1.27mm.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -10051,21 +9620,8 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "990a82e8-93ea-42e8-8ac7-fbe57700a35b")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
@@ -10078,7 +9634,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
@@ -10092,7 +9648,7 @@
 		)
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/8bdb3268-52aa-48b5-a05f-55cb6628f7ae")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "ThePreamp-Analogue.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -10290,6 +9846,7 @@
 			(pintype "passive")
 			(uuid "053a1b18-9688-4df9-88c9-ea76027ca040")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Connector_PinHeader_2.54mm.3dshapes/PinHeader_1x03_P2.54mm_Vertical.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -10332,20 +9889,6 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "PinSocket_1x03_P2.54mm_Vertical"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "9d701a89-86a9-498e-bee7-813936bbddbc")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 0)
 			(unlocked yes)
@@ -10376,7 +9919,7 @@
 		)
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/4b733fb7-4643-4818-b42d-a98ef5a56fcc")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "ThePreamp-Analogue.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -10574,6 +10117,7 @@
 			(pintype "passive")
 			(uuid "656de465-8635-43b6-91ce-574995f101b7")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Connector_PinSocket_2.54mm.3dshapes/PinSocket_1x03_P2.54mm_Vertical.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -10617,21 +10161,8 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder"
-			(at 0 0 -90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "e316cab1-b2c9-4933-bd66-18f9edc4e25d")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
@@ -10644,7 +10175,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 0 0 -90)
+			(at 0 0 270)
 			(unlocked yes)
 			(layer "F.Fab")
 			(hide yes)
@@ -10658,7 +10189,7 @@
 		)
 		(property ki_fp_filters "C_*")
 		(path "/00000000-0000-0000-0000-00005dea925d")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "ThePreamp-Analogue.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -10776,7 +10307,7 @@
 		(pad "1" smd roundrect
 			(at -1.0375 0 270)
 			(size 1.175 1.45)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(roundrect_rratio 0.2127659574)
 			(net 5 "+3.3V")
 			(pintype "passive")
@@ -10785,12 +10316,13 @@
 		(pad "2" smd roundrect
 			(at 1.0375 0 270)
 			(size 1.175 1.45)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(roundrect_rratio 0.2127659574)
 			(net 88 "GND")
 			(pintype "passive")
 			(uuid "bd091fa9-b840-4ae7-83b8-3e971f59aedb")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Capacitor_SMD.3dshapes/C_0805_2012Metric.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -10833,20 +10365,6 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "PinSocket_1x03_P2.54mm_Vertical"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "f9e58b63-3e76-48ad-90bd-2f64c0b69f1f")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 0)
 			(unlocked yes)
@@ -10877,7 +10395,7 @@
 		)
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/b5ab37e6-a277-4bf6-ba70-8e311168711d")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "ThePreamp-Analogue.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -11075,6 +10593,7 @@
 			(pintype "passive")
 			(uuid "91013ad1-8058-49dd-8a55-d1ad72e7f642")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Connector_PinSocket_2.54mm.3dshapes/PinSocket_1x03_P2.54mm_Vertical.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -11118,19 +10637,6 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "MCP23008:SOIC127P1030X265-18N"
-			(at 0 0 90)
-			(unlocked yes)
-			(layer "F.Fab")
-			(hide yes)
-			(uuid "c5f53a20-9951-4477-bf03-a0c05f7990aa")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 90)
 			(unlocked yes)
@@ -11159,7 +10665,7 @@
 		)
 		(property ki_fp_filters "SOIC18-W_MC SOIC18-W_MC-M SOIC18-W_MC-L")
 		(path "/00000000-0000-0000-0000-00005df030a0")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "ThePreamp-Analogue.kicad_sch")
 		(attr smd)
 		(fp_line
@@ -11317,7 +10823,7 @@
 		(pad "1" smd rect
 			(at -4.675 5.08)
 			(size 0.65 1.85)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(net 1 "I2C:SCL")
 			(pinfunction "SCL")
 			(pintype "unspecified")
@@ -11326,7 +10832,7 @@
 		(pad "2" smd rect
 			(at -4.675 3.81)
 			(size 0.65 1.85)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(net 8 "I2C:SDA")
 			(pinfunction "SDA")
 			(pintype "unspecified")
@@ -11335,7 +10841,7 @@
 		(pad "3" smd rect
 			(at -4.675 2.54)
 			(size 0.65 1.85)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(net 88 "GND")
 			(pinfunction "A2")
 			(pintype "unspecified")
@@ -11344,7 +10850,7 @@
 		(pad "4" smd rect
 			(at -4.675 1.27)
 			(size 0.65 1.85)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(net 88 "GND")
 			(pinfunction "A1")
 			(pintype "unspecified")
@@ -11353,7 +10859,7 @@
 		(pad "5" smd rect
 			(at -4.675 0)
 			(size 0.65 1.85)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(net 88 "GND")
 			(pinfunction "A0")
 			(pintype "unspecified")
@@ -11362,7 +10868,7 @@
 		(pad "6" smd rect
 			(at -4.675 -1.27)
 			(size 0.65 1.85)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(net 5 "+3.3V")
 			(pinfunction "*RESET")
 			(pintype "unspecified")
@@ -11371,7 +10877,7 @@
 		(pad "7" smd rect
 			(at -4.675 -2.54)
 			(size 0.65 1.85)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(net 60 "unconnected-(U1-NC-Pad7)")
 			(pinfunction "NC")
 			(pintype "unspecified+no_connect")
@@ -11380,7 +10886,7 @@
 		(pad "8" smd rect
 			(at -4.675 -3.81)
 			(size 0.65 1.85)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(net 61 "unconnected-(U1-INT-Pad8)")
 			(pinfunction "INT")
 			(pintype "unspecified+no_connect")
@@ -11389,7 +10895,7 @@
 		(pad "9" smd rect
 			(at -4.675 -5.08)
 			(size 0.65 1.85)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(net 88 "GND")
 			(pinfunction "VSS")
 			(pintype "unspecified")
@@ -11398,7 +10904,7 @@
 		(pad "10" smd rect
 			(at 4.675 -5.08)
 			(size 0.65 1.85)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(net 44 "Net-(IC1-8B)")
 			(pinfunction "GP0")
 			(pintype "unspecified")
@@ -11407,7 +10913,7 @@
 		(pad "11" smd rect
 			(at 4.675 -3.81)
 			(size 0.65 1.85)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(net 43 "Net-(IC1-7B)")
 			(pinfunction "GP1")
 			(pintype "unspecified")
@@ -11416,7 +10922,7 @@
 		(pad "12" smd rect
 			(at 4.675 -2.54)
 			(size 0.65 1.85)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(net 42 "Net-(IC1-6B)")
 			(pinfunction "GP2")
 			(pintype "unspecified")
@@ -11425,7 +10931,7 @@
 		(pad "13" smd rect
 			(at 4.675 -1.27)
 			(size 0.65 1.85)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(net 41 "Net-(IC1-5B)")
 			(pinfunction "GP3")
 			(pintype "unspecified")
@@ -11434,7 +10940,7 @@
 		(pad "14" smd rect
 			(at 4.675 0)
 			(size 0.65 1.85)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(net 40 "Net-(IC1-4B)")
 			(pinfunction "GP4")
 			(pintype "unspecified")
@@ -11443,7 +10949,7 @@
 		(pad "15" smd rect
 			(at 4.675 1.27)
 			(size 0.65 1.85)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(net 39 "Net-(IC1-3B)")
 			(pinfunction "GP5")
 			(pintype "unspecified")
@@ -11452,7 +10958,7 @@
 		(pad "16" smd rect
 			(at 4.675 2.54)
 			(size 0.65 1.85)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(net 38 "Net-(IC1-2B)")
 			(pinfunction "GP6")
 			(pintype "unspecified")
@@ -11461,7 +10967,7 @@
 		(pad "17" smd rect
 			(at 4.675 3.81)
 			(size 0.65 1.85)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(net 37 "Net-(IC1-1B)")
 			(pinfunction "GP7")
 			(pintype "unspecified")
@@ -11470,12 +10976,13 @@
 		(pad "18" smd rect
 			(at 4.675 5.08)
 			(size 0.65 1.85)
-			(layers "B.Cu" "B.Paste" "B.Mask")
+			(layers "B.Cu" "B.Mask" "B.Paste")
 			(net 5 "+3.3V")
 			(pinfunction "VDD")
 			(pintype "unspecified")
 			(uuid "420f5f7e-59c0-4c1d-8692-56c499c4ff03")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Package_SO.3dshapes/SOP-18_7.0x12.5mm_P1.27mm.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -11519,20 +11026,6 @@
 				(justify mirror)
 			)
 		)
-		(property "Footprint" "Connector_PinSocket_2.54mm:PinSocket_1x08_P2.54mm_Vertical"
-			(at 0 0 0)
-			(unlocked yes)
-			(layer "B.Fab")
-			(hide yes)
-			(uuid "a4e76eb2-44cb-4bd4-96a6-e2dc52f3954e")
-			(effects
-				(font
-					(size 1.27 1.27)
-					(thickness 0.15)
-				)
-				(justify mirror)
-			)
-		)
 		(property "Datasheet" ""
 			(at 0 0 0)
 			(unlocked yes)
@@ -11563,7 +11056,7 @@
 		)
 		(property ki_fp_filters "Connector*:*_1x??_*")
 		(path "/c566b2b6-5328-4988-87bd-11d36824ada1")
-		(sheetname "Root")
+		(sheetname "/")
 		(sheetfile "ThePreamp-Analogue.kicad_sch")
 		(attr through_hole)
 		(fp_line
@@ -11717,7 +11210,7 @@
 			(uuid "57df8d6b-517c-4004-87e7-b58d9c8d75b4")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 0 -8.89 -90)
+			(at 0 -8.89 270)
 			(layer "B.Fab")
 			(uuid "f5847aa0-aa8f-48ad-aca5-20c4127a077c")
 			(effects
@@ -11816,6 +11309,7 @@
 			(pintype "passive")
 			(uuid "301994b4-2e88-4e7e-a3a9-785e823e3330")
 		)
+		(embedded_fonts no)
 		(model "${KICAD8_3DMODEL_DIR}/Connector_PinSocket_2.54mm.3dshapes/PinSocket_1x08_P2.54mm_Vertical.wrl"
 			(offset
 				(xyz 0 0 0)
@@ -11835,7 +11329,7 @@
 			(width 0.1)
 			(type default)
 		)
-		(fill none)
+		(fill no)
 		(layer "Edge.Cuts")
 		(uuid "d448e9ae-67aa-40fe-bc7b-858b138fc563")
 	)
@@ -11846,7 +11340,7 @@
 			(width 0.1)
 			(type default)
 		)
-		(fill none)
+		(fill no)
 		(layer "F.Fab")
 		(uuid "2b1c0f2d-8da6-471e-b492-a142580cba67")
 	)
@@ -11863,50 +11357,170 @@
 	(gr_circle
 		(center 285.328046 99.36)
 		(end 289.728046 96.32)
-		(locked yes)
 		(stroke
 			(width 0.1)
 			(type default)
 		)
-		(fill none)
+		(fill no)
+		(locked yes)
 		(layer "F.Fab")
 		(uuid "3e0b04e1-3a7f-48d6-93eb-1d18a062d9b1")
 	)
 	(gr_circle
 		(center 268.031954 129.24)
 		(end 272.431954 126.2)
-		(locked yes)
 		(stroke
 			(width 0.1)
 			(type default)
 		)
-		(fill none)
+		(fill no)
+		(locked yes)
 		(layer "F.Fab")
 		(uuid "5871d440-3793-4c9b-9909-c98f11051518")
 	)
 	(gr_circle
 		(center 267.95 99.36)
 		(end 272.35 96.32)
-		(locked yes)
 		(stroke
 			(width 0.1)
 			(type default)
 		)
-		(fill none)
+		(fill no)
+		(locked yes)
 		(layer "F.Fab")
 		(uuid "af23c521-7f9e-433d-961c-b8b35a3fe647")
 	)
 	(gr_circle
 		(center 285.41 129.24)
 		(end 289.81 126.2)
-		(locked yes)
 		(stroke
 			(width 0.1)
 			(type default)
 		)
-		(fill none)
+		(fill no)
+		(locked yes)
 		(layer "F.Fab")
 		(uuid "c1a3393e-366d-4e0d-b517-9c649c959425")
+	)
+	(gr_text "R"
+		(at 42.11 109.12 0)
+		(layer "F.SilkS")
+		(uuid "338c40af-bcbc-4a40-8ef0-627d542fbfdd")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "L"
+		(at 67.52 127.13 0)
+		(layer "F.SilkS")
+		(uuid "3c65bda7-b48c-4568-b4a2-7c33afec4a84")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "R"
+		(at 67.54 109.11 0)
+		(layer "F.SilkS")
+		(uuid "64e361a7-4fbf-4d94-b1ca-6f159cbbe3aa")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "L"
+		(at 118.61 127.12 0)
+		(layer "F.SilkS")
+		(uuid "746df96a-97e2-4cce-a088-cb37d2f3d1dd")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "L"
+		(at 243.69 135.68 0)
+		(layer "F.SilkS")
+		(uuid "b600c347-e4df-4000-bd14-716ba065186b")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "L"
+		(at 93.06 127.1 0)
+		(layer "F.SilkS")
+		(uuid "c4ca703e-dc88-4c11-a8f4-971b7edbd084")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "R"
+		(at 118.63 109.1 0)
+		(layer "F.SilkS")
+		(uuid "d86ff830-06f2-4b8b-90e4-abde2090eb05")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "L"
+		(at 42.09 127.14 0)
+		(layer "F.SilkS")
+		(uuid "de2e5d27-e61c-4630-86a3-adf9d89f98d8")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "R"
+		(at 93.08 109.08 0)
+		(layer "F.SilkS")
+		(uuid "eba006a5-2a67-4043-aef0-300a266a638d")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+			(justify left bottom)
+		)
+	)
+	(gr_text "R"
+		(at 243.85 105.87 0)
+		(layer "F.SilkS")
+		(uuid "f4bfd238-d136-47ad-9a74-722bdc6e9d3c")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+			(justify left bottom)
+		)
 	)
 	(gr_text "R"
 		(at 207.3 103.34 0)
@@ -12650,126 +12264,6 @@
 				(thickness 0.15)
 			)
 			(justify left bottom mirror)
-		)
-	)
-	(gr_text "R"
-		(at 42.11 109.12 0)
-		(layer "F.SilkS")
-		(uuid "338c40af-bcbc-4a40-8ef0-627d542fbfdd")
-		(effects
-			(font
-				(size 1 1)
-				(thickness 0.15)
-			)
-			(justify left bottom)
-		)
-	)
-	(gr_text "L"
-		(at 67.52 127.13 0)
-		(layer "F.SilkS")
-		(uuid "3c65bda7-b48c-4568-b4a2-7c33afec4a84")
-		(effects
-			(font
-				(size 1 1)
-				(thickness 0.15)
-			)
-			(justify left bottom)
-		)
-	)
-	(gr_text "R"
-		(at 67.54 109.11 0)
-		(layer "F.SilkS")
-		(uuid "64e361a7-4fbf-4d94-b1ca-6f159cbbe3aa")
-		(effects
-			(font
-				(size 1 1)
-				(thickness 0.15)
-			)
-			(justify left bottom)
-		)
-	)
-	(gr_text "L"
-		(at 118.61 127.12 0)
-		(layer "F.SilkS")
-		(uuid "746df96a-97e2-4cce-a088-cb37d2f3d1dd")
-		(effects
-			(font
-				(size 1 1)
-				(thickness 0.15)
-			)
-			(justify left bottom)
-		)
-	)
-	(gr_text "L"
-		(at 243.69 135.68 0)
-		(layer "F.SilkS")
-		(uuid "b600c347-e4df-4000-bd14-716ba065186b")
-		(effects
-			(font
-				(size 1 1)
-				(thickness 0.15)
-			)
-			(justify left bottom)
-		)
-	)
-	(gr_text "L"
-		(at 93.06 127.1 0)
-		(layer "F.SilkS")
-		(uuid "c4ca703e-dc88-4c11-a8f4-971b7edbd084")
-		(effects
-			(font
-				(size 1 1)
-				(thickness 0.15)
-			)
-			(justify left bottom)
-		)
-	)
-	(gr_text "R"
-		(at 118.63 109.1 0)
-		(layer "F.SilkS")
-		(uuid "d86ff830-06f2-4b8b-90e4-abde2090eb05")
-		(effects
-			(font
-				(size 1 1)
-				(thickness 0.15)
-			)
-			(justify left bottom)
-		)
-	)
-	(gr_text "L"
-		(at 42.09 127.14 0)
-		(layer "F.SilkS")
-		(uuid "de2e5d27-e61c-4630-86a3-adf9d89f98d8")
-		(effects
-			(font
-				(size 1 1)
-				(thickness 0.15)
-			)
-			(justify left bottom)
-		)
-	)
-	(gr_text "R"
-		(at 93.08 109.08 0)
-		(layer "F.SilkS")
-		(uuid "eba006a5-2a67-4043-aef0-300a266a638d")
-		(effects
-			(font
-				(size 1 1)
-				(thickness 0.15)
-			)
-			(justify left bottom)
-		)
-	)
-	(gr_text "R"
-		(at 243.85 105.87 0)
-		(layer "F.SilkS")
-		(uuid "f4bfd238-d136-47ad-9a74-722bdc6e9d3c")
-		(effects
-			(font
-				(size 1 1)
-				(thickness 0.15)
-			)
-			(justify left bottom)
 		)
 	)
 	(segment
@@ -14390,19 +13884,27 @@
 	)
 	(segment
 		(start 206.32 104.48)
-		(end 204.58 102.74)
+		(end 216.99 104.48)
 		(width 0.6)
 		(layer "F.Cu")
 		(net 10)
-		(uuid "72d8ed20-8daa-43ff-93e6-4314a8a97a11")
+		(uuid "3c62fc6d-eb43-413c-a297-936abc1c820f")
 	)
 	(segment
-		(start 214.45 104.48)
+		(start 204.58 102.74)
 		(end 206.32 104.48)
 		(width 0.6)
 		(layer "F.Cu")
 		(net 10)
-		(uuid "a8686f23-44b7-48af-bfd7-fc58260b0635")
+		(uuid "791bb6be-90e9-4356-98a2-8413e85f5ebd")
+	)
+	(segment
+		(start 216.99 104.48)
+		(end 220.11 101.36)
+		(width 0.6)
+		(layer "F.Cu")
+		(net 10)
+		(uuid "98b75f75-0d83-493d-95ac-1b960fa4bff6")
 	)
 	(segment
 		(start 204.48 102.64)
@@ -14413,20 +13915,12 @@
 		(uuid "d3181ef3-a63e-4460-b846-82e3b93b4c35")
 	)
 	(segment
-		(start 217.57 101.36)
-		(end 214.45 104.48)
-		(width 0.6)
-		(layer "F.Cu")
-		(net 10)
-		(uuid "e038b676-5372-494b-91d8-9608b8e886bf")
-	)
-	(segment
-		(start 204.58 107.82)
-		(end 206.32 106.08)
+		(start 206.32 106.08)
+		(end 217.21 106.08)
 		(width 0.6)
 		(layer "F.Cu")
 		(net 11)
-		(uuid "5b593de5-28e0-4880-bef5-075d69aac4fb")
+		(uuid "49f00e8e-ee84-4e5b-924c-770f3b8ffcf8")
 	)
 	(segment
 		(start 204.5 107.74)
@@ -14437,20 +13931,20 @@
 		(uuid "996165cd-e31e-426e-9147-500f04f8fc3c")
 	)
 	(segment
-		(start 214.67 106.08)
-		(end 217.57 108.98)
+		(start 217.21 106.08)
+		(end 220.11 108.98)
 		(width 0.6)
 		(layer "F.Cu")
 		(net 11)
-		(uuid "e1868292-0968-45b0-8200-1694612977af")
+		(uuid "9ff80b7d-53a2-4551-80e8-5e53a0c3e8e6")
 	)
 	(segment
-		(start 206.32 106.08)
-		(end 214.67 106.08)
+		(start 204.58 107.82)
+		(end 206.32 106.08)
 		(width 0.6)
 		(layer "F.Cu")
 		(net 11)
-		(uuid "f1041f5b-ccf4-4e29-a2ec-0cd6fd38c5cc")
+		(uuid "ba7a7d69-ce1a-46af-b3ce-25bd9e5c048d")
 	)
 	(segment
 		(start 24.53 84.37)
@@ -15053,20 +14547,20 @@
 		(uuid "9a61eab2-c8f9-4457-944e-b46b35646bc7")
 	)
 	(segment
-		(start 220.11 108.98)
-		(end 221.94 107.15)
+		(start 218.746 110.156)
+		(end 217.57 108.98)
 		(width 0.6)
 		(layer "F.Cu")
 		(net 51)
-		(uuid "00bd496f-6d0c-4edc-8587-49a0a1518112")
+		(uuid "0d6a1085-b4fb-44ba-b48a-f7a2bdbea8ad")
 	)
 	(segment
-		(start 223.63726 107.15)
-		(end 225.442945 108.955685)
+		(start 224.24263 110.156)
+		(end 218.746 110.156)
 		(width 0.6)
 		(layer "F.Cu")
 		(net 51)
-		(uuid "1df9cb59-8c07-4655-95f9-f8e1f2f023f9")
+		(uuid "17ce2f38-57ff-478a-a802-d67c4e343b8b")
 	)
 	(segment
 		(start 238.18 110.87137)
@@ -15086,19 +14580,19 @@
 	)
 	(segment
 		(start 225.442945 108.955685)
+		(end 224.24263 110.156)
+		(width 0.6)
+		(layer "F.Cu")
+		(net 51)
+		(uuid "99ac18af-8cfa-41db-9362-28e5a13d6537")
+	)
+	(segment
+		(start 225.442945 108.955685)
 		(end 236.264315 108.955685)
 		(width 0.6)
 		(layer "F.Cu")
 		(net 51)
 		(uuid "d3864922-50b1-4f75-8210-48c7aeb7e63b")
-	)
-	(segment
-		(start 221.94 107.15)
-		(end 223.63726 107.15)
-		(width 0.6)
-		(layer "F.Cu")
-		(net 51)
-		(uuid "ed389397-1c43-4885-ad4c-b9508b28c256")
 	)
 	(segment
 		(start 60.1 118.76)
@@ -15301,12 +14795,12 @@
 		(uuid "cd480acf-e46e-41f9-ae55-431bce4540af")
 	)
 	(segment
-		(start 220.11 101.36)
-		(end 226.07 107.32)
+		(start 226.07 107.32)
+		(end 221.286 102.536)
 		(width 0.6)
 		(layer "F.Cu")
 		(net 59)
-		(uuid "494aabfb-b99d-4fc8-854e-50a64b7c4520")
+		(uuid "3b68f5c2-e9e8-4c7c-89c8-1b3a9515d625")
 	)
 	(segment
 		(start 226.07 107.32)
@@ -15325,12 +14819,44 @@
 		(uuid "734c8951-34b3-4a17-85bf-603d719a38d8")
 	)
 	(segment
+		(start 218.746 100.184)
+		(end 217.57 101.36)
+		(width 0.6)
+		(layer "F.Cu")
+		(net 59)
+		(uuid "84c2aee3-c821-492a-9df0-aee216590683")
+	)
+	(segment
+		(start 221.286 102.536)
+		(end 221.286 100.872884)
+		(width 0.6)
+		(layer "F.Cu")
+		(net 59)
+		(uuid "8a5b3b14-ce7d-47dc-985f-7132d427f121")
+	)
+	(segment
 		(start 238.18 105.36863)
 		(end 238.18 99.24)
 		(width 0.6)
 		(layer "F.Cu")
 		(net 59)
 		(uuid "92b99572-a9dd-44c8-aec2-bbe498e700b9")
+	)
+	(segment
+		(start 221.286 100.872884)
+		(end 220.597116 100.184)
+		(width 0.6)
+		(layer "F.Cu")
+		(net 59)
+		(uuid "bab4e2e8-81d0-4196-8531-3773f459b8e3")
+	)
+	(segment
+		(start 220.597116 100.184)
+		(end 218.746 100.184)
+		(width 0.6)
+		(layer "F.Cu")
+		(net 59)
+		(uuid "bd790fdd-966e-47e5-8de5-2741ee0a411f")
 	)
 	(segment
 		(start 138.56 132.76)
@@ -16484,4 +16010,5 @@
 		(net 88)
 		(uuid "f30b83b0-ba8e-4d7d-b4f3-a04232981dd5")
 	)
+	(embedded_fonts no)
 )
