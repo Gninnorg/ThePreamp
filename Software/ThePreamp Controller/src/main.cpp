@@ -385,7 +385,7 @@ void setup() {
     Serial.begin(115200);
   #endif
   
-  delay(5000); // Allow power supply to stabilize before starting up the controller
+  //delay(5000); // Allow power supply to stabilize before starting up the controller
   SPI.begin();
   Wire.begin();
 
@@ -442,6 +442,8 @@ void setup() {
   pinMode(POWER_CONTROL_PIN, OUTPUT);
 
   muses.begin();
+  muses.setExternalClock(false);
+  muses.setZeroCrossingOn(true);
     
   startUp();
 }
@@ -693,7 +695,7 @@ void startUp()
 
   right_display.clearBuffer();
   right_display.sendBuffer();
-  delay(2000);
+  delay(1000);
 
   if(WiFi.status() != WL_CONNECTED)
   {
@@ -1790,12 +1792,12 @@ void setTrigger2Off()
 
 void unmuteOutput()
 {
-  relayController.digitalWrite(0, LOW);
+  relayController.digitalWrite(0, HIGH);
 }
 
 void muteOutput()
 {
-  relayController.digitalWrite(0, HIGH);
+  relayController.digitalWrite(0, LOW);
 }
 
 String exportSettingsAsJson() {
