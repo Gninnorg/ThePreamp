@@ -1106,20 +1106,35 @@ void setVolume(int16_t newVolumeStep)
 
     if (!RuntimeSettings.Muted)
     {
+      int CurrentAttenuation = calculateAttenuation(RuntimeSettings.CurrentVolume, Settings.VolumeSteps, Settings.MinAttenuation, Settings.MaxAttenuation);
       if (Settings.Input[RuntimeSettings.CurrentInput].Active != INPUT_HT_PASSTHROUGH)
         RuntimeSettings.CurrentVolume = newVolumeStep;
       else
         RuntimeSettings.CurrentVolume = Settings.Input[RuntimeSettings.CurrentInput].MaxVol; // Set to max volume
       RuntimeSettings.InputLastVol[RuntimeSettings.CurrentInput] = RuntimeSettings.CurrentVolume;
 
-      int Attenuation = calculateAttenuation(RuntimeSettings.CurrentVolume, Settings.VolumeSteps, Settings.MinAttenuation, Settings.MaxAttenuation);
-      muses.setVolume(Attenuation, Attenuation);
-      if (RuntimeSettings.InputLastBal[RuntimeSettings.CurrentInput] == 127 || RuntimeSettings.InputLastBal[RuntimeSettings.CurrentInput] < 118 || RuntimeSettings.InputLastBal[RuntimeSettings.CurrentInput] > 136) // Both channels same attenuation
-        muses.setVolume(Attenuation, Attenuation);
-      else if (RuntimeSettings.InputLastBal[RuntimeSettings.CurrentInput] < 127) // Shift balance to the left channel by lowering the right channel - TO DO: seems like the channels is reversed in the Muses library??
-        muses.setVolume(Attenuation + (127 - RuntimeSettings.InputLastBal[RuntimeSettings.CurrentInput]), Attenuation);
-      else if (RuntimeSettings.InputLastBal[RuntimeSettings.CurrentInput] > 127) // Shift balance to the right channel by lowering the left channel - TO DO: seems like the channels is reversed in the Muses library??
-        muses.setVolume(Attenuation, Attenuation + (RuntimeSettings.InputLastBal[RuntimeSettings.CurrentInput] - 127));
+      int NewAttenuation = calculateAttenuation(RuntimeSettings.CurrentVolume, Settings.VolumeSteps, Settings.MinAttenuation, Settings.MaxAttenuation);
+      if (NewAttenuation > CurrentAttenuation) {
+        // Volume is decreased - fade out the volume in 0.25 dB steps with 10 ms delay between each step
+        for (int i = CurrentAttenuation; i < NewAttenuation; i++) {
+          muses.setVolume(i, i);
+          debugln("Volume decreased to: " + String(i));
+          delay(10);
+        } 
+      } else {  
+        if (CurrentAttenuation == NewAttenuation) {
+          // Volume is unchanged - just set the volume to the new value. This is true at startup when the volume is set to the last used volume for the selected input
+          muses.setVolume(NewAttenuation, NewAttenuation);
+          debugln("Volume set to: " + String(NewAttenuation));
+        } else {
+          // Volume is increased - fade in the volume in 0.25 dB steps with 10 ms delay between each step
+          for (int i = CurrentAttenuation; i > NewAttenuation; i--) {
+            muses.setVolume(i, i);
+            debugln("Volume increased to: " + String(i));
+            delay(10);
+          }
+        }
+      }
     }
     if (appMode == APP_NORMAL_MODE)
       right_display_update();
