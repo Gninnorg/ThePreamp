@@ -10,6 +10,7 @@
 // ----------------------------------------------------------------------------
 
 #include <ClickEncoder.h>
+#include "../../include/debug.h"
 
 // ----------------------------------------------------------------------------
 // Button configuration (values for 1ms timer service calls)
@@ -53,12 +54,12 @@ ClickEncoder::ClickEncoder(uint8_t A, uint8_t B, uint8_t BTN, uint8_t stepsPerNo
   pinMode(pinBTN, configType);
 
   if (digitalRead(pinA) == pinsActive) {
-    Serial.println("Pin setup!");
+    debugln("Pin setup!");
     last = 3;
   }
 
   if (digitalRead(pinB) == pinsActive) {
-    Serial.println("Pin setup!");
+    debugln("Pin setup!");
     last ^=1;
   }
 }
