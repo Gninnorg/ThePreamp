@@ -7,5 +7,6 @@
 
 bool initWiFi();
 void initSPIFFS();
+void startWiFiSupport();
 
 #endif

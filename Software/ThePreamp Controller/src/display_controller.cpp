@@ -1,9 +1,21 @@
 #include "display_controller.h"
 #include "controller_config.h"
 #include "audio_controller.h"
+#include "logo.h"
 #include <WiFi.h>
 
 extern unsigned long mil_LastUserInput;
+
+void displayLogo(void)
+{
+  left_display.clearBuffer();
+  left_display.drawXBMP(77, 0, 130, 64, thePreAmpLogo);
+  left_display.sendBuffer();
+
+  right_display.clearBuffer();
+  right_display.sendBuffer();
+  delay(1000);
+}
 
 void left_display_update(void)
 {

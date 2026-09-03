@@ -17,6 +17,7 @@ void right_display_update(void);
 void drawSignalStrength(int);
 void drawTemperatureMeasurements(void);
 void displayBalance(byte Value);
+void displayLogo(void);
 void ScreenSaverOn(void);
 void ScreenSaverOff(void);
 

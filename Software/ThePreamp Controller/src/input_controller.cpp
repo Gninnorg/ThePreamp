@@ -3,12 +3,57 @@
 #include "display_controller.h"
 #include "trigger_controller.h"
 
+#define ROTARY_ENCODER_STEPS 4
+#define ROTARY1_CW_PIN 25
+#define ROTARY1_CCW_PIN 26
+#define ROTARY1_SW_PIN 34
+#define ROTARY2_CW_PIN 27
+#define ROTARY2_CCW_PIN 14
+#define ROTARY2_SW_PIN 35
+
+ClickEncoder *encoder1 = new ClickEncoder(ROTARY1_CW_PIN, ROTARY1_CCW_PIN, ROTARY1_SW_PIN, ROTARY_ENCODER_STEPS, LOW);
+ClickEncoder::Button button1;
+int16_t e1last, e1value;
+
+ClickEncoder *encoder2 = new ClickEncoder(ROTARY2_CW_PIN, ROTARY2_CCW_PIN, ROTARY2_SW_PIN, ROTARY_ENCODER_STEPS, LOW);
+ClickEncoder::Button button2;
+int16_t e2last, e2value;
+
+volatile int interruptCounter;
+int totalInterruptCounter;
+
+hw_timer_t *timer = NULL;
+portMUX_TYPE timerMux = portMUX_INITIALIZER_UNLOCKED;
+
 extern Muses72323 muses;
 extern Adafruit_MCP23008 relayController;
 extern byte appMode;
 extern unsigned long mil_LastUserInput;
 extern unsigned long last_KEY_ONOFF;
 extern const long interval;
+
+void IRAM_ATTR timerIsr()
+{
+  encoder1->service();
+  encoder2->service();
+  portENTER_CRITICAL_ISR(&timerMux);
+  interruptCounter++;
+  portEXIT_CRITICAL_ISR(&timerMux);
+}
+
+void setupRotaryEncoders()
+{
+  pinMode(ROTARY1_CW_PIN, INPUT_PULLUP);
+  pinMode(ROTARY1_CCW_PIN, INPUT_PULLUP);
+  pinMode(ROTARY1_SW_PIN, INPUT);
+  pinMode(ROTARY2_CW_PIN, INPUT_PULLUP);
+  pinMode(ROTARY2_CCW_PIN, INPUT_PULLUP);
+  pinMode(ROTARY2_SW_PIN, INPUT);
+  timer = timerBegin(0, 80, true);
+  timerAttachInterrupt(timer, &timerIsr, true);
+  timerAlarmWrite(timer, 1000, true);
+  timerAlarmEnable(timer);
+}
 
 byte getUserCommand()
 {

@@ -25,6 +25,7 @@ extern portMUX_TYPE timerMux;
 extern IRrecv irrecv;
 extern decode_results IRresults;
 
- byte getUserCommand();
+void setupRotaryEncoders();
+byte getUserCommand();
 
 #endif
