@@ -38,26 +38,41 @@ void initSPIFFS()
 }
 
 bool initWiFi()
-{ 
-  if (strlen(Settings.ssid) == 0 || strlen(Settings.ip) == 0)
+{
+  String ssid = Settings.ssid;
+  String ip = Settings.ip;
+  String gateway = Settings.gateway;
+  ssid.trim();
+  ip.trim();
+  gateway.trim();
+
+  if (ssid.length() == 0)
   {
-    debugln("Undefined SSID or IP address.");
+    debugln("Undefined SSID.");
     return false;
   }
 
   WiFi.mode(WIFI_STA);
   WiFi.setTxPower(WIFI_POWER_19_5dBm);
-  localIP.fromString(Settings.ip);
-  localGateway.fromString(Settings.gateway);
 
-  if (!WiFi.config(localIP, localGateway, subnet))
+  if (ip.length() != 0 || gateway.length() != 0)
   {
-    debugln("STA Failed to configure");
-    return false;
+    if (ip.length() == 0 || gateway.length() == 0 ||
+        !localIP.fromString(ip) || !localGateway.fromString(gateway))
+    {
+      debugln("Invalid static IP configuration.");
+      return false;
+    }
+
+    if (!WiFi.config(localIP, localGateway, subnet))
+    {
+      debugln("STA failed to configure static IP.");
+      return false;
+    }
   }
 
-  WiFi.begin(Settings.ssid, Settings.pass);
-  debug("Connecting to WiFi... "); debugln(Settings.ssid);
+  WiFi.begin(ssid.c_str(), Settings.pass);
+  debug("Connecting to WiFi... "); debugln(ssid);
 
   unsigned long currentMillis = millis();
   previousMillis = currentMillis;
