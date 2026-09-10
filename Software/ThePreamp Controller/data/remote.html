@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0f14">
+  <title>ThePreAmp Remote</title>
+  <style>
+    :root { --bg:#0b0f14; --panel:#141b22; --panel-2:#1a242e; --line:#2d3a45; --text:#edf3f5; --muted:#9cabb5; --aqua:#50d8c0; --orange:#ff8758; }
+    * { box-sizing:border-box; } body { min-width:320px; margin:0; background:radial-gradient(ellipse at 100% 0,#17313a 0,transparent 38%),var(--bg); color:var(--text); font:16px "Trebuchet MS",sans-serif; } main { max-width:600px; margin:auto; padding:24px 16px 40px; }
+    header { display:flex; justify-content:space-between; align-items:start; padding:8px 2px 28px; } h1,p,h2 { margin:0; } h1 { font:700 1.45rem Georgia,serif; letter-spacing:1px; } header p { margin-top:5px; color:var(--muted); font-size:.83rem; } a { color:var(--aqua); font-size:.85rem; text-decoration:none; }
+    .panel { border:1px solid var(--line); border-radius:8px; background:linear-gradient(135deg,#172029,#11181f); box-shadow:0 10px 26px #00000020; } .now-playing { padding:21px; margin-bottom:13px; } .eyebrow { color:var(--aqua); font-size:.72rem; font-weight:bold; letter-spacing:1.2px; text-transform:uppercase; } #current-input { margin-top:7px; font:700 1.65rem Georgia,serif; } .volume { display:flex; align-items:baseline; gap:8px; margin-top:18px; } #volume-value { font:700 4rem/1 Georgia,serif; color:var(--orange); } .volume small { color:var(--muted); }
+    .section { margin-bottom:13px; overflow:hidden; } .section h2 { padding:16px; border-bottom:1px solid var(--line); font-size:1rem; } .input-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--line); } .input-button { min-height:77px; padding:12px; border:0; background:var(--panel); color:var(--text); font:600 1rem Georgia,serif; cursor:pointer; touch-action:manipulation; } .input-button.selected { background:#173638; color:var(--aqua); box-shadow:inset 0 -3px var(--aqua); }
+    .volume-control { padding:20px 16px; } .adjust { display:grid; grid-template-columns:58px 1fr 58px; gap:12px; align-items:center; } .step { width:58px; height:58px; border:1px solid var(--line); border-radius:50%; background:var(--panel-2); color:var(--text); font:2rem Georgia,serif; cursor:pointer; touch-action:manipulation; } .step:active,.input-button:active { transform:scale(.97); } input[type=range] { appearance:none; width:100%; height:6px; border-radius:3px; background:linear-gradient(to right,var(--aqua) var(--fill,0%),#3b4852 var(--fill,0%)); outline:none; touch-action:manipulation; } input[type=range]::-webkit-slider-thumb { appearance:none; width:24px; height:24px; border-radius:50%; border:3px solid #09211f; background:var(--aqua); cursor:pointer; } input[type=range]::-moz-range-thumb { width:18px; height:18px; border-radius:50%; border:3px solid #09211f; background:var(--aqua); cursor:pointer; }
+    #status { display:block; min-height:20px; padding:15px 2px 0; color:var(--muted); font:italic .84rem Georgia,serif; }
+  </style>
+</head>
+<body>
+  <main>
+    <header><div><h1>ThePreAmp</h1><p>Remote control</p></div><a href="/settings.html">Settings</a></header>
+    <section class="panel now-playing"><p class="eyebrow">Selected input</p><h2 id="current-input">Loading...</h2><div class="volume"><strong id="volume-value">--</strong><small>volume</small></div></section>
+    <section class="panel section"><h2>Volume</h2><div class="volume-control"><div class="adjust"><button class="step" id="down" type="button" aria-label="Decrease volume">-</button><input id="volume" type="range" aria-label="Volume"><button class="step" id="up" type="button" aria-label="Increase volume">+</button></div></div></section>
+    <section class="panel section"><h2>Inputs</h2><div class="input-grid" id="inputs"></div></section>
+    <output id="status" aria-live="polite">Connecting...</output>
+  </main>
+  <script>
+    const inputs=document.querySelector('#inputs'),slider=document.querySelector('#volume'),name=document.querySelector('#current-input'),value=document.querySelector('#volume-value'),status=document.querySelector('#status');let state;
+    function draw(next){state=next;const selected=state.inputs[state.selectedInput];name.textContent=selected.name;value.textContent=state.volume;slider.min=selected.minVolume;slider.max=selected.maxVolume;slider.value=state.volume;slider.style.setProperty('--fill',`${(state.volume-selected.minVolume)*100/(selected.maxVolume-selected.minVolume||1)}%`);inputs.innerHTML=state.inputs.filter(input=>input.active).map(input=>{const index=state.inputs.indexOf(input);return `<button class="input-button ${index===state.selectedInput?'selected':''}" type="button" data-input="${index}">${input.name}</button>`;}).join('');status.textContent=state.muted?'Muted':'Connected';}
+    async function command(data){status.textContent='Updating...';try{const response=await fetch('/api/remote',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(data)});if(!response.ok)throw new Error();draw(await response.json());}catch{status.textContent='Could not update remote';}}
+    inputs.addEventListener('click',event=>{const button=event.target.closest('[data-input]');if(button)command({input:button.dataset.input});});
+    let timer;slider.addEventListener('input',()=>{value.textContent=slider.value;slider.style.setProperty('--fill',`${(slider.value-slider.min)*100/(slider.max-slider.min||1)}%`);clearTimeout(timer);timer=setTimeout(()=>command({volume:slider.value}),150);});
+    document.querySelector('#down').addEventListener('click',()=>command({volume:Math.max(+slider.min,+slider.value-1)}));document.querySelector('#up').addEventListener('click',()=>command({volume:Math.min(+slider.max,+slider.value+1)}));
+    async function refresh(){try{const response=await fetch('/api/remote');if(!response.ok)throw new Error();draw(await response.json());}catch{status.textContent='Could not read device status';}} refresh();setInterval(refresh,3000);
+  </script>
+</body>
+</html>
