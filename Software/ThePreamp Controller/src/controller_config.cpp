@@ -188,7 +188,7 @@ String exportSettingsAsJson() {
     StaticJsonDocument<2048> doc;
 
     doc["ssid"] = Settings.ssid;
-    doc["pass"] = Settings.pass;
+    // Wi-Fi password is write-only - never sent back to clients
     doc["ip"] = Settings.ip;
     doc["gateway"] = Settings.gateway;
 

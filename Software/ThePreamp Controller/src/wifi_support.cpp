@@ -49,7 +49,9 @@ static bool updateSettingsFromJson(const String &payload)
     return false;
 
   copyStringSetting(Settings.ssid, sizeof(Settings.ssid), document["ssid"]);
-  copyStringSetting(Settings.pass, sizeof(Settings.pass), document["pass"]);
+  // Password is only ever sent by the client when the user actually typed a new one - a blank/missing value keeps the stored password
+  if (document["pass"].is<const char *>() && strlen(document["pass"].as<const char *>()) > 0)
+    strlcpy(Settings.pass, document["pass"].as<const char *>(), sizeof(Settings.pass));
   copyStringSetting(Settings.ip, sizeof(Settings.ip), document["ip"]);
   copyStringSetting(Settings.gateway, sizeof(Settings.gateway), document["gateway"]);
 
