@@ -144,6 +144,38 @@ void displayBalance(byte Value)
   right_display.sendBuffer();
 }
 
+void displayTriggerCountdown(int trigger1SecondsRemaining, int trigger2SecondsRemaining)
+{
+  char buffer[24];
+
+  // Left display reflects trigger 1, right display reflects trigger 2
+  left_display.clearBuffer();
+  left_display.setFont(u8g2_font_inb24_mf);
+  if (trigger1SecondsRemaining != -1)
+  {
+    if (trigger1SecondsRemaining == -2)
+      strcpy(buffer, "On");
+    else
+      snprintf(buffer, sizeof(buffer), "Wait... %d", trigger1SecondsRemaining);
+    int16_t textWidth = left_display.getStrWidth(buffer);
+    left_display.drawStr((256 - textWidth) / 2, 40, buffer);
+  }
+  left_display.sendBuffer();
+
+  right_display.clearBuffer();
+  right_display.setFont(u8g2_font_inb24_mf);
+  if (trigger2SecondsRemaining != -1)
+  {
+    if (trigger2SecondsRemaining == -2)
+      strcpy(buffer, "On");
+    else
+      snprintf(buffer, sizeof(buffer), "Wait... %d", trigger2SecondsRemaining);
+    int16_t textWidth = right_display.getStrWidth(buffer);
+    right_display.drawStr((256 - textWidth) / 2, 40, buffer);
+  }
+  right_display.sendBuffer();
+}
+
 void drawSignalStrength(int rssi)
 {
   if (rssi >= -55) {

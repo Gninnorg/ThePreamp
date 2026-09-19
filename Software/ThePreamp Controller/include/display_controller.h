@@ -18,6 +18,8 @@ void drawSignalStrength(int);
 void drawTemperatureMeasurements(void);
 void displayBalance(byte Value); // Value 0-254, 127 is centered
 void displayLogo(void);
+// For each trigger: -1 = nothing to show, -2 = trigger has been turned on ("On"), >=0 = seconds remaining ("Wait... N")
+void displayTriggerCountdown(int trigger1SecondsRemaining, int trigger2SecondsRemaining);
 void ScreenSaverOn(void);
 void ScreenSaverOff(void);
 

@@ -2,21 +2,21 @@
 **
 **    Controller for ThePreAmp
 **
-**    Copyright (c) 2024 Carsten Grønning, Jan Abkjer Tofft
+**    Copyright (c) 2024-2026 Carsten Grønning, Jan Abkjer Tofft
 **
 **
 **   Todo
 **   - DONE - check output relay
-**   - clean up
+**   - DONEclean up
 **   - DONE - add discrete on/off
 **   - DONE - add support for learning IR codes 
-**   - Add support for balance control
+**   - DONE Add support for balance control
 **   - DONE - Add support for gain control
 **   - Add support for temperature display
 **   - Add support for MQTT
 **   - Add UI for settings
 **   - Shrink Elegant OTA - Remove personalization
-**   - Add trigger control at startup - around line 780
+**   - DONE - Add trigger control at startup
 **
 */
 
@@ -251,39 +251,39 @@ void startUp()
   // The controller is now ready - save the timestamp
   mil_On = millis();
 
-  /*
-  // If triggers are active then wait for the set number of seconds and turn them on
-  unsigned long delayTrigger1 = (Settings.Trigger1Active) ? (mil_On + Settings.Trigger1OnDelay * 1000) : 0;
-  unsigned long delayTrigger2 = (Settings.Trigger2Active) ? (mil_On + Settings.Trigger2OnDelay * 1000) : 0;
+  // If triggers are active then wait for the set number of seconds and turn them on, showing a countdown while waiting
+  bool trigger1Active = Settings.Trigger1Active;
+  bool trigger2Active = Settings.Trigger2Active;
+  // Target time (ms) at which each trigger should fire; 0 means the trigger is disabled and is skipped entirely
+  unsigned long delayTrigger1 = trigger1Active ? (mil_On + (unsigned long)Settings.Trigger1OnDelay * 1000) : 0;
+  unsigned long delayTrigger2 = trigger2Active ? (mil_On + (unsigned long)Settings.Trigger2OnDelay * 1000) : 0;
 
+  // Loop until every active trigger has fired (delayTriggerX cleared to 0 once turned on)
   while (delayTrigger1 || delayTrigger2)
   {
-    if (millis() > delayTrigger1 && delayTrigger1 != 0)
+    unsigned long now = millis();
+
+    if (delayTrigger1 && now >= delayTrigger1)
     {
       setTrigger1On();
-      delayTrigger1 = 0;
-      // oled.print3x3Number(2, 1, 0, false);
-    }
-    else
-    {
-      //if (Settings.Trigger1Active && delayTrigger1 != 0)
-        // oled.print3x3Number(2, 1, (delayTrigger1 - millis()) / 1000, false);
+      delayTrigger1 = 0; // marks trigger 1 as fired so the countdown loop and display switch to "On"
     }
 
-    if (millis() > delayTrigger2 && delayTrigger2 != 0)
+    if (delayTrigger2 && now >= delayTrigger2)
     {
       setTrigger2On();
-      delayTrigger2 = 0;
-      // oled.print3x3Number(11, 1, 0, false);
+      delayTrigger2 = 0; // marks trigger 2 as fired so the countdown loop and display switch to "On"
     }
-    else
+
+    if (delayTrigger1 || delayTrigger2)
     {
-      //if (Settings.Trigger2Active && delayTrigger2 != 0)
-      //  oled.print3x3Number(11, 1, (delayTrigger2 - millis()) / 1000, false);
+      // -1 = not shown, -2 = "On", >=0 = seconds remaining
+      int secondsLeft1 = !trigger1Active ? -1 : (delayTrigger1 ? (int)((delayTrigger1 - now + 999) / 1000) : -2);
+      int secondsLeft2 = !trigger2Active ? -1 : (delayTrigger2 ? (int)((delayTrigger2 - now + 999) / 1000) : -2);
+      displayTriggerCountdown(secondsLeft1, secondsLeft2);
+      delay(100);
     }
   }
-  // oled.clear();
-  */
 
   ScreenSaverOff();
   appMode = APP_NORMAL_MODE;
