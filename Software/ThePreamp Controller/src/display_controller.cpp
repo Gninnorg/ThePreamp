@@ -5,6 +5,7 @@
 #include <WiFi.h>
 
 extern unsigned long mil_LastUserInput;
+extern byte appMode;
 
 void displayLogo(void)
 {
@@ -19,11 +20,23 @@ void displayLogo(void)
 
 void left_display_update(void)
 {
+  if (ScreenSaverIsOn)
+    ScreenSaverOff();
+
+  if (appMode == APP_BALANCE_MODE)
+  {
+    left_display.setFont(u8g2_font_inb24_mf);
+    const char *text = "Set balance";
+    int16_t textWidth = left_display.getStrWidth(text);
+    int16_t xPos = (256 - textWidth) / 2;
+    left_display.clearBuffer();
+    left_display.drawStr(xPos, 40, text);
+    left_display.sendBuffer();
+    return;
+  }
+
   if (Settings.DisplaySelectedInput)
   {
-    if (ScreenSaverIsOn)
-      ScreenSaverOff();
-
     left_display.setFont(u8g2_font_inb42_mr);
 
     int16_t textWidth = left_display.getStrWidth(Settings.Input[RuntimeSettings.CurrentInput].Name);
@@ -91,10 +104,44 @@ void right_display_update(void)
 
 void displayBalance(byte Value)
 {
-  /*
-  // Balance display stub kept in display module for future implementation.
-  // Original logic was previously in the input controller.
-  */
+  right_display.clearBuffer();
+  right_display.setDrawColor(1);
+
+  int balanceOffset = (int)Value - BALANCE_CENTER;
+  char label[16];
+  if (balanceOffset == 0)
+    strcpy(label, "C");
+  else
+    snprintf(label, sizeof(label), "%c %.2fdB", balanceOffset < 0 ? 'L' : 'R', getBalanceAttenuationDb(Value));
+
+  right_display.setFont(u8g2_font_inb24_mf);
+  int16_t textWidth = right_display.getStrWidth(label);
+  right_display.drawStr((256 - textWidth) / 2, 26, label);
+
+  const int16_t barX = 8;
+  const int16_t barY = 40;
+  const int16_t barWidth = 240;
+  const int16_t barHeight = 14;
+  const int16_t centerX = barX + barWidth / 2;
+
+  // Bold outer frame so the scale reads well from a distance
+  right_display.drawFrame(barX, barY, barWidth, barHeight);
+  right_display.drawFrame(barX + 1, barY + 1, barWidth - 2, barHeight - 2);
+
+  // Fill from center to the current position to show the deviation at a glance
+  int16_t indicatorX = constrain(centerX + (int16_t)(((long)balanceOffset * (barWidth / 2 - 3)) / BALANCE_MAX_OFFSET), barX + 3, barX + barWidth - 3);
+  int16_t fillX = min(centerX, indicatorX);
+  int16_t fillWidth = abs(indicatorX - centerX);
+  if (fillWidth > 0)
+    right_display.drawBox(fillX, barY + 2, fillWidth, barHeight - 4);
+
+  // Center marker, drawn taller than the bar so it stays visible
+  right_display.drawBox(centerX - 1, barY - 4, 3, barHeight + 8);
+
+  // Position marker, wider still for maximum visibility
+  right_display.drawBox(indicatorX - 4, barY - 4, 8, barHeight + 8);
+
+  right_display.sendBuffer();
 }
 
 void drawSignalStrength(int rssi)

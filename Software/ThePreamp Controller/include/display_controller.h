@@ -16,7 +16,7 @@ void left_display_update(void);
 void right_display_update(void);
 void drawSignalStrength(int);
 void drawTemperatureMeasurements(void);
-void displayBalance(byte Value);
+void displayBalance(byte Value); // Value 0-254, 127 is centered
 void displayLogo(void);
 void ScreenSaverOn(void);
 void ScreenSaverOff(void);

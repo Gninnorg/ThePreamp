@@ -386,9 +386,8 @@ void loop()
       right_display_update();
       break;
     case KEY_SELECT:
-      // Set channel balance
+      // Enter balance adjustment mode
       changeBalance();
-      toAppNormalMode();
       break;
     case KEY_OFF:
       if (last_KEY_ONOFF + 5000 < millis()) // Cancel received KEY_ONOFF if it has been received within the last 5 seconds
@@ -396,6 +395,22 @@ void loop()
         last_KEY_ONOFF = millis();
         toStandbyMode();
       }
+      break;
+    }
+    break;
+
+  case APP_BALANCE_MODE:
+    switch (UIkey)
+    {
+    case KEY_UP:
+      adjustBalance(1);
+      break;
+    case KEY_DOWN:
+      adjustBalance(-1);
+      break;
+    case KEY_SELECT:
+      // Save balance and return to normal operation
+      saveBalance();
       break;
     }
     break;

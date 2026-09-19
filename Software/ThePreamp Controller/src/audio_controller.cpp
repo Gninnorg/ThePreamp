@@ -23,6 +23,35 @@ int calculateAttenuation(byte logicalStep, byte maxLogicalSteps, byte minAttenua
   return volumeStep;
 }
 
+// Applies a base (both-channel) attenuation together with a balance value to the Muses chip
+static void applyVolumeAttenuation(int baseAttenuation, byte balanceValue)
+{
+  int balanceOffset = (int)balanceValue - BALANCE_CENTER;
+  int offsetSteps = abs(balanceOffset);
+
+  int leftAttenuation = baseAttenuation - (balanceOffset > 0 ? offsetSteps : 0);
+  int rightAttenuation = baseAttenuation - (balanceOffset < 0 ? offsetSteps : 0);
+
+  leftAttenuation = max(leftAttenuation, -447);
+  rightAttenuation = max(rightAttenuation, -447);
+
+  muses.setVolume(leftAttenuation, rightAttenuation);
+}
+
+// Re-applies the current volume with the given balance value - used while the balance is being adjusted
+void applyBalance(byte balanceValue)
+{
+  int attenuation = calculateAttenuation(RuntimeSettings.CurrentVolume, Settings.VolumeSteps, Settings.MinAttenuation, Settings.MaxAttenuation);
+  applyVolumeAttenuation(attenuation, balanceValue);
+}
+
+// Returns the attenuation in dB applied to the softer channel for the given balance value (0.0 when centered)
+float getBalanceAttenuationDb(byte balanceValue)
+{
+  int balanceOffset = (int)balanceValue - BALANCE_CENTER;
+  return abs(balanceOffset) * 0.25f;
+}
+
 void setVolume(int16_t newVolumeStep)
 {
   if (appMode == APP_NORMAL_MODE || appMode == APP_BALANCE_MODE)
@@ -42,16 +71,17 @@ void setVolume(int16_t newVolumeStep)
       RuntimeSettings.InputLastVol[RuntimeSettings.CurrentInput] = RuntimeSettings.CurrentVolume;
 
       int NewAttenuation = calculateAttenuation(RuntimeSettings.CurrentVolume, Settings.VolumeSteps, Settings.MinAttenuation, Settings.MaxAttenuation);
+      byte balanceValue = RuntimeSettings.InputLastBal[RuntimeSettings.CurrentInput];
       if (NewAttenuation > CurrentAttenuation) {
         for (int i = CurrentAttenuation; i < NewAttenuation; i++) {
-          muses.setVolume(i, i);
+          applyVolumeAttenuation(i, balanceValue);
         }
       } else {
         if (CurrentAttenuation == NewAttenuation) {
-          muses.setVolume(NewAttenuation, NewAttenuation);
+          applyVolumeAttenuation(NewAttenuation, balanceValue);
         } else {
           for (int i = CurrentAttenuation; i > NewAttenuation; i--) {
-            muses.setVolume(i, i);
+            applyVolumeAttenuation(i, balanceValue);
           }
         }
       }

@@ -167,9 +167,9 @@ byte getUserCommand()
 
 void toAppNormalMode()
 {
+  appMode = APP_NORMAL_MODE;
   left_display_update();
   right_display_update();
-  appMode = APP_NORMAL_MODE;
 }
 
 void toStandbyMode()
@@ -242,14 +242,29 @@ void setNextInput(void)
   setInput(nextInput);
 }
 
+// Value being adjusted while APP_BALANCE_MODE is active - not committed until saveBalance() is called
+static byte BalanceEditValue;
+
 bool changeBalance()
 {
-  bool complete = false;
-  bool result = false;
-  byte OldValue = RuntimeSettings.InputLastBal[RuntimeSettings.CurrentInput];
-  byte NewValue = RuntimeSettings.InputLastBal[RuntimeSettings.CurrentInput];
-
   appMode = APP_BALANCE_MODE;
+  BalanceEditValue = constrain((int)RuntimeSettings.InputLastBal[RuntimeSettings.CurrentInput], BALANCE_CENTER - BALANCE_MAX_OFFSET, BALANCE_CENTER + BALANCE_MAX_OFFSET);
+  left_display_update();
+  displayBalance(BalanceEditValue);
+  return true;
+}
 
-  return result;
+void adjustBalance(int8_t delta)
+{
+  int newValue = constrain((int)BalanceEditValue + delta, BALANCE_CENTER - BALANCE_MAX_OFFSET, BALANCE_CENTER + BALANCE_MAX_OFFSET);
+  BalanceEditValue = (byte)newValue;
+  applyBalance(BalanceEditValue);
+  displayBalance(BalanceEditValue);
+}
+
+void saveBalance()
+{
+  RuntimeSettings.InputLastBal[RuntimeSettings.CurrentInput] = BalanceEditValue;
+  writeRuntimeSettingsToEEPROM();
+  toAppNormalMode();
 }

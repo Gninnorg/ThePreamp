@@ -32,6 +32,10 @@ enum AppModeValues
   APP_STANDBY_MODE
 };
 
+// Balance is stored as a byte 0-254 where 127 is centered; each step is one Muses attenuation step (0.25dB)
+#define BALANCE_CENTER 127
+#define BALANCE_MAX_OFFSET 12 // 12 steps * 0.25dB = 3dB max attenuation offset
+
 enum UserInput
 {
   KEY_NONE,
