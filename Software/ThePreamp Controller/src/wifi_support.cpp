@@ -104,6 +104,7 @@ static String remoteStateAsJson()
   document["selectedInput"] = RuntimeSettings.CurrentInput;
   document["volume"] = RuntimeSettings.CurrentVolume;
   document["muted"] = RuntimeSettings.Muted;
+  document["standby"] = appMode == APP_STANDBY_MODE;
 
   JsonArray inputs = document["inputs"].to<JsonArray>();
   for (byte index = 0; index < 5; index++)
@@ -206,6 +207,16 @@ static void setupNormalModeServer()
             { request->send(200, "application/json", remoteStateAsJson()); });
   server.on("/api/remote", HTTP_POST, [](AsyncWebServerRequest *request)
             {
+              if (request->hasParam("power", true))
+              {
+                if (request->getParam("power", true)->value() != "toggle")
+                {
+                  request->send(400, "application/json", "{\"error\":\"Invalid power command\"}");
+                  return;
+                }
+                requestPowerToggle();
+              }
+
               if (request->hasParam("input", true))
               {
                 int input = request->getParam("input", true)->value().toInt();

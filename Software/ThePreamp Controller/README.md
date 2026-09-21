@@ -77,8 +77,8 @@ Set up in [src/wifi_support.cpp](src/wifi_support.cpp). Two modes:
 |---|---|---|
 | `/api/settings` | GET | Returns the full `Settings` structure as JSON (`exportSettingsAsJson()`) |
 | `/api/settings` | POST | Body: `settings=<url-encoded JSON>`. Validates and applies each field, then writes to EEPROM |
-| `/api/remote` | GET | Returns current input, volume, mute state, and per-input name/limits as JSON |
-| `/api/remote` | POST | Body params `input` and/or `volume` (form-encoded); switches input and/or sets volume, returns updated state |
+| `/api/remote` | GET | Returns current input, volume, mute state, standby state, and per-input name/limits as JSON |
+| `/api/remote` | POST | Body params `input`, `volume`, and/or `power=toggle` (form-encoded); switches input, sets volume, or enters/leaves standby, then returns state |
 
 **Legacy simple GET endpoints** (plain-text responses, used by e.g. simple remote/automation integrations):
 

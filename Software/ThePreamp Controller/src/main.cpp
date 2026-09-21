@@ -147,6 +147,7 @@ byte appMode = APP_NORMAL_MODE;
 byte UIkey; // holds the last received user input (from rotary encoders or IR)
 byte lastReceivedInput = KEY_NONE;
 unsigned long last_KEY_ONOFF = millis(); // Used to ensure that fast repetition of KEY_ONOFF is not accepted
+volatile byte requestedPowerCommand = KEY_NONE;
 
 // Shared controller settings and runtime state are defined in controller_config.cpp.
 
@@ -302,12 +303,22 @@ void startUp()
   lastReceivedInput = KEY_NONE;
 }
 
+void requestPowerToggle()
+{
+  requestedPowerCommand = appMode == APP_STANDBY_MODE ? KEY_ON : KEY_OFF;
+}
+
 void loop()
 {
   ElegantOTA.loop();
   WebSerial.loop();
   
   UIkey = getUserCommand();
+  if (requestedPowerCommand != KEY_NONE)
+  {
+    UIkey = requestedPowerCommand;
+    requestedPowerCommand = KEY_NONE;
+  }
 
   switch (appMode)
   {

@@ -27,5 +27,6 @@ extern decode_results IRresults;
 
 void setupRotaryEncoders();
 byte getUserCommand();
+void requestPowerToggle();
 
 #endif

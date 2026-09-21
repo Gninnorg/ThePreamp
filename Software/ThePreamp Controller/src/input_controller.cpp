@@ -192,7 +192,12 @@ void toStandbyMode()
 boolean setInput(uint8_t NewInput)
 {
   boolean result = false;
-  if (Settings.Input[NewInput].Active != INPUT_INACTIVATED && NewInput >= 0 && NewInput <= 4 && appMode == APP_NORMAL_MODE)
+  if (NewInput > 4 || appMode != APP_NORMAL_MODE || Settings.Input[NewInput].Active == INPUT_INACTIVATED)
+    return result;
+
+  if (NewInput == RuntimeSettings.CurrentInput)
+    return true;
+
   {
     if (!RuntimeSettings.Muted)
       mute();
