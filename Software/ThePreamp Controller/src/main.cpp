@@ -353,7 +353,8 @@ void loop()
       if ((Settings.TriggerInactOffTimer > 0) && ((mil_LastUserInput + Settings.TriggerInactOffTimer * 3600000) < millis()))
         toStandbyMode();
       break;
-    case KEY_BACK:
+    case KEY_INFO:
+      showInfoScreen();
       break;
     case KEY_UP:
       // Turn volume up if we're not muted and we'll not exceed the maximum volume set for the currently selected input
@@ -383,10 +384,6 @@ void loop()
     case KEY_4:
     case KEY_5:
       setInput(UIkey - KEY_1);
-      break;
-    case KEY_PREVIOUS:
-      // Switch to previous selected input (to allow for A-B comparison)
-      setInput(RuntimeSettings.PrevSelectedInput);
       break;
     case KEY_MUTE:
       // toggle mute
@@ -426,6 +423,15 @@ void loop()
     case KEY_SELECT:
       // Save balance and return to normal operation
       saveBalance();
+      break;
+    }
+    break;
+
+  case APP_INFO_MODE:
+    switch (UIkey)
+    {
+    case KEY_SELECT:
+      toAppNormalMode();
       break;
     }
     break;

@@ -25,8 +25,15 @@ extern portMUX_TYPE timerMux;
 extern IRrecv irrecv;
 extern decode_results IRresults;
 
+// IR code learning state, used by the web UI to capture a new code for a command
+extern volatile bool irLearnActive;
+extern volatile bool irLearnCodeReady;
+extern volatile uint64_t irLearnCode;
+
 void setupRotaryEncoders();
 byte getUserCommand();
 void requestPowerToggle();
+void startIrLearning();
+void showInfoScreen();
 
 #endif

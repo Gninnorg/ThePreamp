@@ -25,6 +25,10 @@ int totalInterruptCounter;
 hw_timer_t *timer = NULL;
 portMUX_TYPE timerMux = portMUX_INITIALIZER_UNLOCKED;
 
+volatile bool irLearnActive = false;
+volatile bool irLearnCodeReady = false;
+volatile uint64_t irLearnCode = 0;
+
 extern Muses72323 muses;
 extern Adafruit_MCP23008 relayController;
 extern byte appMode;
@@ -39,6 +43,13 @@ void IRAM_ATTR timerIsr()
   portENTER_CRITICAL_ISR(&timerMux);
   interruptCounter++;
   portEXIT_CRITICAL_ISR(&timerMux);
+}
+
+void startIrLearning()
+{
+  irLearnCodeReady = false;
+  irLearnCode = 0;
+  irLearnActive = true;
 }
 
 void setupRotaryEncoders()
@@ -101,7 +112,7 @@ byte getUserCommand()
   switch (button2)
   {
   case ClickEncoder::Clicked:
-    receivedInput = KEY_BACK;
+    receivedInput = KEY_INFO;
     break;
   case ClickEncoder::DoubleClicked:
     if (appMode == APP_STANDBY_MODE)
@@ -115,7 +126,13 @@ byte getUserCommand()
 
   if (irrecv.decode(&IRresults))
   {
-    if (IRresults.value == Settings.IR_UP)
+    if (irLearnActive)
+    {
+      irLearnCode = IRresults.value;
+      irLearnCodeReady = true;
+      irLearnActive = false;
+    }
+    else if (IRresults.value == Settings.IR_UP)
       receivedInput = KEY_UP;
     else if (IRresults.value == Settings.IR_DOWN)
       receivedInput = KEY_DOWN;
@@ -125,8 +142,8 @@ byte getUserCommand()
       receivedInput = KEY_RIGHT;
     else if (IRresults.value == Settings.IR_SELECT)
       receivedInput = KEY_SELECT;
-    else if (IRresults.value == Settings.IR_BACK)
-      receivedInput = KEY_BACK;
+    else if (IRresults.value == Settings.IR_INFO)
+      receivedInput = KEY_INFO;
     else if (IRresults.value == Settings.IR_MUTE)
       receivedInput = KEY_MUTE;
     else if (appMode == APP_STANDBY_MODE && IRresults.value == Settings.IR_ON)
@@ -143,8 +160,8 @@ byte getUserCommand()
       receivedInput = KEY_4;
     else if (IRresults.value == Settings.IR_5)
       receivedInput = KEY_5;
-    else if (IRresults.value == Settings.IR_PREVIOUS)
-      receivedInput = KEY_PREVIOUS;
+    else if (IRresults.value == Settings.IR_POWER)
+      receivedInput = appMode == APP_STANDBY_MODE ? KEY_ON : KEY_OFF;
     else if (IRresults.value == Settings.IR_REPEAT)
     {
       receivedInput = KEY_REPEAT;
@@ -272,4 +289,10 @@ void saveBalance()
   RuntimeSettings.InputLastBal[RuntimeSettings.CurrentInput] = BalanceEditValue;
   writeRuntimeSettingsToEEPROM();
   toAppNormalMode();
+}
+
+void showInfoScreen()
+{
+  appMode = APP_INFO_MODE;
+  displayInfoScreen();
 }

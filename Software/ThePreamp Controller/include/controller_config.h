@@ -29,7 +29,8 @@ enum AppModeValues
 {
   APP_NORMAL_MODE,
   APP_BALANCE_MODE,
-  APP_STANDBY_MODE
+  APP_STANDBY_MODE,
+  APP_INFO_MODE
 };
 
 // Balance is stored as a byte 0-254 where 127 is centered; each step is one Muses attenuation step (0.25dB)
@@ -45,7 +46,7 @@ enum UserInput
   KEY_SELECT,
   KEY_RIGHT,
   KEY_LEFT,
-  KEY_BACK,
+  KEY_INFO,
   KEY_1,
   KEY_2,
   KEY_3,
@@ -53,8 +54,7 @@ enum UserInput
   KEY_5,
   KEY_MUTE,
   KEY_ON,
-  KEY_OFF,
-  KEY_PREVIOUS
+  KEY_OFF
 };
 
 struct InputSettings
@@ -90,9 +90,9 @@ typedef union
     uint64_t IR_LEFT;
     uint64_t IR_RIGHT;
     uint64_t IR_SELECT;
-    uint64_t IR_BACK;
+    uint64_t IR_INFO;
     uint64_t IR_MUTE;
-    uint64_t IR_PREVIOUS;
+    uint64_t IR_POWER; // Toggles power on/off regardless of the current mode
     uint64_t IR_1;
     uint64_t IR_2;
     uint64_t IR_3;

@@ -3,6 +3,7 @@
 #include "audio_controller.h"
 #include "logo.h"
 #include <WiFi.h>
+#include <qrcode.h>
 
 extern unsigned long mil_LastUserInput;
 extern byte appMode;
@@ -174,6 +175,39 @@ void displayTriggerCountdown(int trigger1SecondsRemaining, int trigger2SecondsRe
     int16_t textWidth = right_display.getStrWidth(buffer);
     right_display.drawStr((256 - textWidth) / 2, 40, buffer);
   }
+  right_display.sendBuffer();
+}
+
+void displayInfoScreen(void)
+{
+  bool connected = WiFi.status() == WL_CONNECTED;
+  String ip = connected ? WiFi.localIP().toString() : "Not connected";
+
+  left_display.clearBuffer();
+  if (connected)
+  {
+    String url = "http://" + ip + "/remote";
+
+    QRCode qrcode;
+    uint8_t qrcodeData[qrcode_getBufferSize(3)];
+    qrcode_initText(&qrcode, qrcodeData, 3, ECC_MEDIUM, url.c_str());
+
+    const uint8_t scale = 2;
+    const uint8_t offset = (64 - qrcode.size * scale) / 2;
+    for (uint8_t y = 0; y < qrcode.size; y++)
+      for (uint8_t x = 0; x < qrcode.size; x++)
+        if (qrcode_getModule(&qrcode, x, y))
+          left_display.drawBox(offset + x * scale, offset + y * scale, scale, scale);
+  }
+  left_display.setFont(u8g2_font_luBS18_tf);
+  left_display.drawStr(74, 31, "Scan for");
+  left_display.drawStr(74, 58, "remote page");
+  left_display.sendBuffer();
+
+  right_display.clearBuffer();
+  right_display.setFont(u8g2_font_luBS18_tf);
+  right_display.drawStr(0, 31, "IP address:");
+  right_display.drawStr(0, 58, ip.c_str());
   right_display.sendBuffer();
 }
 

@@ -99,6 +99,67 @@ static bool updateSettingsFromJson(const String &payload)
   return true;
 }
 
+static uint64_t *irCodeField(const String &command)
+{
+  if (command == "IR_ON")
+    return &Settings.IR_ON;
+  if (command == "IR_OFF")
+    return &Settings.IR_OFF;
+  if (command == "IR_UP")
+    return &Settings.IR_UP;
+  if (command == "IR_DOWN")
+    return &Settings.IR_DOWN;
+  if (command == "IR_LEFT")
+    return &Settings.IR_LEFT;
+  if (command == "IR_RIGHT")
+    return &Settings.IR_RIGHT;
+  if (command == "IR_SELECT")
+    return &Settings.IR_SELECT;
+  if (command == "IR_INFO")
+    return &Settings.IR_INFO;
+  if (command == "IR_MUTE")
+    return &Settings.IR_MUTE;
+  if (command == "IR_POWER")
+    return &Settings.IR_POWER;
+  if (command == "IR_1")
+    return &Settings.IR_1;
+  if (command == "IR_2")
+    return &Settings.IR_2;
+  if (command == "IR_3")
+    return &Settings.IR_3;
+  if (command == "IR_4")
+    return &Settings.IR_4;
+  if (command == "IR_5")
+    return &Settings.IR_5;
+  return nullptr;
+}
+
+static bool applyLearnedIrCode(const String &command)
+{
+  if (!irLearnCodeReady)
+    return false;
+
+  uint64_t *field = irCodeField(command);
+  if (!field)
+    return false;
+
+  *field = irLearnCode;
+  writeSettingsToEEPROM();
+  irLearnCodeReady = false;
+  return true;
+}
+
+static bool clearIrCode(const String &command)
+{
+  uint64_t *field = irCodeField(command);
+  if (!field)
+    return false;
+
+  *field = 0;
+  writeSettingsToEEPROM();
+  return true;
+}
+
 static String remoteStateAsJson()
 {
   JsonDocument document;
@@ -257,6 +318,45 @@ static void setupNormalModeServer()
               }
 
               request->send(200, "application/json", remoteStateAsJson());
+            });
+
+  server.on("/api/ir-learn/start", HTTP_POST, [](AsyncWebServerRequest *request)
+            { mil_LastUserInput = millis(); startIrLearning(); request->send(200, "application/json", "{\"learning\":true}"); });
+  server.on("/api/ir-learn/cancel", HTTP_POST, [](AsyncWebServerRequest *request)
+            { irLearnActive = false; irLearnCodeReady = false; request->send(200, "application/json", "{\"ok\":true}"); });
+  server.on("/api/ir-learn/poll", HTTP_GET, [](AsyncWebServerRequest *request)
+            {
+              JsonDocument document;
+              document["learning"] = irLearnActive;
+              document["ready"] = irLearnCodeReady;
+              if (irLearnCodeReady)
+                document["code"] = String(irLearnCode);
+
+              String output;
+              serializeJson(document, output);
+              request->send(200, "application/json", output);
+            });
+  server.on("/api/ir-learn/apply", HTTP_POST, [](AsyncWebServerRequest *request)
+            {
+              mil_LastUserInput = millis();
+              if (!request->hasParam("command", true) || !applyLearnedIrCode(request->getParam("command", true)->value()))
+              {
+                request->send(400, "application/json", "{\"error\":\"No learned code to apply\"}");
+                return;
+              }
+
+              request->send(200, "application/json", "{\"ok\":true}");
+            });
+  server.on("/api/ir-learn/clear", HTTP_POST, [](AsyncWebServerRequest *request)
+            {
+              mil_LastUserInput = millis();
+              if (!request->hasParam("command", true) || !clearIrCode(request->getParam("command", true)->value()))
+              {
+                request->send(400, "application/json", "{\"error\":\"Unknown command\"}");
+                return;
+              }
+
+              request->send(200, "application/json", "{\"ok\":true}");
             });
 
   server.on("/INPUT1", HTTP_GET, [](AsyncWebServerRequest *request)

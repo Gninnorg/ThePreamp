@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0f14">
+  <title>ThePreAmp IR Codes</title>
+  <style>
+    :root { --bg:#0b0f14; --panel:#141b22; --panel-2:#1a242e; --line:#2d3a45; --text:#edf3f5; --muted:#9cabb5; --aqua:#50d8c0; --orange:#ff8758; --input:#0e141a; }
+    * { box-sizing:border-box; } body { margin:0; min-width:320px; background:radial-gradient(ellipse at 100% 0,#17313a 0,transparent 38%),var(--bg); color:var(--text); font:16px "Trebuchet MS",sans-serif; }
+    main { max-width:640px; margin:auto; padding:24px 16px 100px; } header { display:flex; justify-content:space-between; align-items:start; padding:8px 2px 29px; }
+    h1,h2,p { margin:0; } h1 { font:700 1.45rem Georgia,serif; letter-spacing:1px; } header p { color:var(--muted); font-size:.83rem; margin-top:5px; } header a { color:var(--aqua); font-size:.85rem; text-decoration:none; }
+    .section { background:linear-gradient(135deg,#172029,#11181f); border:1px solid var(--line); border-radius:8px; margin-bottom:13px; overflow:hidden; box-shadow:0 10px 26px #00000020; } .section-title { display:flex; align-items:center; gap:10px; padding:16px; border-bottom:1px solid var(--line); } .mark { width:29px; height:29px; border-radius:50%; display:grid; place-items:center; color:var(--aqua); background:#50d8c01c; font:bold .78rem Georgia,serif; } h2 { font-size:1rem; letter-spacing:.2px; }
+    .fields { display:grid; gap:11px; padding:16px; }
+    .ir-row { display:flex; align-items:center; justify-content:space-between; gap:14px; padding:13px 14px; border:1px solid var(--line); border-radius:6px; background:var(--panel-2); }
+    .ir-row strong { font:1rem Georgia,serif; font-weight:normal; }
+    .code { color:var(--aqua); font-family:"Consolas",monospace; font-size:.83rem; min-width:110px; text-align:right; }
+    .actions { display:flex; gap:8px; }
+    .learn { min-height:36px; padding:0 16px; border:0; border-radius:5px; background:var(--orange); color:#241008; font:bold .82rem "Trebuchet MS",sans-serif; cursor:pointer; }
+    .clear { min-height:36px; padding:0 16px; border:1px solid var(--line); border-radius:5px; background:transparent; color:var(--muted); font:bold .82rem "Trebuchet MS",sans-serif; cursor:pointer; }
+    .learn:disabled, .clear:disabled { opacity:.55; }
+    .footer { position:fixed; inset:auto 0 0; padding:12px 16px; border-top:1px solid var(--line); background:#0b0f14e8; backdrop-filter:blur(12px); } .footer-inner { max-width:640px; margin:auto; } #status { color:var(--muted); font:italic .84rem Georgia,serif; }
+  </style>
+</head>
+<body>
+  <main>
+    <header><div><h1>ThePreAmp</h1><p>IR remote codes</p></div><a href="/settings.html">Settings</a></header>
+    <section class="section">
+      <div class="section-title"><span class="mark">R</span><h2>Remote commands</h2></div>
+      <div class="fields" id="ir-list"></div>
+    </section>
+  </main>
+  <div class="footer"><div class="footer-inner"><span id="status" aria-live="polite">Loading...</span></div></div>
+  <script>
+    const commands = [
+      ['IR_POWER', 'Power toggle'],
+      ['IR_ON', 'Power on'], ['IR_OFF', 'Power off'],
+      ['IR_UP', 'Volume up'], ['IR_DOWN', 'Volume down'],
+      ['IR_LEFT', 'Left/Prev. input'], ['IR_RIGHT', 'Right/Next input'],
+      ['IR_SELECT', 'Select/Set balance'], ['IR_INFO', 'Show info (IP etc.)'],
+      ['IR_MUTE', 'Mute toggle'],
+      ['IR_1', 'Input 1'], ['IR_2', 'Input 2'], ['IR_3', 'Input 3'], ['IR_4', 'Input 4'], ['IR_5', 'Input 5']
+    ];
+    const list = document.querySelector('#ir-list'), status = document.querySelector('#status');
+    let pollTimer = null, timeoutTimer = null;
+
+    function hex(value) {
+      const n = BigInt(value ?? 0);
+      return n === 0n ? 'Not set' : '0x' + n.toString(16).toUpperCase();
+    }
+
+    function row([command, label]) {
+      return `<article class="ir-row" data-command="${command}"><strong>${label}</strong><span class="code">Loading...</span><div class="actions"><button type="button" class="clear">Clear</button><button type="button" class="learn">Learn</button></div></article>`;
+    }
+    list.innerHTML = commands.map(row).join('');
+
+    function setCode(command, value) {
+      const el = list.querySelector(`[data-command="${command}"] .code`);
+      if (el) el.textContent = hex(value);
+    }
+
+    fetch('/api/settings')
+      .then(response => response.ok ? response.json() : Promise.reject())
+      .then(data => { commands.forEach(([command]) => setCode(command, data[command])); status.textContent = 'Ready'; })
+      .catch(() => status.textContent = 'Could not load IR codes');
+
+    function setButtonsDisabled(disabled) {
+      list.querySelectorAll('button').forEach(button => button.disabled = disabled);
+    }
+
+    function stopLearning() {
+      if (pollTimer) clearInterval(pollTimer);
+      if (timeoutTimer) clearTimeout(timeoutTimer);
+      pollTimer = null; timeoutTimer = null;
+      setButtonsDisabled(false);
+    }
+
+    list.addEventListener('click', async event => {
+      const clearButton = event.target.closest('button.clear');
+      if (clearButton && !pollTimer) {
+        const article = clearButton.closest('.ir-row');
+        const command = article.dataset.command;
+        setButtonsDisabled(true);
+        status.textContent = `Clearing "${article.querySelector('strong').textContent}"...`;
+        try {
+          const response = await fetch('/api/ir-learn/clear', {
+            method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: 'command=' + encodeURIComponent(command)
+          });
+          if (!response.ok) throw new Error();
+          setCode(command, 0);
+          status.textContent = 'Cleared. Ready';
+        } catch {
+          status.textContent = 'Could not clear IR code';
+        } finally {
+          setButtonsDisabled(false);
+        }
+        return;
+      }
+
+      const button = event.target.closest('button.learn');
+      if (!button || pollTimer) return;
+      const article = button.closest('.ir-row');
+      const command = article.dataset.command;
+
+      setButtonsDisabled(true);
+      status.textContent = `Press the remote button for "${article.querySelector('strong').textContent}"...`;
+
+      try {
+        const startResponse = await fetch('/api/ir-learn/start', { method: 'POST' });
+        if (!startResponse.ok) throw new Error();
+      } catch {
+        status.textContent = 'Could not start IR learning';
+        stopLearning();
+        return;
+      }
+
+      timeoutTimer = setTimeout(async () => {
+        await fetch('/api/ir-learn/cancel', { method: 'POST' }).catch(() => {});
+        status.textContent = 'No signal received. Try again.';
+        stopLearning();
+      }, 15000);
+
+      pollTimer = setInterval(async () => {
+        try {
+          const response = await fetch('/api/ir-learn/poll');
+          if (!response.ok) throw new Error();
+          const data = await response.json();
+          if (!data.ready) return;
+
+          clearInterval(pollTimer); clearTimeout(timeoutTimer); pollTimer = null; timeoutTimer = null;
+          const applyResponse = await fetch('/api/ir-learn/apply', {
+            method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: 'command=' + encodeURIComponent(command)
+          });
+          if (!applyResponse.ok) throw new Error();
+          setCode(command, data.code);
+          status.textContent = 'Learned. Ready';
+          setButtonsDisabled(false);
+        } catch {
+          status.textContent = 'IR learning failed';
+          stopLearning();
+        }
+      }, 400);
+    });
+  </script>
+</body>
+</html>

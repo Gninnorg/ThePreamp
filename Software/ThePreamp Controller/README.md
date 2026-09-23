@@ -36,7 +36,7 @@ Trigger on/off (`setTrigger1/2On/Off` in [src/trigger_controller.cpp](src/trigge
 
 ## User input handling
 
-[src/input_controller.cpp](src/input_controller.cpp) polls the two rotary encoders (turn = volume/balance, click = select/mute, double-click = on/off) and the IR receiver, normalizing everything into a single `UIkey` value (`KEY_UP`, `KEY_DOWN`, `KEY_LEFT/RIGHT`, `KEY_1`-`KEY_5`, `KEY_MUTE`, `KEY_SELECT`, `KEY_ON`/`KEY_OFF`, `KEY_PREVIOUS`, etc.) consumed by `loop()`.
+[src/input_controller.cpp](src/input_controller.cpp) polls the two rotary encoders (turn = volume/balance, click = select/mute, double-click = on/off) and the IR receiver, normalizing everything into a single `UIkey` value (`KEY_UP`, `KEY_DOWN`, `KEY_LEFT/RIGHT`, `KEY_1`-`KEY_5`, `KEY_MUTE`, `KEY_SELECT`, `KEY_ON`/`KEY_OFF`, etc.) consumed by `loop()`. The `IR_POWER` code toggles power (on if in standby, off otherwise) independently of the dedicated `IR_ON`/`IR_OFF` codes.
 
 ## Audio control
 

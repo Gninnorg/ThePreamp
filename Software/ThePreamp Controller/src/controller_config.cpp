@@ -68,9 +68,9 @@ void setSettingsToDefault()
   Settings.IR_LEFT = 0x808807F;
   Settings.IR_RIGHT = 0x808609F;
   Settings.IR_SELECT = 0x808AC53;
-  Settings.IR_BACK = 0x80822DD;
+  Settings.IR_INFO = 0x80822DD;
   Settings.IR_MUTE = 0x80828D7;
-  Settings.IR_PREVIOUS = 0x80818E7;
+  Settings.IR_POWER = 0x80818E7;
   Settings.IR_ON = 0x808926D;
   Settings.IR_OFF = 0x808926D;
   Settings.IR_1 = 0x808827D;
@@ -85,9 +85,9 @@ void setSettingsToDefault()
   Settings.IR_LEFT = 0x48ACC03F;
   Settings.IR_RIGHT = 0x48ACA05F;
   Settings.IR_SELECT = 0x48AC20DF;
-  Settings.IR_BACK = 0x80822DD;
+  Settings.IR_INFO = 0x80822DD;
   Settings.IR_MUTE = 0x80828D7;
-  Settings.IR_PREVIOUS = 0x80818E7;
+  Settings.IR_POWER = 0x80818E7;
   Settings.IR_ON = 0x48AC807F;
   Settings.IR_OFF = 0x48AC807F;
   Settings.IR_1 = 0x808827D;
@@ -207,9 +207,9 @@ String exportSettingsAsJson() {
     doc["IR_LEFT"] = String(Settings.IR_LEFT);
     doc["IR_RIGHT"] = String(Settings.IR_RIGHT);
     doc["IR_SELECT"] = String(Settings.IR_SELECT);
-    doc["IR_BACK"] = String(Settings.IR_BACK);
+    doc["IR_INFO"] = String(Settings.IR_INFO);
     doc["IR_MUTE"] = String(Settings.IR_MUTE);
-    doc["IR_PREVIOUS"] = String(Settings.IR_PREVIOUS);
+    doc["IR_POWER"] = String(Settings.IR_POWER);
     doc["IR_1"] = String(Settings.IR_1);
     doc["IR_2"] = String(Settings.IR_2);
     doc["IR_3"] = String(Settings.IR_3);
