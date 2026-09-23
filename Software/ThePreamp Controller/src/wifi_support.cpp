@@ -27,6 +27,7 @@ extern IPAddress localGateway;
 extern IPAddress subnet;
 extern unsigned long previousMillis;
 extern const long interval;
+extern unsigned long mil_LastUserInput;
 
 static byte boundedByte(JsonVariantConst value, byte fallback, byte minimum, byte maximum)
 {
@@ -207,6 +208,8 @@ static void setupNormalModeServer()
             { request->send(200, "application/json", remoteStateAsJson()); });
   server.on("/api/remote", HTTP_POST, [](AsyncWebServerRequest *request)
             {
+              mil_LastUserInput = millis();
+
               if (request->hasParam("power", true))
               {
                 if (request->getParam("power", true)->value() != "toggle")
@@ -227,6 +230,20 @@ static void setupNormalModeServer()
                 }
               }
 
+              if (request->hasParam("mute", true))
+              {
+                const String &muteValue = request->getParam("mute", true)->value();
+                if (muteValue != "toggle")
+                {
+                  request->send(400, "application/json", "{\"error\":\"Invalid mute command\"}");
+                  return;
+                }
+                if (RuntimeSettings.Muted)
+                  unmuteOutput();
+                else
+                  muteOutput();
+              }
+
               if (request->hasParam("volume", true))
               {
                 int volume = request->getParam("volume", true)->value().toInt();
@@ -243,20 +260,20 @@ static void setupNormalModeServer()
             });
 
   server.on("/INPUT1", HTTP_GET, [](AsyncWebServerRequest *request)
-            { request->send(200, "text/plain", String(setInput(0))); });
+            { mil_LastUserInput = millis(); request->send(200, "text/plain", String(setInput(0))); });
   server.on("/INPUT2", HTTP_GET, [](AsyncWebServerRequest *request)
-            { request->send(200, "text/plain", String(setInput(1))); });
+            { mil_LastUserInput = millis(); request->send(200, "text/plain", String(setInput(1))); });
   server.on("/INPUT3", HTTP_GET, [](AsyncWebServerRequest *request)
-            { request->send(200, "text/plain", String(setInput(2))); });
+            { mil_LastUserInput = millis(); request->send(200, "text/plain", String(setInput(2))); });
   server.on("/INPUT4", HTTP_GET, [](AsyncWebServerRequest *request)
-            { request->send(200, "text/plain", String(setInput(3))); });
+            { mil_LastUserInput = millis(); request->send(200, "text/plain", String(setInput(3))); });
   server.on("/INPUT5", HTTP_GET, [](AsyncWebServerRequest *request)
-            { request->send(200, "text/plain", String(setInput(4))); });
+            { mil_LastUserInput = millis(); request->send(200, "text/plain", String(setInput(4))); });
 
   server.on("/MUTE", HTTP_GET, [](AsyncWebServerRequest *request)
-            { muteOutput(); request->send(200, "text/plain", "Mute"); });
+            { mil_LastUserInput = millis(); muteOutput(); request->send(200, "text/plain", "Mute"); });
   server.on("/UNMUTE", HTTP_GET, [](AsyncWebServerRequest *request)
-            { unmuteOutput(); request->send(200, "text/plain", "Unmute"); });
+            { mil_LastUserInput = millis(); unmuteOutput(); request->send(200, "text/plain", "Unmute"); });
 
   server.serveStatic("/", SPIFFS, "/");
   ElegantOTA.begin(&server);

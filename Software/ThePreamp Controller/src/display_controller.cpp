@@ -52,36 +52,37 @@ void right_display_update(void)
 {
   right_display.clearBuffer();
 
-  if (Settings.DisplayVolume)
+  // HT passthrough runs at a fixed level set by the AV receiver, so showing a volume value would be misleading
+  bool isHtPassthrough = Settings.Input[RuntimeSettings.CurrentInput].Active == INPUT_HT_PASSTHROUGH;
+
+  if (RuntimeSettings.Muted)
   {
     right_display.setFont(u8g2_font_inb63_mn);
-    if (!RuntimeSettings.Muted)
+    int16_t textWidth = right_display.getStrWidth("MUTE");
+    int16_t xPos = (256 - textWidth) / 2;
+    int16_t yPos = 63;
+    right_display.drawStr(xPos, yPos, "MUTE");
+  }
+  else if (Settings.DisplayVolume && !isHtPassthrough)
+  {
+    right_display.setFont(u8g2_font_inb63_mn);
+    if (Settings.DisplayVolume == 1)
     {
-      if (Settings.DisplayVolume == 1)
-      {
-        char buffer[10];
-        snprintf(buffer, sizeof(buffer), "%d", RuntimeSettings.CurrentVolume);
-        int16_t textWidth = right_display.getStrWidth(buffer);
-        int16_t xPos = (256 - textWidth) / 2;
-        int16_t yPos = 63;
-        right_display.drawStr(xPos, yPos, buffer);
-      }
-      else
-      {
-        char buffer[10];
-        snprintf(buffer, sizeof(buffer), "%d", (calculateAttenuation(RuntimeSettings.CurrentVolume, Settings.VolumeSteps, Settings.MinAttenuation, Settings.MaxAttenuation) / 4));
-        int16_t textWidth = right_display.getStrWidth(buffer);
-        int16_t xPos = (256 - textWidth) / 2;
-        int16_t yPos = 63;
-        right_display.drawStr(xPos, yPos, buffer);
-      }
+      char buffer[10];
+      snprintf(buffer, sizeof(buffer), "%d", RuntimeSettings.CurrentVolume);
+      int16_t textWidth = right_display.getStrWidth(buffer);
+      int16_t xPos = (256 - textWidth) / 2;
+      int16_t yPos = 63;
+      right_display.drawStr(xPos, yPos, buffer);
     }
     else
     {
-      int16_t textWidth = right_display.getStrWidth("MUTE");
+      char buffer[10];
+      snprintf(buffer, sizeof(buffer), "%d", (calculateAttenuation(RuntimeSettings.CurrentVolume, Settings.VolumeSteps, Settings.MinAttenuation, Settings.MaxAttenuation) / 4));
+      int16_t textWidth = right_display.getStrWidth(buffer);
       int16_t xPos = (256 - textWidth) / 2;
       int16_t yPos = 63;
-      right_display.drawStr(xPos, yPos, "MUTE");
+      right_display.drawStr(xPos, yPos, buffer);
     }
   }
 

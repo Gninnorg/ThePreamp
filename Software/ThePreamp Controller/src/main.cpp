@@ -408,6 +408,10 @@ void loop()
       }
       break;
     }
+    // Some commands (e.g. changing input, ramping volume) block for a while; refresh the timestamp so that
+    // processing time isn't counted as idle time and the screen saver doesn't re-trigger right after waking up
+    if (UIkey != KEY_NONE)
+      mil_LastUserInput = millis();
     break;
 
   case APP_BALANCE_MODE:
