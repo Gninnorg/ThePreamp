@@ -17,7 +17,7 @@ Firmware for an ESP32-based controller for "ThePreAmp" — a Muses72323-based au
 Defined by `AppModeValues` in [include/controller_config.h](include/controller_config.h) and driven from `loop()` in [src/main.cpp](src/main.cpp):
 
 - `APP_NORMAL_MODE` — normal operation: volume, input selection, mute, screen saver, standby timers.
-- `APP_BALANCE_MODE` — entered via `KEY_SELECT`; `KEY_UP`/`KEY_DOWN` adjust balance, `KEY_SELECT` again saves it and returns to normal mode.
+- `APP_BALANCE_MODE` — entered via `KEY_SELECT`; `KEY_UP`/`KEY_DOWN` adjust balance in 0.25 dB steps up to ±6 dB (`BALANCE_MAX_OFFSET`), `KEY_SELECT` again saves it and returns to normal mode.
 - `APP_STANDBY_MODE` — entered via `KEY_OFF` or an inactivity/temperature timeout; only `KEY_ON` (double-click of encoder 2, or an IR "on" code) is handled, which re-runs `startUp()`.
 
 ## Startup / trigger sequence
@@ -30,7 +30,7 @@ Defined by `AppModeValues` in [include/controller_config.h](include/controller_c
 4. Blocks in a loop until every active trigger has fired:
    - Turns a trigger on (`setTriggerXOn()`, see [src/trigger_controller.cpp](src/trigger_controller.cpp)) once its target time is reached.
    - Every 100 ms, updates both displays via `displayTriggerCountdown()` ([src/display_controller.cpp](src/display_controller.cpp)): shows `"Wait... N"` while counting down, `"On"` once fired, or nothing for a disabled trigger.
-5. Selects the current input, clamps its startup volume to `MaxStartVolume`, unmutes the output relay, and refreshes both displays.
+5. Selects the current input, clamps its startup volume to `MaxStartVolume`, unmutes (standby leaves the mute flag set, so `unmute()` re-applies the volume and updates the display), enables the output relay, and refreshes both displays.
 
 Trigger on/off (`setTrigger1/2On/Off` in [src/trigger_controller.cpp](src/trigger_controller.cpp)) always checks `TriggerXActive` first (a no-op if disabled), and honors `TriggerXType`: `0` = pulsed (200 ms pulse then release), otherwise latched (stays energized). Triggers are turned off in `toStandbyMode()` in [src/input_controller.cpp](src/input_controller.cpp).
 
@@ -54,7 +54,7 @@ Trigger on/off (`setTrigger1/2On/Off` in [src/trigger_controller.cpp](src/trigge
 
 ## Settings persistence
 
-[src/controller_config.cpp](src/controller_config.cpp) defines `Settings` (`mySettings`, persistent configuration — network, volume limits, per-input config, IR codes, triggers, display options) and `RuntimeSettings` (`myRuntimeSettings`, current input/volume/mute/balance memory), both stored in and loaded from external EEPROM. `exportSettingsAsJson()` serializes `Settings` to JSON for the web UI and WebSerial console. On boot, if the stored `Version` doesn't match the firmware's `VERSION`, defaults are written (EEPROM layout changed).
+[src/controller_config.cpp](src/controller_config.cpp) defines `Settings` (`mySettings`, persistent configuration — network, volume limits, per-input config, IR codes, triggers, display options) and `RuntimeSettings` (`myRuntimeSettings`, current input/volume/mute/balance memory), both stored in and loaded from external EEPROM. `exportSettingsAsJson()` serializes `Settings` to JSON (ArduinoJson 7 API: `JsonDocument`) for the web UI and WebSerial console. On boot, if the stored `Version` doesn't match the firmware's `VERSION`, defaults are written (EEPROM layout changed).
 
 ## Network endpoints
 
