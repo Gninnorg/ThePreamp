@@ -185,7 +185,7 @@ float getTemperature(uint8_t pinNmbr)
 }
 
 String exportSettingsAsJson() {
-    StaticJsonDocument<2048> doc;
+    JsonDocument doc;
 
     doc["ssid"] = Settings.ssid;
     // Wi-Fi password is write-only - never sent back to clients
@@ -216,9 +216,9 @@ String exportSettingsAsJson() {
     doc["IR_4"] = String(Settings.IR_4);
     doc["IR_5"] = String(Settings.IR_5);
 
-    JsonArray inputs = doc.createNestedArray("Input");
+    JsonArray inputs = doc["Input"].to<JsonArray>();
     for (int i = 0; i < 5; i++) {
-        JsonObject input = inputs.createNestedObject();
+        JsonObject input = inputs.add<JsonObject>();
         input["Active"] = Settings.Input[i].Active;
         input["Name"] = Settings.Input[i].Name;
         input["MaxVol"] = Settings.Input[i].MaxVol;
