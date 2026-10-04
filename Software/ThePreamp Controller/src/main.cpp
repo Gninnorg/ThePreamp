@@ -293,6 +293,9 @@ void startUp()
   RuntimeSettings.InputLastVol[RuntimeSettings.CurrentInput] = minimum(RuntimeSettings.InputLastVol[RuntimeSettings.CurrentInput], Settings.MaxStartVolume); // Avoid setting volume higher than MaxStartVol
   setInput(RuntimeSettings.CurrentInput);
 
+  // setInput() returns early for the already-selected input and toStandbyMode() leaves the mute flag set, so unmute and apply the volume here
+  unmute();
+
   // Enable output / trigger output relay
   unmuteOutput();
 
