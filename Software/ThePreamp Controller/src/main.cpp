@@ -59,6 +59,7 @@
 #include "audio_controller.h"
 #include "input_controller.h"
 #include "trigger_controller.h"
+#include "mqtt_controller.h"
 
 #undef minimum
 #ifndef minimum
@@ -222,6 +223,7 @@ void setup() {
   }
   
   startWiFiSupport();
+  mqttBegin();
 
   // Set pin mode for control of power relay
   pinMode(POWER_CONTROL_PIN, OUTPUT);
@@ -315,6 +317,7 @@ void loop()
 {
   ElegantOTA.loop();
   WebSerial.loop();
+  mqttLoop();
   
   UIkey = getUserCommand();
   if (requestedPowerCommand != KEY_NONE)
@@ -339,15 +342,15 @@ void loop()
     */
 
     // Turn Screen Saver on/off if it is activated and if no user input has been received during the defined number of seconds
-  if (UIkey == KEY_NONE)
-  {
-    if ((!ScreenSaverIsOn && (millis() - mil_LastUserInput > (unsigned long)Settings.DisplayTimeout * 1000)) && Settings.ScreenSaverActive)
+    if (UIkey == KEY_NONE)
     {
-      ScreenSaverOn();
+      if ((!ScreenSaverIsOn && (millis() - mil_LastUserInput > (unsigned long)Settings.DisplayTimeout * 1000)) && Settings.ScreenSaverActive)
+      {
+        ScreenSaverOn();
+      }
     }
-  }
-  else if (appMode != APP_STANDBY_MODE)
-    ScreenSaverOff();
+    else if (appMode != APP_STANDBY_MODE)
+      ScreenSaverOff();
 
     switch (UIkey)
     {
@@ -440,7 +443,6 @@ void loop()
     break;
 
   case APP_STANDBY_MODE:
-  {
     // Do nothing if in APP_STANDBY_MODE - unless the user presses KEY_ONOFF. By the way: you don't need an IR remote: a doubleclick on encoder_2 is also KEY_ONOFF
     switch (UIkey)
     {
@@ -452,21 +454,6 @@ void loop()
       }
       break;
     }
-    /*- TO DO
-    // Send temperature notification via websocket while in standby mode
-    if (millis() > mil_onRefreshTemperatureDisplay + (TEMP_REFRESH_INTERVAL_STANDBY))
-    {
-      // notifyClients(getJSONTempValues());
-      mil_onRefreshTemperatureDisplay = millis();
-    }
-    */
     break;
   }
-  }
 }
-
-
-// Trigger 1 relay -> MCP23008 pin 2 Right
-// Trigger 2 relay -> MCP23008 pin 1 Left
-
-

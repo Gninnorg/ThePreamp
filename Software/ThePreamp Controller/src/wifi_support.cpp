@@ -5,6 +5,7 @@
 #include "display_controller.h"
 #include "input_controller.h"
 #include "wifi_QR.h"
+#include "mqtt_controller.h"
 #include <ESPAsyncWebServer.h>
 #include <DNSServer.h>
 #include <ElegantOTA.h>
@@ -300,9 +301,9 @@ static void setupNormalModeServer()
                   return;
                 }
                 if (RuntimeSettings.Muted)
-                  unmuteOutput();
+                  unmute();
                 else
-                  muteOutput();
+                  mute();
               }
 
               if (request->hasParam("volume", true))
@@ -320,6 +321,47 @@ static void setupNormalModeServer()
               request->send(200, "application/json", remoteStateAsJson());
             });
 
+  server.on("/api/mqtt", HTTP_GET, [](AsyncWebServerRequest *request)
+            {
+              const MqttConfig &config = mqttGetConfig();
+              JsonDocument document;
+              document["enabled"] = config.enabled;
+              document["host"] = config.host;
+              document["port"] = config.port;
+              document["user"] = config.user;
+              document["baseTopic"] = config.baseTopic;
+              document["connected"] = mqttIsConnected();
+              String output;
+              serializeJson(document, output);
+              request->send(200, "application/json", output);
+            });
+  server.on("/api/mqtt", HTTP_POST, [](AsyncWebServerRequest *request)
+            {
+              MqttConfig config = mqttGetConfig();
+              if (request->hasParam("enabled", true))
+                config.enabled = request->getParam("enabled", true)->value() == "true";
+              if (request->hasParam("host", true))
+                strlcpy(config.host, request->getParam("host", true)->value().c_str(), sizeof(config.host));
+              if (request->hasParam("port", true))
+              {
+                int port = request->getParam("port", true)->value().toInt();
+                if (port < 1 || port > 65535)
+                {
+                  request->send(400, "application/json", "{\"error\":\"Invalid port\"}");
+                  return;
+                }
+                config.port = port;
+              }
+              if (request->hasParam("user", true))
+                strlcpy(config.user, request->getParam("user", true)->value().c_str(), sizeof(config.user));
+              // A blank password keeps the stored one
+              if (request->hasParam("pass", true) && request->getParam("pass", true)->value().length() > 0)
+                strlcpy(config.pass, request->getParam("pass", true)->value().c_str(), sizeof(config.pass));
+              if (request->hasParam("baseTopic", true))
+                strlcpy(config.baseTopic, request->getParam("baseTopic", true)->value().c_str(), sizeof(config.baseTopic));
+              mqttSetConfig(config);
+              request->send(200, "application/json", "{\"ok\":true}");
+            });
   server.on("/api/ir-learn/start", HTTP_POST, [](AsyncWebServerRequest *request)
             { mil_LastUserInput = millis(); startIrLearning(); request->send(200, "application/json", "{\"learning\":true}"); });
   server.on("/api/ir-learn/cancel", HTTP_POST, [](AsyncWebServerRequest *request)
@@ -371,9 +413,9 @@ static void setupNormalModeServer()
             { mil_LastUserInput = millis(); request->send(200, "text/plain", String(setInput(4))); });
 
   server.on("/MUTE", HTTP_GET, [](AsyncWebServerRequest *request)
-            { mil_LastUserInput = millis(); muteOutput(); request->send(200, "text/plain", "Mute"); });
+            { mil_LastUserInput = millis(); mute(); request->send(200, "text/plain", "Mute"); });
   server.on("/UNMUTE", HTTP_GET, [](AsyncWebServerRequest *request)
-            { mil_LastUserInput = millis(); unmuteOutput(); request->send(200, "text/plain", "Unmute"); });
+            { mil_LastUserInput = millis(); unmute(); request->send(200, "text/plain", "Unmute"); });
 
   server.serveStatic("/", SPIFFS, "/");
   ElegantOTA.begin(&server);

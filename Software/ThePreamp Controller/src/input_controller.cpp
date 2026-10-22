@@ -194,7 +194,7 @@ void toStandbyMode()
   appMode = APP_STANDBY_MODE;
   writeRuntimeSettingsToEEPROM();
   mute();
-  unmuteOutput();
+  muteOutput();
   left_display.clearDisplay();
   right_display.clearDisplay();
   setTrigger1Off();

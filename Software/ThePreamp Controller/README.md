@@ -110,3 +110,16 @@ Broadcasts an open AP named `ThePreAmp` with a captive-portal-style DNS server (
 ## Client-side gotcha
 
 [data/settings.html](data/settings.html)'s `payload()` function must convert every non-checkbox form field (including `<select>` elements, whose `type` is `select-one`) to a JSON number before POSTing — the server's `boundedByte()` in [src/wifi_support.cpp](src/wifi_support.cpp) only accepts numeric JSON values and silently keeps the previous setting otherwise. After editing `data/`, remember to rebuild **and re-upload** the SPIFFS image (`uploadfs`), and hard-refresh the browser (`data/` files are served without cache-control headers, so browsers may serve a stale cached copy).
+
+## MQTT / Home Assistant
+
+[src/mqtt_controller.cpp](src/mqtt_controller.cpp) connects to an MQTT broker (PubSubClient, handled from `loop()`) and publishes Home Assistant MQTT discovery for four entities: **Power** (switch), **Mute** (switch), **Volume** (number, 0..`VolumeSteps`) and **Input** (select, using the configured input names).
+
+Configuration is stored in NVS (not the EEPROM settings). Set it in the **MQTT / Home Assistant** section of the web settings page ([data/settings.html](data/settings.html)) or via the web API:
+
+```
+curl -X POST http://<preamp-ip>/api/mqtt -d enabled=true -d host=192.168.1.10 -d port=1883 -d user=ha -d pass=secret -d baseTopic=thepreamp
+curl http://<preamp-ip>/api/mqtt     # current config + connection state
+```
+
+Topics (default base `thepreamp`): `<base>/status` (`online`/`offline`, LWT), `<base>/state` (retained JSON: `power`, `volume`, `mute`, `input`, `input_index`), and commands on `<base>/power/set` (`ON`/`OFF`), `<base>/mute/set` (`ON`/`OFF`), `<base>/volume/set` (step number) and `<base>/input/set` (input name). Mute/volume/input commands are ignored while in standby.
