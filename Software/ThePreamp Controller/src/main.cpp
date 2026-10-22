@@ -436,6 +436,12 @@ void loop()
   case APP_INFO_MODE:
     switch (UIkey)
     {
+    case KEY_LEFT:
+      changeInfoPage(-1);
+      break;
+    case KEY_RIGHT:
+      changeInfoPage(1);
+      break;
     case KEY_SELECT:
       toAppNormalMode();
       break;

@@ -35,5 +35,6 @@ byte getUserCommand();
 void requestPowerToggle();
 void startIrLearning();
 void showInfoScreen();
+void changeInfoPage(int direction);
 
 #endif

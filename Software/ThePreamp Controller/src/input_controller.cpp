@@ -291,8 +291,17 @@ void saveBalance()
   toAppNormalMode();
 }
 
+static byte infoPage = 0;
+
 void showInfoScreen()
 {
   appMode = APP_INFO_MODE;
-  displayInfoScreen();
+  infoPage = 0;
+  displayInfoScreen(infoPage);
+}
+
+void changeInfoPage(int direction)
+{
+  infoPage = (infoPage + INFO_PAGE_COUNT + direction) % INFO_PAGE_COUNT;
+  displayInfoScreen(infoPage);
 }

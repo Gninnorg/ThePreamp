@@ -20,7 +20,8 @@ void displayBalance(byte Value); // Value 0-254, 127 is centered
 void displayLogo(void);
 // For each trigger: -1 = nothing to show, -2 = trigger has been turned on ("On"), >=0 = seconds remaining ("Wait... N")
 void displayTriggerCountdown(int trigger1SecondsRemaining, int trigger2SecondsRemaining);
-void displayInfoScreen(void);
+void displayInfoScreen(byte page); // page 0 = IP/QR code, page 1 = build dates
+#define INFO_PAGE_COUNT 2
 void ScreenSaverOn(void);
 void ScreenSaverOff(void);
 

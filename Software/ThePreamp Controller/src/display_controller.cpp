@@ -2,7 +2,9 @@
 #include "controller_config.h"
 #include "audio_controller.h"
 #include "logo.h"
+#include "build_info.h"
 #include <WiFi.h>
+#include <SPIFFS.h>
 #include <qrcode.h>
 
 extern unsigned long mil_LastUserInput;
@@ -178,8 +180,33 @@ void displayTriggerCountdown(int trigger1SecondsRemaining, int trigger2SecondsRe
   right_display.sendBuffer();
 }
 
-void displayInfoScreen(void)
+void displayInfoScreen(byte page)
 {
+  if (page == 1)
+  {
+    String fsBuild = "Unknown";
+    File f = SPIFFS.open("/buildinfo.txt", "r");
+    if (f)
+    {
+      fsBuild = f.readString();
+      fsBuild.trim();
+      f.close();
+    }
+
+    left_display.clearBuffer();
+    left_display.setFont(u8g2_font_luBS18_tf);
+    left_display.drawStr(0, 31, "Firmware built:");
+    left_display.drawStr(0, 58, FIRMWARE_BUILD_TIME);
+    left_display.sendBuffer();
+
+    right_display.clearBuffer();
+    right_display.setFont(u8g2_font_luBS18_tf);
+    right_display.drawStr(0, 31, "Filesystem built:");
+    right_display.drawStr(0, 58, fsBuild.c_str());
+    right_display.sendBuffer();
+    return;
+  }
+
   bool connected = WiFi.status() == WL_CONNECTED;
   String ip = connected ? WiFi.localIP().toString() : "Not connected";
 
