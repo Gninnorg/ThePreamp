@@ -7,17 +7,20 @@
 **
 **   Todo
 **   - DONE - check output relay
-**   - DONEclean up
+**   - DONE- clean up
 **   - DONE - add discrete on/off
 **   - DONE - add support for learning IR codes 
-**   - DONE Add support for balance control
+**   - DONE - Add support for balance control
 **   - DONE - Add support for gain control
 **   - Add support for temperature display
-**   - Add support for MQTT
-**   - Add UI for settings
+**   - DONE - support for MQTT
+**   - DONE - UI for settings
 **   - Shrink Elegant OTA - Remove personalization
 **   - DONE - Add trigger control at startup
-**
+**   - FIX PROBLEM WHERE MUTE IS CANCELLED WHEN INPUT IS CHANGED
+**   - BEAUTIFY UI REMOTE - FULL REMOTE SHOULD BE VISIBLE WITHOUT SCROLLING
+**   - FIX PROBLEM WHERE RIGHT SCREEN IS MIRRORED TO LEFT SCREEN
+
 */
 
 
@@ -166,6 +169,19 @@ void startUp();
 void loop();
 
 void setup() {
+  // Both displays share SCK, MOSI and DC. U8g2 only drives a display's CS pin high in its own begin(),
+  // so until then a floating CS lets the other display listen in and mirror what is sent to its neighbour.
+  // Pull the display CS lines up first so they never float, then deselect every SPI device and release the resets.
+  pinMode(SPI_CS_RIGHT_DISPLAY_PIN, INPUT_PULLUP);
+  pinMode(SPI_CS_LEFT_DISPLAY_PIN, INPUT_PULLUP);
+  const uint8_t spiDeselectPins[] = {SPI_CS_MUSES_PIN, SPI_CS_RIGHT_DISPLAY_PIN, SPI_CS_LEFT_DISPLAY_PIN,
+                                     SPI_RST_RIGHT_DISPLAY_PIN, SPI_RST_LEFT_DISPLAY_PIN};
+  for (uint8_t pin : spiDeselectPins)
+  {
+    digitalWrite(pin, HIGH);
+    pinMode(pin, OUTPUT);
+  }
+
   // Serial port for debugging purposes
   #if DEBUG == 1
     Serial.begin(115200);
@@ -182,6 +198,10 @@ void setup() {
   left_display.setBusClock(4000000);
   left_display.begin();
   left_display.setFont(u8g2_font_inb63_mn);
+
+  // Start from a known state on both displays
+  right_display.clearDisplay();
+  left_display.clearDisplay();
   
   setupRotaryEncoders();
   
