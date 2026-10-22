@@ -18,9 +18,13 @@ Project: `Software\ThePreamp Controller` (PlatformIO, env `esp32doit-devkit-v1`,
    .\.github\skills\flash-preamp\flash.ps1 -Target usb            # serial upload
    ```
 
-3. The script builds firmware (`pio run`), builds the filesystem (`pio run -t buildfs`), then uploads.
-   - OTA: uploads the filesystem first, then the firmware (which reboots the device), using ElegantOTA's `/ota/start?mode=fs|fr` and `/ota/upload`.
-   - USB: `pio run -t uploadfs` then `pio run -t upload`.
+3. The script only builds and uploads what changed:
+   - It hashes the firmware inputs (`src`, `include`, `lib`, `platformio.ini`, `build_stamp.py`) and the filesystem inputs (`data\`). The two files `build_stamp.py` rewrites on every build (`include\build_info.h`, `data\buildinfo.txt`) are ignored.
+   - Firmware is rebuilt (`pio run`) only if its inputs changed or `firmware.bin` is missing; the filesystem image (`pio run -t buildfs`) only if `data\` changed or the image is missing.
+   - Uploads are skipped per target when that host already received the same firmware/filesystem. State is kept in `.pio\flash-state\`.
+   - Use `-Force` to rebuild and upload everything regardless.
+   - OTA: uploads the filesystem first (if needed), then the firmware (which reboots the device), using ElegantOTA's `/ota/start?mode=fs|fr` and `/ota/upload`.
+   - USB: `pio run -t nobuild -t uploadfs` then `pio run -t nobuild -t upload` (nobuild avoids a rebuild caused by the build stamp).
 4. Report any build or upload error output. After success, remind the user to hard-refresh the browser (data files are served without cache headers).
 
 ## Notes
