@@ -60,11 +60,23 @@ void right_display_update(void)
 
   if (RuntimeSettings.Muted)
   {
-    right_display.setFont(u8g2_font_inb63_mn);
-    int16_t textWidth = right_display.getStrWidth("MUTE");
-    int16_t xPos = (256 - textWidth) / 2;
-    int16_t yPos = 63;
-    right_display.drawStr(xPos, yPos, "MUTE");
+    // Speaker with a cross over it, drawn with primitives and centered on the 256x64 display
+    right_display.drawBox(108, 21, 16, 22);
+    right_display.drawTriangle(124, 21, 150, 5, 150, 59);
+    right_display.drawTriangle(124, 21, 150, 59, 124, 43);
+    // Black halo first so the cross stays visible on top of the filled speaker
+    right_display.setDrawColor(0);
+    for (int8_t o = -5; o <= 5; o++)
+    {
+      right_display.drawLine(100 + o, 6, 158 + o, 58);
+      right_display.drawLine(100 + o, 58, 158 + o, 6);
+    }
+    right_display.setDrawColor(1);
+    for (int8_t o = -2; o <= 2; o++)
+    {
+      right_display.drawLine(100 + o, 6, 158 + o, 58);
+      right_display.drawLine(100 + o, 58, 158 + o, 6);
+    }
   }
   else if (Settings.DisplayVolume && !isHtPassthrough)
   {

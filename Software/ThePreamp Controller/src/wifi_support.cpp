@@ -304,6 +304,8 @@ static void setupNormalModeServer()
                   unmute();
                 else
                   mute();
+                if (appMode == APP_NORMAL_MODE)
+                  right_display_update();
               }
 
               if (request->hasParam("volume", true))
@@ -413,7 +415,7 @@ static void setupNormalModeServer()
             { mil_LastUserInput = millis(); request->send(200, "text/plain", String(setInput(4))); });
 
   server.on("/MUTE", HTTP_GET, [](AsyncWebServerRequest *request)
-            { mil_LastUserInput = millis(); mute(); request->send(200, "text/plain", "Mute"); });
+            { mil_LastUserInput = millis(); mute(); if (appMode == APP_NORMAL_MODE) right_display_update(); request->send(200, "text/plain", "Mute"); });
   server.on("/UNMUTE", HTTP_GET, [](AsyncWebServerRequest *request)
             { mil_LastUserInput = millis(); unmute(); request->send(200, "text/plain", "Unmute"); });
 
