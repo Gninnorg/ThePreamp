@@ -420,6 +420,8 @@ static void setupNormalModeServer()
             { mil_LastUserInput = millis(); unmute(); request->send(200, "text/plain", "Unmute"); });
 
   server.serveStatic("/", SPIFFS, "/");
+  server.onNotFound([](AsyncWebServerRequest *request)
+                    { request->send(404, "text/plain", "Not found"); });
   ElegantOTA.begin(&server);
   WebSerial.begin(&server);
   WebSerial.onMessage([](uint8_t *data, size_t len) {
@@ -477,10 +479,6 @@ static void setupAccessPointServer()
   debug("AP IP address: ");
   debugln(WiFi.softAPIP());
 
-  server.on("/style.css", HTTP_GET, [](AsyncWebServerRequest *request)
-            { AsyncWebServerResponse *response = request->beginResponse(SPIFFS, "/style.css.gz", "text/css");
-              response->addHeader("Content-Encoding", "gzip");
-              request->send(response); });
   server.on("update.html", HTTP_GET, [](AsyncWebServerRequest *request)
             { request->send(SPIFFS, "/update.html", "text/html"); });
   server.onNotFound([](AsyncWebServerRequest *request)

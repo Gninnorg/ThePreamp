@@ -1,32 +1,54 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>ThePreAmp - Setup WiFi</title>
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet"  href="style.css">
+  <meta name="theme-color" content="#0b0f14">
+  <title>ThePreAmp - Setup WiFi</title>
+  <style>
+    :root { --bg:#0b0f14; --panel:#141b22; --panel-2:#1a242e; --line:#2d3a45; --text:#edf3f5; --muted:#9cabb5; --aqua:#50d8c0; --orange:#ff8758; }
+    * { box-sizing:border-box; } body { min-width:320px; margin:0; background:radial-gradient(ellipse at 100% 0,#17313a 0,transparent 38%),var(--bg); color:var(--text); font:16px "Trebuchet MS",sans-serif; } main { max-width:600px; margin:auto; padding:24px 16px 40px; }
+    header { padding:8px 2px 28px; } h1,p,h2 { margin:0; } h1 { font:700 1.45rem Georgia,serif; letter-spacing:1px; } header p { margin-top:5px; color:var(--muted); font-size:.83rem; }
+    .panel { margin-bottom:13px; border:1px solid var(--line); border-radius:8px; background:linear-gradient(135deg,#172029,#11181f); box-shadow:0 10px 26px #00000020; overflow:hidden; } .panel h2 { padding:16px; border-bottom:1px solid var(--line); font-size:1rem; } .body { padding:16px; }
+    .hint { margin-bottom:14px; color:var(--muted); font-size:.88rem; line-height:1.45; }
+    label { display:block; margin-bottom:14px; color:var(--aqua); font-size:.72rem; font-weight:bold; letter-spacing:1.2px; text-transform:uppercase; }
+    input[type=text], input[type=password] { display:block; width:100%; min-height:42px; margin-top:7px; padding:8px 12px; border:1px solid var(--line); border-radius:4px; background:var(--panel-2); color:var(--text); font:1rem "Trebuchet MS",sans-serif; letter-spacing:normal; text-transform:none; outline:none; }
+    input[type=text]:focus, input[type=password]:focus { border-color:var(--aqua); }
+    input::placeholder { color:#66767f; }
+    .submit { min-height:42px; padding:8px 18px; border:1px solid var(--orange); border-radius:4px; background:transparent; color:var(--orange); font:600 .82rem Georgia,serif; cursor:pointer; letter-spacing:.7px; text-transform:uppercase; } .submit:active { transform:scale(.97); }
+    .actions { display:flex; justify-content:flex-end; }
+  </style>
 </head>
 <body>
-  <main class="container">
-    <h1>Configure access to Wifi</h1>
+  <main>
+    <header><h1>ThePreAmp</h1><p>Setup WiFi</p></header>
     <form action="/" method="POST">
-          <p>To connect ThePreAmp to your network enter SSID and Password for your Wifi.</p>
+      <section class="panel">
+        <h2>Network</h2>
+        <div class="body">
+          <p class="hint">To connect ThePreAmp to your network enter SSID and Password for your WiFi.</p>
           <label for="ssid">SSID
-            <input type="text" id ="ssid" name="ssid" placeholder="SSID"/>
+            <input type="text" id="ssid" name="ssid" placeholder="SSID" autocapitalize="none" autocomplete="off">
           </label>
           <label for="pass">Password
-            <input type="text" id ="pass" name="pass" placeholder="Password"/>
+            <input type="text" id="pass" name="pass" placeholder="Password" autocapitalize="none" autocomplete="off">
           </label>
-          <p></p>
-          <p>Leave the fields blank if you want this configuration to be done by your router. Enter IP if you want ThePreAmp to use fixed IP-address. </p>
-          <label for="ip">IP-address
-            <input type="text" id ="ip" name="ip" placeholder="IP-adress"/>
+        </div>
+      </section>
+      <section class="panel">
+        <h2>Fixed IP (optional)</h2>
+        <div class="body">
+          <p class="hint">Leave the fields blank if you want this configuration to be done by your router. Enter IP if you want ThePreAmp to use a fixed IP address.</p>
+          <label for="ip">IP address
+            <input type="text" id="ip" name="ip" placeholder="IP address" autocomplete="off">
           </label>
-          <label for="mask">Router address
-            <input type="text" id ="gateway" name="gateway" value="" placeholder="Router address"/>
+          <label for="gateway">Router address
+            <input type="text" id="gateway" name="gateway" placeholder="Router address" autocomplete="off">
           </label>
-            <input type ="submit" value ="Submit">
-          </p>
-      </form>
+        </div>
+      </section>
+      <div class="actions"><input class="submit" type="submit" value="Submit"></div>
+    </form>
   </main>
 </body>
 </html>
