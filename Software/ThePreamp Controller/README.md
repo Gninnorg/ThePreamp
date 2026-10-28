@@ -73,7 +73,7 @@ Set up in [src/wifi_support.cpp](src/wifi_support.cpp). Two modes:
 
 | Path | Method | Description |
 |---|---|---|
-| `/` , `/remote` | GET | [remote.html](data/remote.html) — remote-control web UI |
+| `/` , `/remote` | GET | [remote.html](data/remote.html) — remote-control web UI (input picked from a dialog; volume hidden for HT-passthrough inputs) |
 | `/settings.html` (via static handler) | GET | [settings.html](data/settings.html) — full settings editor UI |
 | `/update.html` (via static handler) | GET | [update.html](data/update.html) — firmware/filesystem update helper page |
 | any other static asset in `data/` | GET | served as-is via `server.serveStatic("/", SPIFFS, "/")` |
@@ -84,7 +84,7 @@ Set up in [src/wifi_support.cpp](src/wifi_support.cpp). Two modes:
 |---|---|---|
 | `/api/settings` | GET | Returns the full `Settings` structure as JSON (`exportSettingsAsJson()`) |
 | `/api/settings` | POST | Body: `settings=<url-encoded JSON>`. Validates and applies each field, then writes to EEPROM |
-| `/api/remote` | GET | Returns current input, volume, mute state, standby state, and per-input name/limits as JSON |
+| `/api/remote` | GET | Returns current input, volume, mute state, standby state, and per-input name/limits and HT-passthrough flag as JSON |
 | `/api/remote` | POST | Body params `input`, `volume`, `mute=toggle` and/or `power=toggle` (form-encoded). Invalid values return 400. Changes are queued for `loop()` (see below) and the returned state already reflects them |
 
 **Legacy simple GET endpoints** (plain-text responses, used by e.g. simple remote/automation integrations):

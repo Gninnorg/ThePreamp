@@ -228,6 +228,7 @@ static String remoteStateAsJson()
     JsonObject input = inputs.add<JsonObject>();
     input["name"] = Settings.Input[index].Name;
     input["active"] = Settings.Input[index].Active != INPUT_INACTIVATED;
+    input["passthrough"] = Settings.Input[index].Active == INPUT_HT_PASSTHROUGH;
     input["minVolume"] = Settings.Input[index].MinVol;
     input["maxVolume"] = Settings.Input[index].MaxVol;
   }
