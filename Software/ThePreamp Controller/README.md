@@ -124,7 +124,7 @@ Broadcasts an open AP named `ThePreAmp` with a captive-portal-style DNS server (
 ## Build, flash and test
 
 - **Build/flash:** use the `flash-preamp` skill script [../../.github/skills/flash-preamp/flash.ps1](../../.github/skills/flash-preamp/flash.ps1) (`-Target <ip>` for OTA or `-Target usb`). It rebuilds and uploads firmware and filesystem only when their inputs changed (state is kept in `.pio/flash-state/`); `-Force` overrides this.
-- **Test:** [tools/test-preamp.ps1](tools/test-preamp.ps1) exercises the web API of a running unit (pages, mute, volume, inputs, settings/MQTT endpoints) and restores the previous state; `-MqttHost` adds an MQTT mute test. [tools/TESTING.md](tools/TESTING.md) is a manual checklist for what a script can't see (displays, relays, audio, standby, IR).
+- **Test:** [tools/test-preamp.ps1](tools/test-preamp.ps1) exercises the web API of a running unit (pages, mute, volume, inputs, settings/MQTT endpoints) and restores the previous state; `-MqttHost` adds an MQTT mute test. `-IncludeDisplay` adds webcam checks of what the two displays show (input name, volume, mute, indicators, screen saver; needs a USB webcam, Python/OpenCV and Tesseract, see the [webcam skill](.github/skills/preamp-webcam-display-test/SKILL.md)). [tools/TESTING.md](tools/TESTING.md) is a manual checklist for what a script can't see (relays, audio, IR, balance/info screens).
 
 ## MQTT / Home Assistant
 

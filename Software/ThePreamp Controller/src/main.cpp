@@ -337,14 +337,25 @@ void requestPowerToggle()
 }
 
 // Runs in loop() so that all display and Muses access happens on a single task
+// Guards the requested* values, which are written by the web task and consumed here
+portMUX_TYPE requestMux = portMUX_INITIALIZER_UNLOCKED;
+
 void processPendingRequests()
 {
-  int8_t input = requestedInput;
-  int16_t volume = requestedVolume;
-  int8_t muteRequest = requestedMute;
-  requestedInput = -1;
-  requestedVolume = -1;
-  requestedMute = -1;
+  int8_t input;
+  int16_t volume;
+  int8_t muteRequest;
+  portENTER_CRITICAL(&requestMux);
+  input = requestedInput;
+  volume = requestedVolume;
+  muteRequest = requestedMute;
+  if (appMode != APP_NORMAL_MODE)
+  {
+    requestedInput = -1;
+    requestedVolume = -1;
+    requestedMute = -1;
+  }
+  portEXIT_CRITICAL(&requestMux);
 
   if (appMode != APP_NORMAL_MODE || (input < 0 && volume < 0 && muteRequest < 0))
     return;
@@ -364,6 +375,17 @@ void processPendingRequests()
   }
   if (volume >= 0)
     setVolume(volume);
+
+  // Requests stay visible to the web task (via effectiveMuted() etc.) until applied. Only clear a
+  // request that wasn't replaced meanwhile; a newer one is handled on the next pass.
+  portENTER_CRITICAL(&requestMux);
+  if (requestedInput == input)
+    requestedInput = -1;
+  if (requestedVolume == volume)
+    requestedVolume = -1;
+  if (requestedMute == muteRequest)
+    requestedMute = -1;
+  portEXIT_CRITICAL(&requestMux);
 
   mil_LastUserInput = millis();
 }

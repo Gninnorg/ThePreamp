@@ -49,6 +49,11 @@ void left_display_update(void)
     left_display.drawStr(xPos, yPos, Settings.Input[RuntimeSettings.CurrentInput].Name);
     left_display.sendBuffer();
   }
+  else
+  {
+    left_display.clearBuffer();
+    left_display.sendBuffer();
+  }
 }
 
 void right_display_update(void)

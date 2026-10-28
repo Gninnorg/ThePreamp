@@ -1,6 +1,9 @@
 param(
     [Parameter(Mandatory = $true)][string]$Target,
     [switch]$IncludePower,
+    [switch]$IncludeDisplay,
+    [int]$CameraIndex = 0,
+    [string]$TesseractPath,
     [string]$MqttHost,
     [string]$BaseTopic = "thepreamp"
 )
@@ -31,6 +34,32 @@ function Expect-Http([string]$name, [scriptblock]$call, [int]$status) {
 
 try { $orig = Get-State } catch { Write-Host "Cannot reach $base : $_" -ForegroundColor Red; exit 2 }
 if ($orig.standby) { Write-Host "Preamp is in standby - turn it on first." -ForegroundColor Yellow; exit 2 }
+if ($IncludeDisplay) {
+    if ($CameraIndex -lt 0) { Write-Host "CameraIndex must be zero or greater." -ForegroundColor Red; exit 2 }
+    $script:pythonCommand = Get-Command python -ErrorAction SilentlyContinue
+    if (-not $script:pythonCommand) { Write-Host "Python was not found on PATH." -ForegroundColor Red; exit 2 }
+    if (-not $TesseractPath) {
+        $tesseractCommand = Get-Command tesseract -ErrorAction SilentlyContinue
+        if ($tesseractCommand) { $TesseractPath = $tesseractCommand.Source }
+    }
+    if (-not $TesseractPath -or -not (Test-Path $TesseractPath)) {
+        Write-Host "Tesseract OCR was not found. Install it or pass -TesseractPath." -ForegroundColor Red
+        exit 2
+    }
+
+    $projectRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
+    $script:cameraScript = Join-Path $projectRoot ".github\skills\preamp-webcam-display-test\scripts\capture_display.py"
+    if (-not (Test-Path $script:cameraScript)) {
+        Write-Host "Webcam capture helper was not found: $script:cameraScript" -ForegroundColor Red
+        exit 2
+    }
+    & $script:pythonCommand.Source -c "import cv2" 2>$null
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "OpenCV was not found. Install it with: python -m pip install -r .github\skills\preamp-webcam-display-test\requirements.txt" -ForegroundColor Red
+        exit 2
+    }
+    . (Join-Path $PSScriptRoot "display-tests.ps1")
+}
 Write-Host "Start state: input=$($orig.selectedInput) volume=$($orig.volume) muted=$($orig.muted)"
 
 Write-Host "`n== Pages and static files =="
@@ -89,6 +118,7 @@ try {
 }
 catch { Check "GET /api/mqtt" $false $_.Exception.Message }
 
+if ($IncludeDisplay) { Invoke-DisplayTests }
 if ($MqttHost) {
     Write-Host "`n== MQTT (needs mosquitto_pub / mosquitto_sub) =="
     if (-not (Get-Command mosquitto_pub -ErrorAction SilentlyContinue)) { Write-Host "SKIP  mosquitto clients not found" -ForegroundColor Yellow }
@@ -117,10 +147,29 @@ if ($IncludePower) {
     Send-Remote @{ power = "toggle" } | Out-Null
     Start-Sleep -Seconds 6
     Check "power toggle -> standby" ((Get-State).standby -eq $true)
+
+    $countdownRestore = $null
+    if ($IncludeDisplay) {
+        Test-DisplaysBlankInStandby
+        try { $countdownRestore = Set-StartupCountdownDelays } catch { Check "set start-up trigger delays" $false $_.Exception.Message }
+        if ($null -eq $countdownRestore) { Write-Host "SKIP  No active trigger: start-up countdown not checked." -ForegroundColor Yellow }
+    }
+
     Send-Remote @{ power = "toggle" } | Out-Null
-    Start-Sleep -Seconds 10
+    if ($countdownRestore) { Test-StartupCountdown $countdownRestore }
+    # Start-up takes as long as the longest trigger delay; wait for it to finish
+    $deadline = (Get-Date).AddSeconds(45)
+    do { Start-Sleep -Seconds 2; $standby = (Get-State).standby } while ($standby -and (Get-Date) -lt $deadline)
+    Start-Sleep -Seconds 3
     Check "power toggle back -> on" ((Get-State).standby -eq $false)
+
+    if ($countdownRestore) {
+        try { Set-DeviceSettings $countdownRestore } catch { Write-Host "Could not restore trigger delays: $_" -ForegroundColor Yellow }
+    }
+    if ($IncludeDisplay) { Test-DisplaysAfterStartup }
 }
+
+if ($IncludeDisplay) { Remove-DisplayCaptures ($script:fail -gt 0) }
 
 Write-Host "`nResult: $script:pass passed, $script:fail failed"
 exit ([int]($script:fail -gt 0))
