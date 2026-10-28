@@ -47,10 +47,17 @@ Trigger on/off (`setTrigger1/2On/Off` in [src/trigger_controller.cpp](src/trigge
 [src/display_controller.cpp](src/display_controller.cpp):
 
 - `left_display_update()` — shows the selected input name (or "Set balance" while adjusting balance), if `Settings.DisplaySelectedInput` is enabled.
-- `right_display_update()` — shows volume (steps or dB) or "MUTE", Wi-Fi signal strength, and temperature bars, depending on settings.
+- `right_display_update()` — shows volume (steps or dB) or a speaker-with-cross mute icon (drawn with primitives, no text), Wi-Fi signal strength, and temperature bars, depending on settings.
 - `displayBalance()` — full-screen balance adjustment UI with a bar graph.
 - `displayTriggerCountdown()` — startup trigger countdown/status (see above).
 - `ScreenSaverOn()`/`ScreenSaverOff()` — blanks/restores both displays after `Settings.DisplayTimeout` seconds of inactivity, if `Settings.ScreenSaverActive`.
+
+### Shared SPI bus
+
+Both displays and the Muses72323 share SCK/MOSI (and the displays share DC); only their CS pins differ. Two rules keep them from showing each other's data:
+
+- At the very start of `setup()` the display CS pins are pulled up and all CS and reset pins are driven high, so no device listens in before U8g2 initializes it.
+- Only the main `loop()` task may use the displays or the Muses chip. Web handlers run on the AsyncTCP task and must never call `setInput()`, `setVolume()`, `mute()`/`unmute()` or any `*_display_update()` directly (two tasks transferring at once leaves both CS lines low, which mirrors one display onto the other). They queue a request instead — see below.
 
 ## Settings persistence
 
@@ -60,7 +67,7 @@ Trigger on/off (`setTrigger1/2On/Off` in [src/trigger_controller.cpp](src/trigge
 
 Set up in [src/wifi_support.cpp](src/wifi_support.cpp). Two modes:
 
-### Station mode (Wi-Fi configured, `setupWebserver()`)
+### Station mode (Wi-Fi configured, `setupNormalModeServer()`)
 
 **Pages (served from SPIFFS, see [data/](data)):**
 
@@ -78,15 +85,19 @@ Set up in [src/wifi_support.cpp](src/wifi_support.cpp). Two modes:
 | `/api/settings` | GET | Returns the full `Settings` structure as JSON (`exportSettingsAsJson()`) |
 | `/api/settings` | POST | Body: `settings=<url-encoded JSON>`. Validates and applies each field, then writes to EEPROM |
 | `/api/remote` | GET | Returns current input, volume, mute state, standby state, and per-input name/limits as JSON |
-| `/api/remote` | POST | Body params `input`, `volume`, and/or `power=toggle` (form-encoded); switches input, sets volume, or enters/leaves standby, then returns state |
+| `/api/remote` | POST | Body params `input`, `volume`, `mute=toggle` and/or `power=toggle` (form-encoded). Invalid values return 400. Changes are queued for `loop()` (see below) and the returned state already reflects them |
 
 **Legacy simple GET endpoints** (plain-text responses, used by e.g. simple remote/automation integrations):
 
 | Path | Method | Description |
 |---|---|---|
-| `/INPUT1` … `/INPUT5` | GET | Selects input 0–4 |
-| `/MUTE` | GET | Mutes the output relay |
-| `/UNMUTE` | GET | Unmutes the output relay |
+| `/INPUT1` … `/INPUT5` | GET | Queues selection of input 0–4; returns `1`, or `0` if the input is inactive or the unit is in standby |
+| `/MUTE` | GET | Queues mute |
+| `/UNMUTE` | GET | Queues unmute |
+
+Requests are ignored while not in normal mode (e.g. standby). Unknown paths return 404.
+
+**Request queue.** The web handlers only validate and store the request in `requestedInput`, `requestedVolume` and `requestedMute` (declared in [include/input_controller.h](include/input_controller.h)); `processPendingRequests()` in [src/main.cpp](src/main.cpp) applies them from `loop()`, like `requestedPowerCommand` does for power. MQTT commands already run inside `loop()`.
 
 **Firmware/OTA & debug:**
 
@@ -101,15 +112,19 @@ Broadcasts an open AP named `ThePreAmp` with a captive-portal-style DNS server (
 
 | Path | Method | Description |
 |---|---|---|
-| `/style.css` | GET | Gzip-compressed shared stylesheet |
 | `update.html` | GET | [update.html](data/update.html) |
 | `/` | POST | Accepts `ssid`, `pass`, `ip`, `gateway` form fields, saves them to EEPROM, and restarts the device |
-| any unmatched path (`onNotFound`) | GET | Serves [wifi.html](data/wifi.html) — Wi-Fi setup form (also shown as a QR code on the left display) |
+| any unmatched path (`onNotFound`) | GET | Serves [wifi.html](data/wifi.html) — Wi-Fi setup form, styled like the remote page with inline CSS (also shown as a QR code on the left display) |
 | `/update` (ElegantOTA) | GET/POST | Same OTA UI as above |
 
 ## Client-side gotcha
 
 [data/settings.html](data/settings.html)'s `payload()` function must convert every non-checkbox form field (including `<select>` elements, whose `type` is `select-one`) to a JSON number before POSTing — the server's `boundedByte()` in [src/wifi_support.cpp](src/wifi_support.cpp) only accepts numeric JSON values and silently keeps the previous setting otherwise. After editing `data/`, remember to rebuild **and re-upload** the SPIFFS image (`uploadfs`), and hard-refresh the browser (`data/` files are served without cache-control headers, so browsers may serve a stale cached copy).
+
+## Build, flash and test
+
+- **Build/flash:** use the `flash-preamp` skill script [../../.github/skills/flash-preamp/flash.ps1](../../.github/skills/flash-preamp/flash.ps1) (`-Target <ip>` for OTA or `-Target usb`). It rebuilds and uploads firmware and filesystem only when their inputs changed (state is kept in `.pio/flash-state/`); `-Force` overrides this.
+- **Test:** [tools/test-preamp.ps1](tools/test-preamp.ps1) exercises the web API of a running unit (pages, mute, volume, inputs, settings/MQTT endpoints) and restores the previous state; `-MqttHost` adds an MQTT mute test. [tools/TESTING.md](tools/TESTING.md) is a manual checklist for what a script can't see (displays, relays, audio, standby, IR).
 
 ## MQTT / Home Assistant
 

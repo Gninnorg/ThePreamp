@@ -20,7 +20,7 @@
 **   - FIX PROBLEM WHERE MUTE IS CANCELLED WHEN INPUT IS CHANGED
 **   - BEAUTIFY UI REMOTE - FULL REMOTE SHOULD BE VISIBLE WITHOUT SCROLLING
 **   - FIX PROBLEM WHERE RIGHT SCREEN IS MIRRORED TO LEFT SCREEN
-
+**   - INVESGIGATE IF CAMERA CAN BE USED FOR TESTING DISPLAY OUTPUT
 */
 
 
@@ -152,6 +152,9 @@ byte UIkey; // holds the last received user input (from rotary encoders or IR)
 byte lastReceivedInput = KEY_NONE;
 unsigned long last_KEY_ONOFF = millis(); // Used to ensure that fast repetition of KEY_ONOFF is not accepted
 volatile byte requestedPowerCommand = KEY_NONE;
+volatile int8_t requestedInput = -1;
+volatile int16_t requestedVolume = -1;
+volatile int8_t requestedMute = -1;
 
 // Shared controller settings and runtime state are defined in controller_config.cpp.
 
@@ -333,11 +336,44 @@ void requestPowerToggle()
   requestedPowerCommand = appMode == APP_STANDBY_MODE ? KEY_ON : KEY_OFF;
 }
 
+// Runs in loop() so that all display and Muses access happens on a single task
+void processPendingRequests()
+{
+  int8_t input = requestedInput;
+  int16_t volume = requestedVolume;
+  int8_t muteRequest = requestedMute;
+  requestedInput = -1;
+  requestedVolume = -1;
+  requestedMute = -1;
+
+  if (appMode != APP_NORMAL_MODE || (input < 0 && volume < 0 && muteRequest < 0))
+    return;
+
+  ScreenSaverOff();
+  mil_LastUserInput = millis();
+
+  if (input >= 0)
+    setInput(input);
+  if (muteRequest >= 0 && (bool)muteRequest != RuntimeSettings.Muted)
+  {
+    if (muteRequest)
+      mute();
+    else
+      unmute();
+    right_display_update();
+  }
+  if (volume >= 0)
+    setVolume(volume);
+
+  mil_LastUserInput = millis();
+}
+
 void loop()
 {
   ElegantOTA.loop();
   WebSerial.loop();
   mqttLoop();
+  processPendingRequests();
   
   UIkey = getUserCommand();
   if (requestedPowerCommand != KEY_NONE)

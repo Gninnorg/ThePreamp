@@ -33,6 +33,13 @@ extern volatile uint64_t irLearnCode;
 void setupRotaryEncoders();
 byte getUserCommand();
 void requestPowerToggle();
+
+// Web handlers run on the AsyncTCP task and must never touch the SPI bus (displays, Muses), so they only
+// queue what they want here (-1 = nothing pending) and loop() carries it out.
+extern volatile int8_t requestedInput;
+extern volatile int16_t requestedVolume;
+extern volatile int8_t requestedMute; // -1 = none, 0 = unmute, 1 = mute
+void processPendingRequests();
 void startIrLearning();
 void showInfoScreen();
 void changeInfoPage(int direction);

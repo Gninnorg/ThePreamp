@@ -161,12 +161,31 @@ static bool clearIrCode(const String &command)
   return true;
 }
 
+static bool effectiveMuted()
+{
+  return requestedMute >= 0 ? requestedMute == 1 : RuntimeSettings.Muted;
+}
+
+static byte effectiveInput()
+{
+  return requestedInput >= 0 ? requestedInput : RuntimeSettings.CurrentInput;
+}
+
+// Validates and queues an input change for loop() to carry out; the web task never touches the hardware itself
+static bool queueInput(int input)
+{
+  if (input < 0 || input > 4 || appMode != APP_NORMAL_MODE || Settings.Input[input].Active == INPUT_INACTIVATED)
+    return false;
+  requestedInput = input;
+  return true;
+}
+
 static String remoteStateAsJson()
 {
   JsonDocument document;
-  document["selectedInput"] = RuntimeSettings.CurrentInput;
-  document["volume"] = RuntimeSettings.CurrentVolume;
-  document["muted"] = RuntimeSettings.Muted;
+  document["selectedInput"] = effectiveInput();
+  document["volume"] = requestedVolume >= 0 ? requestedVolume : RuntimeSettings.CurrentVolume;
+  document["muted"] = effectiveMuted();
   document["standby"] = appMode == APP_STANDBY_MODE;
 
   JsonArray inputs = document["inputs"].to<JsonArray>();
@@ -285,7 +304,7 @@ static void setupNormalModeServer()
               if (request->hasParam("input", true))
               {
                 int input = request->getParam("input", true)->value().toInt();
-                if (input < 0 || input > 4 || !setInput(input))
+                if (!queueInput(input))
                 {
                   request->send(400, "application/json", "{\"error\":\"Invalid input\"}");
                   return;
@@ -300,24 +319,21 @@ static void setupNormalModeServer()
                   request->send(400, "application/json", "{\"error\":\"Invalid mute command\"}");
                   return;
                 }
-                if (RuntimeSettings.Muted)
-                  unmute();
-                else
-                  mute();
                 if (appMode == APP_NORMAL_MODE)
-                  right_display_update();
+                  requestedMute = effectiveMuted() ? 0 : 1;
               }
 
               if (request->hasParam("volume", true))
               {
                 int volume = request->getParam("volume", true)->value().toInt();
-                byte selectedInput = RuntimeSettings.CurrentInput;
+                byte selectedInput = effectiveInput();
                 if (volume < Settings.Input[selectedInput].MinVol || volume > Settings.Input[selectedInput].MaxVol)
                 {
                   request->send(400, "application/json", "{\"error\":\"Invalid volume\"}");
                   return;
                 }
-                setVolume(volume);
+                if (appMode == APP_NORMAL_MODE)
+                  requestedVolume = volume;
               }
 
               request->send(200, "application/json", remoteStateAsJson());
@@ -403,21 +419,23 @@ static void setupNormalModeServer()
               request->send(200, "application/json", "{\"ok\":true}");
             });
 
-  server.on("/INPUT1", HTTP_GET, [](AsyncWebServerRequest *request)
-            { mil_LastUserInput = millis(); request->send(200, "text/plain", String(setInput(0))); });
-  server.on("/INPUT2", HTTP_GET, [](AsyncWebServerRequest *request)
-            { mil_LastUserInput = millis(); request->send(200, "text/plain", String(setInput(1))); });
-  server.on("/INPUT3", HTTP_GET, [](AsyncWebServerRequest *request)
-            { mil_LastUserInput = millis(); request->send(200, "text/plain", String(setInput(2))); });
-  server.on("/INPUT4", HTTP_GET, [](AsyncWebServerRequest *request)
-            { mil_LastUserInput = millis(); request->send(200, "text/plain", String(setInput(3))); });
-  server.on("/INPUT5", HTTP_GET, [](AsyncWebServerRequest *request)
-            { mil_LastUserInput = millis(); request->send(200, "text/plain", String(setInput(4))); });
+  for (int index = 0; index < 5; index++)
+  {
+    String path = "/INPUT" + String(index + 1);
+    server.on(path.c_str(), HTTP_GET, [index](AsyncWebServerRequest *request)
+              { request->send(200, "text/plain", String(queueInput(index))); });
+  }
 
   server.on("/MUTE", HTTP_GET, [](AsyncWebServerRequest *request)
-            { mil_LastUserInput = millis(); mute(); if (appMode == APP_NORMAL_MODE) right_display_update(); request->send(200, "text/plain", "Mute"); });
+            {
+              if (appMode == APP_NORMAL_MODE)
+                requestedMute = 1;
+              request->send(200, "text/plain", "Mute"); });
   server.on("/UNMUTE", HTTP_GET, [](AsyncWebServerRequest *request)
-            { mil_LastUserInput = millis(); unmute(); request->send(200, "text/plain", "Unmute"); });
+            {
+              if (appMode == APP_NORMAL_MODE)
+                requestedMute = 0;
+              request->send(200, "text/plain", "Unmute"); });
 
   server.serveStatic("/", SPIFFS, "/");
   server.onNotFound([](AsyncWebServerRequest *request)
