@@ -11,6 +11,15 @@
 #include <ElegantOTA.h>
 #include <WebSerial.h>
 
+// Wi-Fi and web support. Overview:
+//  - startWiFiSupport() mounts SPIFFS (web pages in data/), then tries to join the configured router.
+//  - On success: setupNormalModeServer() serves the remote/settings web UI and the JSON API.
+//  - On failure: setupAccessPointServer() starts the "ThePreAmp" access point with a Wi-Fi setup page.
+// IMPORTANT: web handlers run on the AsyncTCP task, not in loop(). They must NOT touch the
+// attenuator, inputs or displays (shared SPI bus). Instead they set requestedInput/requestedVolume/
+// requestedMute, which loop() applies in processPendingRequests() (see main.cpp).
+
+// Globals owned by main.cpp
 extern AsyncWebServer server;
 extern DNSServer dnsServer;
 extern IPAddress localIP;
@@ -30,6 +39,9 @@ extern unsigned long previousMillis;
 extern const long interval;
 extern unsigned long mil_LastUserInput;
 
+// ---- JSON helpers for the settings API ----
+
+// Reads an integer from JSON and clamps it to [minimum, maximum]; returns fallback if missing/not a number
 static byte boundedByte(JsonVariantConst value, byte fallback, byte minimum, byte maximum)
 {
   if (!value.is<int>())
@@ -38,18 +50,23 @@ static byte boundedByte(JsonVariantConst value, byte fallback, byte minimum, byt
   return constrain(value.as<int>(), minimum, maximum);
 }
 
+// Copies a JSON string into a fixed-size buffer (truncating); ignores non-string values
 static void copyStringSetting(char *destination, size_t destinationSize, JsonVariantConst value)
 {
   if (value.is<const char *>())
     strlcpy(destination, value.as<const char *>(), destinationSize);
 }
 
+// Applies a settings JSON (from the web settings page) to Settings and saves it to EEPROM.
+// Every value is range-checked; missing or invalid fields keep their current value.
+// Returns false only if the payload isn't valid JSON.
 static bool updateSettingsFromJson(const String &payload)
 {
   JsonDocument document;
   if (deserializeJson(document, payload))
     return false;
 
+  // Network settings
   copyStringSetting(Settings.ssid, sizeof(Settings.ssid), document["ssid"]);
   // Password is only ever sent by the client when the user actually typed a new one - a blank/missing value keeps the stored password
   if (document["pass"].is<const char *>() && strlen(document["pass"].as<const char *>()) > 0)
@@ -57,6 +74,7 @@ static bool updateSettingsFromJson(const String &payload)
   copyStringSetting(Settings.ip, sizeof(Settings.ip), document["ip"]);
   copyStringSetting(Settings.gateway, sizeof(Settings.gateway), document["gateway"]);
 
+  // Volume and attenuation limits (order matters: later limits depend on earlier ones)
   Settings.VolumeSteps = boundedByte(document["VolumeSteps"], Settings.VolumeSteps, 10, 255);
   Settings.MinAttenuation = boundedByte(document["MinAttenuation"], Settings.MinAttenuation, 0, 254);
   Settings.MaxAttenuation = boundedByte(document["MaxAttenuation"], Settings.MaxAttenuation, Settings.MinAttenuation + 1, 255);
@@ -67,6 +85,7 @@ static bool updateSettingsFromJson(const String &payload)
   if (document["ExtPowerRelayTrigger"].is<bool>())
     Settings.ExtPowerRelayTrigger = document["ExtPowerRelayTrigger"].as<bool>();
 
+  // Per-input settings (5 inputs): mode, name, volume range and gain
   JsonArrayConst inputs = document["Input"].as<JsonArrayConst>();
   for (byte index = 0; index < 5 && index < inputs.size(); index++)
   {
@@ -78,6 +97,7 @@ static bool updateSettingsFromJson(const String &payload)
     Settings.Input[index].Gain = boundedByte(input["Gain"], Settings.Input[index].Gain, 0, 255);
   }
 
+  // 12V trigger outputs
   Settings.Trigger1Active = boundedByte(document["Trigger1Active"], Settings.Trigger1Active, 0, 1);
   Settings.Trigger1Type = boundedByte(document["Trigger1Type"], Settings.Trigger1Type, 0, 1);
   Settings.Trigger1OnDelay = boundedByte(document["Trigger1OnDelay"], Settings.Trigger1OnDelay, 0, 255);
@@ -85,6 +105,7 @@ static bool updateSettingsFromJson(const String &payload)
   Settings.Trigger2Type = boundedByte(document["Trigger2Type"], Settings.Trigger2Type, 0, 1);
   Settings.Trigger2OnDelay = boundedByte(document["Trigger2OnDelay"], Settings.Trigger2OnDelay, 0, 255);
   Settings.TriggerInactOffTimer = boundedByte(document["TriggerInactOffTimer"], Settings.TriggerInactOffTimer, 0, 255);
+  // Display behaviour
   if (document["ScreenSaverActive"].is<bool>())
     Settings.ScreenSaverActive = document["ScreenSaverActive"].as<bool>();
   Settings.DisplayOnLevel = boundedByte(document["DisplayOnLevel"], Settings.DisplayOnLevel, 0, 3);
@@ -100,6 +121,11 @@ static bool updateSettingsFromJson(const String &payload)
   return true;
 }
 
+// ---- IR remote learning helpers ----
+// Flow: the web UI starts learning, loop() captures a code into irLearnCode, the UI polls until
+// irLearnCodeReady, then assigns the code to a named command (IR_UP, IR_MUTE, ...).
+
+// Maps a command name from the web UI to the matching stored IR code, or nullptr if unknown
 static uint64_t *irCodeField(const String &command)
 {
   if (command == "IR_ON")
@@ -135,6 +161,7 @@ static uint64_t *irCodeField(const String &command)
   return nullptr;
 }
 
+// Stores the most recently learned IR code for the given command and saves to EEPROM
 static bool applyLearnedIrCode(const String &command)
 {
   if (!irLearnCodeReady)
@@ -150,6 +177,7 @@ static bool applyLearnedIrCode(const String &command)
   return true;
 }
 
+// Un-assigns the IR code for the given command (0 = none)
 static bool clearIrCode(const String &command)
 {
   uint64_t *field = irCodeField(command);
@@ -160,6 +188,11 @@ static bool clearIrCode(const String &command)
   writeSettingsToEEPROM();
   return true;
 }
+
+// ---- Request queue helpers ----
+// A queued request (>= 0) hasn't been applied by loop() yet. The "effective" getters return the
+// queued value if there is one, otherwise the real state, so the UI sees its own change immediately
+// and repeated requests (e.g. a mute toggle) build on the pending state.
 
 static bool effectiveMuted()
 {
@@ -180,6 +213,7 @@ static bool queueInput(int input)
   return true;
 }
 
+// State for the web Remote (polled every 3 s by remote.html): input, volume, mute, standby and input list
 static String remoteStateAsJson()
 {
   JsonDocument document;
@@ -203,6 +237,7 @@ static String remoteStateAsJson()
   return output;
 }
 
+// Mounts the SPIFFS filesystem that holds the web pages (formats it if mounting fails)
 void initSPIFFS()
 {
   if (!SPIFFS.begin(true))
@@ -212,6 +247,8 @@ void initSPIFFS()
   debugln("SPIFFS mounted successfully");
 }
 
+// Joins the configured router as a station (static IP if ip+gateway are set, otherwise DHCP).
+// Blocks until connected or `interval` ms have passed. Returns false on missing/invalid config or timeout.
 bool initWiFi()
 {
   String ssid = Settings.ssid;
@@ -266,13 +303,16 @@ bool initWiFi()
   return true;
 }
 
+// Web server used when connected to the router: remote UI, JSON API, legacy endpoints, OTA and WebSerial
 static void setupNormalModeServer()
 {
+  // --- Pages ---
   server.on("/", HTTP_GET, [](AsyncWebServerRequest *request)
             { request->send(SPIFFS, "/remote.html", "text/html"); });
   server.on("/remote", HTTP_GET, [](AsyncWebServerRequest *request)
             { request->send(SPIFFS, "/remote.html", "text/html"); });
 
+  // --- Settings API: GET returns all settings as JSON, POST ("settings" form field) updates and saves them ---
   server.on("/api/settings", HTTP_GET, [](AsyncWebServerRequest *request)
             { request->send(200, "application/json", exportSettingsAsJson()); });
   server.on("/api/settings", HTTP_POST, [](AsyncWebServerRequest *request)
@@ -285,11 +325,13 @@ static void setupNormalModeServer()
 
               request->send(200, "application/json", "{\"ok\":true}");
             });
+  // --- Remote API: GET returns current state; POST accepts power=toggle, input=<0-4>, mute=toggle, volume=<n>.
+  // Changes are only queued here; loop() carries them out. Invalid values get a 400 response. ---
   server.on("/api/remote", HTTP_GET, [](AsyncWebServerRequest *request)
             { request->send(200, "application/json", remoteStateAsJson()); });
   server.on("/api/remote", HTTP_POST, [](AsyncWebServerRequest *request)
             {
-              mil_LastUserInput = millis();
+              mil_LastUserInput = millis(); // counts as user activity (keeps the display awake)
 
               if (request->hasParam("power", true))
               {
@@ -319,6 +361,7 @@ static void setupNormalModeServer()
                   request->send(400, "application/json", "{\"error\":\"Invalid mute command\"}");
                   return;
                 }
+                // Ignored in standby; otherwise flip the (possibly still queued) mute state
                 if (appMode == APP_NORMAL_MODE)
                   requestedMute = effectiveMuted() ? 0 : 1;
               }
@@ -326,6 +369,7 @@ static void setupNormalModeServer()
               if (request->hasParam("volume", true))
               {
                 int volume = request->getParam("volume", true)->value().toInt();
+                // The allowed volume range depends on the input (which may itself be queued)
                 byte selectedInput = effectiveInput();
                 if (volume < Settings.Input[selectedInput].MinVol || volume > Settings.Input[selectedInput].MaxVol)
                 {
@@ -339,6 +383,7 @@ static void setupNormalModeServer()
               request->send(200, "application/json", remoteStateAsJson());
             });
 
+  // --- MQTT API: GET returns the config and connection state; POST updates it (blank password keeps the old one) ---
   server.on("/api/mqtt", HTTP_GET, [](AsyncWebServerRequest *request)
             {
               const MqttConfig &config = mqttGetConfig();
@@ -380,6 +425,7 @@ static void setupNormalModeServer()
               mqttSetConfig(config);
               request->send(200, "application/json", "{\"ok\":true}");
             });
+  // --- IR learning API: start -> poll until ready -> apply to a command (or cancel / clear a command) ---
   server.on("/api/ir-learn/start", HTTP_POST, [](AsyncWebServerRequest *request)
             { mil_LastUserInput = millis(); startIrLearning(); request->send(200, "application/json", "{\"learning\":true}"); });
   server.on("/api/ir-learn/cancel", HTTP_POST, [](AsyncWebServerRequest *request)
@@ -419,6 +465,7 @@ static void setupNormalModeServer()
               request->send(200, "application/json", "{\"ok\":true}");
             });
 
+  // --- Legacy endpoints kept for simple HTTP automation: /INPUT1../INPUT5 (returns 1 if accepted, 0 if not), /MUTE, /UNMUTE ---
   for (int index = 0; index < 5; index++)
   {
     String path = "/INPUT" + String(index + 1);
@@ -437,11 +484,15 @@ static void setupNormalModeServer()
                 requestedMute = 0;
               request->send(200, "text/plain", "Unmute"); });
 
+  // Anything else is served as a static file from SPIFFS; unknown paths get a plain 404
   server.serveStatic("/", SPIFFS, "/");
   server.onNotFound([](AsyncWebServerRequest *request)
                     { request->send(404, "text/plain", "Not found"); });
+
+  // Firmware/filesystem upload page (/update) and browser serial console (/webserial)
   ElegantOTA.begin(&server);
   WebSerial.begin(&server);
+  // Text commands typed in the WebSerial console: "<COMMAND> [value]"
   WebSerial.onMessage([](uint8_t *data, size_t len) {
     debug("Received ");
     debug(len);
@@ -486,6 +537,9 @@ static void setupNormalModeServer()
   server.begin();
 }
 
+// Fallback when no router connection is possible: opens the "ThePreAmp" access point with a captive
+// portal. The user enters SSID/password (and optional static IP) on wifi.html, which are saved before
+// restarting. Blocks until the user presses the volume button to skip setup.
 static void setupAccessPointServer()
 {
   debugln("Setting AP (Access Point)");
@@ -499,9 +553,11 @@ static void setupAccessPointServer()
 
   server.on("update.html", HTTP_GET, [](AsyncWebServerRequest *request)
             { request->send(SPIFFS, "/update.html", "text/html"); });
+  // Captive portal: every unknown URL (and the DNS catch-all above) shows the setup page
   server.onNotFound([](AsyncWebServerRequest *request)
                     { request->send(SPIFFS, "/wifi.html", "text/html"); });
 
+  // Form submit: store the four Wi-Fi fields (matched by form field name), save, and reboot into normal mode
   server.on("/", HTTP_POST, [](AsyncWebServerRequest *request) {
     for (size_t i = 0; i < request->params(); i++)
     {
@@ -527,6 +583,8 @@ static void setupAccessPointServer()
   ElegantOTA.begin(&server);
   server.begin();
 
+  // Show setup instructions: QR code on the left display, skip hint on the right
+  // (safe to draw here: loop() hasn't started yet, so nothing else uses the SPI bus)
   left_display.clearBuffer();
   left_display.drawXBMP(0, 0, 64, 64, ThePreAmp_wifi_QR);
   left_display.setFont(u8g2_font_luBS18_tf);
@@ -540,6 +598,7 @@ static void setupAccessPointServer()
   right_display.drawStr(0, 58, "button to skip");
   right_display.sendBuffer();
 
+  // Wait here until the volume button is pressed; keep OTA and the captive-portal DNS alive meanwhile
   while (getUserCommand() != KEY_SELECT)
   {
     ElegantOTA.loop();
@@ -547,6 +606,7 @@ static void setupAccessPointServer()
   }
 }
 
+// Entry point called from setup(): mount files, then choose normal (router) or access-point mode
 void startWiFiSupport()
 {
   initSPIFFS();
