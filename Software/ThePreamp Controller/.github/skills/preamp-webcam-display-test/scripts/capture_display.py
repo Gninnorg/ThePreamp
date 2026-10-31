@@ -34,6 +34,17 @@ OCR_TARGET_HEIGHT = 120
 SLASH_CLOSE_SIZE = 27
 
 
+CALIBRATION_FILE = Path(__file__).with_name("camera_calibration.json")
+
+
+def load_calibration():
+    # Written by calibrate_camera.py; missing or unreadable file means the built-in defaults are used
+    try:
+        return json.loads(CALIBRATION_FILE.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+
+
 def parse_roi(text):
     try:
         values = [float(part) for part in text.split(",")]
@@ -118,14 +129,16 @@ def capture_frame(camera_index, warmup_seconds, timeout_seconds, width, height):
 
 def main():
     parser = argparse.ArgumentParser(description="Capture a still image from a webcam and analyse the preamp displays.")
-    parser.add_argument("--camera-index", type=int, default=0, help="Zero-based webcam index (default: 0)")
+    cal = load_calibration()
+    parser.add_argument("--camera-index", type=int, default=cal.get("camera_index", 0),
+                        help="Zero-based webcam index (default: from calibration, else 0)")
     parser.add_argument("--output", required=True, help="Path for the captured image")
-    parser.add_argument("--width", type=int, default=1920, help="Requested capture width (default: 1920)")
-    parser.add_argument("--height", type=int, default=1080, help="Requested capture height (default: 1080)")
+    parser.add_argument("--width", type=int, default=cal.get("width", 1920), help="Requested capture width (default: 1920)")
+    parser.add_argument("--height", type=int, default=cal.get("height", 1080), help="Requested capture height (default: 1080)")
     parser.add_argument("--warmup-seconds", type=float, default=1.5, help="Camera exposure warm-up time")
     parser.add_argument("--timeout-seconds", type=float, default=10, help="Maximum time to obtain a frame")
-    parser.add_argument("--left-roi", type=parse_roi, default=parse_roi(DEFAULT_LEFT_ROI), help="Left display as x,y,w,h frame fractions")
-    parser.add_argument("--right-roi", type=parse_roi, default=parse_roi(DEFAULT_RIGHT_ROI), help="Right display as x,y,w,h frame fractions")
+    parser.add_argument("--left-roi",     type=parse_roi, default=parse_roi(cal.get("left_roi", DEFAULT_LEFT_ROI)), help="Left display as x,y,w,h frame fractions")
+    parser.add_argument("--right-roi", type=parse_roi, default=parse_roi(cal.get("right_roi", DEFAULT_RIGHT_ROI)), help="Right display as x,y,w,h frame fractions")
     parser.add_argument("--analyze", action="store_true",
                         help="Also write <output>-left.png / -right.png (OCR-ready crops), <output>-rois.png (annotated) and <output>.json (lit-pixel counts)")
     args = parser.parse_args()

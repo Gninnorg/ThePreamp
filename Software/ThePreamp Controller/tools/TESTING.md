@@ -7,8 +7,16 @@
 .\tools\test-preamp.ps1 -Target 192.168.1.145 -IncludePower                 # tester også tænd/sluk (standby)
 .\tools\test-preamp.ps1 -Target 192.168.1.145 -MqttHost <broker> -BaseTopic thepreamp
 .\tools\test-preamp.ps1 -Target 192.168.1.145 -IncludeDisplay                # webcam + OCR af displaytekst
-.\tools\test-preamp.ps1 -Target 192.168.1.145 -IncludeDisplay -CameraIndex 1 # vælg et andet webcam
+.\tools\test-preamp.ps1 -Target 192.168.1.145 -IncludeDisplay -CameraIndex 1 # vælg et andet webcam (overstyrer kalibreringen)
 ```
+
+Kalibrér webcam'et, hver gang det er flyttet (preamp'en skal være tændt). Et live-billede åbnes; placér kameraet, så begge displays er skarpe og uden genskin, tryk `1`/`2` og træk en boks omkring venstre/højre display (piletaster flytter, `+`/`-` ændrer størrelse, `r` nulstiller, `s` gemmer, `q` afslutter):
+
+```powershell
+python .github\skills\preamp-webcam-display-test\scripts\calibrate_camera.py --camera-index 0
+```
+
+Kalibreringen gemmes i `camera_calibration.json` (plus et referencebillede, begge ikke i git) og bruges automatisk af displaytesten. Ved start af `-IncludeDisplay` kontrolleres kalibreringen automatisk (`calibrate_camera.py --check`): mangler den, er et display ikke tændt i sin boks, ligger der lys uden for boksen, eller er kameraets billede forskudt mere end 1 % siden kalibreringen, åbnes kalibreringsvinduet automatisk, og testen fortsætter, når du har gemt (`s`) og lukket (`q`). Skærmspareren vækkes automatisk via API'et (tester sætter volumen til den nuværende værdi), også mens kalibreringsvinduet er åbent.
 
 Scriptet gendanner input, volumen og mute efter testen. Displaytesten kræver et webcam på test-PC'en, Python med OpenCV og Tesseract OCR på `PATH` (eller angivet med `-TesseractPath`). Installer OpenCV fra projektroden:
 
@@ -26,7 +34,7 @@ Displaytesten (`-IncludeDisplay`) bruger webcam'et til at kontrollere, hvad de t
 - `DisplaySelectedInput` slået fra: venstre display viser intet navn
 - Med `-IncludePower` også: displays slukket i standby, "Wait... N"-countdown under trigger-forsinkelse (kun hvis en trigger er aktiv) og korrekt visning efter opstart
 
-Testen ændrer midlertidigt indstillinger (fx `DisplayTimeout`, `DisplayVolume`) og gendanner dem bagefter. Ved fejl gemmes billederne i Windows' midlertidige mappe (stien skrives i outputtet). Kameraet optager i 1920x1080 og skal vise begge displays tydeligt uden genskin; ROI-områderne for displayene kan justeres i `capture_display.py`, hvis kameraet flyttes. Se også skillen [preamp-webcam-display-test](../.github/skills/preamp-webcam-display-test/SKILL.md).
+Testen ændrer midlertidigt indstillinger (fx `DisplayTimeout`, `DisplayVolume`) og gendanner dem bagefter. Ved fejl gemmes billederne i Windows' midlertidige mappe (stien skrives i outputtet). Kameraet optager i 1920x1080 og skal vise begge displays tydeligt uden genskin; ROI-områderne for displayene sættes med kalibreringen ovenfor, hvis kameraet flyttes. Se også skillen [preamp-webcam-display-test](../.github/skills/preamp-webcam-display-test/SKILL.md).
 
 Ikke dækket af webcam-testen (kan ikke udløses via API'et): balance-skærmen og infoskærmene (IP/QR, build-datoer), samt lysstyrke (`DisplayOnLevel`/`DisplayDimLevel`).
 

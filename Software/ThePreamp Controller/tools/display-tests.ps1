@@ -36,7 +36,8 @@ function Get-DisplayShot([string]$label) {
     New-Item -ItemType Directory -Force $script:displayDir | Out-Null
     $script:shotCounter++
     $image = Join-Path $script:displayDir ("{0:D2}-{1}.png" -f $script:shotCounter, ($label -replace '[^\w-]', '_'))
-    & $script:pythonCommand.Source $script:cameraScript --camera-index $CameraIndex --output $image --analyze | Out-Null
+    $cameraArgs = if ($CameraIndex -ge 0) { @("--camera-index", $CameraIndex) } else { @() }
+    & $script:pythonCommand.Source $script:cameraScript @cameraArgs --output $image --analyze | Out-Null
     $metrics = [System.IO.Path]::ChangeExtension($image, ".json")
     if ($LASTEXITCODE -ne 0 -or -not (Test-Path $metrics)) {
         Check "capture webcam image ($label)" $false "(camera index $CameraIndex)"

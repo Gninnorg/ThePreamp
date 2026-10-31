@@ -5,3 +5,5 @@ data/buildinfo.txt
 .vscode/c_cpp_properties.json
 .vscode/launch.json
 .vscode/ipch
+.github/skills/preamp-webcam-display-test/scripts/camera_calibration.json
+.github/skills/preamp-webcam-display-test/scripts/camera_calibration_ref.png

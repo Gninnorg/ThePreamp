@@ -2,7 +2,7 @@ param(
     [Parameter(Mandatory = $true)][string]$Target,
     [switch]$IncludePower,
     [switch]$IncludeDisplay,
-    [int]$CameraIndex = 0,
+    [int]$CameraIndex = -1,
     [string]$TesseractPath,
     [string]$MqttHost,
     [string]$BaseTopic = "thepreamp"
@@ -35,7 +35,6 @@ function Expect-Http([string]$name, [scriptblock]$call, [int]$status) {
 try { $orig = Get-State } catch { Write-Host "Cannot reach $base : $_" -ForegroundColor Red; exit 2 }
 if ($orig.standby) { Write-Host "Preamp is in standby - turn it on first." -ForegroundColor Yellow; exit 2 }
 if ($IncludeDisplay) {
-    if ($CameraIndex -lt 0) { Write-Host "CameraIndex must be zero or greater." -ForegroundColor Red; exit 2 }
     $script:pythonCommand = Get-Command python -ErrorAction SilentlyContinue
     if (-not $script:pythonCommand) { Write-Host "Python was not found on PATH." -ForegroundColor Red; exit 2 }
     if (-not $TesseractPath) {
@@ -57,6 +56,32 @@ if ($IncludeDisplay) {
     if ($LASTEXITCODE -ne 0) {
         Write-Host "OpenCV was not found. Install it with: python -m pip install -r .github\skills\preamp-webcam-display-test\requirements.txt" -ForegroundColor Red
         exit 2
+    }
+    $calibrateScript = Join-Path (Split-Path $script:cameraScript) "calibrate_camera.py"
+    $cameraArgs = if ($CameraIndex -ge 0) { @("--camera-index", $CameraIndex) } else { @() }
+    # Re-sending the current volume counts as activity: it wakes the screen saver so the displays are lit
+    function Wake-PreampDisplay { Send-Remote @{ volume = (Get-State).volume } | Out-Null }
+    Write-Host "Checking webcam calibration..."
+    Wake-PreampDisplay
+    & $script:pythonCommand.Source $calibrateScript --check @cameraArgs
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "Calibration is missing or no longer matches the camera view - starting calibration. Mark both displays, press 's' to save and 'q' to continue." -ForegroundColor Yellow
+        # Keep the displays awake while the calibration window is open
+        $keepAwake = Start-Job -ArgumentList $base -ScriptBlock {
+            param($url)
+            while ($true) {
+                try {
+                    $v = (Invoke-RestMethod "$url/api/remote" -TimeoutSec 5).volume
+                    Invoke-RestMethod "$url/api/remote" -Method Post -Body @{ volume = $v } -TimeoutSec 5 | Out-Null
+                } catch { }
+                Start-Sleep -Seconds 3
+            }
+        }
+        try { & $script:pythonCommand.Source $calibrateScript @cameraArgs }
+        finally { Stop-Job $keepAwake; Remove-Job $keepAwake }
+        Wake-PreampDisplay
+        & $script:pythonCommand.Source $calibrateScript --check @cameraArgs
+        if ($LASTEXITCODE -ne 0) { Write-Host "Calibration is still not valid - aborting." -ForegroundColor Red; exit 2 }
     }
     . (Join-Path $PSScriptRoot "display-tests.ps1")
 }

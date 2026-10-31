@@ -42,6 +42,16 @@ Settings changed by the scenarios are restored afterwards. A failure keeps the c
 
 Not covered because the API cannot trigger them: balance screen, info screens (IP/QR, build dates) and brightness (`DisplayOnLevel`/`DisplayDimLevel`).
 
+## Calibrate the camera position
+
+The camera setup is not fixed, so calibrate before testing whenever it has been moved. From the ThePreamp Controller project directory (preamp on, not in standby):
+
+```powershell
+python .github\skills\preamp-webcam-display-test\scripts\calibrate_camera.py --camera-index 0
+```
+
+A live view opens. Move/zoom/focus the camera until both displays are sharp and glare-free, press `1` or `2` and drag a box around the left or right display (arrows nudge, `+`/`-` resize, `r` resets, `h` toggles help). The live lit-pixel count per box shows whether the display is picked up; the red boxes are the sub-regions of the right display (volume, WiFi, temperature) and must sit on the matching parts. Press `s` to save to `scripts\camera_calibration.json` (camera index, resolution and both ROIs) and `q` to quit. `capture_display.py` and `test-preamp.ps1 -IncludeDisplay` use the saved values automatically; `-CameraIndex`/`--left-roi`/`--right-roi` still override them. Use `--fresh` to start from the defaults. `calibrate_camera.py --check` verifies the saved calibration non-interactively (exit code 0 = valid): both displays must show lit pixels inside their boxes, little lit area may fall just outside them, and the view must not have shifted more than 1% from the reference frame saved with the calibration. `test-preamp.ps1 -IncludeDisplay` runs this check first and starts the interactive calibration automatically if it fails. `test-preamp.ps1` wakes the displays through the API (re-sending the current volume) before the check and keeps them awake while the calibration window is open. When running the scripts by hand, make sure the screen saver is not active.
+
 ## Capture and analysis options
 
 `capture_display.py` requests 1920x1080 (`--width`/`--height`) and prints the resolution it actually got. `--analyze` writes `<output>-left.png`, `<output>-right.png`, `<output>-rois.png` and `<output>.json` (lit pixel counts for `left`, `right`, `right_main`, `right_center`, `right_wifi`, `right_temp`). The display regions are fractions of the frame (`--left-roi`, `--right-roi`, defaults in the script); if the camera is moved or zoomed, run with `--analyze` and adjust them until `-rois.png` shows the boxes on the displays.
