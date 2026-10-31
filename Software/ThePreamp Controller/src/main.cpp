@@ -520,7 +520,7 @@ void loop()
     case KEY_RIGHT:
       changeInfoPage(1);
       break;
-    case KEY_SELECT:
+    case KEY_INFO:
       toAppNormalMode();
       break;
     }
