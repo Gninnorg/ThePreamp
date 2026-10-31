@@ -27,9 +27,12 @@ MIN_LIT_PIXELS = 30
 BAND_RATIO = 1.5
 MAX_SHIFT = 0.01
 HELP = [
-    "1 = mark LEFT display   2 = mark RIGHT display   (drag with mouse)",
-    "arrows = nudge, + / - = resize, h = toggle help",
-    "r = reset ROIs   s = save   q / Esc = quit",
+    "Draw only TWO boxes: one around each display's lit text and icons.",
+    "The RIGHT box includes volume and WiFi/temperature icons.",
+    "Red boxes are guides, not extra boxes to draw.",
+    "1 / 2 = select left / right   |   drag = draw box",
+    "Arrows = nudge   +/- = resize   |   r = reset   h = hide help",
+    "s = save   |   q / Esc = quit",
 ]
 
 
@@ -86,10 +89,18 @@ def draw_overlay(frame, state):
         p1 = (int(state.drag_now[0] * width), int(state.drag_now[1] * height))
         cv2.rectangle(view, p0, p1, (255, 255, 0), 1)
 
-    lines = [f"Marking: {state.active.upper()} display"] + (HELP if state.show_help else [])
+    lines = [f"MARKING: {state.active.upper()} DISPLAY"] + (HELP if state.show_help else [])
+    font = cv2.FONT_HERSHEY_SIMPLEX
+    font_scale = 0.75
+    line_height = 34
+    padding = 18
+    panel_width = min(width - 20, 1120)
+    panel_height = padding * 2 + len(lines) * line_height
+    cv2.rectangle(view, (10, 10), (10 + panel_width, 10 + panel_height), (0, 0, 0), cv2.FILLED)
+    cv2.rectangle(view, (10, 10), (10 + panel_width, 10 + panel_height), (180, 180, 180), 2)
     for i, text in enumerate(lines):
-        cv2.putText(view, text, (10, 22 + i * 20), cv2.FONT_HERSHEY_SIMPLEX, 0.55, (0, 0, 0), 3, cv2.LINE_AA)
-        cv2.putText(view, text, (10, 22 + i * 20), cv2.FONT_HERSHEY_SIMPLEX, 0.55, (255, 255, 255), 1, cv2.LINE_AA)
+        y = 10 + padding + (i + 1) * line_height - 8
+        cv2.putText(view, text, (10 + padding, y), font, font_scale, (255, 255, 255), 2, cv2.LINE_AA)
     return view
 
 
