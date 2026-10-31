@@ -35,7 +35,7 @@
 #include <Arduino.h>
 #include <SPI.h>
 #include <Wire.h>
-#include <U8g2lib.h>
+#include <SH1122.h>
 #include <Adafruit_ADS1X15.h>
 #include <Adafruit_MCP23008.h>
 #include <extEEPROM.h>
@@ -117,8 +117,8 @@ extern const long interval = 10000; // interval to wait for Wi-Fi connection (mi
 #define SPI_RST_RIGHT_DISPLAY_PIN 32
 #define SPI_RST_LEFT_DISPLAY_PIN 33
 
-U8G2_SH1122_256X64_F_4W_HW_SPI right_display(U8G2_R0, SPI_CS_RIGHT_DISPLAY_PIN, SPI_DC_BOTH_DISPLAYS_PIN, SPI_RST_RIGHT_DISPLAY_PIN);
-U8G2_SH1122_256X64_F_4W_HW_SPI left_display(U8G2_R0, SPI_CS_LEFT_DISPLAY_PIN, SPI_DC_BOTH_DISPLAYS_PIN, SPI_RST_LEFT_DISPLAY_PIN);
+SH1122 right_display(SPI_CS_RIGHT_DISPLAY_PIN, SPI_DC_BOTH_DISPLAYS_PIN, SPI_RST_RIGHT_DISPLAY_PIN);
+SH1122 left_display(SPI_CS_LEFT_DISPLAY_PIN, SPI_DC_BOTH_DISPLAYS_PIN, SPI_RST_LEFT_DISPLAY_PIN);
 
 /* ----- I2C -----
 GND    ->    GND
@@ -172,7 +172,7 @@ void startUp();
 void loop();
 
 void setup() {
-  // Both displays share SCK, MOSI and DC. U8g2 only drives a display's CS pin high in its own begin(),
+  // Both displays share SCK, MOSI and DC. the display driver only drives a CS pin high in its own begin(),
   // so until then a floating CS lets the other display listen in and mirror what is sent to its neighbour.
   // Pull the display CS lines up first so they never float, then deselect every SPI device and release the resets.
   pinMode(SPI_CS_RIGHT_DISPLAY_PIN, INPUT_PULLUP);
@@ -196,11 +196,11 @@ void setup() {
 
   right_display.setBusClock(4000000);
   right_display.begin();
-  right_display.setFont(u8g2_font_inb63_mn); 
+  right_display.setFont(&SH1122_FONT_INB63); 
   
   left_display.setBusClock(4000000);
   left_display.begin();
-  left_display.setFont(u8g2_font_inb63_mn);
+  left_display.setFont(&SH1122_FONT_INB63);
 
   // Start from a known state on both displays
   right_display.clearDisplay();

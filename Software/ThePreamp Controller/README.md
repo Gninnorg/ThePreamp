@@ -6,7 +6,7 @@ Firmware for an ESP32-based controller for "ThePreAmp" — a Muses72323-based au
 
 - **MCU**: ESP32 (`esp32doit-devkit-v1`), see [platformio.ini](platformio.ini).
 - **Volume/balance control**: Muses72323 digital attenuator over SPI ([lib/Muses72323](lib/Muses72323)).
-- **Displays**: two `U8G2_SH1122_256X64` OLEDs over hardware SPI (left = input name / status, right = volume / signal / temperature).
+- **Displays**: two SH1122 256x64 OLEDs (16 grey levels, anti-aliased logo and input name/volume fonts) over hardware SPI using the local `lib/SH1122` driver (left = input name / status, right = volume / signal / temperature).
 - **Input switching / triggers / output mute**: `Adafruit_MCP23008` I²C GPIO expander (`relayController`).
 - **User input**: two rotary encoders with push buttons ([lib/ClickEncoder](lib/ClickEncoder)) plus an IR receiver (`IRremoteESP8266`).
 - **Temperature sensing**: `Adafruit_ADS1115` ADC reading two NTC channels.
@@ -56,7 +56,7 @@ Trigger on/off (`setTrigger1/2On/Off` in [src/trigger_controller.cpp](src/trigge
 
 Both displays and the Muses72323 share SCK/MOSI (and the displays share DC); only their CS pins differ. Two rules keep them from showing each other's data:
 
-- At the very start of `setup()` the display CS pins are pulled up and all CS and reset pins are driven high, so no device listens in before U8g2 initializes it.
+- At the very start of `setup()` the display CS pins are pulled up and all CS and reset pins are driven high, so no device listens in before the display driver initializes it.
 - Only the main `loop()` task may use the displays or the Muses chip. Web handlers run on the AsyncTCP task and must never call `setInput()`, `setVolume()`, `mute()`/`unmute()` or any `*_display_update()` directly (two tasks transferring at once leaves both CS lines low, which mirrors one display onto the other). They queue a request instead — see below.
 
 ## Settings persistence

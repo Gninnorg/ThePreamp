@@ -2,6 +2,7 @@
 #include "controller_config.h"
 #include "audio_controller.h"
 #include "logo.h"
+#include "logo_grey.h"
 #include "build_info.h"
 #include <WiFi.h>
 #include <SPIFFS.h>
@@ -10,10 +11,21 @@
 extern unsigned long mil_LastUserInput;
 extern byte appMode;
 
+bool isDisplayableName(const char *name)
+{
+  if (name == nullptr)
+    return false;
+
+  for (; *name; name++)
+    if (*name < SH1122_FONT_INB24.first || *name > SH1122_FONT_INB24.last)
+      return false;
+  return true;
+}
+
 void displayLogo(void)
 {
   left_display.clearBuffer();
-  left_display.drawXBMP(77, 0, 130, 64, thePreAmpLogo);
+  left_display.drawGreyBitmap(77, 0, 130, 64, thePreAmpLogoGrey);
   left_display.sendBuffer();
 
   right_display.clearBuffer();
@@ -28,7 +40,7 @@ void left_display_update(void)
 
   if (appMode == APP_BALANCE_MODE)
   {
-    left_display.setFont(u8g2_font_inb24_mf);
+    left_display.setFont(&SH1122_FONT_INB24);
     const char *text = "Set balance";
     int16_t textWidth = left_display.getStrWidth(text);
     int16_t xPos = (256 - textWidth) / 2;
@@ -40,7 +52,7 @@ void left_display_update(void)
 
   if (Settings.DisplaySelectedInput)
   {
-    left_display.setFont(u8g2_font_inb42_mr);
+    left_display.setFont(&SH1122_FONT_INB42);
 
     int16_t textWidth = left_display.getStrWidth(Settings.Input[RuntimeSettings.CurrentInput].Name);
     int16_t xPos = (256 - textWidth) / 2;
@@ -85,7 +97,7 @@ void right_display_update(void)
   }
   else if (Settings.DisplayVolume && !isHtPassthrough)
   {
-    right_display.setFont(u8g2_font_inb63_mn);
+    right_display.setFont(&SH1122_FONT_INB63);
     if (Settings.DisplayVolume == 1)
     {
       char buffer[10];
@@ -135,7 +147,7 @@ void displayBalance(byte Value)
   else
     snprintf(label, sizeof(label), "%c %.2fdB", balanceOffset < 0 ? 'L' : 'R', getBalanceAttenuationDb(Value));
 
-  right_display.setFont(u8g2_font_inb24_mf);
+  right_display.setFont(&SH1122_FONT_INB24);
   int16_t textWidth = right_display.getStrWidth(label);
   right_display.drawStr((256 - textWidth) / 2, 26, label);
 
@@ -171,7 +183,7 @@ void displayTriggerCountdown(int trigger1SecondsRemaining, int trigger2SecondsRe
 
   // Left display reflects trigger 1, right display reflects trigger 2
   left_display.clearBuffer();
-  left_display.setFont(u8g2_font_inb24_mf);
+  left_display.setFont(&SH1122_FONT_INB24);
   if (trigger1SecondsRemaining != -1)
   {
     if (trigger1SecondsRemaining == -2)
@@ -184,7 +196,7 @@ void displayTriggerCountdown(int trigger1SecondsRemaining, int trigger2SecondsRe
   left_display.sendBuffer();
 
   right_display.clearBuffer();
-  right_display.setFont(u8g2_font_inb24_mf);
+  right_display.setFont(&SH1122_FONT_INB24);
   if (trigger2SecondsRemaining != -1)
   {
     if (trigger2SecondsRemaining == -2)

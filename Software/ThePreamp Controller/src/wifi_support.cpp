@@ -25,8 +25,8 @@ extern DNSServer dnsServer;
 extern IPAddress localIP;
 extern IPAddress localGateway;
 extern IPAddress subnet;
-extern U8G2_SH1122_256X64_F_4W_HW_SPI left_display;
-extern U8G2_SH1122_256X64_F_4W_HW_SPI right_display;
+extern SH1122 left_display;
+extern SH1122 right_display;
 extern const char *PARAM_INPUT_1;
 extern const char *PARAM_INPUT_2;
 extern const char *PARAM_INPUT_3;
@@ -91,7 +91,8 @@ static bool updateSettingsFromJson(const String &payload)
   {
     JsonObjectConst input = inputs[index];
     Settings.Input[index].Active = boundedByte(input["Active"], Settings.Input[index].Active, INPUT_HT_PASSTHROUGH, INPUT_INACTIVATED);
-    copyStringSetting(Settings.Input[index].Name, sizeof(Settings.Input[index].Name), input["Name"]);
+    if (input["Name"].is<const char *>() && isDisplayableName(input["Name"].as<const char *>()))
+      copyStringSetting(Settings.Input[index].Name, sizeof(Settings.Input[index].Name), input["Name"]);
     Settings.Input[index].MinVol = boundedByte(input["MinVol"], Settings.Input[index].MinVol, 0, Settings.VolumeSteps);
     Settings.Input[index].MaxVol = boundedByte(input["MaxVol"], Settings.Input[index].MaxVol, Settings.Input[index].MinVol, Settings.VolumeSteps);
     Settings.Input[index].Gain = boundedByte(input["Gain"], Settings.Input[index].Gain, 0, 255);
