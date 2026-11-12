@@ -18,9 +18,9 @@
 **   - Shrink Elegant OTA - Remove personalization
 **   - DONE - Add trigger control at startup
 **   - FIX PROBLEM WHERE MUTE IS CANCELLED WHEN INPUT IS CHANGED
-**   - BEAUTIFY UI REMOTE - FULL REMOTE SHOULD BE VISIBLE WITHOUT SCROLLING
-**   - FIX PROBLEM WHERE RIGHT SCREEN IS MIRRORED TO LEFT SCREEN
-**   - INVESGIGATE IF CAMERA CAN BE USED FOR TESTING DISPLAY OUTPUT
+**   - DONE - BEAUTIFY UI REMOTE - FULL REMOTE SHOULD BE VISIBLE WITHOUT SCROLLING
+**   - DONE - FIX PROBLEM WHERE RIGHT SCREEN IS MIRRORED TO LEFT SCREEN
+**   - DONE - INVESGIGATE IF CAMERA CAN BE USED FOR TESTING DISPLAY OUTPUT
 */
 
 
@@ -36,7 +36,6 @@
 #include <SPI.h>
 #include <Wire.h>
 #include <SH1122.h>
-#include <Adafruit_ADS1X15.h>
 #include <Adafruit_MCP23008.h>
 #include <extEEPROM.h>
 #include <ClickEncoder.h>
@@ -63,6 +62,7 @@
 #include "input_controller.h"
 #include "trigger_controller.h"
 #include "mqtt_controller.h"
+#include "temperature_controller.h"
 
 #undef minimum
 #ifndef minimum
@@ -129,8 +129,6 @@ SDA    ->    D21
 #define I2C_SCL_PIN 22 // ESP32 standard pin for SCL
 #define I2C_SDA_PIN 21 // ESP32 standard pin for SDA
 
-Adafruit_ADS1115 ads1115;
-
 #define IR_RECEIVER_INPUT_PIN 15
 IRrecv irrecv(IR_RECEIVER_INPUT_PIN);
 
@@ -140,12 +138,6 @@ decode_results IRresults;
 unsigned long mil_On = millis(); // Holds the millis from last power on (or restart)
 bool ScreenSaverIsOn = false; // Used to indicate whether the screen saver is running or not
 unsigned long mil_LastUserInput = millis(); // Used to keep track of the time of the last user interaction (part of the screen saver timing)
-unsigned long mil_onRefreshTemperatureDisplay; // Used to time how often the display of temperatures is updated
-
-// Update intervals for the display/notification of temperatures
-#define TEMP_REFRESH_INTERVAL 10000         // Interval while on
-#define TEMP_REFRESH_INTERVAL_STANDBY 60000 // Interval while in standby
-
 byte appMode = APP_NORMAL_MODE;
 
 byte UIkey; // holds the last received user input (from rotary encoders or IR)
@@ -216,8 +208,7 @@ void setup() {
     relayController.digitalWrite(pin, LOW);
   }
 
-  ads1115.setGain(GAIN_ONE);        // 1x gain   +/- 4.096V  1 bit = 2mV      0.125mV
-  ads1115.begin();
+  beginTemperatureSensors();
   
   // Start IR reader
   irrecv.enableIRIn();
@@ -244,6 +235,8 @@ void setup() {
     debug("Settings.Version: "); debug(Settings.Version); debug(" = "); debugln((float)VERSION);
     debug("RuntimeSettings.Version: "); debug(RuntimeSettings.Version); debug(" = "); debugln((float)VERSION);
   }
+
+  loadTemperatureConfig();
   
   startWiFiSupport();
   mqttBegin();
@@ -324,6 +317,7 @@ void startUp()
   // Enable output / trigger output relay
   unmuteOutput();
 
+  updateTemperatureMeasurements(true);
   left_display_update();
   right_display_update();
 
@@ -407,17 +401,8 @@ void loop()
   switch (appMode)
   {
   case APP_NORMAL_MODE:
-    /*- TO DO
-        if (millis() > mil_onRefreshTemperatureDisplay + TEMP_REFRESH_INTERVAL)
-        {
-          displayTemperatures();
-          notifyClients(getJSONTempValues());
-          if (((Settings.Trigger1Temp != 0) && (getTemperature(NTC1_PIN) >= Settings.Trigger1Temp)) || ((Settings.Trigger2Temp != 0) && (getTemperature(NTC2_PIN) >= Settings.Trigger2Temp)))
-          {
-            toStandbyMode();
-          }
-        }
-    */
+    if (updateTemperatureMeasurements() && !ScreenSaverIsOn)
+      right_display_update();
 
     // Turn Screen Saver on/off if it is activated and if no user input has been received during the defined number of seconds
     if (UIkey == KEY_NONE)
@@ -512,6 +497,8 @@ void loop()
     break;
 
   case APP_INFO_MODE:
+    if (updateTemperatureMeasurements())
+      refreshTemperatureInfoPage();
     switch (UIkey)
     {
     case KEY_LEFT:

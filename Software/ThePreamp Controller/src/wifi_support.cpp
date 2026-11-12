@@ -6,10 +6,12 @@
 #include "input_controller.h"
 #include "wifi_QR.h"
 #include "mqtt_controller.h"
+#include "temperature_controller.h"
 #include <ESPAsyncWebServer.h>
 #include <DNSServer.h>
 #include <ElegantOTA.h>
 #include <WebSerial.h>
+#include <math.h>
 
 // Wi-Fi and web support. Overview:
 //  - startWiFiSupport() mounts SPIFFS (web pages in data/), then tries to join the configured router.
@@ -59,12 +61,55 @@ static void copyStringSetting(char *destination, size_t destinationSize, JsonVar
 
 // Applies a settings JSON (from the web settings page) to Settings and saves it to EEPROM.
 // Every value is range-checked; missing or invalid fields keep their current value.
-// Returns false only if the payload isn't valid JSON.
-static bool updateSettingsFromJson(const String &payload)
+// Returns an HTTP status: 200 on success, 400 for invalid input, 500 if temperature settings cannot be saved.
+static int updateSettingsFromJson(const String &payload)
 {
   JsonDocument document;
   if (deserializeJson(document, payload))
-    return false;
+    return 400;
+
+  TemperatureConfig temperature = getTemperatureConfig();
+  bool temperatureChanged = false;
+  for (uint8_t i = 0; i < TEMPERATURE_SENSOR_COUNT; ++i)
+  {
+    JsonVariantConst enabled = document[String("TemperatureEnabled") + i];
+    if (enabled.isNull())
+      continue;
+    if (!enabled.is<bool>())
+      return 400;
+    if (enabled.as<bool>())
+      temperature.enabledMask |= 1 << i;
+    else
+      temperature.enabledMask &= ~(1 << i);
+    temperatureChanged = true;
+  }
+  for (uint8_t i = 0; i < TEMPERATURE_SLOT_COUNT; ++i)
+  {
+    JsonVariantConst slot = document[String("TemperatureSlot") + (i + 1)];
+    if (!slot.isNull())
+    {
+      if (!slot.is<int>() || slot.as<int>() < 0 || slot.as<int>() > TEMPERATURE_SENSOR_COUNT)
+        return 400;
+      temperature.slots[i] = slot.as<uint8_t>();
+      temperatureChanged = true;
+    }
+    else
+    {
+      // Legacy API values controlled whether the original A0/A1 slots were displayed.
+      JsonVariantConst legacy = document[String("DisplayTemperature") + (i + 1)];
+      if (legacy.is<int>())
+      {
+        temperature.slots[i] = legacy.as<int>() > 0 ? i + 1 : 0;
+        if (temperature.slots[i])
+          temperature.enabledMask |= 1 << i;
+        temperatureChanged = true;
+      }
+    }
+  }
+  if (temperature.slots[0] != 0 && temperature.slots[0] == temperature.slots[1])
+    return 400;
+  if (temperatureChanged && !saveTemperatureConfig(temperature))
+    return 500;
 
   // Network settings
   copyStringSetting(Settings.ssid, sizeof(Settings.ssid), document["ssid"]);
@@ -119,7 +164,7 @@ static bool updateSettingsFromJson(const String &payload)
   Settings.DisplayTemperature2 = boundedByte(document["DisplayTemperature2"], Settings.DisplayTemperature2, 0, 3);
 
   writeSettingsToEEPROM();
-  return true;
+  return 200;
 }
 
 // ---- IR remote learning helpers ----
@@ -223,6 +268,20 @@ static String remoteStateAsJson()
   document["muted"] = effectiveMuted();
   document["standby"] = appMode == APP_STANDBY_MODE;
 
+  const TemperatureSnapshot temperatures = getTemperatureSnapshot();
+  JsonArray temperatureValues = document["temperatures"].to<JsonArray>();
+  for (uint8_t channel = 0; channel < TEMPERATURE_SENSOR_COUNT; ++channel)
+  {
+    if (!(temperatures.enabledMask & (1 << channel)))
+      continue;
+    JsonObject sensor = temperatureValues.add<JsonObject>();
+    sensor["channel"] = channel;
+    if (isfinite(temperatures.values[channel]))
+      sensor["celsius"] = temperatures.values[channel];
+    else
+      sensor["celsius"] = nullptr;
+  }
+
   JsonArray inputs = document["inputs"].to<JsonArray>();
   for (byte index = 0; index < 5; index++)
   {
@@ -319,12 +378,17 @@ static void setupNormalModeServer()
             { request->send(200, "application/json", exportSettingsAsJson()); });
   server.on("/api/settings", HTTP_POST, [](AsyncWebServerRequest *request)
             {
-              if (!request->hasParam("settings", true) || !updateSettingsFromJson(request->getParam("settings", true)->value()))
+              if (!request->hasParam("settings", true))
               {
                 request->send(400, "application/json", "{\"error\":\"Invalid settings\"}");
                 return;
               }
-
+              int result = updateSettingsFromJson(request->getParam("settings", true)->value());
+              if (result != 200)
+              {
+                request->send(result, "application/json", result == 400 ? "{\"error\":\"Invalid settings\"}" : "{\"error\":\"Temperature settings could not be saved\"}");
+                return;
+              }
               request->send(200, "application/json", "{\"ok\":true}");
             });
   // --- Remote API: GET returns current state; POST accepts power=toggle, input=<0-4>, mute=toggle, volume=<n>.

@@ -2,7 +2,9 @@
 #include "controller_config.h"
 #include "audio_controller.h"
 #include "display_controller.h"
+#include "temperature_controller.h"
 #include "debug.h"
+#include <math.h>
 #include <WiFi.h>
 #include <Preferences.h>
 #include <PubSubClient.h>
@@ -24,10 +26,16 @@ static String statusTopic;
 static String stateTopic;
 static unsigned long lastReconnectAttempt = 0;
 static unsigned long lastStatePublish = 0;
+static unsigned long lastTemperatureDiscovery = 0;
 static String lastPublishedState;
+static int lastTemperatureMask = -1;
 
 static const unsigned long RECONNECT_INTERVAL_MS = 5000;
 static const unsigned long STATE_REFRESH_INTERVAL_MS = 60000;
+static const char *temperatureIds[] = {"temperature_external_right", "temperature_external_left",
+                                       "temperature_internal_1", "temperature_internal_2"};
+static const char *temperatureNames[] = {"External right temperature", "External left temperature",
+                                         "Internal 1 temperature", "Internal 2 temperature"};
 
 static void loadConfig()
 {
@@ -102,6 +110,15 @@ static String stateAsJson()
   document["mute"] = RuntimeSettings.Muted ? "ON" : "OFF";
   document["input"] = inputLabel(RuntimeSettings.CurrentInput);
   document["input_index"] = RuntimeSettings.CurrentInput + 1;
+  const TemperatureSnapshot temperatures = getTemperatureSnapshot();
+  for (uint8_t channel = 0; channel < TEMPERATURE_SENSOR_COUNT; ++channel)
+  {
+    if ((temperatures.enabledMask & (1 << channel)) && appMode != APP_STANDBY_MODE &&
+        isfinite(temperatures.values[channel]))
+      document[temperatureIds[channel]] = temperatures.values[channel];
+    else
+      document[temperatureIds[channel]] = nullptr;
+  }
   String output;
   serializeJson(document, output);
   return output;
@@ -119,11 +136,16 @@ static void publishState(bool force)
     lastPublishedState = state;
     lastStatePublish = millis();
   }
+  else
+  {
+    debugln("MQTT state publish failed");
+  }
 }
 
-static void publishDiscoveryEntity(const char *component, const char *objectId, JsonDocument &document)
+static bool publishDiscoveryEntity(const char *component, const char *objectId, JsonDocument &document)
 {
-  document["name"] = objectId;
+  if (!document["name"].is<const char *>())
+    document["name"] = objectId;
   document["unique_id"] = deviceId + "_" + objectId;
   document["object_id"] = deviceId + "_" + objectId;
   document["availability_topic"] = statusTopic;
@@ -138,7 +160,47 @@ static void publishDiscoveryEntity(const char *component, const char *objectId, 
   String topic = "homeassistant/" + String(component) + "/" + deviceId + "/" + objectId + "/config";
   String payload;
   serializeJson(document, payload);
-  client.publish(topic.c_str(), payload.c_str(), true);
+  const bool published = client.publish(topic.c_str(), payload.c_str(), true);
+  if (!published)
+  {
+    debug("MQTT discovery publish failed: "); debugln(topic);
+  }
+  return published;
+}
+
+static void publishTemperatureDiscovery(bool force)
+{
+  const uint8_t mask = getTemperatureConfig().enabledMask;
+  if (!force && mask == lastTemperatureMask)
+    return;
+  if (!force && millis() - lastTemperatureDiscovery < 5000 && lastTemperatureMask < 0)
+    return;
+  lastTemperatureDiscovery = millis();
+  bool success = true;
+  for (uint8_t channel = 0; channel < TEMPERATURE_SENSOR_COUNT; ++channel)
+  {
+    if (mask & (1 << channel))
+    {
+      JsonDocument doc;
+      doc["device_class"] = "temperature";
+      doc["state_class"] = "measurement";
+      doc["unit_of_measurement"] = "\xC2\xB0" "C";
+      doc["value_template"] = String("{{ value_json.") + temperatureIds[channel] + " }}";
+      doc["name"] = temperatureNames[channel];
+      if (!publishDiscoveryEntity("sensor", temperatureIds[channel], doc))
+        success = false;
+    }
+    else
+    {
+      String topic = "homeassistant/sensor/" + deviceId + "/" + temperatureIds[channel] + "/config";
+      if (!client.publish(topic.c_str(), "", true))
+      {
+        debug("MQTT discovery removal failed: "); debugln(topic);
+        success = false;
+      }
+    }
+  }
+  lastTemperatureMask = success ? mask : -1;
 }
 
 static void publishDiscovery()
@@ -273,6 +335,8 @@ static bool connectClient()
   client.subscribe((base + "/volume/set").c_str());
   client.subscribe((base + "/input/set").c_str());
   publishDiscovery();
+  lastTemperatureMask = -1;
+  publishTemperatureDiscovery(true);
   publishState(true);
   debugln("MQTT connected");
   return true;
@@ -332,5 +396,6 @@ void mqttLoop()
   }
 
   client.loop();
+  publishTemperatureDiscovery(false);
   publishState(false);
 }

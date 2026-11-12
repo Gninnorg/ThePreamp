@@ -43,5 +43,6 @@ void processPendingRequests();
 void startIrLearning();
 void showInfoScreen();
 void changeInfoPage(int direction);
+void refreshTemperatureInfoPage();
 
 #endif

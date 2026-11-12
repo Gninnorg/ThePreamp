@@ -157,6 +157,4 @@ void readRuntimeSettingsFromEEPROM();
 void readUserSettingsFromEEPROM();
 void writeUserSettingsToEEPROM();
 String exportSettingsAsJson();
-float getTemperature(uint8_t pinNmbr);
-
 #endif

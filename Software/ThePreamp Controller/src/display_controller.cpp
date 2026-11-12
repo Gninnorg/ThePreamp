@@ -1,5 +1,7 @@
 #include "display_controller.h"
+#include <math.h>
 #include "controller_config.h"
+#include "temperature_controller.h"
 #include "audio_controller.h"
 #include "logo.h"
 #include "logo_grey.h"
@@ -125,10 +127,7 @@ void right_display_update(void)
       break;
   }
 
-  if (Settings.DisplayTemperature1 || Settings.DisplayTemperature2)
-  {
-    drawTemperatureMeasurements();
-  }
+  drawTemperatureMeasurements();
 
   right_display.sendBuffer();
   if (ScreenSaverIsOn)
@@ -211,6 +210,39 @@ void displayTriggerCountdown(int trigger1SecondsRemaining, int trigger2SecondsRe
 
 void displayInfoScreen(byte page)
 {
+  if (page == 2)
+  {
+    const TemperatureConfig config = getTemperatureConfig();
+    const char *names[] = {"External R", "External L", "Internal 1", "Internal 2"};
+    SH1122 *displays[] = {&left_display, &right_display};
+    for (uint8_t side = 0; side < 2; ++side)
+    {
+      SH1122 &display = *displays[side];
+      display.clearBuffer();
+      display.setDrawColor(1);
+      display.setFont(u8g2_font_luBS18_tf);
+      uint8_t row = 0;
+      for (uint8_t channel = side * 2; channel < side * 2 + 2; ++channel)
+      {
+        if (!(config.enabledMask & (1 << channel)) ||
+            config.slots[0] == channel + 1 || config.slots[1] == channel + 1)
+          continue;
+        const float value = getCachedTemperature(channel);
+        char text[32];
+        if (isfinite(value))
+          snprintf(text, sizeof(text), "%s: %d C", names[channel], static_cast<int>(value));
+        else
+          snprintf(text, sizeof(text), "%s: --", names[channel]);
+        display.drawStr(0, 25 + row * 30, text);
+        ++row;
+      }
+      if (row == 0)
+        display.drawStr(0, 25, "No other sensors");
+      display.sendBuffer();
+    }
+    return;
+  }
+
   if (page == 1)
   {
     String fsBuild = "Unknown";
@@ -310,30 +342,35 @@ void drawSignalStrength(int rssi)
 
 void drawTemperatureMeasurements(void)
 {
-  right_display.drawFrame(232,34,24,14);
-  right_display.drawFrame(232,50,24,14);
-
+  const TemperatureConfig config = getTemperatureConfig();
+  const char *labels[] = {"ER", "EL", "I1", "I2"};
   right_display.setFontMode(1);
-  right_display.setDrawColor(1);
-
-  right_display.drawFrame(232,34,24,14);
-  int tempRight = static_cast<int>(getTemperature(0));
-  right_display.drawBox(234,36,map(tempRight, 0, 65, 0, 20),10);
-
-  right_display.drawFrame(232,50,24,14);
-  int tempLeft = static_cast<int>(getTemperature(1));
-  right_display.drawBox(234,52,map(tempLeft, 0, 65, 0, 20),10);
-
-  right_display.setDrawColor(2);
   right_display.setFont(u8g2_font_profont10_mf);
-
-  char tempRightStr[3];
-  snprintf(tempRightStr, sizeof(tempRightStr), "%d", tempRight);
-  right_display.drawStr(239, 44, tempRightStr);
-
-  char tempLeftStr[3];
-  snprintf(tempLeftStr, sizeof(tempLeftStr), "%d", tempLeft);
-  right_display.drawStr(239, 60, tempLeftStr);
+  for (uint8_t slot = 0; slot < TEMPERATURE_SLOT_COUNT; ++slot)
+  {
+    if (!config.slots[slot])
+      continue;
+    const uint8_t channel = config.slots[slot] - 1;
+    if (!(config.enabledMask & (1 << channel)))
+      continue;
+    const int y = 34 + slot * 16;
+    const float value = getCachedTemperature(channel);
+    right_display.setDrawColor(1);
+    right_display.drawStr(219, y + 10, labels[channel]);
+    right_display.drawFrame(232, y, 24, 14);
+    char text[4];
+    if (isfinite(value))
+    {
+      const int temperature = static_cast<int>(value);
+      right_display.drawBox(234, y + 2, map(temperature, 0, 99, 0, 20), 10);
+      snprintf(text, sizeof(text), "%d", temperature);
+    }
+    else
+      strcpy(text, "--");
+    right_display.setDrawColor(2);
+    right_display.drawStr(238, y + 10, text);
+  }
+  right_display.setDrawColor(1);
 }
 
 void ScreenSaverOn(void)

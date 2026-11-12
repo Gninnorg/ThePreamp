@@ -9,7 +9,8 @@ Firmware for an ESP32-based controller for "ThePreAmp" — a Muses72323-based au
 - **Displays**: two SH1122 256x64 OLEDs (16 grey levels, anti-aliased logo and input name/volume fonts) over hardware SPI using the local `lib/SH1122` driver (left = input name / status, right = volume / signal / temperature).
 - **Input switching / triggers / output mute**: `Adafruit_MCP23008` I²C GPIO expander (`relayController`).
 - **User input**: two rotary encoders with push buttons ([lib/ClickEncoder](lib/ClickEncoder)) plus an IR receiver (`IRremoteESP8266`).
-- **Temperature sensing**: `Adafruit_ADS1115` ADC reading two NTC channels.
+- **Temperature sensing**: ADS1115 channels A0/A1 are external right/left NTCs; A2/A3 are internal NTCs. Each uses a 4.7 kΩ NTC and a 10,620 Ω reference resistor, with the reference to 3.3 V and the NTC to ground.
+- The temperature conversion uses the Vishay NTCALUG02A472G R/T calculator's inverse polynomial, averaged over eight ADC samples and limited to 0–99 °C. Its accuracy also depends on the actual divider supply, resistor tolerances and sensor mounting.
 - **Persistence**: settings and runtime state are stored in an external I²C EEPROM (`extEEPROM`).
 
 ## Application modes
@@ -18,7 +19,7 @@ Defined by `AppModeValues` in [include/controller_config.h](include/controller_c
 
 - `APP_NORMAL_MODE` — normal operation: volume, input selection, mute, screen saver, standby timers.
 - `APP_BALANCE_MODE` — entered via `KEY_SELECT`; `KEY_UP`/`KEY_DOWN` adjust balance in 0.25 dB steps up to ±6 dB (`BALANCE_MAX_OFFSET`), `KEY_SELECT` again saves it and returns to normal mode.
-- `APP_STANDBY_MODE` — entered via `KEY_OFF` or an inactivity/temperature timeout; only `KEY_ON` (double-click of encoder 2, or an IR "on" code) is handled, which re-runs `startUp()`.
+- `APP_STANDBY_MODE` — entered via `KEY_OFF` or an inactivity timeout; only `KEY_ON` (double-click of encoder 2, or an IR "on" code) is handled, which re-runs `startUp()`. Temperature-triggered standby is not currently implemented.
 
 ## Startup / trigger sequence
 
@@ -48,6 +49,8 @@ Trigger on/off (`setTrigger1/2On/Off` in [src/trigger_controller.cpp](src/trigge
 
 - `left_display_update()` — shows the selected input name (or "Set balance" while adjusting balance), if `Settings.DisplaySelectedInput` is enabled.
 - `right_display_update()` — shows volume (steps or dB) or a speaker-with-cross mute icon (drawn with primitives, no text), Wi-Fi signal strength, and temperature bars, depending on settings.
+- Temperature settings enable each sensor and assign up to two distinct sensors to the main display slots. Other enabled sensors appear on the temperature info page. Readings refresh every 10 seconds while on; `--` indicates an unavailable or out-of-range ADC reading. By default external sensors are enabled in the two slots and internal sensors are disabled; existing users' legacy on/off slot settings are retained on first use. The sensor settings are stored separately from the EEPROM settings.
+- The main-display labels are `ER`/`EL` (external right/left) and `I1`/`I2` (internal 1/2). Enter the info screen with the left encoder and turn it to reach the temperature page. A disabled sensor is neither sampled nor displayed.
 - `displayBalance()` — full-screen balance adjustment UI with a bar graph.
 - `displayTriggerCountdown()` — startup trigger countdown/status (see above).
 - `ScreenSaverOn()`/`ScreenSaverOff()` — blanks/restores both displays after `Settings.DisplayTimeout` seconds of inactivity, if `Settings.ScreenSaverActive`.
@@ -82,9 +85,9 @@ Set up in [src/wifi_support.cpp](src/wifi_support.cpp). Two modes:
 
 | Path | Method | Description |
 |---|---|---|
-| `/api/settings` | GET | Returns the full `Settings` structure as JSON (`exportSettingsAsJson()`) |
-| `/api/settings` | POST | Body: `settings=<url-encoded JSON>`. Validates and applies each field, then writes to EEPROM |
-| `/api/remote` | GET | Returns current input, volume, mute state, standby state, and per-input name/limits and HT-passthrough flag as JSON |
+| `/api/settings` | GET | Returns the `Settings` structure and temperature sensor configuration as JSON (`exportSettingsAsJson()`) |
+| `/api/settings` | POST | Body: `settings=<url-encoded JSON>`. Validates and applies settings; temperature configuration is stored in NVS and the other settings in EEPROM |
+| `/api/remote` | GET | Returns current input, volume, mute state, standby state, input details, and `temperatures`: an array of enabled sensor objects (`channel` 0–3 and `celsius`, or `null` when unavailable). Samples refresh every 10 seconds while on; standby returns the last cached readings, which the remote labels as such. |
 | `/api/remote` | POST | Body params `input`, `volume`, `mute=toggle` and/or `power=toggle` (form-encoded). Invalid values return 400. Changes are queued for `loop()` (see below) and the returned state already reflects them |
 
 **Legacy simple GET endpoints** (plain-text responses, used by e.g. simple remote/automation integrations):
@@ -128,7 +131,7 @@ Broadcasts an open AP named `ThePreAmp` with a captive-portal-style DNS server (
 
 ## MQTT / Home Assistant
 
-[src/mqtt_controller.cpp](src/mqtt_controller.cpp) connects to an MQTT broker (PubSubClient, handled from `loop()`) and publishes Home Assistant MQTT discovery for four entities: **Power** (switch), **Mute** (switch), **Volume** (number, 0..`VolumeSteps`) and **Input** (select, using the configured input names).
+[src/mqtt_controller.cpp](src/mqtt_controller.cpp) connects to an MQTT broker (PubSubClient, handled from `loop()`) and publishes Home Assistant MQTT discovery for **Power**, **Mute**, **Volume**, **Input**, and each enabled temperature sensor. Temperature entities are added or removed when sensors are enabled or disabled.
 
 Configuration is stored in NVS (not the EEPROM settings). Set it in the **MQTT / Home Assistant** section of the web settings page ([data/settings.html](data/settings.html)) or via the web API:
 
@@ -137,4 +140,4 @@ curl -X POST http://<preamp-ip>/api/mqtt -d enabled=true -d host=192.168.1.10 -d
 curl http://<preamp-ip>/api/mqtt     # current config + connection state
 ```
 
-Topics (default base `thepreamp`): `<base>/status` (`online`/`offline`, LWT), `<base>/state` (retained JSON: `power`, `volume`, `mute`, `input`, `input_index`), and commands on `<base>/power/set` (`ON`/`OFF`), `<base>/mute/set` (`ON`/`OFF`), `<base>/volume/set` (step number) and `<base>/input/set` (input name). Mute/volume/input commands are ignored while in standby.
+Topics (default base `thepreamp`): `<base>/status` (`online`/`offline`, LWT), `<base>/state` (retained JSON: `power`, `volume`, `mute`, `input`, `input_index`, `temperature_external_right`, `temperature_external_left`, `temperature_internal_1`, `temperature_internal_2`), and commands on `<base>/power/set` (`ON`/`OFF`), `<base>/mute/set` (`ON`/`OFF`), `<base>/volume/set` (step number) and `<base>/input/set` (input name). Temperatures are degrees Celsius and update with the cached readings every 10 seconds when changed; disabled sensors, unavailable readings and standby are published as JSON `null`. Mute/volume/input commands are ignored while in standby.

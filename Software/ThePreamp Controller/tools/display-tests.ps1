@@ -98,13 +98,17 @@ function Invoke-DisplayTests {
         DisplaySelectedInput = [bool]$config.DisplaySelectedInput
         DisplayTimeout       = [int]$config.DisplayTimeout
         ScreenSaverActive    = [bool]$config.ScreenSaverActive
-        DisplayTemperature1  = [int]$config.DisplayTemperature1
-        DisplayTemperature2  = [int]$config.DisplayTemperature2
+        TemperatureEnabled0  = [bool]$config.TemperatureEnabled0
+        TemperatureEnabled1  = [bool]$config.TemperatureEnabled1
+        TemperatureEnabled2  = [bool]$config.TemperatureEnabled2
+        TemperatureEnabled3  = [bool]$config.TemperatureEnabled3
+        TemperatureSlot1     = [int]$config.TemperatureSlot1
+        TemperatureSlot2     = [int]$config.TemperatureSlot2
     }
 
     try {
         # Known baseline; the long timeout keeps the screen saver from blanking the displays between checks
-        Set-DeviceSettings @{ DisplayVolume = 1; DisplaySelectedInput = $true; DisplayTimeout = 255; ScreenSaverActive = $true; DisplayTemperature1 = 3; DisplayTemperature2 = 3 }
+        Set-DeviceSettings @{ DisplayVolume = 1; DisplaySelectedInput = $true; DisplayTimeout = 255; ScreenSaverActive = $true; TemperatureEnabled0 = $true; TemperatureEnabled1 = $true; TemperatureSlot1 = 1; TemperatureSlot2 = 2 }
         if ((Get-State).muted) { Send-Remote @{ mute = "toggle" } | Out-Null }
 
         Write-Host "-- Input name and volume per input"
@@ -196,13 +200,13 @@ function Invoke-DisplayTests {
         Invoke-Shot "indicators-on" {
             param($s)
             Check "WiFi signal indicator shown" ($s.Lit.right_wifi -gt 15) (Describe-Shot $s)
-            Check "temperature indicators shown (DisplayTemperature1/2 = 3)" ($s.Lit.right_temp -gt 40) (Describe-Shot $s)
+            Check "temperature indicators shown (slots 1/2 enabled)" ($s.Lit.right_temp -gt 40) (Describe-Shot $s)
         }
-        Set-DeviceSettings @{ DisplayTemperature1 = 0; DisplayTemperature2 = 0 }
+        Set-DeviceSettings @{ TemperatureSlot1 = 0; TemperatureSlot2 = 0 }
         Wake-Display
         Start-Sleep -Seconds 2
-        Invoke-Shot "temperature-off" { param($s) Check "temperature indicators hidden (DisplayTemperature1/2 = 0)" ($s.Lit.right_temp -lt 10) (Describe-Shot $s) }
-        Set-DeviceSettings @{ DisplayTemperature1 = 3; DisplayTemperature2 = 3 }
+        Invoke-Shot "temperature-off" { param($s) Check "temperature indicators hidden (slots 1/2 off)" ($s.Lit.right_temp -lt 10) (Describe-Shot $s) }
+        Set-DeviceSettings @{ TemperatureSlot1 = 1; TemperatureSlot2 = 2 }
 
         Write-Host "-- Screen saver"
         Set-DeviceSettings @{ ScreenSaverActive = $true; DisplayTimeout = 3 }

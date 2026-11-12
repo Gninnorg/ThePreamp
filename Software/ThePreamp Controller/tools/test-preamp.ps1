@@ -34,6 +34,14 @@ function Expect-Http([string]$name, [scriptblock]$call, [int]$status) {
 
 try { $orig = Get-State } catch { Write-Host "Cannot reach $base : $_" -ForegroundColor Red; exit 2 }
 if ($orig.standby) { Write-Host "Preamp is in standby - turn it on first." -ForegroundColor Yellow; exit 2 }
+Check "remote state includes temperature array" ($null -ne $orig.temperatures -and $orig.temperatures -is [array])
+if ($null -ne $orig.temperatures) {
+    $valid = $true
+    foreach ($sensor in $orig.temperatures) {
+        if ($sensor.channel -notin 0,1,2,3 -or ($null -ne $sensor.celsius -and ($sensor.celsius -isnot [ValueType] -or $sensor.celsius -lt 0 -or $sensor.celsius -gt 99))) { $valid = $false }
+    }
+    Check "remote temperature readings have valid channels and values" $valid
+}
 if ($IncludeDisplay) {
     $script:pythonCommand = Get-Command python -ErrorAction SilentlyContinue
     if (-not $script:pythonCommand) { Write-Host "Python was not found on PATH." -ForegroundColor Red; exit 2 }
@@ -134,8 +142,34 @@ try {
     $settings = Invoke-RestMethod "$base/api/settings" -TimeoutSec 10
     Check "GET /api/settings returns VolumeSteps" ($null -ne $settings.VolumeSteps)
     Check "GET /api/settings does not return the WiFi password" ([string]::IsNullOrEmpty($settings.pass))
+    Check "GET /api/settings includes all temperature settings" ($null -ne $settings.TemperatureEnabled0 -and $null -ne $settings.TemperatureEnabled1 -and $null -ne $settings.TemperatureEnabled2 -and $null -ne $settings.TemperatureEnabled3 -and $null -ne $settings.TemperatureSlot1 -and $null -ne $settings.TemperatureSlot2)
 }
 catch { Check "GET /api/settings" $false $_.Exception.Message }
+if ($settings -and $null -ne $settings.TemperatureSlot1) {
+    $temperatureRestore = @{
+        TemperatureEnabled0 = [bool]$settings.TemperatureEnabled0
+        TemperatureEnabled1 = [bool]$settings.TemperatureEnabled1
+        TemperatureEnabled2 = [bool]$settings.TemperatureEnabled2
+        TemperatureEnabled3 = [bool]$settings.TemperatureEnabled3
+        TemperatureSlot1 = [int]$settings.TemperatureSlot1
+        TemperatureSlot2 = [int]$settings.TemperatureSlot2
+    }
+    try {
+        $temperatureTest = @{ TemperatureEnabled0 = $false; TemperatureEnabled1 = $true; TemperatureEnabled2 = $true; TemperatureEnabled3 = $false; TemperatureSlot1 = 2; TemperatureSlot2 = 3 }
+        Invoke-RestMethod "$base/api/settings" -Method Post -Body @{ settings = ($temperatureTest | ConvertTo-Json -Compress) } -TimeoutSec 10 | Out-Null
+        $actual = Invoke-RestMethod "$base/api/settings" -TimeoutSec 10
+        Check "temperature settings round-trip" (-not $actual.TemperatureEnabled0 -and $actual.TemperatureEnabled1 -and $actual.TemperatureEnabled2 -and -not $actual.TemperatureEnabled3 -and $actual.TemperatureSlot1 -eq 2 -and $actual.TemperatureSlot2 -eq 3)
+        $channels = @((Get-State).temperatures | ForEach-Object { [int]$_.channel })
+        Check "remote exposes only enabled temperatures" ($channels.Count -eq 2 -and $channels[0] -eq 1 -and $channels[1] -eq 2)
+        Expect-Http "duplicate temperature slots -> 400" { Invoke-RestMethod "$base/api/settings" -Method Post -Body @{ settings = '{"TemperatureSlot1":2,"TemperatureSlot2":2}' } -TimeoutSec 10 } 400
+        Expect-Http "invalid temperature channel -> 400" { Invoke-RestMethod "$base/api/settings" -Method Post -Body @{ settings = '{"TemperatureSlot1":5}' } -TimeoutSec 10 } 400
+    }
+    catch { Check "temperature settings API" $false $_.Exception.Message }
+    finally {
+        try { Invoke-RestMethod "$base/api/settings" -Method Post -Body @{ settings = ($temperatureRestore | ConvertTo-Json -Compress) } -TimeoutSec 10 | Out-Null }
+        catch { Check "restore temperature settings" $false $_.Exception.Message }
+    }
+}
 try {
     $m = Invoke-RestMethod "$base/api/mqtt" -TimeoutSec 10
     Check "GET /api/mqtt has expected fields" ($null -ne $m.enabled -and $null -ne $m.baseTopic)
@@ -152,6 +186,18 @@ if ($MqttHost) {
             $o = & mosquitto_sub -h $MqttHost -t "$BaseTopic/state" -C 1 -W 5 2>$null
             if ($o) { $o | ConvertFrom-Json } else { $null }
         }
+        $mqttState = Mqtt-State
+        $remoteState = Get-State
+        $temperatureKeys = @("temperature_external_right", "temperature_external_left", "temperature_internal_1", "temperature_internal_2")
+        $expectedChannels = @($remoteState.temperatures | ForEach-Object { [int]$_.channel })
+        $validTemperatures = $null -ne $mqttState
+        for ($i = 0; $i -lt $temperatureKeys.Count; $i++) {
+            $property = $mqttState.PSObject.Properties[$temperatureKeys[$i]]
+            if ($null -eq $property) { $validTemperatures = $false; continue }
+            if ($i -notin $expectedChannels -and $null -ne $property.Value) { $validTemperatures = $false }
+            if ($null -ne $property.Value -and ($property.Value -isnot [ValueType] -or $property.Value -lt 0 -or $property.Value -gt 99)) { $validTemperatures = $false }
+        }
+        Check "MQTT state includes valid temperature fields" $validTemperatures
         & mosquitto_pub -h $MqttHost -t "$BaseTopic/mute/set" -m "ON"; Start-Sleep -Seconds 1
         Check "MQTT mute ON" ((Mqtt-State).mute -eq "ON" -and (Get-State).muted -eq $true)
         & mosquitto_pub -h $MqttHost -t "$BaseTopic/mute/set" -m "OFF"; Start-Sleep -Seconds 1
@@ -169,9 +215,17 @@ catch { Write-Host "Could not fully restore state: $_" -ForegroundColor Yellow }
 
 if ($IncludePower) {
     Write-Host "`n== Power (last, as it restarts the signal path) =="
+    $beforeStandby = Get-State
     Send-Remote @{ power = "toggle" } | Out-Null
     Start-Sleep -Seconds 6
-    Check "power toggle -> standby" ((Get-State).standby -eq $true)
+    $standbyState = Get-State
+    Check "power toggle -> standby" ($standbyState.standby -eq $true)
+    $cachedAvailable = $true
+    foreach ($sensor in $beforeStandby.temperatures) {
+        $matches = @($standbyState.temperatures | Where-Object { $_.channel -eq $sensor.channel })
+        if ($matches.Count -ne 1 -or ($null -ne $sensor.celsius -and $null -eq $matches[0].celsius)) { $cachedAvailable = $false }
+    }
+    Check "standby preserves available temperature readings" $cachedAvailable
 
     $countdownRestore = $null
     if ($IncludeDisplay) {

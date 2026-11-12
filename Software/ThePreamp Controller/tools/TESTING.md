@@ -29,7 +29,7 @@ Displaytesten (`-IncludeDisplay`) bruger webcam'et til at kontrollere, hvad de t
 - Input-navn på venstre display og volumen på højre display for hvert aktivt input (HT passthrough viser ingen volumen)
 - Volumen som trin (`DisplayVolume` = 1), som dB (2) og skjult (0)
 - Mute: højttaler-ikon i stedet for volumen (fjernbetjening/web og `/MUTE`, `/UNMUTE`)
-- WiFi-signal og temperaturindikatorer til/fra (`DisplayTemperature1/2`)
+- WiFi-signal og temperaturindikatorer til/fra (`TemperatureSlot1/2`)
 - Skærmsparer: slukker efter `DisplayTimeout`, vågner ved betjening og forbliver tændt, når den er slået fra
 - `DisplaySelectedInput` slået fra: venstre display viser intet navn
 - Med `-IncludePower` også: displays slukket i standby, "Wait... N"-countdown under trigger-forsinkelse (kun hvis en trigger er aktiv) og korrekt visning efter opstart
@@ -94,4 +94,4 @@ Sæt kryds for hver kontrol efter en ny flash.
 ### Netværk og opdatering
 - [ ] WiFi-forbindelse og fallback-AP/QR ved manglende netværk
 - [ ] `/update` åbner, og OTA af firmware og filsystem virker
-- [ ] MQTT: Home Assistant finder enheden og viser power, mute, volumen og input
+- [ ] MQTT: Home Assistant finder enheden og viser power, mute, volumen, input og aktive temperatursensorer

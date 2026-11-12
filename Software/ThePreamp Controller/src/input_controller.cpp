@@ -305,3 +305,9 @@ void changeInfoPage(int direction)
   infoPage = (infoPage + INFO_PAGE_COUNT + direction) % INFO_PAGE_COUNT;
   displayInfoScreen(infoPage);
 }
+
+void refreshTemperatureInfoPage()
+{
+  if (infoPage == 2)
+    displayInfoScreen(infoPage);
+}

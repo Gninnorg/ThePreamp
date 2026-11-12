@@ -1,4 +1,5 @@
 #include "controller_config.h"
+#include "temperature_controller.h"
 
 mySettings Settings;
 myRuntimeSettings RuntimeSettings;
@@ -158,32 +159,6 @@ void setSettingsToDefault()
   RuntimeSettings.Version = VERSION;
 }
 
-float getTemperature(uint8_t pinNmbr)
-{
-  float Vin = 3.3;
-  float Vout = 0;
-  float Rref = 10000;
-  float Rntc = 0;
-  float Temp;
-
-  int16_t adcValue = 15000;
-  Vout = (adcValue * Vin) / 32767.0;
-
-  Rntc = Rref * (Vin / Vout - 1);
-
-  if (Rntc < 0)
-    Temp = 0;
-  else
-    Temp = (-25.37 * log(Rntc)) + 239.43;
-
-  if (Temp < 0)
-    Temp = 0;
-  else if (Temp > 65)
-    Temp = 65;
-
-  return Temp;
-}
-
 String exportSettingsAsJson() {
     JsonDocument doc;
 
@@ -242,8 +217,13 @@ String exportSettingsAsJson() {
     doc["DisplayTimeout"] = Settings.DisplayTimeout;
     doc["DisplayVolume"] = Settings.DisplayVolume;
     doc["DisplaySelectedInput"] = Settings.DisplaySelectedInput;
-    doc["DisplayTemperature1"] = Settings.DisplayTemperature1;
-    doc["DisplayTemperature2"] = Settings.DisplayTemperature2;
+    const TemperatureConfig temperature = getTemperatureConfig();
+    doc["DisplayTemperature1"] = temperature.slots[0] == 1 && (temperature.enabledMask & 1) ? max(Settings.DisplayTemperature1, static_cast<byte>(1)) : 0;
+    doc["DisplayTemperature2"] = temperature.slots[1] == 2 && (temperature.enabledMask & 2) ? max(Settings.DisplayTemperature2, static_cast<byte>(1)) : 0;
+    for (uint8_t i = 0; i < TEMPERATURE_SENSOR_COUNT; ++i)
+      doc[String("TemperatureEnabled") + i] = (temperature.enabledMask & (1 << i)) != 0;
+    doc["TemperatureSlot1"] = temperature.slots[0];
+    doc["TemperatureSlot2"] = temperature.slots[1];
     doc["Version"] = Settings.Version;
 
     String output;
