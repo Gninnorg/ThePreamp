@@ -76,7 +76,7 @@ Set up in [src/wifi_support.cpp](src/wifi_support.cpp). Two modes:
 
 | Path | Method | Description |
 |---|---|---|
-| `/` , `/remote` | GET | [remote.html](data/remote.html) — remote-control web UI (input picked from a dialog; volume hidden for HT-passthrough inputs) |
+| `/` , `/remote` | GET | [remote.html](data/remote.html) — remote-control web UI with matching Input, Volume, and Temperature cards; mute is located in the Volume card and volume is hidden for HT-passthrough inputs |
 | `/settings.html` (via static handler) | GET | [settings.html](data/settings.html) — full settings editor UI |
 | `/update.html` (via static handler) | GET | [update.html](data/update.html) — firmware/filesystem update helper page |
 | any other static asset in `data/` | GET | served as-is via `server.serveStatic("/", SPIFFS, "/")` |
