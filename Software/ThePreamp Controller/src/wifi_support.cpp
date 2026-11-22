@@ -11,6 +11,7 @@
 #include <DNSServer.h>
 #include <ElegantOTA.h>
 #include <WebSerial.h>
+#include <ESPmDNS.h>
 #include <math.h>
 
 // Wi-Fi and web support. Overview:
@@ -40,6 +41,30 @@ extern IPAddress subnet;
 extern unsigned long previousMillis;
 extern const long interval;
 extern unsigned long mil_LastUserInput;
+
+static const char *HOSTNAME = "thepreamp";
+
+static void configureHostname()
+{
+  if (!WiFi.setHostname(HOSTNAME))
+  {
+    debugln("Failed to set Wi-Fi hostname.");
+  }
+}
+
+static void startMdns()
+{
+  if (!MDNS.begin(HOSTNAME))
+  {
+    debugln("Failed to start mDNS.");
+    return;
+  }
+
+  MDNS.addService("http", "tcp", 80);
+  debug("mDNS hostname: ");
+  debug(HOSTNAME);
+  debugln(".local");
+}
 
 // ---- JSON helpers for the settings API ----
 
@@ -330,6 +355,8 @@ bool initWiFi()
     return false;
   }
 
+  configureHostname();
+  WiFi.persistent(false);
   WiFi.mode(WIFI_STA);
   WiFi.setTxPower(WIFI_POWER_19_5dBm);
 
@@ -614,6 +641,7 @@ static void setupNormalModeServer()
 static void setupAccessPointServer()
 {
   debugln("Setting AP (Access Point)");
+  configureHostname();
   WiFi.mode(WIFI_AP);
   WiFi.setTxPower(WIFI_POWER_19_5dBm);
   WiFi.softAP("ThePreAmp", NULL, 6, 0);
@@ -685,4 +713,5 @@ void startWiFiSupport()
     setupNormalModeServer();
   else
     setupAccessPointServer();
+  startMdns();
 }

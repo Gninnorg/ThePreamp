@@ -142,6 +142,11 @@ void setSettingsToDefault()
   Settings.DisplayTemperature2 = 3;
   Settings.Version = VERSION;
 
+  setRuntimeSettingsToDefault();
+}
+
+void setRuntimeSettingsToDefault()
+{
   RuntimeSettings.CurrentInput = 0;
   RuntimeSettings.CurrentVolume = 0;
   RuntimeSettings.Muted = 0;

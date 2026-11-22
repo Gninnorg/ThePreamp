@@ -149,6 +149,7 @@ extern Adafruit_MCP23008 relayController;
 #define INPUT_INACTIVATED 2
 
 void setSettingsToDefault(void);
+void setRuntimeSettingsToDefault(void);
 void writeSettingsToEEPROM();
 void readSettingsFromEEPROM();
 void writeDefaultSettingsToEEPROM();

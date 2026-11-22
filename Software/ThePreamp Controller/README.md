@@ -64,11 +64,13 @@ Both displays and the Muses72323 share SCK/MOSI (and the displays share DC); onl
 
 ## Settings persistence
 
-[src/controller_config.cpp](src/controller_config.cpp) defines `Settings` (`mySettings`, persistent configuration — network, volume limits, per-input config, IR codes, triggers, display options) and `RuntimeSettings` (`myRuntimeSettings`, current input/volume/mute/balance memory), both stored in and loaded from external EEPROM. `exportSettingsAsJson()` serializes `Settings` to JSON (ArduinoJson 7 API: `JsonDocument`) for the web UI and WebSerial console. On boot, if the stored `Version` doesn't match the firmware's `VERSION`, defaults are written (EEPROM layout changed).
+[src/controller_config.cpp](src/controller_config.cpp) defines `Settings` (`mySettings`, persistent configuration — network, volume limits, per-input config, IR codes, triggers, display options) and `RuntimeSettings` (`myRuntimeSettings`, current input/volume/mute/balance memory), both stored in and loaded from external EEPROM. `exportSettingsAsJson()` serializes `Settings` to JSON (ArduinoJson 7 API: `JsonDocument`) for the web UI and WebSerial console. On boot, settings and runtime versions are checked independently: an invalid runtime version resets runtime state only, while an invalid settings version restores defaults but preserves the saved Wi-Fi fields (`ssid`, `pass`, `ip`, and `gateway`).
 
 ## Network endpoints
 
 Set up in [src/wifi_support.cpp](src/wifi_support.cpp). Two modes:
+
+In station mode, the ESP32 uses the hostname `thepreamp` (also advertised as `thepreamp.local` via mDNS where the client supports it). Wi-Fi credentials and optional static network settings are read from the external EEPROM.
 
 ### Station mode (Wi-Fi configured, `setupNormalModeServer()`)
 
