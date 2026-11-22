@@ -26,9 +26,12 @@ static String statusTopic;
 static String stateTopic;
 static unsigned long lastReconnectAttempt = 0;
 static unsigned long lastStatePublish = 0;
+static unsigned long lastWifiRssiSample = 0;
 static unsigned long lastTemperatureDiscovery = 0;
 static String lastPublishedState;
 static int lastTemperatureMask = -1;
+static int sampledWifiRssi = 0;
+static bool hasWifiRssiSample = false;
 
 static const unsigned long RECONNECT_INTERVAL_MS = 5000;
 static const unsigned long STATE_REFRESH_INTERVAL_MS = 60000;
@@ -102,7 +105,7 @@ static String inputLabel(byte index)
   return label;
 }
 
-static String stateAsJson()
+static String stateAsJson(int wifiRssi)
 {
   JsonDocument document;
   document["power"] = appMode == APP_STANDBY_MODE ? "OFF" : "ON";
@@ -110,6 +113,7 @@ static String stateAsJson()
   document["mute"] = RuntimeSettings.Muted ? "ON" : "OFF";
   document["input"] = inputLabel(RuntimeSettings.CurrentInput);
   document["input_index"] = RuntimeSettings.CurrentInput + 1;
+  document["wifi_rssi"] = wifiRssi;
   const TemperatureSnapshot temperatures = getTemperatureSnapshot();
   for (uint8_t channel = 0; channel < TEMPERATURE_SENSOR_COUNT; ++channel)
   {
@@ -128,7 +132,14 @@ static void publishState(bool force)
 {
   if (!client.connected())
     return;
-  String state = stateAsJson();
+  // Sample RSSI at the state refresh interval so normal signal fluctuations do not flood MQTT.
+  if (force || !hasWifiRssiSample || millis() - lastWifiRssiSample >= STATE_REFRESH_INTERVAL_MS)
+  {
+    sampledWifiRssi = WiFi.RSSI();
+    lastWifiRssiSample = millis();
+    hasWifiRssiSample = true;
+  }
+  String state = stateAsJson(sampledWifiRssi);
   if (!force && state == lastPublishedState && millis() - lastStatePublish < STATE_REFRESH_INTERVAL_MS)
     return;
   if (client.publish(stateTopic.c_str(), state.c_str(), true))
@@ -247,6 +258,16 @@ static void publishDiscovery()
         options.add(inputLabel(index));
     }
     publishDiscoveryEntity("select", "input", doc);
+  }
+  {
+    JsonDocument doc;
+    doc["name"] = "Wi-Fi signal";
+    doc["device_class"] = "signal_strength";
+    doc["state_class"] = "measurement";
+    doc["unit_of_measurement"] = "dBm";
+    doc["value_template"] = "{{ value_json.wifi_rssi }}";
+    doc["icon"] = "mdi:wifi";
+    publishDiscoveryEntity("sensor", "wifi_signal", doc);
   }
 }
 

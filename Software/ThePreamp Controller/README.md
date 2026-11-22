@@ -76,8 +76,8 @@ Set up in [src/wifi_support.cpp](src/wifi_support.cpp). Two modes:
 
 | Path | Method | Description |
 |---|---|---|
-| `/` , `/remote` | GET | [remote.html](data/remote.html) — remote-control web UI with matching Input, Volume, and Temperature cards; mute is located in the Volume card and volume is hidden for HT-passthrough inputs |
-| `/settings.html` (via static handler) | GET | [settings.html](data/settings.html) — full settings editor UI |
+| `/` , `/remote` | GET | [remote.html](data/remote.html) — remote-control web UI with matching Input, Volume, and Temperature cards; Wi-Fi signal and MQTT connection icons appear in the header, mute is located in the Volume card and volume is hidden for HT-passthrough inputs |
+| `/settings.html` (via static handler) | GET | [settings.html](data/settings.html) — full settings editor UI; saving is disabled until settings and MQTT configuration finish loading |
 | `/update.html` (via static handler) | GET | [update.html](data/update.html) — firmware/filesystem update helper page |
 | any other static asset in `data/` | GET | served as-is via `server.serveStatic("/", SPIFFS, "/")` |
 
@@ -87,7 +87,7 @@ Set up in [src/wifi_support.cpp](src/wifi_support.cpp). Two modes:
 |---|---|---|
 | `/api/settings` | GET | Returns the `Settings` structure and temperature sensor configuration as JSON (`exportSettingsAsJson()`) |
 | `/api/settings` | POST | Body: `settings=<url-encoded JSON>`. Validates and applies settings; temperature configuration is stored in NVS and the other settings in EEPROM |
-| `/api/remote` | GET | Returns current input, volume, mute state, standby state, input details, and `temperatures`: an array of enabled sensor objects (`channel` 0–3 and `celsius`, or `null` when unavailable). Samples refresh every 10 seconds while on; standby returns the last cached readings, which the remote labels as such. |
+| `/api/remote` | GET | Returns current input, volume, mute state, standby state, `mqttConnected`, `wifiRssi` (dBm or `null` when disconnected), input details, and `temperatures`: an array of enabled sensor objects (`channel` 0–3 and `celsius`, or `null` when unavailable). Samples refresh every 10 seconds while on; standby returns the last cached readings, which the remote labels as such. |
 | `/api/remote` | POST | Body params `input`, `volume`, `mute=toggle` and/or `power=toggle` (form-encoded). Invalid values return 400. Changes are queued for `loop()` (see below) and the returned state already reflects them |
 
 **Legacy simple GET endpoints** (plain-text responses, used by e.g. simple remote/automation integrations):
@@ -131,7 +131,7 @@ Broadcasts an open AP named `ThePreAmp` with a captive-portal-style DNS server (
 
 ## MQTT / Home Assistant
 
-[src/mqtt_controller.cpp](src/mqtt_controller.cpp) connects to an MQTT broker (PubSubClient, handled from `loop()`) and publishes Home Assistant MQTT discovery for **Power**, **Mute**, **Volume**, **Input**, and each enabled temperature sensor. Temperature entities are added or removed when sensors are enabled or disabled.
+[src/mqtt_controller.cpp](src/mqtt_controller.cpp) connects to an MQTT broker (PubSubClient, handled from `loop()`) and publishes Home Assistant MQTT discovery for **Power**, **Mute**, **Volume**, **Input**, **Wi-Fi signal strength**, and each enabled temperature sensor. Temperature entities are added or removed when sensors are enabled or disabled.
 
 Configuration is stored in NVS (not the EEPROM settings). Set it in the **MQTT / Home Assistant** section of the web settings page ([data/settings.html](data/settings.html)) or via the web API:
 
@@ -140,4 +140,4 @@ curl -X POST http://<preamp-ip>/api/mqtt -d enabled=true -d host=192.168.1.10 -d
 curl http://<preamp-ip>/api/mqtt     # current config + connection state
 ```
 
-Topics (default base `thepreamp`): `<base>/status` (`online`/`offline`, LWT), `<base>/state` (retained JSON: `power`, `volume`, `mute`, `input`, `input_index`, `temperature_external_right`, `temperature_external_left`, `temperature_internal_1`, `temperature_internal_2`), and commands on `<base>/power/set` (`ON`/`OFF`), `<base>/mute/set` (`ON`/`OFF`), `<base>/volume/set` (step number) and `<base>/input/set` (input name). Temperatures are degrees Celsius and update with the cached readings every 10 seconds when changed; disabled sensors, unavailable readings and standby are published as JSON `null`. Mute/volume/input commands are ignored while in standby.
+Topics (default base `thepreamp`): `<base>/status` (`online`/`offline`, LWT), `<base>/state` (retained JSON: `power`, `volume`, `mute`, `input`, `input_index`, `wifi_rssi` in dBm, `temperature_external_right`, `temperature_external_left`, `temperature_internal_1`, `temperature_internal_2`), and commands on `<base>/power/set` (`ON`/`OFF`), `<base>/mute/set` (`ON`/`OFF`), `<base>/volume/set` (step number) and `<base>/input/set` (input name). Temperatures are degrees Celsius and update with the cached readings every 10 seconds when changed; disabled sensors, unavailable readings and standby are published as JSON `null`. Mute/volume/input commands are ignored while in standby.

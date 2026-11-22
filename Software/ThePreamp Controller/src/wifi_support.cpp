@@ -259,7 +259,7 @@ static bool queueInput(int input)
   return true;
 }
 
-// State for the web Remote (polled every 3 s by remote.html): input, volume, mute, standby and input list
+// State for the web Remote (polled every 3 s by remote.html): controls, Wi-Fi signal and temperatures
 static String remoteStateAsJson()
 {
   JsonDocument document;
@@ -267,6 +267,11 @@ static String remoteStateAsJson()
   document["volume"] = requestedVolume >= 0 ? requestedVolume : RuntimeSettings.CurrentVolume;
   document["muted"] = effectiveMuted();
   document["standby"] = appMode == APP_STANDBY_MODE;
+  document["mqttConnected"] = mqttIsConnected();
+  if (WiFi.status() == WL_CONNECTED)
+    document["wifiRssi"] = WiFi.RSSI();
+  else
+    document["wifiRssi"] = nullptr;
 
   const TemperatureSnapshot temperatures = getTemperatureSnapshot();
   JsonArray temperatureValues = document["temperatures"].to<JsonArray>();
