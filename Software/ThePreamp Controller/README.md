@@ -78,7 +78,7 @@ In station mode, the ESP32 uses the hostname `thepreamp` (also advertised as `th
 
 | Path | Method | Description |
 |---|---|---|
-| `/` , `/remote` | GET | [remote.html](data/remote.html) — remote-control web UI with matching Input, Volume, and Temperature cards; Wi-Fi signal and MQTT connection icons appear in the header, mute is located in the Volume card and volume is hidden for HT-passthrough inputs |
+| `/` , `/remote` | GET | [remote.html](data/remote.html) — remote-control web UI with matching Input, Volume, and Temperature cards; Wi-Fi signal, preamp connection, and MQTT status icons appear in the header, mute is located in the Volume card and volume is hidden for HT-passthrough inputs |
 | `/settings.html` (via static handler) | GET | [settings.html](data/settings.html) — full settings editor UI; saving is disabled until settings and MQTT configuration finish loading |
 | `/update.html` (via static handler) | GET | [update.html](data/update.html) — firmware/filesystem update helper page |
 | any other static asset in `data/` | GET | served as-is via `server.serveStatic("/", SPIFFS, "/")` |

@@ -356,7 +356,6 @@ bool initWiFi()
   }
 
   configureHostname();
-  WiFi.persistent(false);
   WiFi.mode(WIFI_STA);
   WiFi.setTxPower(WIFI_POWER_19_5dBm);
 
