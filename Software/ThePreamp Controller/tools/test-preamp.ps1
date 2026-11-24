@@ -240,7 +240,14 @@ if ($IncludePower) {
     $deadline = (Get-Date).AddSeconds(45)
     do { Start-Sleep -Seconds 2; $standby = (Get-State).standby } while ($standby -and (Get-Date) -lt $deadline)
     Start-Sleep -Seconds 3
-    Check "power toggle back -> on" ((Get-State).standby -eq $false)
+    $afterStartup = Get-State
+    Check "power toggle back -> on" ($afterStartup.standby -eq $false)
+    if ($settings -and -not $beforeStandby.inputs[$beforeStandby.selectedInput].passthrough) {
+        $inputRange = $beforeStandby.inputs[$beforeStandby.selectedInput]
+        $startupVolume = [Math]::Max(1, [Math]::Min([int]$beforeStandby.volume, [int]$settings.MaxStartVolume))
+        $expectedVolume = [Math]::Max([int]$inputRange.minVolume, [Math]::Min([int]$inputRange.maxVolume, $startupVolume))
+        Check "normal input startup volume respects its limit" ($afterStartup.volume -eq $expectedVolume) "(got $($afterStartup.volume), expected $expectedVolume)"
+    }
 
     if ($countdownRestore) {
         try { Set-DeviceSettings $countdownRestore } catch { Write-Host "Could not restore trigger delays: $_" -ForegroundColor Yellow }

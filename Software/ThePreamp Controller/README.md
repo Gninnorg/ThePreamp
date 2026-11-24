@@ -31,7 +31,7 @@ Defined by `AppModeValues` in [include/controller_config.h](include/controller_c
 4. Blocks in a loop until every active trigger has fired:
    - Turns a trigger on (`setTriggerXOn()`, see [src/trigger_controller.cpp](src/trigger_controller.cpp)) once its target time is reached.
    - Every 100 ms, updates both displays via `displayTriggerCountdown()` ([src/display_controller.cpp](src/display_controller.cpp)): shows `"Wait... N"` while counting down, `"On"` once fired, or nothing for a disabled trigger.
-5. Selects the current input, clamps its startup volume to `MaxStartVolume`, unmutes (standby leaves the mute flag set, so `unmute()` re-applies the volume and updates the display), enables the output relay, and refreshes both displays.
+5. Caps the current normal input's startup volume at `MaxStartVolume`, then unmutes (standby leaves the mute flag set, so `unmute()` applies the volume and updates the display), enables the output relay, and refreshes both displays. The startup cap uses a minimum of step 1, but the input's configured volume range still applies. Home-theater passthrough retains its fixed input level.
 
 Trigger on/off (`setTrigger1/2On/Off` in [src/trigger_controller.cpp](src/trigger_controller.cpp)) always checks `TriggerXActive` first (a no-op if disabled), and honors `TriggerXType`: `0` = pulsed (200 ms pulse then release), otherwise latched (stays energized). Triggers are turned off in `toStandbyMode()` in [src/input_controller.cpp](src/input_controller.cpp).
 

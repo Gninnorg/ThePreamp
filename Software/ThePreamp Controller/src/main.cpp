@@ -325,8 +325,9 @@ void startUp()
   ScreenSaverOff();
   appMode = APP_NORMAL_MODE;
   
-  // Keep start volume for current input lower than max allowed start volume
-  RuntimeSettings.InputLastVol[RuntimeSettings.CurrentInput] = minimum(RuntimeSettings.InputLastVol[RuntimeSettings.CurrentInput], Settings.MaxStartVolume); // Avoid setting volume higher than MaxStartVol
+  // Step 0 is not a valid attenuation step; passthrough uses its fixed input level.
+  if (Settings.Input[RuntimeSettings.CurrentInput].Active != INPUT_HT_PASSTHROUGH)
+    RuntimeSettings.CurrentVolume = max(1, minimum((int)RuntimeSettings.CurrentVolume, (int)Settings.MaxStartVolume));
   setInput(RuntimeSettings.CurrentInput);
 
   // setInput() returns early for the already-selected input and toStandbyMode() leaves the mute flag set, so unmute and apply the volume here
