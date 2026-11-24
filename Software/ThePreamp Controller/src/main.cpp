@@ -12,7 +12,7 @@
 **   - DONE - add support for learning IR codes 
 **   - DONE - Add support for balance control
 **   - DONE - Add support for gain control
-**   - Add support for temperature display
+**   - DONE - Add support for temperature display
 **   - DONE - support for MQTT
 **   - DONE - UI for settings
 **   - Shrink Elegant OTA - Remove personalization
@@ -217,41 +217,23 @@ void setup() {
   readSettingsFromEEPROM();
   readRuntimeSettingsFromEEPROM();
 
-  // Validate settings and runtime state independently. A runtime reset must never erase saved Wi-Fi configuration.
-  bool settingsValid = Settings.Version == (float)VERSION;
-  bool runtimeValid = RuntimeSettings.Version == (float)VERSION;
-  if (!settingsValid)
+  // Check if settings stored in EEPROM are INVALID - if so, we write the default settings to the EEPROM and continue with those
+  if ((Settings.Version != (float)VERSION) || (RuntimeSettings.Version != (float)VERSION))
   {
-    char savedSsid[sizeof(Settings.ssid)];
-    char savedPass[sizeof(Settings.pass)];
-    char savedIp[sizeof(Settings.ip)];
-    char savedGateway[sizeof(Settings.gateway)];
-    memcpy(savedSsid, Settings.ssid, sizeof(savedSsid));
-    memcpy(savedPass, Settings.pass, sizeof(savedPass));
-    memcpy(savedIp, Settings.ip, sizeof(savedIp));
-    memcpy(savedGateway, Settings.gateway, sizeof(savedGateway));
-
-    debugln("EEPROM settings version is invalid - restoring defaults while preserving network settings");
+    debugln("Eeprom settings are invalid - writing default settings to EEPROM");
     debug("Settings.Version: "); debug(Settings.Version); debug(" != "); debugln((float)VERSION);
+    debug("RuntimeSettings.Version: "); debug(RuntimeSettings.Version); debug(" != "); debugln((float)VERSION);
     right_display.clearBuffer();
     right_display.drawStr(0, 63, "Reset");
     right_display.sendBuffer();
     delay(2000);
-    setSettingsToDefault();
-    memcpy(Settings.ssid, savedSsid, sizeof(Settings.ssid));
-    memcpy(Settings.pass, savedPass, sizeof(Settings.pass));
-    memcpy(Settings.ip, savedIp, sizeof(Settings.ip));
-    memcpy(Settings.gateway, savedGateway, sizeof(Settings.gateway));
-    writeSettingsToEEPROM();
-    if (!runtimeValid)
-      writeRuntimeSettingsToEEPROM();
+    writeDefaultSettingsToEEPROM();
   }
-  else if (!runtimeValid)
+  else
   {
-    debugln("EEPROM runtime settings version is invalid - resetting runtime state only");
-    debug("RuntimeSettings.Version: "); debug(RuntimeSettings.Version); debug(" != "); debugln((float)VERSION);
-    setRuntimeSettingsToDefault();
-    writeRuntimeSettingsToEEPROM();
+    debugln("Eeprom settings are ok");
+    debug("Settings.Version: "); debug(Settings.Version); debug(" = "); debugln((float)VERSION);
+    debug("RuntimeSettings.Version: "); debug(RuntimeSettings.Version); debug(" = "); debugln((float)VERSION);
   }
 
   loadTemperatureConfig();
