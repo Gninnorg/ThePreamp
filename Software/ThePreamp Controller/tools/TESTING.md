@@ -73,6 +73,7 @@ Sæt kryds for hver kontrol efter en ny flash.
 - [ ] Displays slukker i standby
 - [ ] Trigger 1 og 2 følger forsinkelser og type
 - [ ] Eksternt strømrelæ (`ExtPowerRelayTrigger`) følger tænd/sluk
+- [ ] Efter koldstart og efter standby er der lyd på det valgte input uden først at skifte input; kontrollér både med og uden mute før standby
 - [ ] Med et normalt input: indstil `MaxStartVolume` under den aktuelle volumen og over inputtets minimum; efter standby og efter koldstart er volumen begrænset til `MaxStartVolume`
 - [ ] Med volumen under `MaxStartVolume` bevares volumen efter standby; HT passthrough beholder sit faste niveau
 - [ ] Countdown "Wait... N" vises under trigger-forsinkelse

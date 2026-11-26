@@ -310,9 +310,13 @@ void startUp()
   // Step 0 is not a valid attenuation step; passthrough uses its fixed input level.
   if (Settings.Input[RuntimeSettings.CurrentInput].Active != INPUT_HT_PASSTHROUGH)
     RuntimeSettings.CurrentVolume = max(1, minimum((int)RuntimeSettings.CurrentVolume, (int)Settings.MaxStartVolume));
-  setInput(RuntimeSettings.CurrentInput);
+  if (setInput(RuntimeSettings.CurrentInput))
+  {
+    if (!relayController.digitalWrite(7 - RuntimeSettings.CurrentInput, HIGH))
+      debugln("Failed to enable selected input relay at startup");
+  }
 
-  // setInput() returns early for the already-selected input and toStandbyMode() leaves the mute flag set, so unmute and apply the volume here
+  // setInput() returns early for the already-selected input; restore the volume even if it was muted before standby.
   unmute();
 
   // Enable output / trigger output relay
