@@ -13,6 +13,30 @@
 extern unsigned long mil_LastUserInput;
 extern byte appMode;
 
+void updateDisplayBrightness(void)
+{
+  const byte configuredLevel = ScreenSaverIsOn ? Settings.DisplayDimLevel : Settings.DisplayOnLevel;
+  const byte level = configuredLevel > 3 ? 3 : configuredLevel;
+  static int appliedLevel = -1;
+  if (level == appliedLevel)
+    return;
+
+  SH1122 *displays[] = {&left_display, &right_display};
+  for (SH1122 *display : displays)
+  {
+    if (level == 0)
+    {
+      display->setPowerSave(true);
+    }
+    else
+    {
+      display->setPowerSave(false);
+      display->setContrast(static_cast<uint8_t>((static_cast<uint16_t>(level) * 255) / 3));
+    }
+  }
+  appliedLevel = level;
+}
+
 bool isDisplayableName(const char *name)
 {
   if (name == nullptr)
@@ -376,8 +400,7 @@ void drawTemperatureMeasurements(void)
 void ScreenSaverOn(void)
 {
   ScreenSaverIsOn = true;
-  left_display.clearDisplay();
-  right_display.clearDisplay();
+  updateDisplayBrightness();
 }
 
 void ScreenSaverOff(void)
@@ -385,6 +408,7 @@ void ScreenSaverOff(void)
   if (ScreenSaverIsOn)
   {
     ScreenSaverIsOn = false;
+    updateDisplayBrightness();
     left_display_update();
     right_display_update();
   }

@@ -22,6 +22,7 @@ bool isDisplayableName(const char *name); // true if every character exists in t
 // For each trigger: -1 = nothing to show, -2 = trigger has been turned on ("On"), >=0 = seconds remaining ("Wait... N")
 void displayTriggerCountdown(int trigger1SecondsRemaining, int trigger2SecondsRemaining);
 void displayInfoScreen(byte page); // page 0 = IP/QR, 1 = build dates, 2 = temperatures
+void updateDisplayBrightness(void);
 #define INFO_PAGE_COUNT 3
 void ScreenSaverOn(void);
 void ScreenSaverOff(void);

@@ -236,6 +236,7 @@ void setup() {
     debug("RuntimeSettings.Version: "); debug(RuntimeSettings.Version); debug(" = "); debugln((float)VERSION);
   }
 
+  updateDisplayBrightness();
   loadTemperatureConfig();
   
   startWiFiSupport();
@@ -395,6 +396,7 @@ void loop()
   WebSerial.loop();
   mqttLoop();
   processPendingRequests();
+  updateDisplayBrightness();
   
   UIkey = getUserCommand();
   if (requestedPowerCommand != KEY_NONE)

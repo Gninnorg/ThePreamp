@@ -53,7 +53,7 @@ Trigger on/off (`setTrigger1/2On/Off` in [src/trigger_controller.cpp](src/trigge
 - The main-display labels are `ER`/`EL` (external right/left) and `I1`/`I2` (internal 1/2). Enter the info screen with the left encoder and turn it to reach the temperature page. A disabled sensor is neither sampled nor displayed.
 - `displayBalance()` — full-screen balance adjustment UI with a bar graph.
 - `displayTriggerCountdown()` — startup trigger countdown/status (see above).
-- `ScreenSaverOn()`/`ScreenSaverOff()` — blanks/restores both displays after `Settings.DisplayTimeout` seconds of inactivity, if `Settings.ScreenSaverActive`.
+- `ScreenSaverOn()`/`ScreenSaverOff()` — applies `Settings.DisplayDimLevel` after `Settings.DisplayTimeout` seconds of inactivity, if `Settings.ScreenSaverActive`; Off powers down the displays, while Low/Medium/High dim the current content. User activity restores `Settings.DisplayOnLevel`.
 
 ### Shared SPI bus
 
